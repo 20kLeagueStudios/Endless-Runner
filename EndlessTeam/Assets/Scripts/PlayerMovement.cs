@@ -52,6 +52,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     LayerMask groundMask;
 
+    [SerializeField]
+    float crouchHeight;
+
     private void Start()
     {
         //Assegno di default il valore mid all'enum swipe
@@ -125,6 +128,10 @@ public class PlayerMovement : MonoBehaviour
                 if (swipeEn == Swipe.Up)
                 {
                     gravityForce.y += Mathf.Sqrt(jumpForce * -2f * gravity);
+                }
+                else if (swipeEn == Swipe.Down)
+                {
+                    StopCoroutine("ChangingPosition");
                 }
                 else
                 {
@@ -227,5 +234,18 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
 
+    }
+    public IEnumerator SlideCor()
+    {
+        //Finchè l'altezza non è arrivata a quella bassa memorizzata da crouchHeight
+        while (controller.height > crouchHeight)
+        {
+            //Lerpo l'altezza del controller a quella di crouchHeight
+            controller.height = Mathf.Lerp(controller.height, crouchHeight, .5f);
+            //Se l'altezza è quasi arrivata a destinazione, la setto subito uguale così da evitare rallentamenti prima che finisca la coroutine
+            if (controller.height <= crouchHeight + .1f)
+                controller.height = crouchHeight;
+            yield return null;
+        }
     }
 }
