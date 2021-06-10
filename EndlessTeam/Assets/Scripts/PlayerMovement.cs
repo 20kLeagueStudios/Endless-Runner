@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,6 +31,8 @@ public class PlayerMovement : MonoBehaviour
     /// </summary>
     bool isTouching, canSwipe;
 
+    public bool sliding = false;
+
     //Enum di Swipe per ogni carreggiata
     enum Swipe
     {
@@ -42,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
     Swipe swipeEn;
 
     ///COMMENTI DA INSERIRE
-    float gravity = -16.81f;
+    float gravity = -30.81f;
     float jumpForce = 6;
     Vector3 gravityForce = default;
 
@@ -53,16 +56,25 @@ public class PlayerMovement : MonoBehaviour
     LayerMask groundMask;
 
     [SerializeField]
-    float crouchHeight;
+    float crouchHeight, crouchPos;
+
+    float idleHeight, idlePos;
+
+    [SerializeField]
+    Animator animator;
 
     private void Start()
     {
+        idleHeight = controller.height;
+        idlePos = controller.center.y;
         //Assegno di default il valore mid all'enum swipe
         swipeEn = Swipe.Mid;
     }
 
     void Update()
     {
+        bool isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
+
         //Se si sta toccando lo schermo
         if (Input.touchCount > 0)
         {
@@ -96,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //Se lo swipe ha superato la deadzone di 125
-        if (swipeDelta.magnitude > 125)
+        if (swipeDelta.magnitude > 10)
         {
             //Prendo i suoi valori x e y
             float x = swipeDelta.x;
@@ -125,13 +137,21 @@ public class PlayerMovement : MonoBehaviour
             //Se posso effettuare lo swipe
             if (canSwipe)
             {
+                Debug.Log(isGround);
                 if (swipeEn == Swipe.Up)
                 {
-                    gravityForce.y += Mathf.Sqrt(jumpForce * -2f * gravity);
+                    if (isGround)
+                    {
+                        gravityForce.y = Mathf.Sqrt(jumpForce * -2f * gravity);
+                        if (sliding) ResetSliding();
+                      
+                    }
+                    
                 }
                 else if (swipeEn == Swipe.Down)
                 {
-                    StopCoroutine("ChangingPosition");
+                    if (isGround && !sliding)
+                        StartCoroutine("SlideCor");
                 }
                 else
                 {
@@ -154,12 +174,18 @@ public class PlayerMovement : MonoBehaviour
 
         if (Physics.CheckSphere(groundCheck.position, .2f, groundMask))
         {
-            if (gravityForce.y < 0) gravityForce.y = -2f;
+            if (gravityForce.y < 0) gravityForce.y = -3f;
 
         }
 
         //Movimento continuo in avanti
         controller.Move(transform.forward * movSpeed * Time.deltaTime);
+    }
+
+    private void ResetSliding()
+    {
+        sliding = false;
+        animator.SetBool("Slide", false);
     }
 
     //Resetta la posizione di tocco iniziale e il calcolo della differenza dello lo swipe
@@ -224,7 +250,7 @@ public class PlayerMovement : MonoBehaviour
 
             //Se manca poco all'arrivo della posizione, viene direttamente messa uguale alla posizione finale
             //In questo modo si evitano loop infiniti
-            if (Mathf.Abs(dest.x - finalPos.x) < .2f)
+            if (Mathf.Abs(dest.x - finalPos.x) < .4f)
                 dest.x = finalPos.x;
 
             //Assegno continuamente la posizione lerpata a quella effettiva del player
@@ -237,15 +263,29 @@ public class PlayerMovement : MonoBehaviour
     }
     public IEnumerator SlideCor()
     {
-        //Finchè l'altezza non è arrivata a quella bassa memorizzata da crouchHeight
-        while (controller.height > crouchHeight)
+        sliding = true;
+        animator.SetBool("Slide", true);
+        Vector3 controllerCrouchPos = new Vector3(0,crouchPos,0);
+        Vector3 controllerIdlePos = new Vector3(0, idlePos, 0);
+        if (controller.height != crouchHeight)
         {
-            //Lerpo l'altezza del controller a quella di crouchHeight
-            controller.height = Mathf.Lerp(controller.height, crouchHeight, .5f);
-            //Se l'altezza è quasi arrivata a destinazione, la setto subito uguale così da evitare rallentamenti prima che finisca la coroutine
-            if (controller.height <= crouchHeight + .1f)
-                controller.height = crouchHeight;
+            controller.height = crouchHeight;
+            controller.center = controllerCrouchPos;
             yield return null;
         }
+        while (sliding)
+        {
+            yield return null;
+        }
+        controller.height = idleHeight;
+        controller.center = controllerIdlePos;
+
+        yield return null;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(groundCheck.position, .4f);
     }
 }
