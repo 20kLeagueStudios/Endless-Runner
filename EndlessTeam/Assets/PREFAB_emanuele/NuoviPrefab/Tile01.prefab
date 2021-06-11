@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 3002355898759218721}
   - component: {fileID: 3002355898760021505}
   - component: {fileID: 3002355898760987841}
-  m_Layer: 0
+  - component: {fileID: 2463276479908684308}
+  m_Layer: 8
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -79,6 +80,19 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!65 &2463276479908684308
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3002355898758732289}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 61.075672, y: 50.02126, z: 100}
+  m_Center: {x: 0.000007629393, y: -25.01061, z: 49.999985}
 --- !u!1 &3002355898758732291
 GameObject:
   m_ObjectHideFlags: 0
@@ -90,7 +104,7 @@ GameObject:
   - component: {fileID: 3002355898759218723}
   - component: {fileID: 3002355898760021507}
   - component: {fileID: 3002355898760987843}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Fence
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -167,7 +181,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3002355898759218727}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Tile01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -183,7 +197,7 @@ Transform:
   m_GameObject: {fileID: 3002355898758732295}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 3, z: 3}
   m_Children:
   - {fileID: 3002355898759218723}
   - {fileID: 3002355898759218721}

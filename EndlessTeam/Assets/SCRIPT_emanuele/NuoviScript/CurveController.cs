@@ -8,11 +8,11 @@ public class CurveController : MonoBehaviour
 
     public Transform CurveOrigin; //nelnostro caso il punto di origine è la camera
 
-    [Range(-500f, 500f)]
+    [Range(-50f, 50f)]
     [SerializeField]
     float x = 0f;
 
-    [Range(-500f, 500f)]
+    [Range(-50f, 50f)]
     [SerializeField]
     float y = 0f;
 
