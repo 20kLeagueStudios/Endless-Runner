@@ -15,7 +15,7 @@ public class WorldTileManager : MonoBehaviour
     public GameObject[] tileTypes;
 
     /** Size of Tiles in z dimension */
-    private float tileSize = 7.62f;
+    private float tileSize = 22.86f;
 
     /** Current Speed of Tiles */
     private float speed;
