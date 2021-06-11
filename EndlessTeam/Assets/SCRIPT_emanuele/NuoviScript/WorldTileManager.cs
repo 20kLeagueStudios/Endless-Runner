@@ -36,7 +36,7 @@ public class WorldTileManager : MonoBehaviour
     }
 
     /** Increase speed by given amount */
-    public void IncreaseSpeed(float amt) //viene usato nell update dello scrip Game, 0.05
+    public void IncreaseSpeed(float amt)
     {
         this.speed += amt;
         if (this.speed > this.maxSpeed)
