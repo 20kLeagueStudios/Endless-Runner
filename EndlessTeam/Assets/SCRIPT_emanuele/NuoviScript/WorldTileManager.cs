@@ -60,9 +60,9 @@ public class WorldTileManager : MonoBehaviour
             if (tile.transform.position.z < Camera.main.transform.position.z)
             {
                 this.tiles.RemoveAt(i); //rimuoviamo la tile dalla lista delle tile attive
-                this.tilePool.ReleaseTile(tile); //disattiviamo la tile dalla lista dell'object pooling
+                this.tilePool.ReleaseTile(tile); //disattiviamo la tile dalla sua lista dell'object pooling
                 int type = rnd.Next(0, this.tileTypes.Length); //Next() vuole due parametri: numero minimo e massimo di tipi di tiles. rnd.next= un tipo a caso nel range dato
-                AddTile(type);//aggiungiamo la nuova tile alla lista
+                AddTile(type);//aggiungiamo la tile alla lista
             }
         }
     }
@@ -92,8 +92,8 @@ public class WorldTileManager : MonoBehaviour
     //object pooling delle tiles
     class TilePool
     {
-        /** Pool of Tiles */
-        private List<GameObject>[] pool; //lista di array di GameObj (le tiles)
+        //pool di tiles
+        private List<GameObject>[] pool; 
 
         //transform del modello
         private Transform transform;
@@ -104,10 +104,10 @@ public class WorldTileManager : MonoBehaviour
          
             this.transform = transform;
             int numTypes = types.Length; //il numero di tipi di tiles è uguale alla lunghezza dell'array passato come primo argomento
-            this.pool = new List<GameObject>[numTypes];  //inizializziamo la lista pool usando il numero di tipi di tiles come dimensione
+            this.pool = new List<GameObject>[numTypes];  //creaiamo x liste
             for (int i = 0; i < numTypes; i++)
             {
-                this.pool[i] = new List<GameObject>(size); //inizializziamo la lista usando il numero max di tiles che compariranno a schermo come parametro per la sua dimensione
+                this.pool[i] = new List<GameObject>(size); //inizializziamo le liste usando il numero max di tiles che compariranno a schermo come parametro per la sua dimensione
 
                 //cicliamo fino a quando j non è uguale a size (= numero massimo tiles che devono comparire a schermo) e iistanziamo le tile
                 for (int j = 0; j < size; j++) 
@@ -119,26 +119,26 @@ public class WorldTileManager : MonoBehaviour
             }
         }
 
-        /** Get a Tile */
+        
         public GameObject GetTile(int type)
         {
-            for (int i = 0; i < this.pool[type].Count; i++)
+            for (int i = 0; i < this.pool[type].Count; i++) //cicliamo nele liste di tiles
             {
                 GameObject tile = this.pool[type][i];
-                // Ignore active tiles until we find the 1st inactive in appropriate list
+                //ignora le tile attive fino a quando non ne trova una inattiva nella sua lista
                 if (tile.activeInHierarchy)
                     continue;
 
-                // reset the tile's transform to match the model transform
+                // resetta i transform della tile associandolo al transform di questo empty (0,0,0)
                 tile.transform.position = this.transform.position;
                 tile.transform.rotation = this.transform.rotation;
 
-                // set to active and return
+                // attiva la tile
                 tile.SetActive(true);
                 return tile;
             }
 
-            // This will never be reached, but compiler requires it
+            // serve per evitare errori di compilazione
             return null;
         }
 
