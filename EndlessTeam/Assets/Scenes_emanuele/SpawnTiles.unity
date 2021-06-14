@@ -150,7 +150,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 511b4d2725c68f24cac93cedf68fb7a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSpeed: 4
+  maxSpeed: 50
   tileTypes:
   - {fileID: 3002355898758732295, guid: a048264e74a7fa54cbaa2ce08f3adb2a, type: 3}
   - {fileID: 3222978876594551630, guid: 22ac47c9d504712498da235782d920d5, type: 3}
@@ -456,6 +456,45 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!23 &1621451695 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8049358676926715373, guid: 6d074a42c0ef391468b5c01538ef7387,
+    type: 3}
+  m_PrefabInstance: {fileID: 1763829941}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1758834669 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8049358677931934394, guid: 6d074a42c0ef391468b5c01538ef7387,
+    type: 3}
+  m_PrefabInstance: {fileID: 1763829941}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1758834671 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8049358677931934392, guid: 6d074a42c0ef391468b5c01538ef7387,
+    type: 3}
+  m_PrefabInstance: {fileID: 1763829941}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758834669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40a293c063b66c745a5657134beead6f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1758834673
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1758834669}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9978d80e200f81e448ccee5a38af4b14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerMesh: {fileID: 1621451695}
+  playerMovement: {fileID: 1758834671}
+  gameScript: {fileID: 0}
 --- !u!1001 &1763829941
 PrefabInstance:
   m_ObjectHideFlags: 0

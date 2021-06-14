@@ -9,7 +9,7 @@ public class WorldTileManager : MonoBehaviour
 
     /** Max speed of tiles */
     [Range(0f, 50f)]
-    public float maxSpeed = 10f;
+    public float maxSpeed = 50f;
 
     /** Collection of Types of Tiles */
     public GameObject[] tileTypes;
@@ -38,7 +38,7 @@ public class WorldTileManager : MonoBehaviour
     /** Increase speed by given amount */
     public void IncreaseSpeed(float amt)
     {
-        this.speed += amt;
+        this.speed = amt;
         if (this.speed > this.maxSpeed)
             this.speed = maxSpeed;
     }

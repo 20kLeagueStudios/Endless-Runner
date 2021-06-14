@@ -5,7 +5,15 @@ using UnityEngine;
 public class Game : MonoBehaviour
 {
     /** Speed Increase Value */
-    static float SPEED_INCREASE = .05f;
+    static float speedIncrease = 24f;
+    public float SpeedIncrease { 
+        get {
+                return speedIncrease;
+            }
+        set {
+                speedIncrease = value;
+            }
+    }
 
     /** Seeded Randomizer */
     static System.Random RND;
@@ -33,7 +41,7 @@ public class Game : MonoBehaviour
     /** On Update */
     void Update()
     {
-        this.tileManager.IncreaseSpeed(SPEED_INCREASE);
+        this.tileManager.IncreaseSpeed(speedIncrease);
         this.tileManager.UpdateTiles(RND);
     }
 }
