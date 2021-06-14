@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -69,8 +70,20 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     Animator animator;
 
+    //ChangeG è una booleane che mi servirà per invertire la gravità
+    //canIPress è una booleana che mi servirà a mettere un countdown al bottone
+    //mentre Image button mi serve come rifermento al bottone per cambiare colore quando viene premuto
+    private bool changeG;
+    private bool canIPress;
+    [SerializeField]
+    private Image button;
+
     private void Start()
     {
+        //setto ChangeG a false, canIPress a true e il colore a green.
+        changeG = false;
+        canIPress = true;
+        button.color = Color.green;
         //Setto l'altezza standard a quella iniziale
         idleHeight = controller.height;
         idlePos = controller.center.y;
@@ -317,5 +330,24 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(groundCheck.position, .4f);
+    }
+
+    public void ChangeGravity() //questa funzione permette di cambiare gravità quando tocco un bottone.
+    {
+        if(canIPress==true) //se canIPress è true
+        {
+            changeG = !changeG; //allora cambio changeG da true a false o viceversa
+            StartCoroutine(switchColor()); //starto la couroutine per cambiare il colore del bottone
+            canIPress = false; //setto CaniPress a false
+        }
+       
+       
+    }
+    public IEnumerator switchColor() //cambio colore del bottone
+    {
+        button.color = Color.red; //setto il colore a rosso
+        yield return new WaitForSeconds(1f); //dopo 1 secondo
+        button.color = Color.green; //setto il colore a verde
+        canIPress = true; //setto canIPress a true, così il bottone si può ripremere.
     }
 }
