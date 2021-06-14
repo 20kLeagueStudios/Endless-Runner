@@ -4,107 +4,117 @@ using UnityEngine;
 
 public class WorldTileManager : MonoBehaviour
 {
-    /** Max Number of Tiles visible at one time */
+    // numero massimo di tile visibili allo stesso momento
     static int MAX_TILES = 6;
 
-    /** Max speed of tiles */
+    //velocità massima delle tiles
     [Range(0f, 50f)]
     public float maxSpeed = 10f;
 
-    /** Collection of Types of Tiles */
+    //array dei tipi di tiles
     public GameObject[] tileTypes;
 
-    /** Size of Tiles in z dimension */
-    private float tileSize = 22.86f;
+    //dimensione sull asse Z delle tiles (forse meglio public per controllarla nell'inspector)
+    private float tileSize = 22.86f; //dipende dalla grandezza della tile
 
-    /** Current Speed of Tiles */
+    //current speed delle tiles
     private float speed;
 
-    /** Collection of active Tiles */
+    //lista delle tiles attive
     private List<GameObject> tiles;
 
-    /** Pool of Tiles */
+    //object pooling delle tiles, è un custom script che si trova qui, più sotto
     private TilePool tilePool;
 
-    /** Initialize */
-    public void Init()
+    //iniziliazziamo allo start velocità di partenza e due liste, una per le tiles attive ed una che gestisce l'object pooling delle tiles
+    public void Init() //viene usato nello Start() dello script Game
     {
         this.speed = 0f;
         this.tiles = new List<GameObject>();
-        this.tilePool = new TilePool(this.tileTypes, MAX_TILES, this.transform);
+
+        //il costruttore di tilepool vuole: un array di tipi di tiles, il numero massimo di tiles visibili a schermo contemporanemante e un Transform
+
+        this.tilePool = new TilePool(this.tileTypes, MAX_TILES, this.transform); 
         InitTiles();
     }
 
-    /** Increase speed by given amount */
+    //incremento della velocità di spawn
     public void IncreaseSpeed(float amt)
     {
         this.speed += amt;
-        if (this.speed > this.maxSpeed)
+        if (this.speed > this.maxSpeed) //se per qualsiasi motivo la velocità di spawn delle tile supera il valore massimo settiamo la speed a maxspeed
             this.speed = maxSpeed;
     }
 
-    /** Update Tiles */
+   //aggiorniamo le tiles
     public void UpdateTiles(System.Random rnd)
     {
-        for (int i = tiles.Count - 1; i >= 0; i--)
+        for (int i = tiles.Count - 1; i >= 0; i--) //tiles = lista di GO 
         {
-            GameObject tile = tiles[i];
-            tile.transform.Translate(0f, 0f, -this.speed * Time.deltaTime);
 
-            // If a tile moves behind the camera release it and add a new one
+            GameObject tile = tiles[i]; //inizializziamo una tile che è uguale alla tile a indice i della lista tiles
+            tile.transform.Translate(0f, 0f, -this.speed * Time.deltaTime); //muoviamo la tile su Z verso il giocatore
+
+       
+            //se la tile finisce dietro la camera viene rimossa e ne viene aggiunta un'altra
             if (tile.transform.position.z < Camera.main.transform.position.z)
             {
-                this.tiles.RemoveAt(i);
-                this.tilePool.ReleaseTile(tile);
-                int type = rnd.Next(0, this.tileTypes.Length);
-                AddTile(type);
+                this.tiles.RemoveAt(i); //rimuoviamo la tile dalla lista delle tile attive
+                this.tilePool.ReleaseTile(tile); //disattiviamo la tile dalla lista dell'object pooling
+                int type = rnd.Next(0, this.tileTypes.Length); //Next() vuole due parametri: numero minimo e massimo di tipi di tiles. rnd.next= un tipo a caso tra i due valori
+                AddTile(type);//aggiungiamo la nuova tile alla lista
             }
         }
     }
 
-    /** Add a new Tile */
+    //aggiungiamo le tile alla lista
     private void AddTile(int type)
     {
-        GameObject tile = this.tilePool.GetTile(type);
+        GameObject tile = this.tilePool.GetTile(type); //perschiamo la tile dal pool, vedi funzione nella classe TilePool
 
-        // position tile's z at 0 or behind the last item added to tiles collection
+        //posizione su z della tile a 0 o dietro l'ultima tile aggiunta alla lista
+ 
+        //se la lista di tiles è vuota zPos è 0 altrimenti è uguale alla posizione in z dell ultima tile attiva + la sua dimensione su Z (in questo caso 22.86f)
         float zPos = this.tiles.Count == 0 ? 0f : this.tiles[this.tiles.Count - 1].transform.position.z + this.tileSize;
-        tile.transform.Translate(0f, 0f, zPos);
+        tile.transform.Translate(0f, 0f, zPos); 
         this.tiles.Add(tile);
     }
 
-    /** Initialize Tiles */
+    //inizializziamo le tiles. usato nell'ultima riga della funzione Init() che viene usata nello Start dello script Game
     private void InitTiles()
     {
         for (int i = 0; i < MAX_TILES; i++)
         {
-            AddTile(0);
+            AddTile(0); //iniziamo il livello con MAX_TILES (per adesso 6) di tipo 0 (quelle senza ostacoli)
         }
     }
 
-    /** Object Pool for World Tiles */
+    //object pooling delle tiles
     class TilePool
     {
         /** Pool of Tiles */
-        private List<GameObject>[] pool;
+        private List<GameObject>[] pool; //lista di array di GameObj (le tiles)
 
-        /** Model Transform */
+        //transform del modello
         private Transform transform;
 
-        /** Create a new TilePool */
-        public TilePool(GameObject[] types, int size, Transform transform)
+        //costruttore
+        public TilePool(GameObject[] types, int size, Transform transform) //argomenti: array di gameobj (i tipi di tiles), dimensione del pool, transform
         {
+         
             this.transform = transform;
-            int numTypes = types.Length;
-            this.pool = new List<GameObject>[numTypes];
+            int numTypes = types.Length; //il numero di tipi di tiles è uguale alla lunghezza dell'array passato come primo argomento
+            this.pool = new List<GameObject>[numTypes];  //inizializziamo la lista pool usando il numero di tipi di tiles come dimensione
             for (int i = 0; i < numTypes; i++)
             {
-                this.pool[i] = new List<GameObject>(size);
-                for (int j = 0; j < size; j++)
+                this.pool[i] = new List<GameObject>(size); //inizializziamo la lista usando il numero max di tiles che compariranno a schermo come parametro per la sua dimensione
+
+                //cicliamo fino a quando j non è uguale a size (= numero massimo tiles che devono comparire a schermo) e iistanziamo le tile
+                for (int j = 0; j < size; j++) 
                 {
-                    GameObject tile = (GameObject)Instantiate(types[i]);
-                    tile.SetActive(false);
-                    this.pool[i].Add(tile);
+                    GameObject tile = (GameObject)Instantiate(types[i]); //istanziamo come GO le tile
+                    tile.SetActive(false); //le disattiviamo
+                    this.pool[i].Add(tile); //le aggiungiamo al pool
                 }
             }
         }
@@ -132,10 +142,10 @@ public class WorldTileManager : MonoBehaviour
             return null;
         }
 
-        /** Release a Tile */
+        //disattiviamo la tile quando va dietro la camera (vedi funzione UpdateTiles sopra)
         public void ReleaseTile(GameObject tile)
         {
-            // Inactivate the released tile
+         
             tile.SetActive(false);
         }
     }
