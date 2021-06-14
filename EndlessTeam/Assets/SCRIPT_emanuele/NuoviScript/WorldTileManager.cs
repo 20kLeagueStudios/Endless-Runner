@@ -61,7 +61,7 @@ public class WorldTileManager : MonoBehaviour
             {
                 this.tiles.RemoveAt(i); //rimuoviamo la tile dalla lista delle tile attive
                 this.tilePool.ReleaseTile(tile); //disattiviamo la tile dalla lista dell'object pooling
-                int type = rnd.Next(0, this.tileTypes.Length); //Next() vuole due parametri: numero minimo e massimo di tipi di tiles. rnd.next= un tipo a caso tra i due valori
+                int type = rnd.Next(0, this.tileTypes.Length); //Next() vuole due parametri: numero minimo e massimo di tipi di tiles. rnd.next= un tipo a caso nel range dato
                 AddTile(type);//aggiungiamo la nuova tile alla lista
             }
         }
@@ -70,7 +70,7 @@ public class WorldTileManager : MonoBehaviour
     //aggiungiamo le tile alla lista
     private void AddTile(int type)
     {
-        GameObject tile = this.tilePool.GetTile(type); //perschiamo la tile dal pool, vedi funzione nella classe TilePool
+        GameObject tile = this.tilePool.GetTile(type); //GetTile() ritorna un GameObject, vedi sotto
 
         //posizione su z della tile a 0 o dietro l'ultima tile aggiunta alla lista
  
