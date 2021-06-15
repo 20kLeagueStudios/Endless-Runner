@@ -49,7 +49,7 @@ public class WorldTileManager : MonoBehaviour
    //aggiorniamo le tiles
     public void UpdateTiles(System.Random rnd)
     {
-        for (int i = tiles.Count - 1; i >= 0; i--) //tiles = lista di GO 
+        for (int i = tiles.Count - 1; i >= 0; i--) //tiles = lista di GO attivi
         {
 
             GameObject tile = tiles[i]; //inizializziamo una tile che è uguale alla tile a indice i della lista tiles
@@ -62,7 +62,7 @@ public class WorldTileManager : MonoBehaviour
                 this.tiles.RemoveAt(i); //rimuoviamo la tile dalla lista delle tile attive
                 this.tilePool.ReleaseTile(tile); //disattiviamo la tile dalla sua lista dell'object pooling
                 int type = rnd.Next(0, this.tileTypes.Length); //Next() vuole due parametri: numero minimo e massimo di tipi di tiles. rnd.next= un tipo a caso nel range dato
-                AddTile(type);//aggiungiamo la tile alla lista
+                AddTile(type);//aggiungiamo la tile 
             }
         }
     }
@@ -77,7 +77,7 @@ public class WorldTileManager : MonoBehaviour
         //se la lista di tiles è vuota zPos è 0 altrimenti è uguale alla posizione in z dell ultima tile attiva + la sua dimensione su Z (in questo caso 22.86f)
         float zPos = this.tiles.Count == 0 ? 0f : this.tiles[this.tiles.Count - 1].transform.position.z + this.tileSize;
         tile.transform.Translate(0f, 0f, zPos); 
-        this.tiles.Add(tile);
+        this.tiles.Add(tile); //aggiungiamo la tile alla lista di quelle attive
     }
 
     //inizializziamo le tiles. usato nell'ultima riga della funzione Init() che viene usata nello Start dello script Game
@@ -114,7 +114,7 @@ public class WorldTileManager : MonoBehaviour
                 {
                     GameObject tile = (GameObject)Instantiate(types[i]); //istanziamo come GO le tile
                     tile.SetActive(false); //le disattiviamo
-                    this.pool[i].Add(tile); //le aggiungiamo al pool
+                    this.pool[i].Add(tile); //le aggiungiamo al loro pool
                 }
             }
         }

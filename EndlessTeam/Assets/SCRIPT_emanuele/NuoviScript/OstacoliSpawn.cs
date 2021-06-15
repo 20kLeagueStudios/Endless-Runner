@@ -14,12 +14,15 @@ public class OstacoliSpawn : MonoBehaviour
     public int canSpawn;
 
     GameObject ostacolo;
+    [SerializeField] Transform containerOstacoli;
 
     //public static int hitCounter;
 
     private void Awake()
     {
       //  RandomValues();
+
+
     }
 
     private void OnEnable()
@@ -43,7 +46,7 @@ public class OstacoliSpawn : MonoBehaviour
         if (canSpawn == 0 || canSpawn == 1)
         {
           ostacolo = (GameObject)Instantiate(ostacoliPrefab[rndOstacoli], spawnPoint[rndOstacoliPos].gameObject.transform.position, Quaternion.identity);
-          ostacolo.transform.parent = gameObject.transform;
+          ostacolo.transform.parent = containerOstacoli.gameObject.transform;
         }
 
 
@@ -52,8 +55,8 @@ public class OstacoliSpawn : MonoBehaviour
     void RandomValues()
     {
 
-        rndOstacoli = Random.Range(0, 2);
-        rndOstacoliPos = Random.Range(0, 3);
+        rndOstacoli = Random.Range(0, ostacoliPrefab.Length);
+        rndOstacoliPos = Random.Range(0, spawnPoint.Length);
         canSpawn = Random.Range(0, 3);
 
     }
