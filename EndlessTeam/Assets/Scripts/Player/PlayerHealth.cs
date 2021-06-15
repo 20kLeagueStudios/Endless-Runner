@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -10,16 +11,30 @@ public class PlayerHealth : MonoBehaviour
     PlayerMovement playerMovement;
 
     [SerializeField]
+    HealthBar healthBar;
+
+    [SerializeField]
     Game gameScript;
 
     float initialSpeed;
 
+    [SerializeField]
+    int maxHealth;
+    int currentHealth;
+
     Color playerColor;
+
+    [SerializeField]
+    Animator animator;
     void Start()
     {
         gameScript = GameObject.FindObjectOfType<Game>();
         initialSpeed = gameScript.SpeedIncrease;
         playerColor = playerMesh.material.color;
+        healthBar.SetMaxHealth(maxHealth);
+        currentHealth = maxHealth / 2;
+        healthBar.SetHealth(currentHealth);
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -27,6 +42,7 @@ public class PlayerHealth : MonoBehaviour
         if (other.CompareTag("Obstacle"))
         {
             StartCoroutine("HitCor", playerMesh);
+            TakeDamage(1);
         }
     }
 
@@ -47,5 +63,21 @@ public class PlayerHealth : MonoBehaviour
         gameScript.SpeedIncrease = initialSpeed;
 
 
+    }
+
+    void TakeDamage(int value)
+    {
+        currentHealth -= 1;
+        healthBar.SetHealth(currentHealth);
+            
+        if (currentHealth <= 0)
+            animator.SetTrigger("Death");
+       
+    }
+
+    public void Death()
+    {
+        SceneManager.LoadScene(1);
+        gameScript.SpeedIncrease = initialSpeed;
     }
 }
