@@ -24,24 +24,27 @@ public class Game : MonoBehaviour
     /** TileManager */
     private WorldTileManager tileManager;
 
+    public ObjectPooling objPooling;
+
     /** On Awake */
     void Awake()
     {
         // 32 is just an arbitrary seed number. Could be anything.
-        RND = new System.Random(32);
-        this.tileManager = TileHolder.GetComponent<WorldTileManager>();
+        //RND = new System.Random(32);
+        //this.tileManager = TileHolder.GetComponent<WorldTileManager>();
     }
 
     /** On Start */
     void Start()
     {
-        this.tileManager.Init();
+        //this.tileManager.Init();
     }
 
     /** On Update */
     void Update()
     {
-        this.tileManager.IncreaseSpeed(speedIncrease);
-        this.tileManager.UpdateTiles(RND);
+        //this.tileManager.IncreaseSpeed(speedIncrease);
+        //this.tileManager.UpdateTiles(RND);
+        objPooling.UpdateTiles();
     }
 }
