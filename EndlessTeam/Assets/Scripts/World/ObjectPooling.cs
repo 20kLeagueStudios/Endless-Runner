@@ -4,17 +4,28 @@ using UnityEngine;
 
 public class ObjectPooling : MonoBehaviour
 {
+    //Conterrà i tag associati ai GameObject creati con la lista poolList
     Dictionary<string, List<GameObject>> dictPool = new Dictionary<string, List<GameObject>>();
     [SerializeField]
+    //Lista di istanze di tipo Pool
     List<Pool> poolList = new List<Pool>();
-
+    //Carreggiata vuota da far apparire 6 volte ad inizio partita
+    [SerializeField]
+    GameObject emptyTile;
+    
+    //Lista di carreggiate attive che le farà muovere all'indietro
     List<GameObject> activeTiles = new List<GameObject>();
-    float offset = 26f;
+    //Carreggiate massime iniziali con l'istanza emptyTile
     int maxTiles = 6;
+    //Velocità di movimento delle carreggiate
     float speed = 24;
+    //Riferimento al renderer per calcolare la differenza di distanza del renderer per capire dove posizionare 
+    //la prossima carreggiata
     Renderer rend;
+    //Timer prova
     float currentTimer;
 
+    //Enum sulla difficoltà
     enum Mode
     {
         Easy,
@@ -22,11 +33,16 @@ public class ObjectPooling : MonoBehaviour
         Hard
     }
 
+    //Riferimento all'enum Mode
     Mode mode;
     void Start()
     {
+        
         currentTimer = Time.time;
+        //Modalità iniziale a facile
         mode = Mode.Easy;
+        //Istanzia tutti i GameObject presenti nella lista di Pool e li inserisco nel dizionario con il tag
+        //associato
         foreach(Pool temp in poolList)
         {
             List<GameObject> tempList = new List<GameObject>();
@@ -40,14 +56,15 @@ public class ObjectPooling : MonoBehaviour
             dictPool.Add(temp.GetTag, tempList);
         }
 
+        //Chiamo il metodo che si occupa di creare le prime 6 carreggiate
         initialTiles();
     }
 
     private void Update()
     {
+
         if (Time.time - currentTimer > 5f)
         {
-            Debug.Log("Prova");
             if (mode == Mode.Easy)
                 mode = Mode.Medium;
             else if (mode == Mode.Medium)
@@ -58,12 +75,25 @@ public class ObjectPooling : MonoBehaviour
         
 
     }
-
+    //Metodo iniziale che crea i primi sei tiles
     void initialTiles()
     {
+        //Creo le prime 6 carreggiate vuote, così che il giocatore abbia il tempo di prepararsi
         for (int i = 0; i < maxTiles; i++)
-            AddTile();
+        {
+            GameObject tile = Instantiate(emptyTile, transform.position, Quaternion.identity);
+            rend = tile.transform.GetChild(1).GetComponent<Renderer>();
+            float temp = rend.bounds.extents.z * 2;
+            // position tile's z at 0 or behind the last item added to tiles collection
+            float zPos = activeTiles.Count == 0 ? 0f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
+            tile.transform.position = new Vector3(0f, 0f, zPos);
+            activeTiles.Add(tile);
+        }
+        //Metodo effettivo che aggiungerà le carreggiate in base alla difficolta
+        AddTile();
     }
+
+    //Aggiunge un tile alla fine della carreggiata
     private void AddTile()
     {
         GameObject tile = GetTile();
@@ -75,6 +105,7 @@ public class ObjectPooling : MonoBehaviour
         activeTiles.Add(tile);
     }
 
+    //Ritorna un tile random che dipende solo dalla difficoltà corrente
     private GameObject GetTile()
     {
         List<GameObject> tempList = dictPool[mode.ToString()];
@@ -94,6 +125,8 @@ public class ObjectPooling : MonoBehaviour
         }
         return null;
     }
+    //Muove i le carreggiate all'indietro lungo l'asse Z
+    //Quando sono dietro la telecamera le disattiva e aggiunge la prossima
     public void UpdateTiles()
     {
         for (int i = activeTiles.Count - 1; i >= 0; i--)
@@ -111,6 +144,7 @@ public class ObjectPooling : MonoBehaviour
         }
     }
 
+    //Mescola la lista
     void ShuffleList(List<GameObject> list)
     {
         for (int i = 0; i < list.Count; i++)
@@ -122,6 +156,7 @@ public class ObjectPooling : MonoBehaviour
         }
     }
 
+    //Disattiva GameObject passato così potrà essere riutilizzato dal metodo GetTile
     public void DisableObject(GameObject obj)
     {
        
@@ -132,6 +167,8 @@ public class ObjectPooling : MonoBehaviour
 }
 
 [System.Serializable]
+//Classe che avrà un tag che sarà associato all' array di GameObject
+//Esempio: Array di tile facile con le sue varianti avrà il tag EasyTile
 class Pool
 {
     [SerializeField]
