@@ -170,6 +170,7 @@ public class PlayerMovement : MonoBehaviour
                 //Altrimenti se sto facendo uno swipe orizzontale
                 else
                 {
+
                     //Fermo la coroutine nel caso in cui dovesse essere ancora attiva per la chiamata precedente
                     StopCoroutine("ChangingPosition");
                     //Chiamo la coroutine per cambiare carreggiata e gli passo la stringa dell'enum che servirà da target
@@ -217,8 +218,7 @@ public class PlayerMovement : MonoBehaviour
     //Coroutine che si occupa di far cambiare carreggiata al player a seguito di uno swipe
     IEnumerator ChangingPosition(string target)
     {
-
-
+        
         //Prendo la posizione iniziale del player
         Vector3 dest = transform.position;
         //Calcolo della posizione finale
@@ -264,7 +264,7 @@ public class PlayerMovement : MonoBehaviour
         //Finchè il valore x della posizione non è uguale a quello del target
         while (transform.position.x != finalPos.x)
         {
-            Debug.Log(0);
+     
             //Lerpo la posizione a quella finale
             dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
             dest.y = transform.position.y;
@@ -272,7 +272,7 @@ public class PlayerMovement : MonoBehaviour
 
             //Se manca poco all'arrivo della posizione, viene direttamente messa uguale alla posizione finale
             //In questo modo si evitano loop infiniti
-            if (Mathf.Abs(dest.x - finalPos.x) < .4f)
+            if (Mathf.Abs(dest.x - finalPos.x) < .6f)
                 dest.x = finalPos.x;
 
             //Assegno continuamente la posizione lerpata a quella effettiva del player

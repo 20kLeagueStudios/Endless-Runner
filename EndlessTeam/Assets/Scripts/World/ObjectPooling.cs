@@ -18,7 +18,7 @@ public class ObjectPooling : MonoBehaviour
     //Carreggiate massime iniziali con l'istanza emptyTile
     int maxTiles = 6;
     //Velocità di movimento delle carreggiate
-    float speed = 24;
+    float speed = 36;
     //Riferimento al renderer per calcolare la differenza di distanza del renderer per capire dove posizionare 
     //la prossima carreggiata
     Renderer rend;
@@ -63,15 +63,15 @@ public class ObjectPooling : MonoBehaviour
     private void Update()
     {
 
-        if (Time.time - currentTimer > 5f)
-        {
-            if (mode == Mode.Easy)
-                mode = Mode.Medium;
-            else if (mode == Mode.Medium)
-                mode = Mode.Hard;
-            else mode = Mode.Easy;
-            currentTimer = Time.time;
-        }
+        //if (Time.time - currentTimer > 5f)
+        //{
+        //    if (mode == Mode.Easy)
+        //        mode = Mode.Medium;
+        //    else if (mode == Mode.Medium)
+        //        mode = Mode.Hard;
+        //    else mode = Mode.Easy;
+        //    currentTimer = Time.time;
+        //}
         
 
     }
@@ -79,25 +79,26 @@ public class ObjectPooling : MonoBehaviour
     void initialTiles()
     {
         //Creo le prime 6 carreggiate vuote, così che il giocatore abbia il tempo di prepararsi
-        for (int i = 0; i < maxTiles; i++)
-        {
-            GameObject tile = Instantiate(emptyTile, transform.position, Quaternion.identity);
-            rend = tile.transform.GetChild(1).GetComponent<Renderer>();
-            float temp = rend.bounds.extents.z * 2;
-            // position tile's z at 0 or behind the last item added to tiles collection
-            float zPos = activeTiles.Count == 0 ? 0f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
-            tile.transform.position = new Vector3(0f, 0f, zPos);
-            activeTiles.Add(tile);
-        }
+        //for (int i = 0; i < maxTiles; i++)
+        //{
+        //    GameObject tile = Instantiate(emptyTile, transform.position, Quaternion.identity);
+        //    rend = emptyTile.transform.GetChild(1).GetComponent<Renderer>();
+        //    float temp = rend.bounds.extents.z * 2;
+        //    // position tile's z at 0 or behind the last item added to tiles collection
+        //    float zPos = activeTiles.Count == 0 ? 0f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
+        //    tile.transform.position = new Vector3(0f, 0f, zPos);
+        //    activeTiles.Add(tile);
+        //}
         //Metodo effettivo che aggiungerà le carreggiate in base alla difficolta
-        AddTile();
+        for (int i = 0; i < maxTiles; i++)
+            AddTile();
     }
 
     //Aggiunge un tile alla fine della carreggiata
     private void AddTile()
     {
         GameObject tile = GetTile();
-        rend = tile.transform.GetChild(1).GetComponent<Renderer>();
+        rend = emptyTile.transform.GetChild(1).GetComponent<Renderer>();
         float temp = rend.bounds.extents.z * 2;
         // position tile's z at 0 or behind the last item added to tiles collection
         float zPos = activeTiles.Count == 0 ? 0f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
