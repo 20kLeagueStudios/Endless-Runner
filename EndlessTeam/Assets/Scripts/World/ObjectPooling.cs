@@ -103,6 +103,7 @@ public class ObjectPooling : MonoBehaviour
         float zPos = activeTiles.Count == 0 ? 0f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
         tile.transform.position = new Vector3(0f, 0f, zPos);
         activeTiles.Add(tile);
+        tile.SetActive(true);
     }
 
     //Ritorna un tile random che dipende solo dalla difficoltà corrente
@@ -118,7 +119,7 @@ public class ObjectPooling : MonoBehaviour
                     continue;
 
 
-                tempList[i].SetActive(true);
+                
                 return tempList[i];
                 
             }
