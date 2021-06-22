@@ -77,9 +77,12 @@ public class PlayerMovement : MonoBehaviour
     private bool canIPress;
     [SerializeField]
     private Image button;
+    public bool isGround;
+    public bool isTetto=false;
 
     private void Start()
     {
+        
         //setto ChangeG a false, canIPress a true e il colore a green.
         changeG = false;
         canIPress = true;
@@ -94,6 +97,18 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if(changeG == false)
+        {
+            gravity = -30.81f;
+            isTetto = false;
+            verticalForce.y = -30.81f;
+        }
+        else
+        {
+            gravity = 30.81f;
+            isTetto = true;
+            verticalForce.y = 30.81f;
+        }
         //Se si sta toccando lo schermo
         if (Input.touchCount > 0)
         {
@@ -157,7 +172,7 @@ public class PlayerMovement : MonoBehaviour
             if (canSwipe)
             {
                 //Controllo se sto toccando il pavimento
-                bool isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
+                isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
                 //Se faccio lo swipe in alto
                 if (swipeEn == Swipe.Up)
                 {
@@ -212,6 +227,8 @@ public class PlayerMovement : MonoBehaviour
         //Movimento continuo in avanti
         controller.Move(transform.forward * movSpeed * Time.deltaTime);
     }
+
+    
 
     //Disattivo lo sliding, e setto a false l'animazione dello slide così che esca e ritorni allo stato corsa
     public void ResetSliding()
@@ -340,9 +357,40 @@ public class PlayerMovement : MonoBehaviour
             StartCoroutine(switchColor()); //starto la couroutine per cambiare il colore del bottone
             canIPress = false; //setto CaniPress a false
         }
-       
-       
+        if(isTetto==false)
+        GoUp();
+
+        if(isTetto==true)
+        GoDown();
     }
+
+    public void GoUp()
+    {
+        isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
+        //Se tocco il pavimento
+        if (isGround)
+        {
+            //Applico la forza del salto a verticalForce
+            verticalForce.y = Mathf.Sqrt(jumpForce * -2f * gravity);
+            //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
+            if (sliding) ResetSliding();
+        }
+    }
+
+    public void GoDown()
+    {
+        isGround = Physics.CheckSphere(groundCheck.position, 100f, groundMask);
+        if (swipeEn == Swipe.Down)
+        {
+            //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
+            if (isGround && !sliding)
+                StartCoroutine("SlideCor");
+            //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
+            else if (!isGround)
+                verticalForce.y = 34f;
+        }
+    }
+
     public IEnumerator switchColor() //cambio colore del bottone
     {
         button.color = Color.red; //setto il colore a rosso

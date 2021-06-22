@@ -3409,8 +3409,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1058090499}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.88, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.8800001, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2133247929}
@@ -4348,7 +4348,7 @@ GameObject:
   - component: {fileID: 1545568415}
   - component: {fileID: 1545568414}
   - component: {fileID: 1545568413}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4363,8 +4363,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1545568411}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 16.9, z: -14.6}
-  m_LocalScale: {x: 22.1, y: 1, z: 405.3932}
+  m_LocalPosition: {x: 0, y: 16.9, z: 253.8}
+  m_LocalScale: {x: 22.1, y: 1, z: 621.7515}
   m_Children: []
   m_Father: {fileID: 601064820}
   m_RootOrder: 0
@@ -6378,6 +6378,8 @@ MonoBehaviour:
   crouchPos: -0.43
   animator: {fileID: 991777006}
   button: {fileID: 2142294877}
+  isGround: 0
+  isTetto: 0
 --- !u!143 &2133247931
 CharacterController:
   m_ObjectHideFlags: 0
