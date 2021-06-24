@@ -18,7 +18,13 @@ public class EnemyFly : MonoBehaviour
 
     void Start()
     {
-        startPos = transform.localPosition; //pos di partenza
+        startPos = this.transform.localPosition; //pos di partenza
+    }
+
+    private void Awake()
+    {
+        startPos = this.transform.localPosition; //pos di partenza
+
     }
 
     private void OnEnable() //quando l 'oggetto e questo script vengono attivati

@@ -12,9 +12,12 @@ public class EnemyMove : MonoBehaviour
 
     int rndPos;
 
+    Animator anim;
+
 
     private void Awake()
     {
+        anim = GetComponent<Animator>();
         startPos = this.transform.localPosition;
 
     }
@@ -43,6 +46,8 @@ public class EnemyMove : MonoBehaviour
         float elapsedtime = 0;
         float waitTime = 2f;
 
+        Vector3 tmpPos = targetPos;
+
         rndPos = Random.Range(0, trackPos.Length);
 
         /*
@@ -60,11 +65,18 @@ public class EnemyMove : MonoBehaviour
         */
 
 
-        targetPos = trackPos[rndPos ].transform.localPosition;
+        targetPos = trackPos[rndPos].transform.localPosition;
 
         while (elapsedtime < waitTime)
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, elapsedtime/waitTime);
+
+            if (targetPos.x > tmpPos.x)
+            {
+                anim.Play("WalkRight");
+            }
+            else { anim.Play("WalkLeft"); }
+
             elapsedtime += Time.deltaTime;
 
             yield return null;
@@ -74,7 +86,7 @@ public class EnemyMove : MonoBehaviour
         transform.localPosition = targetPos;
 
 
-        yield return new WaitForSeconds(.3f);
+       // yield return new WaitForSeconds(.3f);
 
         StartCoroutine(ChangePos());
 
