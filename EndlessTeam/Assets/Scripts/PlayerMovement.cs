@@ -77,8 +77,18 @@ public class PlayerMovement : MonoBehaviour
     private bool canIPress;
     [SerializeField]
     private Image button;
-    public bool isGround;
-    public bool isTetto=false;
+    //is ground mi serve per controllare se il giocatore è Ground
+    private bool isGround;
+    //isTetto mi serve controllare se il giocatore tocca il teto o meno
+    private bool isTetto=false;
+    //CGPoint 1 e 2 mi servono per cambiare la posizione del GroundCheck
+    [SerializeField]
+    private GameObject CGPoint1;
+    [SerializeField]
+    private GameObject CGPoint2;
+    //playerBody mi serve come rifermineto al corpo del giocatore per poi ruotarlo quando cambia la gravità
+    [SerializeField]
+    private GameObject playerBody;
 
     private void Start()
     {
@@ -99,15 +109,13 @@ public class PlayerMovement : MonoBehaviour
     {
         if(changeG == false)
         {
-            gravity = -30.81f;
-            isTetto = false;
-            verticalForce.y = -30.81f;
+            //se ChangeG è false allora richiamo questo metodo
+            ChangeGravityOFF();
         }
         else
         {
-            gravity = 30.81f;
-            isTetto = true;
-            verticalForce.y = 30.81f;
+            //se ChangeG è true allora richiamo questo metodo
+            ChangeGravityON();
         }
         //Se si sta toccando lo schermo
         if (Input.touchCount > 0)
@@ -179,21 +187,44 @@ public class PlayerMovement : MonoBehaviour
                     //Se tocco il pavimento
                     if (isGround)
                     {
-                        //Applico la forza del salto a verticalForce
-                        verticalForce.y = Mathf.Sqrt(jumpForce * -2f * gravity);
-                        //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
-                        if (sliding) ResetSliding();              
+                        if(changeG == false)
+                        {
+                            //Applico la forza del salto a verticalForce
+                            verticalForce.y = Mathf.Sqrt(jumpForce * -2f * gravity);
+                            //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
+                            if (sliding) ResetSliding();
+                        }
+                        else
+                        {
+                            //Applico la forza del salto a verticalForce
+                            verticalForce.y = Mathf.Sqrt(jumpForce * 2f * gravity);
+                            //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
+                            if (sliding) ResetSliding();
+                        }
+                                   
                     }
                 }
                 //Altrimenti se sto effettuando lo swipe in basso
                 else if (swipeEn == Swipe.Down)
                 {
-                    //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
-                    if (isGround && !sliding)
-                        StartCoroutine("SlideCor");
-                    //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
-                    else if (!isGround)
-                        verticalForce.y = -34f;
+                    if(changeG== false)
+                    {
+                        //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
+                        if (isGround && !sliding)
+                            StartCoroutine("SlideCor");
+                        //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
+                        else if (!isGround)
+                            verticalForce.y = -34f;
+                    }
+                    {
+                        //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
+                        if (isGround && !sliding)
+                            StartCoroutine("SlideCor");
+                        //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
+                        else if (!isGround)
+                            verticalForce.y = 34f;
+                    }
+                   
                 }
                 //Altrimenti se sto facendo uno swipe orizzontale
                 else
@@ -366,6 +397,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void GoUp()
     {
+        
         isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
         //Se tocco il pavimento
         if (isGround)
@@ -379,7 +411,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void GoDown()
     {
-        isGround = Physics.CheckSphere(groundCheck.position, 100f, groundMask);
+        isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
         if (swipeEn == Swipe.Down)
         {
             //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
@@ -389,6 +421,34 @@ public class PlayerMovement : MonoBehaviour
             else if (!isGround)
                 verticalForce.y = 34f;
         }
+    }
+
+    public void ChangeGravityOFF()
+    {
+        //setto la rotazione del giocatore a 0
+        playerBody.transform.eulerAngles.Set(0, 0, 0);
+        //setto la gravità a -30
+        gravity = -30.81f;
+        //metto isTetto a false
+        isTetto = false;
+        //setto la vertical force
+        verticalForce.y = -30.81f;
+        //abbasso il groundCheck
+        groundCheck.transform.position = CGPoint1.transform.position;
+    }
+
+    public void ChangeGravityON()
+    {
+        //setto la rotazione del giocatore a 180
+        playerBody.transform.eulerAngles.Set(0, 0, 180);
+        //alzo il groundCheck
+        groundCheck.transform.position = CGPoint2.transform.position;
+        //setto la gravità a 30
+        gravity = 30.81f;
+        //metto isTetto a True
+        isTetto = true;
+        //setto la verticalForce
+        verticalForce.y = 30.81f;
     }
 
     public IEnumerator switchColor() //cambio colore del bottone
