@@ -5,14 +5,21 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField]
+    LayerMask wallMask;
+
     //Reference al Character controller per muovere il player
     [SerializeField]
     CharacterController controller;
+
+    Ray ray;
 
     //Variabile per la velocità di movimento
     [Header("Velocità di movimento")]
     [SerializeField]
     float movSpeed;
+
+
 
     //0 Left, 1 Mid, 2 Right: Posizione delle carreggiate
     [Header("Posizioni delle carreggiate")]
@@ -71,6 +78,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+        
         //Setto l'altezza standard a quella iniziale
         idleHeight = controller.height;
         idlePos = controller.center.y;
@@ -81,6 +89,13 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (Physics.Raycast(positions[0].position, transform.right, positions[2].position.x - positions[0].position.x, wallMask))
+        {
+            Debug.Log("Wall");
+        }
+
+        //Debug.DrawRay(positions[0].position, transform.right + new Vector3(positions[2].position.x,0,0) - new Vector3(positions[0].position.x, 0, 0), Color.green);
+
         //Se si sta toccando lo schermo
         if (Input.touchCount > 0)
         {
@@ -320,5 +335,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(groundCheck.position, .4f);
+
+        //Gizmos.DrawLine(positions[0].position + Vector3.up, positions[2].position + Vector3.up);
     }
 }
