@@ -14,6 +14,8 @@ public class EnemyMove : MonoBehaviour
 
     Animator anim;
 
+    
+
 
     private void Awake()
     {

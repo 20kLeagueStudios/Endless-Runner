@@ -11,14 +11,15 @@ Shader "Custom/Portal"
 
         SubShader
     {
-        Tags { "RenderType" = "Opaque" "Queue" = "Geometry+1" } // "Queue"="Geometry+1" 
+        Tags { "RenderType" = "Opaque" "Queue" = "Geometry+1" } // "Queue"="Geometry+1" (ma forse conviene geometry (2000) o geometry -1, da valutare
 
       // https://forum.unity.com/threads/stencil-shader-with-depth.452575/
-        // https://www.youtube.com/watch?v=-NB2TR8IjE8
+      // https://www.youtube.com/watch?v=-NB2TR8IjE8
 
         ZWrite Off
         ColorMask 0
 
+        /*
         Pass {
 
          Stencil 
@@ -29,8 +30,18 @@ Shader "Custom/Portal"
          Pass Replace
 
         }
-    }
 
+        }
+        */
+
+        Stencil
+
+        {
+         Ref 1
+         Comp Always
+         Pass Replace
+
+        }
 
         CGPROGRAM
         #pragma surface surf Lambert vertex:vert addshadow
