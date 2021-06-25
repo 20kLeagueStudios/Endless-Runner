@@ -17,15 +17,15 @@ Shader "Custom/Curved"
 
         LOD 200
 
-        /*
+        
         Stencil { ///////
 
             Ref 1
-            Comp Equal
+            Comp Greater //prima era equal
 
 
          }
-         */ 
+         
           
         CGPROGRAM
         #pragma surface surf Lambert vertex:vert addshadow

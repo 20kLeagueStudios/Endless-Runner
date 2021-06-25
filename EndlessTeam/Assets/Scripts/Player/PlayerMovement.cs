@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement; ///
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -81,6 +82,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        
         //Se si sta toccando lo schermo
         if (Input.touchCount > 0)
         {

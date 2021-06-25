@@ -13,7 +13,8 @@ Shader "Custom/Portal"
     {
         Tags { "RenderType" = "Opaque" "Queue" = "Geometry+1" } // "Queue"="Geometry+1" 
 
-       
+      // https://forum.unity.com/threads/stencil-shader-with-depth.452575/
+        // https://www.youtube.com/watch?v=-NB2TR8IjE8
 
         ZWrite Off
         ColorMask 0
