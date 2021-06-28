@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    Ray ray;
+
     //Reference al Character controller per muovere il player
     [SerializeField]
     CharacterController controller;
@@ -55,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
 
     //Layer del pavimento
     [SerializeField]
-    LayerMask groundMask;
+    LayerMask groundMask, wallMask;
 
     //Altezza che dovrà avere il character controller e la posizione che dovrà avere il punto Y del character controller
     //Quando si utilizzerà lo slide
@@ -69,8 +71,15 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     Animator animator;
 
+    string prePoint;
+    Vector3 value = default;
+    Vector3 initialPoint;
+    RaycastHit hit;
+    bool rayWall = false;
+
     private void Start()
     {
+
         //Setto l'altezza standard a quella iniziale
         idleHeight = controller.height;
         idlePos = controller.center.y;
@@ -79,8 +88,36 @@ public class PlayerMovement : MonoBehaviour
         swipeEn = Swipe.Mid;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+       
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (rayWall)
+        {
+            StopCoroutine("ChangingPosition");
+            StartCoroutine("ChangingPosition", other.transform.position);
+            Debug.Log(prePoint);
+            rayWall = false;
+        }
+    }
+
     void Update()
     {
+        value.x = positions[1].position.x - positions[0].position.x;
+
+        initialPoint = transform.position - (value / 2) - Vector3.right;
+        ray.origin = initialPoint;
+        ray.direction = transform.right;
+
+        if (Physics.Raycast(ray.origin,ray.direction, value.x + 1, wallMask)) {
+            rayWall = true;
+    
+        }
+
+        Debug.DrawRay(ray.origin, ray.direction + (new Vector3(value.x + 1, 0, 0)), Color.red);
         //Se si sta toccando lo schermo
         if (Input.touchCount > 0)
         {
@@ -218,7 +255,7 @@ public class PlayerMovement : MonoBehaviour
     //Coroutine che si occupa di far cambiare carreggiata al player a seguito di uno swipe
     IEnumerator ChangingPosition(string target)
     {
-        
+      
         //Prendo la posizione iniziale del player
         Vector3 dest = transform.position;
         //Calcolo della posizione finale
@@ -264,7 +301,7 @@ public class PlayerMovement : MonoBehaviour
         //Finchè il valore x della posizione non è uguale a quello del target
         while (transform.position.x != finalPos.x)
         {
-     
+            
             //Lerpo la posizione a quella finale
             dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
             dest.y = transform.position.y;
@@ -281,6 +318,80 @@ public class PlayerMovement : MonoBehaviour
             //Ritorno null
             yield return null;
         }
+
+        prePoint = currentState;
+
+    }
+
+    IEnumerator ChangingPosition(Vector3 wallPos)
+    {
+
+        string target;
+        transform.position.x > wallPos.x ? target = "Right" : target = "Left";
+        //Prendo la posizione iniziale del player
+        Vector3 dest = transform.position;
+        //Calcolo della posizione finale
+        Vector3 finalPos = default;
+        //Se il target è sinistra
+        if (target == "Left")
+        {
+            //e sono a destra
+            if (currentState == "Right")
+            {
+                //Vado nel mezzo
+                finalPos = positions[1].position;
+                currentState = "Mid";
+            }
+            //Altrimenti mi sposto a sinistra
+            else
+            {
+                finalPos = positions[0].position;
+                currentState = "Left";
+            }
+        }
+        //Se il target è destra
+        else if (target == "Right")
+        {
+            //e sono a sinistra
+            if (currentState == "Left")
+            {
+                //Vado nel mezzo
+                finalPos = positions[1].position;
+                currentState = "Mid";
+            }
+            //Altrimenti vado a destra
+            else
+            {
+                finalPos = positions[2].position;
+                currentState = "Right";
+            }
+        }
+
+        //Elimino come poisizione finale le y e la z visto che non verranno intaccati dal cambio di carreggiata
+        finalPos.y = finalPos.z = 0;
+
+        //Finchè il valore x della posizione non è uguale a quello del target
+        while (transform.position.x != finalPos.x)
+        {
+
+            //Lerpo la posizione a quella finale
+            dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
+            dest.y = transform.position.y;
+            dest.z = transform.position.z;
+
+            //Se manca poco all'arrivo della posizione, viene direttamente messa uguale alla posizione finale
+            //In questo modo si evitano loop infiniti
+            if (Mathf.Abs(dest.x - finalPos.x) < .6f)
+                dest.x = finalPos.x;
+
+            //Assegno continuamente la posizione lerpata a quella effettiva del player
+            transform.position = dest;
+
+            //Ritorno null
+            yield return null;
+        }
+
+        prePoint = currentState;
 
     }
 
@@ -320,5 +431,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(groundCheck.position, .4f);
+
+        //Gizmos.DrawLine(ray.origin, new Vector3(initialPoint.x,0,0) + new Vector3(value.x,0,0));
     }
 }
