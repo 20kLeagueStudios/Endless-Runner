@@ -19,11 +19,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     Transform[] positions;
 
-    Vector3 obstaclePos;
-
-    [SerializeField]
-    Score scoreScript;
-
     /// <summary>
     /// <var name="startPos"> Posizione del tocco iniziale.</var>
     /// <var name="swipeDelta"> Differenza di posizione tra tocco iniziale e posizione corrente del tocco.</var>
@@ -74,8 +69,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     Animator animator;
 
-    GameObject currentObstacle;
-
     private void Start()
     {
         //Setto l'altezza standard a quella iniziale
@@ -88,7 +81,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
         //Se si sta toccando lo schermo
         if (Input.touchCount > 0)
         {
@@ -209,7 +201,6 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(transform.forward * movSpeed * Time.deltaTime);
     }
 
-
     //Disattivo lo sliding, e setto a false l'animazione dello slide così che esca e ritorni allo stato corsa
     public void ResetSliding()
     {
@@ -275,13 +266,13 @@ public class PlayerMovement : MonoBehaviour
         {
      
             //Lerpo la posizione a quella finale
-            dest.x = Mathf.Lerp(dest.x, finalPos.x, .2f);
+            dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
             dest.y = transform.position.y;
             dest.z = transform.position.z;
 
             //Se manca poco all'arrivo della posizione, viene direttamente messa uguale alla posizione finale
             //In questo modo si evitano loop infiniti
-            if (Mathf.Abs(dest.x - finalPos.x) < .4f)
+            if (Mathf.Abs(dest.x - finalPos.x) < .6f)
                 dest.x = finalPos.x;
 
             //Assegno continuamente la posizione lerpata a quella effettiva del player
@@ -322,18 +313,6 @@ public class PlayerMovement : MonoBehaviour
         controller.center = controllerIdlePos;
 
         yield return null;
-    }
-
-    private void OnTriggerEnter(Collider other)
-    {
-
-        if (other.CompareTag("Obstacle"))
-        {
-            currentObstacle = other.gameObject;
-        } else if (other.CompareTag("Point") && other.transform.parent.gameObject != currentObstacle)
-        {
-            scoreScript.TakeScore(3);
-        }
     }
 
     //Debug del groundCheck
