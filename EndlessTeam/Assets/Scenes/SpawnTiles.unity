@@ -1010,7 +1010,7 @@ MonoBehaviour:
   playerMesh: {fileID: 1621451695}
   playerMovement: {fileID: 1758834671}
   healthBar: {fileID: 1160701111}
-  gameScript: {fileID: 0}
+  gameScript: {fileID: 632498494}
   maxHealth: 50
   animator: {fileID: 272458794}
 --- !u!65 &1758834674
@@ -1103,6 +1103,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 9
       objectReference: {fileID: 0}
+    - target: {fileID: 8049358677931934394, guid: 6d074a42c0ef391468b5c01538ef7387,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 8049358677931934395, guid: 6d074a42c0ef391468b5c01538ef7387,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1157,6 +1162,26 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8601612040217325997, guid: 6d074a42c0ef391468b5c01538ef7387,
+        type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 1160701111}
+    - target: {fileID: 8601612040217325997, guid: 6d074a42c0ef391468b5c01538ef7387,
+        type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 272458794}
+    - target: {fileID: 8601612040217325997, guid: 6d074a42c0ef391468b5c01538ef7387,
+        type: 3}
+      propertyPath: gameScript
+      value: 
+      objectReference: {fileID: 632498494}
+    - target: {fileID: 8601612040217325997, guid: 6d074a42c0ef391468b5c01538ef7387,
+        type: 3}
+      propertyPath: maxHealth
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6d074a42c0ef391468b5c01538ef7387, type: 3}

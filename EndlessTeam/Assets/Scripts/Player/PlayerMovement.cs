@@ -72,6 +72,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
+       // SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        //SceneManager.LoadScene(2, LoadSceneMode.Additive);
+
+
         //Setto l'altezza standard a quella iniziale
         idleHeight = controller.height;
         idlePos = controller.center.y;

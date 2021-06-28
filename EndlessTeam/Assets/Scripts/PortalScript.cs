@@ -11,11 +11,24 @@ public class PortalScript : MonoBehaviour
         
     }
 
+   /* 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            SceneManager.UnloadSceneAsync("Scene01");
+
+            Debug.Log("SCARICA");
+
+        }
+    }
+    */
+
     private void OnEnable()
     {
         if (i == 0)
         {
-            SceneManager.LoadScene(2, LoadSceneMode.Additive);
+            SceneManager.LoadScene(1, LoadSceneMode.Additive);
             i++;
         }
         
