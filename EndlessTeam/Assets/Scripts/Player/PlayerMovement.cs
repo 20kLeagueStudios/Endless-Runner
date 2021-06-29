@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -46,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
 
     //Gravità, forza di salto e vettore in cui verrà applicato all'asse Y la gravità e il salto
     float gravity = -30.81f;
-    float jumpForce = 6;
+    float jumpForce;
     Vector3 verticalForce = default;
 
     //Posizione da cui creare una sfera invisibile che controllerà se si tocca il pavimento o no
@@ -69,8 +70,47 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     Animator animator;
 
+    //ChangeG è una booleane che mi servirà per invertire la gravità
+    //canIPress è una booleana che mi servirà a mettere un countdown al bottone
+    //mentre Image button mi serve come rifermento al bottone per cambiare colore quando viene premuto
+    private bool changeG;
+    private bool canIPress;
+    [SerializeField]
+    private Image button;
+    //is ground mi serve per controllare se il giocatore è Ground
+    private bool isGround;
+    //isTetto mi serve controllare se il giocatore tocca il teto o meno
+    private bool isTetto=false;
+    //CGPoint 1 e 2 mi servono per cambiare la posizione del GroundCheck
+    [SerializeField]
+    private GameObject CGPoint1;
+    [SerializeField]
+    private GameObject CGPoint2;
+    //playerBody mi serve come rifermineto al corpo del giocatore per poi ruotarlo quando cambia la gravità
+    [SerializeField]
+    private GameObject playerBody;
+    [SerializeField]
+    private GameObject cam1pos;
+    [SerializeField]
+    private GameObject cam2pos;
+    private int pressTime;
+
+    string prePoint;
+    Vector3 value = default;
+    Vector3 initialPoint;
+    RaycastHit hit;
+    bool rayWall = false;
+    Ray ray;
+    [SerializeField]
+    LayerMask wallMask;
+
     private void Start()
     {
+        pressTime = 0;
+        //setto ChangeG a false, canIPress a true e il colore a green.
+        changeG = false;
+        canIPress = true;
+        button.color = Color.green;
         //Setto l'altezza standard a quella iniziale
         idleHeight = controller.height;
         idlePos = controller.center.y;
@@ -81,6 +121,48 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
+
+        value.x = positions[1].position.x - positions[0].position.x;
+
+        initialPoint = transform.position - (value / 2) - Vector3.right;
+        ray.origin = initialPoint;
+        ray.direction = transform.right;
+
+        if (Physics.Raycast(ray.origin, ray.direction, value.x + 1, wallMask))
+        {
+            rayWall = true;
+
+        }
+
+        Debug.DrawRay(ray.origin, ray.direction + (new Vector3(value.x + 1, 0, 0)), Color.red);
+
+        Debug.Log(isGround);
+        if(isGround)
+        {
+            pressTime = -1;         
+        }
+
+        if (pressTime >= 1)
+        {
+            button.color = Color.yellow; //setto il colore a giallo
+        }
+        if(pressTime < 0)
+        {
+            pressTime++;
+            button.color = Color.green; //setto il colore a giallo
+        }
+
+        if (changeG == false)
+        {
+            //se ChangeG è false allora richiamo questo metodo
+            ChangeGravityOFF();
+        }
+        else
+        {
+            //se ChangeG è true allora richiamo questo metodo
+            ChangeGravityON();
+        }
         //Se si sta toccando lo schermo
         if (Input.touchCount > 0)
         {
@@ -143,62 +225,131 @@ public class PlayerMovement : MonoBehaviour
             //Se posso effettuare lo swipe
             if (canSwipe)
             {
-                //Controllo se sto toccando il pavimento
-                bool isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
-                //Se faccio lo swipe in alto
-                if (swipeEn == Swipe.Up)
-                {
-                    //Se tocco il pavimento
-                    if (isGround)
+                if(changeG == false)
+                {                
+                    //Se faccio lo swipe in alto
+                    if (swipeEn == Swipe.Up)
                     {
-                        //Applico la forza del salto a verticalForce
-                        verticalForce.y = Mathf.Sqrt(jumpForce * -2f * gravity);
-                        //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
-                        if (sliding) ResetSliding();              
+                        //Se tocco il pavimento
+                        if (isGround)
+                        {
+   
+                                Debug.Log(0);
+                                //Applico la forza del salto a verticalForce
+                                verticalForce.y = jumpForce;
+                                //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
+                                if (sliding) ResetSliding();
+                      
+
+                        }
                     }
+                    //Altrimenti se sto effettuando lo swipe in basso
+                    else if (swipeEn == Swipe.Down)
+                    {
+                      //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
+                            if (isGround && !sliding)
+                                StartCoroutine("SlideCor");
+                            //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
+                            else if (!isGround)
+                                verticalForce.y = -34f;
+                        
+
+                    }
+                    //Altrimenti se sto facendo uno swipe orizzontale
+                    else
+                    {
+                        //Fermo la coroutine nel caso in cui dovesse essere ancora attiva per la chiamata precedente
+                        StopCoroutine("ChangingPosition");
+                        //Chiamo la coroutine per cambiare carreggiata e gli passo la stringa dell'enum che servirà da target
+                        StartCoroutine(ChangingPosition(swipeEn.ToString()));
+                        //Non posso effettuare lo swipe fino all'inizio del prossimo tocco
+                    }
+                    //rendo canSwipe a false, in questo modo per fare un nuovo swipe dovrò ripoggiare il dito
+                    canSwipe = false;
                 }
-                //Altrimenti se sto effettuando lo swipe in basso
-                else if (swipeEn == Swipe.Down)
-                {
-                    //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
-                    if (isGround && !sliding)
-                        StartCoroutine("SlideCor");
-                    //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
-                    else if (!isGround)
-                        verticalForce.y = -34f;
-                }
-                //Altrimenti se sto facendo uno swipe orizzontale
                 else
                 {
-                    //Fermo la coroutine nel caso in cui dovesse essere ancora attiva per la chiamata precedente
-                    StopCoroutine("ChangingPosition");
-                    //Chiamo la coroutine per cambiare carreggiata e gli passo la stringa dell'enum che servirà da target
-                    StartCoroutine(ChangingPosition(swipeEn.ToString()));
-                    //Non posso effettuare lo swipe fino all'inizio del prossimo tocco
+                    //Se faccio lo swipe in alto
+                    if (swipeEn == Swipe.Down)
+                    {
+                        //Se tocco il pavimento
+                        if (isGround)
+                        {
+                           
+                          
+                                Debug.Log(1);
+                                //Applico la forza del salto a verticalForce
+                                verticalForce.y = jumpForce;
+                                //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
+                                if (sliding) ResetSliding();
+                            
+
+                        }
+                    }
+                    //Altrimenti se sto effettuando lo swipe in basso
+                    else if (swipeEn == Swipe.Up)
+                    {
+                      
+                       
+                            //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
+                            if (isGround && !sliding)
+                                StartCoroutine("SlideCor");
+                            //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
+                            else if (!isGround)
+                                verticalForce.y = 34f;
+                        
+
+                    }
+                    //Altrimenti se sto facendo uno swipe orizzontale
+                    else
+                    {
+                        //Fermo la coroutine nel caso in cui dovesse essere ancora attiva per la chiamata precedente
+                        StopCoroutine("ChangingPosition");
+                        //Chiamo la coroutine per cambiare carreggiata e gli passo la stringa dell'enum che servirà da target
+                        StartCoroutine(ChangingPosition(swipeEn.ToString()));
+                        //Non posso effettuare lo swipe fino all'inizio del prossimo tocco
+                    }
+                    //rendo canSwipe a false, in questo modo per fare un nuovo swipe dovrò ripoggiare il dito
+                    canSwipe = false;
                 }
-                //rendo canSwipe a false, in questo modo per fare un nuovo swipe dovrò ripoggiare il dito
-                canSwipe = false;
+
             }
 
            
         }
 
-        //Aggiungo la gravità alla verticalForce
-        verticalForce.y += gravity * Time.deltaTime;
 
         //Applico verticalForce al controller
         controller.Move(verticalForce * Time.deltaTime);
 
         //Se sto toccando il pavimento e la forza è minore di zero verrà messa di default a -3 così che
         //non raggiunga valori immensi
-        if (Physics.CheckSphere(groundCheck.position, .2f, groundMask))
-        {
-            if (verticalForce.y < 0) verticalForce.y = -3f;
-        }
+       
+            if (Physics.CheckSphere(groundCheck.position, .4f, groundMask))
+            {
+                if( changeG == false)
+                {
+                    if (verticalForce.y < 0) verticalForce.y = -3f;
+                }
+                else
+                {
+                    if (verticalForce.y > 0) verticalForce.y = 3f;
+                }
+                
+            }
+            else
+            {
+
+                //Aggiungo la gravità alla verticalForce
+                verticalForce.y += gravity * Time.deltaTime;
+            }
+        
 
         //Movimento continuo in avanti
         controller.Move(transform.forward * movSpeed * Time.deltaTime);
     }
+
+    
 
     //Disattivo lo sliding, e setto a false l'animazione dello slide così che esca e ritorni allo stato corsa
     public void ResetSliding()
@@ -217,7 +368,6 @@ public class PlayerMovement : MonoBehaviour
     //Coroutine che si occupa di far cambiare carreggiata al player a seguito di uno swipe
     IEnumerator ChangingPosition(string target)
     {
-
 
         //Prendo la posizione iniziale del player
         Vector3 dest = transform.position;
@@ -264,7 +414,6 @@ public class PlayerMovement : MonoBehaviour
         //Finchè il valore x della posizione non è uguale a quello del target
         while (transform.position.x != finalPos.x)
         {
-            Debug.Log(0);
             //Lerpo la posizione a quella finale
             dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
             dest.y = transform.position.y;
@@ -281,7 +430,7 @@ public class PlayerMovement : MonoBehaviour
             //Ritorno null
             yield return null;
         }
-
+        prePoint = currentState;
     }
 
     //Si occupa di effettuare lo slide
@@ -320,5 +469,199 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(groundCheck.position, .4f);
+    }
+
+    public void ChangeGravity() //questa funzione permette di cambiare gravità quando tocco un bottone.
+    {
+        if(isGround)
+        {
+            if (canIPress == true) //se canIPress è true
+            {
+                changeG = !changeG; //allora cambio changeG da true a false o viceversa
+                StartCoroutine(switchColor()); //starto la couroutine per cambiare il colore del bottone
+                canIPress = false; //setto CaniPress a false
+            }
+            if (isTetto == false)
+                GoUp();
+
+            if (isTetto == true)
+                GoDown();
+        }
+        else
+        {
+            pressTime++;
+            if(pressTime < 2)
+            {
+                if (canIPress == true) //se canIPress è true
+                {
+                    changeG = !changeG; //allora cambio changeG da true a false o viceversa
+                    StartCoroutine(switchColor()); //starto la couroutine per cambiare il colore del bottone
+                    canIPress = false; //setto CaniPress a false
+                }
+                if (isTetto == false)
+                    GoUp();
+
+                if (isTetto == true)
+                    GoDown();
+            }
+        }
+       
+    }
+
+    public void GoUp()
+    {
+        //setto la verticalForce
+        verticalForce.y = 30.81f;
+        isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
+        //Se tocco il pavimento
+        if (isGround)
+        {
+            //Applico la forza del salto a verticalForce
+            verticalForce.y = Mathf.Sqrt(jumpForce * -2f * gravity);
+            //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
+            if (sliding) ResetSliding();
+        }
+    }
+
+    public void GoDown()
+    {
+        //setto la vertical force
+        verticalForce.y = -30.81f;
+        isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
+        if (swipeEn == Swipe.Down)
+        {
+            //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
+            if (isGround && !sliding)
+                StartCoroutine("SlideCor");
+            //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
+            else if (!isGround)
+                verticalForce.y = 34f;
+        }
+    }
+
+    public void ChangeGravityOFF()
+    {
+        jumpForce = 18;
+        //setto la rotazione del giocatore a 0
+        playerBody.transform.rotation = Quaternion.Euler(0, 0, 0);
+        //setto la gravità a -30
+        gravity = -30.81f;
+        //metto isTetto a false
+        isTetto = false;
+        //abbasso il groundCheck
+        groundCheck.transform.position = CGPoint1.transform.position;
+
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, cam1pos.transform.position, Time.deltaTime * 3f);
+        Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, cam1pos.transform.rotation, Time.deltaTime*2f);
+    }
+
+    public void ChangeGravityON()
+    {
+
+        jumpForce = -18;
+        //setto la rotazione del giocatore a 180
+        playerBody.transform.rotation = Quaternion.Euler(0, 0, 180);
+        //alzo il groundCheck
+        groundCheck.transform.position = CGPoint2.transform.position;
+        //setto la gravità a 30
+        gravity = 30.81f;
+        //metto isTetto a True
+        isTetto = true;
+        Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, cam2pos.transform.position, Time.deltaTime * 3f);
+        Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, cam2pos.transform.rotation, Time.deltaTime * 2f);
+    }
+
+    public IEnumerator switchColor() //cambio colore del bottone
+    {
+
+            button.color = Color.red; //setto il colore a rosso
+            yield return new WaitForSeconds(1f); //dopo 1 secondo
+            button.color = Color.green; //setto il colore a verde
+            canIPress = true; //setto canIPress a true, così il bottone si può ripremere.
+        
+
+    }
+
+    IEnumerator ChangingPosition(Vector3 wallPos)
+    {
+
+        string target = transform.position.x > wallPos.x ? target = "Right" : target = "Left";
+
+        //Prendo la posizione iniziale del player
+        Vector3 dest = transform.position;
+        //Calcolo della posizione finale
+        Vector3 finalPos = default;
+        //Se il target è sinistra
+        if (target == "Left")
+        {
+            //e sono a destra
+            if (currentState == "Right")
+            {
+                //Vado nel mezzo
+                finalPos = positions[1].position;
+                currentState = "Mid";
+            }
+            //Altrimenti mi sposto a sinistra
+            else
+            {
+                finalPos = positions[0].position;
+                currentState = "Left";
+            }
+        }
+        //Se il target è destra
+        else if (target == "Right")
+        {
+            //e sono a sinistra
+            if (currentState == "Left")
+            {
+                //Vado nel mezzo
+                finalPos = positions[1].position;
+                currentState = "Mid";
+            }
+            //Altrimenti vado a destra
+            else
+            {
+                finalPos = positions[2].position;
+                currentState = "Right";
+            }
+        }
+
+        //Elimino come poisizione finale le y e la z visto che non verranno intaccati dal cambio di carreggiata
+        finalPos.y = finalPos.z = 0;
+
+        //Finchè il valore x della posizione non è uguale a quello del target
+        while (transform.position.x != finalPos.x)
+        {
+
+            //Lerpo la posizione a quella finale
+            dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
+            dest.y = transform.position.y;
+            dest.z = transform.position.z;
+
+            //Se manca poco all'arrivo della posizione, viene direttamente messa uguale alla posizione finale
+            //In questo modo si evitano loop infiniti
+            if (Mathf.Abs(dest.x - finalPos.x) < .6f)
+                dest.x = finalPos.x;
+
+            //Assegno continuamente la posizione lerpata a quella effettiva del player
+            transform.position = dest;
+
+            //Ritorno null
+            yield return null;
+        }
+
+        prePoint = currentState;
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (rayWall)
+        {
+            StopCoroutine("ChangingPosition");
+            StartCoroutine("ChangingPosition", other.transform.position);
+            Debug.Log(prePoint);
+            rayWall = false;
+        }
     }
 }
