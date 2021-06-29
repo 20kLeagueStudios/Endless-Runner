@@ -1,0 +1,77 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &2297439251875650364
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2297439251875650366}
+  - component: {fileID: 2297439251875650365}
+  m_Layer: 0
+  m_Name: Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2297439251875650366
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2297439251875650364}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.4274, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2297439251875650365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2297439251875650364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bf028beb528d0af43b525727b388842a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolList:
+  - tag: Easy
+    prefab:
+    - {fileID: 193874, guid: 1731ae0548ad2ba458c572ab6df7b58c, type: 3}
+    - {fileID: 193874, guid: 1731ae0548ad2ba458c572ab6df7b58c, type: 3}
+    - {fileID: 193874, guid: 7db1dbc284a7050499f8118db1f16304, type: 3}
+    - {fileID: 193874, guid: 1731ae0548ad2ba458c572ab6df7b58c, type: 3}
+    - {fileID: 193874, guid: 7db1dbc284a7050499f8118db1f16304, type: 3}
+    - {fileID: 193874, guid: 7db1dbc284a7050499f8118db1f16304, type: 3}
+    - {fileID: 193874, guid: 7db1dbc284a7050499f8118db1f16304, type: 3}
+    - {fileID: 193874, guid: 7db1dbc284a7050499f8118db1f16304, type: 3}
+  - tag: Medium
+    prefab:
+    - {fileID: 8955112569881553148, guid: ebdf66949683b2e4e817c6083e6939e2, type: 3}
+    - {fileID: 8955112569881553148, guid: ebdf66949683b2e4e817c6083e6939e2, type: 3}
+    - {fileID: 8955112569881553148, guid: ebdf66949683b2e4e817c6083e6939e2, type: 3}
+    - {fileID: 8955112569881553148, guid: ebdf66949683b2e4e817c6083e6939e2, type: 3}
+    - {fileID: 8955112569881553148, guid: ebdf66949683b2e4e817c6083e6939e2, type: 3}
+    - {fileID: 8955112569881553148, guid: ebdf66949683b2e4e817c6083e6939e2, type: 3}
+    - {fileID: 8955112569881553148, guid: ebdf66949683b2e4e817c6083e6939e2, type: 3}
+    - {fileID: 8955112569881553148, guid: ebdf66949683b2e4e817c6083e6939e2, type: 3}
+  - tag: Hard
+    prefab:
+    - {fileID: 4523336909541068390, guid: adc15614b25986d478e45e27d3d45f91, type: 3}
+    - {fileID: 4523336909541068390, guid: adc15614b25986d478e45e27d3d45f91, type: 3}
+    - {fileID: 4523336909541068390, guid: adc15614b25986d478e45e27d3d45f91, type: 3}
+    - {fileID: 4523336909541068390, guid: adc15614b25986d478e45e27d3d45f91, type: 3}
+    - {fileID: 4523336909541068390, guid: adc15614b25986d478e45e27d3d45f91, type: 3}
+    - {fileID: 4523336909541068390, guid: adc15614b25986d478e45e27d3d45f91, type: 3}
+    - {fileID: 4523336909541068390, guid: adc15614b25986d478e45e27d3d45f91, type: 3}
+    - {fileID: 4523336909541068390, guid: adc15614b25986d478e45e27d3d45f91, type: 3}
+  emptyTile: {fileID: 193874, guid: d377753591d41ef48a94dfc545cac1d2, type: 3}

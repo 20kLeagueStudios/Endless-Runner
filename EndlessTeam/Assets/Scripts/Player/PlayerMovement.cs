@@ -88,36 +88,34 @@ public class PlayerMovement : MonoBehaviour
         swipeEn = Swipe.Mid;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-       
-    }
+   
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (rayWall)
-        {
-            StopCoroutine("ChangingPosition");
-            StartCoroutine("ChangingPosition", other.transform.position);
-            Debug.Log(prePoint);
-            rayWall = false;
-        }
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{
+        //if (rayWall)
+        //{
+        //    StopCoroutine("ChangingPosition");
+        //    StartCoroutine("ChangingPosition", other.transform.position);
+        //    Debug.Log(prePoint);
+        //    rayWall = false;
+        //}
+    //}
 
     void Update()
     {
-        value.x = positions[1].position.x - positions[0].position.x;
+        //value.x = positions[1].position.x - positions[0].position.x;
 
-        initialPoint = transform.position - (value / 2) - Vector3.right;
-        ray.origin = initialPoint;
-        ray.direction = transform.right;
+        //initialPoint = transform.position - (value / 2) - Vector3.right;
+        //ray.origin = initialPoint;
+        //ray.direction = transform.right;
 
-        if (Physics.Raycast(ray.origin,ray.direction, value.x + 1, wallMask)) {
-            rayWall = true;
+        //if (Physics.Raycast(ray.origin,ray.direction, value.x + 1, wallMask)) {
+        //    rayWall = true;
     
-        }
+        //}
 
-        Debug.DrawRay(ray.origin, ray.direction + (new Vector3(value.x + 1, 0, 0)), Color.red);
+        //Debug.DrawRay(ray.origin, ray.direction + (new Vector3(value.x + 1, 0, 0)), Color.red);
+
         //Se si sta toccando lo schermo
         if (Input.touchCount > 0)
         {
@@ -319,81 +317,81 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
 
-        prePoint = currentState;
+        //prePoint = currentState;
 
     }
 
-    IEnumerator ChangingPosition(Vector3 wallPos)
-    {
+    //IEnumerator ChangingPosition(Vector3 wallPos)
+    //{
 
-        string target;
-        transform.position.x > wallPos.x ? target = "Right" : target = "Left";
-        //Prendo la posizione iniziale del player
-        Vector3 dest = transform.position;
-        //Calcolo della posizione finale
-        Vector3 finalPos = default;
-        //Se il target è sinistra
-        if (target == "Left")
-        {
-            //e sono a destra
-            if (currentState == "Right")
-            {
-                //Vado nel mezzo
-                finalPos = positions[1].position;
-                currentState = "Mid";
-            }
-            //Altrimenti mi sposto a sinistra
-            else
-            {
-                finalPos = positions[0].position;
-                currentState = "Left";
-            }
-        }
-        //Se il target è destra
-        else if (target == "Right")
-        {
-            //e sono a sinistra
-            if (currentState == "Left")
-            {
-                //Vado nel mezzo
-                finalPos = positions[1].position;
-                currentState = "Mid";
-            }
-            //Altrimenti vado a destra
-            else
-            {
-                finalPos = positions[2].position;
-                currentState = "Right";
-            }
-        }
+    //    string target = transform.position.x > wallPos.x ? target = "Right" : target = "Left";
+        
+    //    //Prendo la posizione iniziale del player
+    //    Vector3 dest = transform.position;
+    //    //Calcolo della posizione finale
+    //    Vector3 finalPos = default;
+    //    //Se il target è sinistra
+    //    if (target == "Left")
+    //    {
+    //        //e sono a destra
+    //        if (currentState == "Right")
+    //        {
+    //            //Vado nel mezzo
+    //            finalPos = positions[1].position;
+    //            currentState = "Mid";
+    //        }
+    //        //Altrimenti mi sposto a sinistra
+    //        else
+    //        {
+    //            finalPos = positions[0].position;
+    //            currentState = "Left";
+    //        }
+    //    }
+    //    //Se il target è destra
+    //    else if (target == "Right")
+    //    {
+    //        //e sono a sinistra
+    //        if (currentState == "Left")
+    //        {
+    //            //Vado nel mezzo
+    //            finalPos = positions[1].position;
+    //            currentState = "Mid";
+    //        }
+    //        //Altrimenti vado a destra
+    //        else
+    //        {
+    //            finalPos = positions[2].position;
+    //            currentState = "Right";
+    //        }
+    //    }
 
-        //Elimino come poisizione finale le y e la z visto che non verranno intaccati dal cambio di carreggiata
-        finalPos.y = finalPos.z = 0;
+    //    //Elimino come poisizione finale le y e la z visto che non verranno intaccati dal cambio di carreggiata
+    //    finalPos.y = finalPos.z = 0;
 
-        //Finchè il valore x della posizione non è uguale a quello del target
-        while (transform.position.x != finalPos.x)
-        {
+    //    //Finchè il valore x della posizione non è uguale a quello del target
+    //    while (transform.position.x != finalPos.x)
+    //    {
 
-            //Lerpo la posizione a quella finale
-            dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
-            dest.y = transform.position.y;
-            dest.z = transform.position.z;
+    //        //Lerpo la posizione a quella finale
+    //        dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
+    //        dest.y = transform.position.y;
+    //        dest.z = transform.position.z;
 
-            //Se manca poco all'arrivo della posizione, viene direttamente messa uguale alla posizione finale
-            //In questo modo si evitano loop infiniti
-            if (Mathf.Abs(dest.x - finalPos.x) < .6f)
-                dest.x = finalPos.x;
+    //        //Se manca poco all'arrivo della posizione, viene direttamente messa uguale alla posizione finale
+    //        //In questo modo si evitano loop infiniti
+    //        if (Mathf.Abs(dest.x - finalPos.x) < .6f)
+    //            dest.x = finalPos.x;
 
-            //Assegno continuamente la posizione lerpata a quella effettiva del player
-            transform.position = dest;
+    //        //Assegno continuamente la posizione lerpata a quella effettiva del player
+    //        transform.position = dest;
 
-            //Ritorno null
-            yield return null;
-        }
+    //        //Ritorno null
+    //        yield return null;
+    //    }
 
-        prePoint = currentState;
+    //    prePoint = currentState;
 
-    }
+    //}
 
     //Si occupa di effettuare lo slide
     public IEnumerator SlideCor()
@@ -431,7 +429,5 @@ public class PlayerMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawSphere(groundCheck.position, .4f);
-
-        //Gizmos.DrawLine(ray.origin, new Vector3(initialPoint.x,0,0) + new Vector3(value.x,0,0));
     }
 }
