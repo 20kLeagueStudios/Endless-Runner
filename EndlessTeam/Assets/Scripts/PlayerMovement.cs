@@ -95,6 +95,15 @@ public class PlayerMovement : MonoBehaviour
     private GameObject cam2pos;
     private int pressTime;
 
+    string prePoint;
+    Vector3 value = default;
+    Vector3 initialPoint;
+    RaycastHit hit;
+    bool rayWall = false;
+    Ray ray;
+    [SerializeField]
+    LayerMask wallMask;
+
     private void Start()
     {
         pressTime = 0;
@@ -113,6 +122,20 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
+
+        value.x = positions[1].position.x - positions[0].position.x;
+
+        initialPoint = transform.position - (value / 2) - Vector3.right;
+        ray.origin = initialPoint;
+        ray.direction = transform.right;
+
+        if (Physics.Raycast(ray.origin, ray.direction, value.x + 1, wallMask))
+        {
+            rayWall = true;
+
+        }
+
+        Debug.DrawRay(ray.origin, ray.direction + (new Vector3(value.x + 1, 0, 0)), Color.red);
 
         Debug.Log(isGround);
         if(isGround)
@@ -345,6 +368,7 @@ public class PlayerMovement : MonoBehaviour
     //Coroutine che si occupa di far cambiare carreggiata al player a seguito di uno swipe
     IEnumerator ChangingPosition(string target)
     {
+
         //Prendo la posizione iniziale del player
         Vector3 dest = transform.position;
         //Calcolo della posizione finale
@@ -406,7 +430,7 @@ public class PlayerMovement : MonoBehaviour
             //Ritorno null
             yield return null;
         }
-
+        prePoint = currentState;
     }
 
     //Si occupa di effettuare lo slide
@@ -556,5 +580,88 @@ public class PlayerMovement : MonoBehaviour
             canIPress = true; //setto canIPress a true, così il bottone si può ripremere.
         
 
+    }
+
+    IEnumerator ChangingPosition(Vector3 wallPos)
+    {
+
+        string target = transform.position.x > wallPos.x ? target = "Right" : target = "Left";
+
+        //Prendo la posizione iniziale del player
+        Vector3 dest = transform.position;
+        //Calcolo della posizione finale
+        Vector3 finalPos = default;
+        //Se il target è sinistra
+        if (target == "Left")
+        {
+            //e sono a destra
+            if (currentState == "Right")
+            {
+                //Vado nel mezzo
+                finalPos = positions[1].position;
+                currentState = "Mid";
+            }
+            //Altrimenti mi sposto a sinistra
+            else
+            {
+                finalPos = positions[0].position;
+                currentState = "Left";
+            }
+        }
+        //Se il target è destra
+        else if (target == "Right")
+        {
+            //e sono a sinistra
+            if (currentState == "Left")
+            {
+                //Vado nel mezzo
+                finalPos = positions[1].position;
+                currentState = "Mid";
+            }
+            //Altrimenti vado a destra
+            else
+            {
+                finalPos = positions[2].position;
+                currentState = "Right";
+            }
+        }
+
+        //Elimino come poisizione finale le y e la z visto che non verranno intaccati dal cambio di carreggiata
+        finalPos.y = finalPos.z = 0;
+
+        //Finchè il valore x della posizione non è uguale a quello del target
+        while (transform.position.x != finalPos.x)
+        {
+
+            //Lerpo la posizione a quella finale
+            dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
+            dest.y = transform.position.y;
+            dest.z = transform.position.z;
+
+            //Se manca poco all'arrivo della posizione, viene direttamente messa uguale alla posizione finale
+            //In questo modo si evitano loop infiniti
+            if (Mathf.Abs(dest.x - finalPos.x) < .6f)
+                dest.x = finalPos.x;
+
+            //Assegno continuamente la posizione lerpata a quella effettiva del player
+            transform.position = dest;
+
+            //Ritorno null
+            yield return null;
+        }
+
+        prePoint = currentState;
+
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (rayWall)
+        {
+            StopCoroutine("ChangingPosition");
+            StartCoroutine("ChangingPosition", other.transform.position);
+            Debug.Log(prePoint);
+            rayWall = false;
+        }
     }
 }
