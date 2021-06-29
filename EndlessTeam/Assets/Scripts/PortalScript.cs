@@ -11,7 +11,7 @@ public class PortalScript : MonoBehaviour
         
     }
 
-   /* 
+  /*
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -22,8 +22,9 @@ public class PortalScript : MonoBehaviour
 
         }
     }
-    */
+    
 
+   
     private void OnEnable()
     {
         if (i == 0)
@@ -34,6 +35,7 @@ public class PortalScript : MonoBehaviour
         
 
     }
+   */
 
     // Update is called once per frame
     void Update()
