@@ -43,9 +43,6 @@ public class PlayerHealth : MonoBehaviour
         {
             StartCoroutine("HitCor", playerMesh);
             TakeDamage(1);
-
-            Debug.Log("currenthealth"+currentHealth);
-
         }
     }
 

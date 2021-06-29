@@ -11,22 +11,9 @@ Shader "Custom/Curved"
 
         SubShader
     {
-        Tags { "RenderType" = "Opaque" "Queue"="Geometry+1" } // "Queue"="Geometry+1" 
-
-         
-
+        Tags { "RenderType" = "Opaque" }
         LOD 200
 
-        
-        Stencil { ///////
-
-            Ref 1
-            Comp Greater //prima era equal
-
-
-         }
-         
-          
         CGPROGRAM
         #pragma surface surf Lambert vertex:vert addshadow
 

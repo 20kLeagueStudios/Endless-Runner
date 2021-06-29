@@ -12,7 +12,6 @@ public class ObjectPooling : MonoBehaviour
     //Carreggiata vuota da far apparire 6 volte ad inizio partita
     [SerializeField]
     GameObject emptyTile;
-
     
     //Lista di carreggiate attive che le farà muovere all'indietro
     List<GameObject> activeTiles = new List<GameObject>();
