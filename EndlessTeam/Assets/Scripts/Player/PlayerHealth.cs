@@ -6,6 +6,8 @@ using UnityEngine.SceneManagement;
 public class PlayerHealth : MonoBehaviour
 {
     [SerializeField]
+    ObjectPooling objectPooling;
+    [SerializeField]
     MeshRenderer playerMesh;
     [SerializeField]
     PlayerMovement playerMovement;
@@ -29,7 +31,7 @@ public class PlayerHealth : MonoBehaviour
     void Start()
     {
         gameScript = GameObject.FindObjectOfType<Game>();
-        initialSpeed = gameScript.SpeedIncrease;
+        initialSpeed = objectPooling.speed;
         playerColor = playerMesh.material.color;
         healthBar.SetMaxHealth(maxHealth);
         currentHealth = maxHealth / 2;
@@ -48,7 +50,7 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator HitCor(MeshRenderer meshToFade)
     {
-        gameScript.SpeedIncrease = gameScript.SpeedIncrease / 2f;
+        objectPooling.speed = objectPooling.speed / 1.3f;
         Color fadeColor = meshToFade.material.color;
 
         fadeColor.a = .1f;
@@ -60,15 +62,17 @@ public class PlayerHealth : MonoBehaviour
             meshToFade.material.color = playerColor;
         }
 
-        gameScript.SpeedIncrease = initialSpeed;
+        objectPooling.speed = initialSpeed;
 
 
     }
 
     void TakeDamage(int value)
     {
-        currentHealth -= 1;
-        healthBar.SetHealth(currentHealth);
+        currentHealth -= value;
+        if (currentHealth > 0)
+            healthBar.SetHealth(currentHealth);
+        else healthBar.SetHealth(0);
             
         if (currentHealth <= 0)
             animator.SetTrigger("Death");
@@ -78,6 +82,11 @@ public class PlayerHealth : MonoBehaviour
     public void Death()
     {
         SceneManager.LoadScene(1);
-        gameScript.SpeedIncrease = initialSpeed;
+        objectPooling.speed = initialSpeed;
+    }
+
+    public void InstantDeath()
+    {
+        TakeDamage(9999);
     }
 }

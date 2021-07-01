@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class DeathSTM : StateMachineBehaviour
 {
-    Game gameScript;
+    ObjectPooling objScript;
     PlayerHealth playerHealth;
     float timeWait = .5f;
     float currentTime;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        gameScript = GameObject.FindObjectOfType<Game>();
-        gameScript.SpeedIncrease = 0;
+        objScript = GameObject.FindObjectOfType<ObjectPooling>();
+        objScript.speed = 0;
         currentTime = Time.time;
         playerHealth = animator.GetComponentInParent<PlayerHealth>();
     }
@@ -19,8 +19,13 @@ public class DeathSTM : StateMachineBehaviour
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        if (Time.time - currentTime > timeWait)
-        {
+        //if (Time.time - currentTime > timeWait)
+        //{
+        //    playerHealth.Death();
+        //}
+
+        if (animator.GetCurrentAnimatorStateInfo(0).normalizedTime > 1 && !animator.IsInTransition(0))
+         {
             playerHealth.Death();
         }
     }

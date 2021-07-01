@@ -18,7 +18,7 @@ public class ObjectPooling : MonoBehaviour
     //Carreggiate massime iniziali con l'istanza emptyTile
     int maxTiles = 6;
     //Velocità di movimento delle carreggiate
-    float speed = 36;
+    public float speed = 36;
     //Riferimento al renderer per calcolare la differenza di distanza del renderer per capire dove posizionare 
     //la prossima carreggiata
     Renderer rend;

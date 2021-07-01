@@ -6,6 +6,11 @@ using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    #region Variabili
+    [SerializeField]
+    PlayerHealth healthScript;
+    [SerializeField]
+    ObjectPooling objectPooling;
     //Reference al Character controller per muovere il player
     [SerializeField]
     CharacterController controller;
@@ -104,6 +109,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     LayerMask wallMask;
 
+    #endregion
+
     private void Start()
     {
         pressTime = 0;
@@ -121,23 +128,32 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+
         isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
 
         value.x = positions[1].position.x - positions[0].position.x;
 
-        initialPoint = transform.position - (value / 2) - Vector3.right;
+        initialPoint = transform.position - (value) - Vector3.right;
         ray.origin = initialPoint;
         ray.direction = transform.right;
 
-        if (Physics.Raycast(ray.origin, ray.direction, value.x + 1, wallMask))
+        if (Physics.Raycast(ray.origin, ray.direction, value.x + 8, wallMask))
         {
             rayWall = true;
-
         }
 
-        Debug.DrawRay(ray.origin, ray.direction + (new Vector3(value.x + 1, 0, 0)), Color.red);
+        if (Physics.Raycast(transform.position, transform.forward, 8f, wallMask))
+        {
+            rayWall = false;
+        }
 
-        Debug.Log(isGround);
+        //if (Physics.CheckSphere(transform.position, 5f, wallMask))
+        //{
+        //    rayWall = true;
+        //}
+
+        Debug.DrawRay(transform.position, transform.forward * 8f, Color.red);
+
         if (isGround)
         {
             pressTime = -1;
@@ -656,12 +672,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+  
         if (rayWall)
         {
-            StopCoroutine("ChangingPosition");
-            StartCoroutine("ChangingPosition", other.transform.position);
-            Debug.Log(prePoint);
-            rayWall = false;
+            if (LayerMask.LayerToName(other.gameObject.layer) == "Wall")
+            {
+                StopCoroutine("ChangingPosition");
+                StopAllCoroutines();
+                StartCoroutine("ChangingPosition", other.transform.position);
+
+                rayWall = false;
+            }
+        } else
+        {
+            if (LayerMask.LayerToName(other.gameObject.layer) == "Wall")
+            {
+                objectPooling.speed = 0;
+                healthScript.InstantDeath();
+            }
         }
     }
 }

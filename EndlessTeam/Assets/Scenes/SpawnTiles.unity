@@ -754,6 +754,16 @@ PrefabInstance:
       propertyPath: positions.Array.data[2]
       value: 
       objectReference: {fileID: 2107109720}
+    - target: {fileID: 2539507645114299319, guid: 66aa9e8e402136247899536a755bb828,
+        type: 3}
+      propertyPath: healthScript
+      value: 
+      objectReference: {fileID: 1440462365}
+    - target: {fileID: 2539507645114299319, guid: 66aa9e8e402136247899536a755bb828,
+        type: 3}
+      propertyPath: objectPooling
+      value: 
+      objectReference: {fileID: 172854369}
     - target: {fileID: 2539507646253671650, guid: 66aa9e8e402136247899536a755bb828,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -922,11 +932,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9978d80e200f81e448ccee5a38af4b14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  objectPooling: {fileID: 172854369}
   playerMesh: {fileID: 1823495551}
   playerMovement: {fileID: 1440462363}
   healthBar: {fileID: 1160701111}
   gameScript: {fileID: 1251947645}
-  maxHealth: 2000
+  maxHealth: 5
   animator: {fileID: 1823495550}
 --- !u!95 &1823495550 stripped
 Animator:
