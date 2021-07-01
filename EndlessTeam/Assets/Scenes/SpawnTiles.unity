@@ -927,7 +927,28 @@ MonoBehaviour:
   healthBar: {fileID: 1160701111}
   gameScript: {fileID: 1251947645}
   maxHealth: 2000
+  currentHealth: 0
+  canBeHit: 1
   animator: {fileID: 1823495550}
+--- !u!114 &1440462366
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1440462361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: baeffba2a03791345806ca73da4d8fdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameScript: {fileID: 1251947645}
+  playerColor: {r: 0, g: 0, b: 0, a: 1}
+  playerMesh: {fileID: 1823495551}
+  timePowerUp: 10
+  objectPooling: {fileID: 172854369}
+  playerHealth: {fileID: 1440462365}
+  isInvincible: 0
 --- !u!95 &1823495550 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2539507646253671651, guid: 66aa9e8e402136247899536a755bb828,
@@ -1024,6 +1045,11 @@ PrefabInstance:
       propertyPath: objPooling
       value: 
       objectReference: {fileID: 172854369}
+    - target: {fileID: 1342993841368832789, guid: 1e25462dc21433c42864eaa84dd6566d,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1342993841368832790, guid: 1e25462dc21433c42864eaa84dd6566d,
         type: 3}
       propertyPath: m_Name
