@@ -399,39 +399,28 @@ public class PlayerMovement : MonoBehaviour
                 finalPos = positions[1].position;
                 currentState = "Mid";
             }
-            //Altrimenti se sono al centro mi sposto a sinistra
-            else if (currentState == "Mid")
+            //Altrimenti mi sposto a sinistra
+            else
             {
                 finalPos = positions[0].position;
                 currentState = "Left";
-            //Altrimenti se sono a sinistra mi sposto fuori sinistra
-            } else if (currentState == "Left")
-            {
-                finalPos = positions[0].position * 2;
-                currentState = "LeftOut";
             }
         }
         //Se il target è destra
         else if (target == "Right")
         {
-            //e sono a sinistra mi sposto nel mezzo
+            //e sono a sinistra
             if (currentState == "Left")
             {
                 //Vado nel mezzo
                 finalPos = positions[1].position;
                 currentState = "Mid";
             }
-            //Altrimenti se sono al centro vado a destra
-            else if (currentState == "Mid")
+            //Altrimenti vado a destra
+            else
             {
                 finalPos = positions[2].position;
                 currentState = "Right";
-            }
-            //Altrimenti se sono a destra vado fuori destra
-            else if (currentState == "Right")
-            {
-                finalPos = positions[2].position * 2;
-                currentState = "RightOut";
             }
         }
 
@@ -611,58 +600,45 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator ChangingPosition(Vector3 wallPos)
     {
-        
+
         string target = transform.position.x > wallPos.x ? target = "Right" : target = "Left";
-        Debug.Log(target);
+
         //Prendo la posizione iniziale del player
         Vector3 dest = transform.position;
         //Calcolo della posizione finale
         Vector3 finalPos = default;
-
-        //Se il target è a destra
-        if (target == "Right")
+        //Se il target è sinistra
+        if (target == "Left")
         {
-          
-            //e sono a fuori sinistra
-            if (currentState == "LeftOut")
+            //e sono a destra
+            if (currentState == "Right")
             {
-                Debug.Log("Prova");
-                //Vado nel sinistro
-                finalPos = positions[0].position;
-                currentState = "Left";
-            }
-            //Altrimenti se sono a sinistra mi sposto al centro
-            else if (currentState == "Left")
-            {
+                //Vado nel mezzo
                 finalPos = positions[1].position;
                 currentState = "Mid";
             }
-            else if (currentState == "Mid")
+            //Altrimenti mi sposto a sinistra
+            else
             {
-                finalPos = positions[2].position;
-                currentState = "Right";
+                finalPos = positions[0].position;
+                currentState = "Left";
             }
         }
-        //Se il target è a sinistra
-        else if (target == "Left")
+        //Se il target è destra
+        else if (target == "Right")
         {
-            //e sono fuori destra
-            if (currentState == "RightOut")
+            //e sono a sinistra
+            if (currentState == "Left")
             {
-                //Vado a destra
-                finalPos = positions[2].position;
-                currentState = "Right";
-            }
-            //Altrimenti vado al centro
-            else if (currentState == "Right")
-            {
+                //Vado nel mezzo
                 finalPos = positions[1].position;
                 currentState = "Mid";
             }
-            else if (currentState == "Mid")
+            //Altrimenti vado a destra
+            else
             {
-                finalPos = positions[0].position;
-                currentState = "Left";
+                finalPos = positions[2].position;
+                currentState = "Right";
             }
         }
 
@@ -674,13 +650,13 @@ public class PlayerMovement : MonoBehaviour
         {
 
             //Lerpo la posizione a quella finale
-            dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
+            dest.x = Mathf.Lerp(dest.x, finalPos.x, .3f);
             dest.y = transform.position.y;
             dest.z = transform.position.z;
 
             //Se manca poco all'arrivo della posizione, viene direttamente messa uguale alla posizione finale
             //In questo modo si evitano loop infiniti
-            if (Mathf.Abs(dest.x - finalPos.x) < .3f)
+            if (Mathf.Abs(dest.x - finalPos.x) < .6f)
                 dest.x = finalPos.x;
 
             //Assegno continuamente la posizione lerpata a quella effettiva del player
