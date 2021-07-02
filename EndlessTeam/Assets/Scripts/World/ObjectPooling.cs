@@ -12,23 +12,18 @@ public class ObjectPooling : MonoBehaviour
     //Carreggiata vuota da far apparire 6 volte ad inizio partita
     [SerializeField]
     GameObject emptyTile;
-
+    
     //Lista di carreggiate attive che le farà muovere all'indietro
     List<GameObject> activeTiles = new List<GameObject>();
     //Carreggiate massime iniziali con l'istanza emptyTile
     int maxTiles = 6;
     //Velocità di movimento delle carreggiate
-
-    public float speed = 36; // ora è public, emanuele
-    public float maxSpeed = 70;
-
+    public float speed = 36;
     //Riferimento al renderer per calcolare la differenza di distanza del renderer per capire dove posizionare 
     //la prossima carreggiata
     Renderer rend;
     //Timer prova
     float currentTimer;
-
-    //  public float speed;
 
     //Enum sulla difficoltà
     enum Mode
@@ -42,16 +37,16 @@ public class ObjectPooling : MonoBehaviour
     Mode mode;
     void Start()
     {
-
+        
         currentTimer = Time.time;
         //Modalità iniziale a facile
         mode = Mode.Easy;
         //Istanzia tutti i GameObject presenti nella lista di Pool e li inserisco nel dizionario con il tag
         //associato
-        foreach (Pool temp in poolList)
+        foreach(Pool temp in poolList)
         {
             List<GameObject> tempList = new List<GameObject>();
-            for (int i = 0; i < temp.prefab.Length; i++)
+            for(int i=0; i<temp.prefab.Length; i++)
             {
                 GameObject Obj = Instantiate(temp.prefab[i], transform.position, Quaternion.identity);
                 Obj.SetActive(false);
@@ -63,13 +58,6 @@ public class ObjectPooling : MonoBehaviour
 
         //Chiamo il metodo che si occupa di creare le prime 6 carreggiate
         initialTiles();
-    }
-
-    public void IncreaseSpeed(float amt)
-    {
-        this.speed = amt;
-        if (this.speed > this.maxSpeed)
-            this.speed = maxSpeed;
     }
 
     private void Update()
@@ -84,7 +72,7 @@ public class ObjectPooling : MonoBehaviour
         //    else mode = Mode.Easy;
         //    currentTimer = Time.time;
         //}
-
+        
 
     }
     //Metodo iniziale che crea i primi sei tiles
@@ -132,9 +120,9 @@ public class ObjectPooling : MonoBehaviour
                     continue;
 
 
-
+                
                 return tempList[i];
-
+                
             }
         }
         return null;
@@ -173,7 +161,7 @@ public class ObjectPooling : MonoBehaviour
     //Disattiva GameObject passato così potrà essere riutilizzato dal metodo GetTile
     public void DisableObject(GameObject obj)
     {
-
+       
         obj.SetActive(false);
     }
 
@@ -192,6 +180,6 @@ class Pool
 
     public string GetTag { get { return tag; } }
 
-
+    
 
 }
