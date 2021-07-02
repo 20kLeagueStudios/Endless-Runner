@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        pressTime = 0;
+        pressTime = -1;
         //setto ChangeG a false, canIPress a true e il colore a green.
         changeG = false;
         canIPress = true;
@@ -138,19 +138,19 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(ray.origin, ray.direction + (new Vector3(value.x + 1, 0, 0)), Color.red);
 
         Debug.Log(isGround);
-        if (isGround)
+        if (isGround) //Se il giocatore torna a terra resetto il pulsante
         {
             pressTime = -1;
         }
 
-        if (pressTime >= 1)
+        if (pressTime >= 0) //Se il pulsante è stato premuto X volte allora diventerà giallo
         {
             button.color = Color.yellow; //setto il colore a giallo
         }
-        if (pressTime < 0)
+        
+        if(button.color == Color.yellow&isGround) //se il pulsante è giallo e il giocatore è a terra.. allora resetto il colore a verde
         {
-            pressTime++;
-            button.color = Color.green; //setto il colore a giallo
+            button.color = Color.green;
         }
 
         if (changeG == false)
@@ -473,38 +473,41 @@ public class PlayerMovement : MonoBehaviour
 
     public void ChangeGravity() //questa funzione permette di cambiare gravità quando tocco un bottone.
     {
-        if (isGround)
+        if(canIPress == true)
         {
-            if (canIPress == true) //se canIPress è true
+            if (isGround)
             {
-                changeG = !changeG; //allora cambio changeG da true a false o viceversa
-                StartCoroutine(switchColor()); //starto la couroutine per cambiare il colore del bottone
-                canIPress = false; //setto CaniPress a false
-            }
-            if (isTetto == false)
-                GoUp();
-
-            if (isTetto == true)
-                GoDown();
-        }
-        else
-        {
-            pressTime++;
-            if (pressTime < 2)
-            {
-                if (canIPress == true) //se canIPress è true
-                {
+              
                     changeG = !changeG; //allora cambio changeG da true a false o viceversa
                     StartCoroutine(switchColor()); //starto la couroutine per cambiare il colore del bottone
                     canIPress = false; //setto CaniPress a false
-                }
+                
                 if (isTetto == false)
                     GoUp();
 
                 if (isTetto == true)
                     GoDown();
             }
+            else
+            {
+                pressTime++; //se cambio gravità mentre sono in aria (quindi il giocatore non tocca il terreno !isGround) allora aumento "pressTime"
+                if (pressTime < 1) //se pressTime super 1 allora il giocatore non potrà più cambiare gravitò.
+                {
+                    if (canIPress == true) //se canIPress è true
+                    {
+                        changeG = !changeG; //allora cambio changeG da true a false o viceversa
+                        StartCoroutine(switchColor()); //starto la couroutine per cambiare il colore del bottone
+                        canIPress = false; //setto CaniPress a false
+                    }
+                    if (isTetto == false)
+                        GoUp();
+
+                    if (isTetto == true)
+                        GoDown();
+                }
+            }
         }
+        
 
     }
 
@@ -575,7 +578,7 @@ public class PlayerMovement : MonoBehaviour
     {
 
         button.color = Color.red; //setto il colore a rosso
-        yield return new WaitForSeconds(1f); //dopo 1 secondo
+        yield return new WaitForSeconds(0.5f); //dopo 1 secondo
         button.color = Color.green; //setto il colore a verde
         canIPress = true; //setto canIPress a true, così il bottone si può ripremere.
 
