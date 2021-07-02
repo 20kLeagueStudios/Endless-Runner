@@ -15,6 +15,15 @@ public class EnemyTowardsPlayer : MonoBehaviour
 
     public LayerMask layerMask;
 
+    public bool isAttack = false;
+
+    GameObject lasthit;
+
+    public Vector3 collision = Vector3.zero;
+
+    Ray ray;
+
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -62,14 +71,7 @@ public class EnemyTowardsPlayer : MonoBehaviour
         startPos = transform.localPosition;
     }
 
-    public bool isAttack = false;
-
-    public GameObject lasthit;
-
-    public Vector3 collision = Vector3.zero;
-
-    Ray ray;
-
+ 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -97,15 +99,12 @@ public class EnemyTowardsPlayer : MonoBehaviour
 
             StartCoroutine(ChangePos());
 
-            //isAttack = true;
 
             lasthit = hit.transform.gameObject;
 
-            Debug.Log(lasthit.name);
+            Debug.Log("hit"+lasthit.name);
 
         }
-
-      //  Debug.DrawRay(transform.position, transform.forward*50, Color.yellow);
 
 
     }

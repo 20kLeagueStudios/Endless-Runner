@@ -60,30 +60,6 @@ public class EnemyFly : MonoBehaviour
     }
 
 
-    IEnumerator EnemiesFlyHoriz()
-    {
-        yield return new WaitForSeconds(1.5f);
-
-        waitTime = 20f;
-        elapsedTime = 0f;
-
-        while (elapsedTime < waitTime) //fino a quando elapsedtime è minore di waittime..
-        {
-            elapsedTime += Time.deltaTime; //...incrementiamo elapsedtime con il passare del tempo
-
-            //la nuova posizione dell'oggetto è un nuovo vettore che ha su x e z la posizione dell oggetto stesso, su y un ping pong tra 0 e 2 
-
-            transform.localPosition = new Vector3(Mathf.PingPong((elapsedTime / waitTime) * speed, 2f) + offset, transform.localPosition.y, transform.localPosition.z);
-
-
-            yield return null;
-
-        }
-
-
-        yield return null;
-
-    }
         // Update is called once per frame
         void Update()
     {
