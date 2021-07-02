@@ -15,6 +15,8 @@ public class EnemyTowardsPlayer : MonoBehaviour
 
     public LayerMask layerMask;
 
+    public bool isAttack = false;
+
     GameObject lasthit;
 
     public Vector3 collision = Vector3.zero;
@@ -33,6 +35,8 @@ public class EnemyTowardsPlayer : MonoBehaviour
 
     void OnEnable()
     {
+        isAttack = false;
+        // transform.localPosition = trackPos[rndPos].transform.localPosition;
         transform.localPosition = startPos;
         anim.Play("IdleNormal");
 
@@ -43,12 +47,15 @@ public class EnemyTowardsPlayer : MonoBehaviour
         float elapsedTime = 0;
         float waitTime = 1.5f;
 
+        anim.Play("Attack01");
+
         while (elapsedTime < waitTime)
         {
 
          elapsedTime += Time.deltaTime;
 
          transform.localPosition = Vector3.Lerp(startPos, targetPos, (elapsedTime / waitTime) * speed);
+
 
          yield return null;
 
@@ -86,11 +93,12 @@ public class EnemyTowardsPlayer : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 30f, layerMask))
         {
-            anim.Play("Attack01");
+          
 
             collision = hit.point;
 
             StartCoroutine(ChangePos());
+
 
             lasthit = hit.transform.gameObject;
 

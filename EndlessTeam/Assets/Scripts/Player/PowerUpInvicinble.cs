@@ -18,10 +18,46 @@ public class PowerUpInvicinble : MonoBehaviour
 
     [SerializeField] PlayerHealth playerHealth;
 
+    //Collider[] hitObjects;
 
+    //public float range;
+
+    //public LayerMask layermask;
 
     public bool isInvincible=false;
 
+    /*
+    void DestroyAllObstacles(Vector3 origin)
+    {
+        hitObjects = Physics.OverlapSphere(origin, range,layermask);
+
+        foreach (Collider hitobj  in hitObjects)
+        {
+            hitobj.gameObject.SetActive(false);
+        }
+
+    }
+
+  
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(playerHealth.canBeHit == false && isInvincible == true)
+        {
+            DestroyAllObstacles(collision.GetContact(0).point);
+        }
+
+        else
+        {
+           // StopCollider(collision.GetContact(0).thisCollider.isTrigger=true);
+
+            //sthis.gameObject.GetComponent<CharacterController>().
+
+        }
+
+    }
+
+    */
 
     private void OnTriggerEnter(Collider other)
     {
