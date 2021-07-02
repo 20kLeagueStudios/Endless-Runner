@@ -18,12 +18,17 @@ public class ObjectPooling : MonoBehaviour
     //Carreggiate massime iniziali con l'istanza emptyTile
     int maxTiles = 6;
     //Velocità di movimento delle carreggiate
-    public float speed = 36;
+
+    public float speed = 36; // ora è public, emanuele
+    public float maxSpeed = 70;
+
     //Riferimento al renderer per calcolare la differenza di distanza del renderer per capire dove posizionare 
     //la prossima carreggiata
     Renderer rend;
     //Timer prova
     float currentTimer;
+
+  //  public float speed;
 
     //Enum sulla difficoltà
     enum Mode
@@ -58,6 +63,13 @@ public class ObjectPooling : MonoBehaviour
 
         //Chiamo il metodo che si occupa di creare le prime 6 carreggiate
         initialTiles();
+    }
+
+    public void IncreaseSpeed(float amt)
+    {
+        this.speed = amt;
+        if (this.speed > this.maxSpeed)
+            this.speed = maxSpeed;
     }
 
     private void Update()

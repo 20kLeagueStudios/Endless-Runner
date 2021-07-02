@@ -10,12 +10,13 @@ public class EnemyMove : MonoBehaviour
 
     Vector3 startPos;
 
-    int rndPos;
+    public int tmpRnd;
+
+    public int rndPos;
+
+    public float waitTime = 2f;
 
     Animator anim;
-
-    
-
 
     private void Awake()
     {
@@ -30,9 +31,9 @@ public class EnemyMove : MonoBehaviour
         transform.localPosition = startPos;
         rndPos = Random.Range(0, trackPos.Length);
 
+        tmpRnd = (int)transform.localPosition.x;
+
     }
-
-
 
     void OnEnable()
     {
@@ -43,29 +44,33 @@ public class EnemyMove : MonoBehaviour
 
     }
 
+
     IEnumerator ChangePos()
     {
         float elapsedtime = 0;
-        float waitTime = 2f;
-
         Vector3 tmpPos = targetPos;
+
+        tmpRnd = rndPos;
 
         rndPos = Random.Range(0, trackPos.Length);
 
-        /*
-        if (rndPos == 0)
+        if (tmpRnd > 1 || tmpRnd==0)
         {
-            targetPos = trackPos[rndPos + 1].transform.localPosition;
-
+            rndPos = 1;
         }
 
-        else if(rndPos >= trackPos.Length && rndPos != 0)
+        if (rndPos==tmpRnd)
         {
-            targetPos = trackPos[rndPos - 1].transform.localPosition;
+            if(tmpRnd==2)
+            rndPos = tmpRnd - 1;
+         
+            if (tmpRnd == 0)
+                rndPos = tmpRnd + 1;
+
+            if (tmpRnd == 1)
+                rndPos = Random.Range(0, 2) == 0 ? 0 : 2;
         }
-
-        */
-
+      
 
         targetPos = trackPos[rndPos].transform.localPosition;
 
@@ -87,12 +92,8 @@ public class EnemyMove : MonoBehaviour
 
         transform.localPosition = targetPos;
 
-
-       // yield return new WaitForSeconds(.3f);
-
         StartCoroutine(ChangePos());
 
-        
     }
 
     // Update is called once per frame

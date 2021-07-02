@@ -10,92 +10,81 @@ public class EnemySmoothHor : MonoBehaviour
 
     Vector3 startPos;
 
-    //  int rndPos;
-
-    public bool isTurning = false;
-
     Animator anim;
 
-    public float pingpong;
+    public float speed = 20;
+
 
     private void Awake()
     {
         anim = GetComponent<Animator>();
+        targetPos = trackPos[1].transform.localPosition;
         startPos = trackPos[0].transform.localPosition;
 
     }
 
     private void Start()
     {
-
-        transform.localPosition = startPos;
-       // rndPos = Random.Range(0, trackPos.Length);
-
+        targetPos = trackPos[1].transform.localPosition;
+        startPos = trackPos[0].transform.localPosition;
     }
-
 
 
     void OnEnable()
     {
+        //elapsedTime = 0; ----
+        //pingpong = 0f;
+        startPos = trackPos[0].transform.localPosition;
 
-        // transform.localPosition = trackPos[rndPos].transform.localPosition;
         transform.localPosition = startPos;
         StartCoroutine(ChangePos());
 
+       
     }
+
 
     IEnumerator ChangePos()
     {
+        float pingpong;
         float elapsedTime = 0;
         float waitTime = 20;
 
-        //transform.localRotation = Quaternion.identity;
         targetPos = trackPos[1].transform.localPosition;
+        startPos = trackPos[0].transform.localPosition;
 
-        Vector3 tmpPos = transform.localPosition;
-
-        while (elapsedTime < waitTime)
+        while (isActiveAndEnabled)
         {
-            pingpong = Mathf.PingPong(Time.time * 0.5f, targetPos.x);
+
+            elapsedTime += Time.deltaTime;
+
+            pingpong = Mathf.PingPong((elapsedTime/waitTime)*speed, 1);
 
             transform.localPosition = Vector3.Lerp(startPos, targetPos, pingpong);
 
             anim.Play("WalkFWD");
 
-            if(transform.localPosition.x > 0.9f)
-            {
-                isTurning = true;
-            }
-            if (transform.localPosition.x < -0.9f ) 
-            { 
-                isTurning = false; 
-            }
-
-            if(isTurning)
+            if(transform.localPosition.x >= targetPos.x - 0.2f)
             {
                 transform.localRotation = Quaternion.Euler(0, -90, 0);
             }
-            else if (isTurning==false)
-            { 
-             transform.localRotation = Quaternion.Euler(0, 90, 0);
+            if (transform.localPosition.x <= startPos.x + 0.2f) 
+            {
+                transform.localRotation = Quaternion.Euler(0, 90, 0);
             }
 
+          
             yield return null;
 
         }
 
-  
 
         yield return null;
-
-
-
 
     }
 
     // Update is called once per frame
     void Update()
     {
-
+       
     }
 }

@@ -15,6 +15,13 @@ public class EnemyTowardsPlayer : MonoBehaviour
 
     public LayerMask layerMask;
 
+    GameObject lasthit;
+
+    public Vector3 collision = Vector3.zero;
+
+    Ray ray;
+
+
     private void Awake()
     {
         anim = GetComponent<Animator>();
@@ -26,8 +33,6 @@ public class EnemyTowardsPlayer : MonoBehaviour
 
     void OnEnable()
     {
-        isAttack = false;
-        // transform.localPosition = trackPos[rndPos].transform.localPosition;
         transform.localPosition = startPos;
         anim.Play("IdleNormal");
 
@@ -38,15 +43,12 @@ public class EnemyTowardsPlayer : MonoBehaviour
         float elapsedTime = 0;
         float waitTime = 1.5f;
 
-        anim.Play("Attack01");
-
         while (elapsedTime < waitTime)
         {
 
          elapsedTime += Time.deltaTime;
 
          transform.localPosition = Vector3.Lerp(startPos, targetPos, (elapsedTime / waitTime) * speed);
-
 
          yield return null;
 
@@ -62,14 +64,7 @@ public class EnemyTowardsPlayer : MonoBehaviour
         startPos = transform.localPosition;
     }
 
-    public bool isAttack = false;
-
-    public GameObject lasthit;
-
-    public Vector3 collision = Vector3.zero;
-
-    Ray ray;
-
+ 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;
@@ -91,21 +86,17 @@ public class EnemyTowardsPlayer : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit, 30f, layerMask))
         {
-          
+            anim.Play("Attack01");
 
             collision = hit.point;
 
             StartCoroutine(ChangePos());
 
-            //isAttack = true;
-
             lasthit = hit.transform.gameObject;
 
-            Debug.Log(lasthit.name);
+            Debug.Log("hit"+lasthit.name);
 
         }
-
-      //  Debug.DrawRay(transform.position, transform.forward*50, Color.yellow);
 
 
     }
