@@ -724,6 +724,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2539507645114299317, guid: 66aa9e8e402136247899536a755bb828,
+        type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2539507645114299319, guid: 66aa9e8e402136247899536a755bb828,
         type: 3}
       propertyPath: movSpeed
@@ -937,8 +942,10 @@ MonoBehaviour:
   playerMovement: {fileID: 1440462363}
   healthBar: {fileID: 1160701111}
   gameScript: {fileID: 1251947645}
-  maxHealth: 5
+  maxHealth: 10
+  currentHealth: 0
   animator: {fileID: 1823495550}
+  canBeHit: 1
 --- !u!95 &1823495550 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 2539507646253671651, guid: 66aa9e8e402136247899536a755bb828,

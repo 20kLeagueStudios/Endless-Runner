@@ -21,13 +21,15 @@ public class PlayerHealth : MonoBehaviour
     float initialSpeed;
 
     [SerializeField]
-    int maxHealth;
-    int currentHealth;
+    public int maxHealth;
+    public int currentHealth;
 
     Color playerColor;
 
     [SerializeField]
     Animator animator;
+    
+    public bool canBeHit = true; //emanuele
     void Start()
     {
         gameScript = GameObject.FindObjectOfType<Game>();
@@ -41,7 +43,7 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle"))
+        if (other.CompareTag("Obstacle") && canBeHit == true)
         {
             StartCoroutine("HitCor", playerMesh);
             TakeDamage(1);
@@ -50,6 +52,7 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator HitCor(MeshRenderer meshToFade)
     {
+        canBeHit = false;
         objectPooling.speed = objectPooling.speed / 1.3f;
         Color fadeColor = meshToFade.material.color;
 
@@ -63,12 +66,14 @@ public class PlayerHealth : MonoBehaviour
         }
 
         objectPooling.speed = initialSpeed;
+        canBeHit = true;
 
 
     }
 
     void TakeDamage(int value)
     {
+        Debug.Log("Prova");
         currentHealth -= value;
         if (currentHealth > 0)
             healthBar.SetHealth(currentHealth);
