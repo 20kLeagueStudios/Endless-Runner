@@ -22,7 +22,7 @@ public class TrappolaCorda : MonoBehaviour
             corda.SetActive(false);
             tronco.SetActive(true);
             aim.SetTrigger("Trigger_Tronco");
-            Debug.Log("OK");
+      
         }
     }
     // Update is called once per frame

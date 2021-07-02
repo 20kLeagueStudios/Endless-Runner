@@ -22,14 +22,14 @@ public class Trapola_gas : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             V_Inesco();
-            Debug.Log("OK");
+           
         }
 
     }
     void V_Inesco()
     {
         inesco.SetActive(false);
-            cc.SetTrigger("Trigger_Inesco");
+        cc.SetTrigger("Trigger_Inesco");
         aim.SetTrigger("Trigger_Gas");
     }
 

@@ -2,23 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trapola_gas2 : MonoBehaviour
+public class Trappola_Ago : MonoBehaviour
 {
     [SerializeField]
     private Animator aim;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
     void OnTriggerEnter(Collider c)
     {
 
-        if (c.gameObject.CompareTag("GG"))
+        if (c.gameObject.CompareTag("Player"))
         {
-            aim.SetTrigger("Trigger_Gas");
+            aim.SetTrigger("DARDI");
+            
         }
-        
+       
     }
 }
