@@ -77,11 +77,15 @@ public class PlayerMovement : MonoBehaviour
     Animator animator;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     string prePoint;
     Vector3 value = default;
     Vector3 initialPoint;
     RaycastHit hit;
     bool rayWall = false;
+=======
+    GameObject currentObstacle;
+>>>>>>> parent of 133c282 (Revert "Score")
 =======
     GameObject currentObstacle;
 >>>>>>> parent of 133c282 (Revert "Score")
@@ -113,6 +117,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         //value.x = positions[1].position.x - positions[0].position.x;
 
         //initialPoint = transform.position - (value / 2) - Vector3.right;
@@ -125,6 +130,8 @@ public class PlayerMovement : MonoBehaviour
         //}
 
         //Debug.DrawRay(ray.origin, ray.direction + (new Vector3(value.x + 1, 0, 0)), Color.red);
+=======
+>>>>>>> parent of 133c282 (Revert "Score")
 =======
 >>>>>>> parent of 133c282 (Revert "Score")
 
