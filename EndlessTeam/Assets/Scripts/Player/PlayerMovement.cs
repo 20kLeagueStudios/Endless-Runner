@@ -3,10 +3,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
     #region Variabili
+    float scoreIncTime;
+
+    [SerializeField]
+    TextMeshProUGUI scoreText;
+
     [SerializeField]
     PlayerHealth healthScript;
     [SerializeField]
@@ -109,6 +115,10 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     LayerMask wallMask;
 
+    GameObject currentObstacle = default;
+
+    int currentScore = 0;
+
     #endregion
 
     private void Start()
@@ -124,10 +134,18 @@ public class PlayerMovement : MonoBehaviour
 
         //Assegno di default il valore mid all'enum swipe
         swipeEn = Swipe.Mid;
+
+        scoreIncTime = Time.time;
     }
 
     void Update()
     {
+
+        if (Time.time - scoreIncTime > .5f)
+        {
+            IncreaseScore(50);
+            scoreIncTime = Time.time;
+        }
 
         isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
 
@@ -214,6 +232,7 @@ public class PlayerMovement : MonoBehaviour
         //Se lo swipe ha superato la deadzone di 125
         if (swipeDelta.magnitude > 10)
         {
+         
             //Prendo i suoi valori x e y
             float x = swipeDelta.x;
             float y = swipeDelta.y;
@@ -274,8 +293,10 @@ public class PlayerMovement : MonoBehaviour
                     //Altrimenti se sto facendo uno swipe orizzontale
                     else
                     {
+
                         //Fermo la coroutine nel caso in cui dovesse essere ancora attiva per la chiamata precedente
                         StopCoroutine("ChangingPosition");
+                        StopAllCoroutines();
                         //Chiamo la coroutine per cambiare carreggiata e gli passo la stringa dell'enum che servirà da target
                         StartCoroutine(ChangingPosition(swipeEn.ToString()));
                         //Non posso effettuare lo swipe fino all'inizio del prossimo tocco
@@ -293,7 +314,6 @@ public class PlayerMovement : MonoBehaviour
                         {
 
 
-                            Debug.Log(1);
                             //Applico la forza del salto a verticalForce
                             verticalForce.y = jumpForce;
                             //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
@@ -321,6 +341,7 @@ public class PlayerMovement : MonoBehaviour
                     {
                         //Fermo la coroutine nel caso in cui dovesse essere ancora attiva per la chiamata precedente
                         StopCoroutine("ChangingPosition");
+                        StopAllCoroutines();
                         //Chiamo la coroutine per cambiare carreggiata e gli passo la stringa dell'enum che servirà da target
                         StartCoroutine(ChangingPosition(swipeEn.ToString()));
                         //Non posso effettuare lo swipe fino all'inizio del prossimo tocco
@@ -442,6 +463,7 @@ public class PlayerMovement : MonoBehaviour
         //Finchè il valore x della posizione non è uguale a quello del target
         while (transform.position.x != finalPos.x)
         {
+            //Debug.Log("Prova");
             //Lerpo la posizione a quella finale
             dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
             dest.y = transform.position.y;
@@ -697,6 +719,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Obstacle")) currentObstacle = other.gameObject;
+        if (other.CompareTag("Point"))
+        {
+            if (other.GetComponentInParent<Transform>().gameObject != currentObstacle) IncreaseScore(200);
+        }
 
         if (rayWall)
         {
@@ -717,5 +744,11 @@ public class PlayerMovement : MonoBehaviour
                 healthScript.InstantDeath();
             }
         }
+    }
+
+    private void IncreaseScore(int value)
+    {
+        currentScore += value;
+        scoreText.text = "Score: " + currentScore.ToString(); 
     }
 }
