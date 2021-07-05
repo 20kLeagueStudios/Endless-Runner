@@ -25,6 +25,8 @@ public class ObjectPooling : MonoBehaviour
     //Timer prova
     float currentTimer;
 
+    public float maxSpeed = 48;
+
     //Enum sulla difficoltà
     enum Mode
     {

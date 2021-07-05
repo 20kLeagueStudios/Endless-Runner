@@ -28,6 +28,8 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField]
     Animator animator;
+
+    public bool canBeHit = true;
     void Start()
     {
         gameScript = GameObject.FindObjectOfType<Game>();
