@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -99,7 +100,16 @@ public class PowerUpInvicinble : MonoBehaviour
 
         playerColor = playerMesh.GetComponent<MeshRenderer>().material.color;
 
+        player = this.gameObject;
+
+        startScale = this.gameObject.transform.localScale;
+
     }
+
+    GameObject player;
+    public Vector3 powerupScale;
+    Vector3 startScale;
+  
 
     // Update is called once per frame
     void Update()
@@ -111,6 +121,82 @@ public class PowerUpInvicinble : MonoBehaviour
 
         }
 
+        /*
+        if (Input.GetKeyDown(KeyCode.Z))
+        {
+
+            StartCoroutine(PowerUpMini());
+
+        }
+        */
 
     }
+
+    public void CallCoroutineMini()
+    {
+        StartCoroutine(PowerUpMini());
+    }
+
+    IEnumerator PowerUpMini()
+    {
+        
+        float elapsedTime=0f;
+        float waitTime = 2f;
+
+        while(elapsedTime<waitTime)
+        {
+            //this.GetComponent<PlayerMovement>().enabled = false;
+
+            elapsedTime += Time.deltaTime;
+
+            player.transform.localScale = Vector3.Lerp(startScale, powerupScale,elapsedTime/waitTime*4);
+
+            yield return null;
+
+        }
+
+       // this.GetComponent<PlayerMovement>().enabled = true;
+
+        player.transform.localScale = powerupScale;
+
+        yield return new WaitForSeconds(4f);
+
+        StartCoroutine(ResetScale());
+
+        yield return new WaitForSeconds(0.5f);
+
+        yield return null;
+
+
+    }
+
+    IEnumerator ResetScale()
+    {
+        float elapsedTime = 0f;
+        float waitTime = 2f;
+
+        while (elapsedTime<waitTime)
+        {
+
+           // this.GetComponent<PlayerMovement>().enabled = false;
+
+            elapsedTime += Time.deltaTime;
+
+            player.transform.localScale = Vector3.Lerp(powerupScale, startScale, elapsedTime / waitTime*4);
+
+            yield return null;
+
+        }
+
+        //this.GetComponent<PlayerMovement>().enabled = true;
+
+        player.transform.localScale = startScale;
+
+        yield return new WaitForSeconds(0.5f);
+
+        yield return null;
+
+    }
+
+
 }

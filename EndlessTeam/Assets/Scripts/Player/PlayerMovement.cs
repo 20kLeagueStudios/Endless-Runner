@@ -51,13 +51,15 @@ public class PlayerMovement : MonoBehaviour
     Swipe swipeEn;
 
     //Gravità, forza di salto e vettore in cui verrà applicato all'asse Y la gravità e il salto
-    float gravity = -30.81f;
-    float jumpForce;
-    Vector3 verticalForce = default;
+
+    public float gravity = -30.81f; ////////prima era privata 
+
+    public float jumpForce; ///////////prima era public
+    public Vector3 verticalForce = default;
 
     //Posizione da cui creare una sfera invisibile che controllerà se si tocca il pavimento o no
-    [SerializeField]
-    Transform groundCheck;
+ 
+    public Transform groundCheck; ////////prima era privata serializzata
 
     //Layer del pavimento
     [SerializeField]
@@ -78,27 +80,32 @@ public class PlayerMovement : MonoBehaviour
     //ChangeG è una booleane che mi servirà per invertire la gravità
     //canIPress è una booleana che mi servirà a mettere un countdown al bottone
     //mentre Image button mi serve come rifermento al bottone per cambiare colore quando viene premuto
-    private bool changeG;
-    private bool canIPress;
-    [SerializeField]
+    public bool changeG;/// era priv
+    public bool canIPress;/// era priv 
+
+    /*
+    [SerializeField]///
     private Image button;
+    */
+
     //is ground mi serve per controllare se il giocatore è Ground
-    private bool isGround;
+    public bool isGround; ///////////////////prima era privata
     //isTetto mi serve controllare se il giocatore tocca il teto o meno
-    private bool isTetto = false;
+    public bool isTetto = false;////////////////prima era privata
     //CGPoint 1 e 2 mi servono per cambiare la posizione del GroundCheck
-    [SerializeField]
-    private GameObject CGPoint1;
-    [SerializeField]
-    private GameObject CGPoint2;
+    
+    public GameObject CGPoint1; ////////prima era privata serializzata
+    public GameObject CGPoint2; ////////prima era privata serializzata
+
     //playerBody mi serve come rifermineto al corpo del giocatore per poi ruotarlo quando cambia la gravità
-    [SerializeField]
-    private GameObject playerBody;
-    [SerializeField]
-    private GameObject cam1pos;
-    [SerializeField]
-    private GameObject cam2pos;
-    private int pressTime;
+   
+    public GameObject playerBody;////////prima era privata serializzata
+
+    public  GameObject cam1pos; ////////prima era privata serializzata
+
+    public  GameObject cam2pos; ////////prima era privata serializzata
+
+    public int pressTime; //////////////// prima era privata
 
     string prePoint;
     Vector3 value = default;
@@ -113,11 +120,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void Start()
     {
-        pressTime = 0;
+        //pressTime = 0;
         //setto ChangeG a false, canIPress a true e il colore a green.
-        changeG = false;
-        canIPress = true;
-        button.color = Color.green;
+        changeG = false; ///
+        canIPress = true; ///
+
+        //button.color = Color.green;///
+
         //Setto l'altezza standard a quella iniziale
         idleHeight = controller.height;
         idlePos = controller.center.y;
@@ -128,7 +137,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
+        
         isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
 
         value.x = positions[1].position.x - positions[0].position.x;
@@ -154,22 +163,26 @@ public class PlayerMovement : MonoBehaviour
 
         Debug.DrawRay(transform.position, transform.forward * 8f, Color.red);
 
-        if (isGround)
+        /*
+        if (isGround) //Se il giocatore torna a terra resetto il pulsante
         {
             pressTime = -1;
         }
 
-        if (pressTime >= 1)
+        if (pressTime >= 0) //Se il pulsante è stato premuto X volte allora diventerà giallo
         {
             button.color = Color.yellow; //setto il colore a giallo
         }
-        if (pressTime < 0)
-        {
-            pressTime++;
-            button.color = Color.green; //setto il colore a giallo
-        }
 
-        if (changeG == false)
+        if (button.color == Color.yellow & isGround) //se il pulsante è giallo e il giocatore è a terra.. allora resetto il colore a verde
+        {
+            button.color = Color.green;
+        }
+        */
+
+
+        /* ADESSO QUESTO CHECK VIENE FATTO NELL UPDATE DELLO SCRIPT POWERUPMANAGER
+        if (changeG == false) ///
         {
             //se ChangeG è false allora richiamo questo metodo
             ChangeGravityOFF();
@@ -179,6 +192,8 @@ public class PlayerMovement : MonoBehaviour
             //se ChangeG è true allora richiamo questo metodo
             ChangeGravityON();
         }
+        */
+
         //Se si sta toccando lo schermo
         if (Input.touchCount > 0)
         {
@@ -233,7 +248,9 @@ public class PlayerMovement : MonoBehaviour
             {
                 //Su
                 if (y > 0)
-                    swipeEn = Swipe.Up;
+                
+                swipeEn = Swipe.Up;
+
                 //Giù
                 else swipeEn = Swipe.Down;
             }
@@ -241,6 +258,7 @@ public class PlayerMovement : MonoBehaviour
             //Se posso effettuare lo swipe
             if (canSwipe)
             {
+
                 if (changeG == false)
                 {
                     //Se faccio lo swipe in alto
@@ -499,6 +517,7 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawSphere(groundCheck.position, .4f);
     }
 
+    /*
     public void ChangeGravity() //questa funzione permette di cambiare gravità quando tocco un bottone.
     {
         if (isGround)
@@ -536,6 +555,8 @@ public class PlayerMovement : MonoBehaviour
 
     }
 
+    */
+
     public void GoUp()
     {
         //setto la verticalForce
@@ -567,6 +588,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    /*
     public void ChangeGravityOFF()
     {
         jumpForce = 18;
@@ -609,6 +631,7 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
+    */
 
     IEnumerator ChangingPosition(Vector3 wallPos)
     {
