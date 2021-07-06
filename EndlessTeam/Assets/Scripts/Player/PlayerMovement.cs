@@ -14,6 +14,9 @@ public class PlayerMovement : MonoBehaviour
     TextMeshProUGUI scoreText;
 
     [SerializeField]
+    TextMeshProUGUI moneyText;
+
+    [SerializeField]
     PlayerHealth healthScript;
     [SerializeField]
     ObjectPooling objectPooling;
@@ -115,9 +118,9 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     LayerMask wallMask;
 
-    GameObject currentObstacle = default;
+    int currentObstacle = default;
 
-    int currentScore = 0;
+    int currentScore = 0, currentMoney = 0;
 
     #endregion
 
@@ -140,10 +143,10 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-
-        if (Time.time - scoreIncTime > .5f)
+        
+        if (Time.time - scoreIncTime > .1f)
         {
-            IncreaseScore(50);
+            IncreaseScore(5);
             scoreIncTime = Time.time;
         }
 
@@ -719,10 +722,24 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle")) currentObstacle = other.gameObject;
+        if (other.CompareTag("Money"))
+        {
+            IncreaseScore(50);
+            IncreaseMoney();
+            Destroy(other.gameObject);
+        }
+        if (other.CompareTag("Obstacle")) {
+            currentObstacle = other.gameObject.GetInstanceID();
+        }
         if (other.CompareTag("Point"))
         {
-            if (other.GetComponentInParent<Transform>().gameObject != currentObstacle) IncreaseScore(200);
+            if (other.transform.parent.gameObject.GetInstanceID() != currentObstacle) IncreaseScore(200);
+            else
+            {
+                IncreaseScore(-250);
+                currentObstacle = -1;
+            }
+            
         }
 
         if (rayWall)
@@ -749,6 +766,14 @@ public class PlayerMovement : MonoBehaviour
     private void IncreaseScore(int value)
     {
         currentScore += value;
+        if (currentScore < 0) currentScore = 0;
         scoreText.text = "Score: " + currentScore.ToString(); 
+       
+    }
+
+    private void IncreaseMoney()
+    {
+        currentMoney += 1;
+        moneyText.text = ": " + currentMoney.ToString();
     }
 }
