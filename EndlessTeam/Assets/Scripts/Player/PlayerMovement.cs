@@ -93,6 +93,8 @@ public class PlayerMovement : MonoBehaviour
     private GameObject cam1pos;
     [SerializeField]
     private GameObject cam2pos;
+    [SerializeField]
+    private GameObject SlamArea;
     private int pressTime;
 
     string prePoint;
@@ -103,6 +105,10 @@ public class PlayerMovement : MonoBehaviour
     Ray ray;
     [SerializeField]
     LayerMask wallMask;
+    bool inSlam;
+    bool firstGrounded;
+    int groundedTime;
+
 
     private void Start()
     {
@@ -114,13 +120,16 @@ public class PlayerMovement : MonoBehaviour
         //Setto l'altezza standard a quella iniziale
         idleHeight = controller.height;
         idlePos = controller.center.y;
-
+        inSlam = false;
         //Assegno di default il valore mid all'enum swipe
         swipeEn = Swipe.Mid;
+        SlamArea.SetActive(false);
+        firstGrounded = false;
     }
 
     void Update()
     {
+
         isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
 
         value.x = positions[1].position.x - positions[0].position.x;
@@ -129,12 +138,23 @@ public class PlayerMovement : MonoBehaviour
         ray.origin = initialPoint;
         ray.direction = transform.right;
 
+        firstGroundCheck();
+
+        if (isGround)
+        {
+            if (inSlam)
+            {
+                StartCoroutine(SlamTime());
+            }  
+            else
+                SlamArea.SetActive(false);
+        }
+
         if (Physics.Raycast(ray.origin, ray.direction, value.x + 1, wallMask))
         {
             rayWall = true;
 
         }
-
         Debug.DrawRay(ray.origin, ray.direction + (new Vector3(value.x + 1, 0, 0)), Color.red);
 
         Debug.Log(isGround);
@@ -251,7 +271,10 @@ public class PlayerMovement : MonoBehaviour
                             StartCoroutine("SlideCor");
                         //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
                         else if (!isGround)
-                            verticalForce.y = -34f;
+                        {
+                            inSlam = true;
+                            StartCoroutine(skianto());
+                        }
 
 
                     }
@@ -296,7 +319,11 @@ public class PlayerMovement : MonoBehaviour
                             StartCoroutine("SlideCor");
                         //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
                         else if (!isGround)
-                            verticalForce.y = 34f;
+                        {
+                            inSlam = true;
+                            StartCoroutine(skianto());
+                        }
+                            
 
 
                     }
@@ -584,6 +611,46 @@ public class PlayerMovement : MonoBehaviour
 
 
     }
+    public IEnumerator skianto() //sistema di Slam
+    {
+
+        if (!changeG) //in base se sono nel tetto o no, applico una verticalForce
+            verticalForce.y = -54f; 
+        else
+            verticalForce.y = -54f;
+        if (firstGrounded) //se è la prima volta che tocco il terreno allora faccio lo Slam
+        {
+                inSlam = true;
+                yield return new WaitForSeconds(0f);
+        }
+    }
+
+    public IEnumerator SlamTime() //se il giocatore fà lo Slem, allora lo attivo (nel momento in cui tocca il ground) e poi lo disttivo
+    {
+        SlamArea.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        inSlam = false;
+        firstGrounded = false;
+    }
+
+    public void firstGroundCheck()
+    {
+        if (isGround) //se è grounded allora aumento di 1 nel tempo groundedTime
+        {
+            groundedTime += 1;
+        }
+        else //sennò lo blocco a -1
+        {
+            groundedTime = -1;
+        }
+        if (groundedTime > 3) //se groundedTime è maggiore di 3 allora lo blocco a 2
+        {
+            groundedTime = 2;
+        }
+        if (groundedTime < 2) //se groundedTime è minore di 2 allora attivo firstGrounded
+            firstGrounded = true;
+    }
+
 
     IEnumerator ChangingPosition(Vector3 wallPos)
     {
