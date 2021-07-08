@@ -10,6 +10,12 @@ public class PlayerMovement : MonoBehaviour
     #region Variabili
     float scoreIncTime;
 
+    bool wallTouch = false;
+
+    bool coroutineOn = false;
+
+    bool isKeyboard = false;
+
     [SerializeField]
     TextMeshProUGUI scoreText;
 
@@ -203,6 +209,7 @@ public class PlayerMovement : MonoBehaviour
         //Se si sta toccando lo schermo
         if (Input.touchCount > 0)
         {
+            isKeyboard = false;
             //Prendo la reference del primo tocco
             Touch touch = Input.touches[0];
             //Se è appena iniziato
@@ -231,7 +238,146 @@ public class PlayerMovement : MonoBehaviour
                 swipeDelta = touch.position - startPos;
             }
         }
+        //Comandi da tastiera, se premo un tasto orizzontale o verticale
+        else if ((Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) && !isKeyboard && !wallTouch)
+        {
+            canSwipe = true;
 
+            Debug.Log("Tastiera");
+            float x = Input.GetAxisRaw("Horizontal");
+            //Debug.Log("X: " + x);
+
+            float y = Input.GetAxisRaw("Vertical");
+            //Debug.Log("Y: " + y);
+            //Calcolo verso dove viene effettuato lo swipe, e poii lo assegno all'enum
+            //Orizzontale
+            if (Mathf.Abs(x) > Mathf.Abs(y))
+            {
+                //Destra
+                if (x > 0)
+                    swipeEn = Swipe.Right;
+                //Sinistra
+                else swipeEn = Swipe.Left;
+            }
+            //Verticale
+            else
+            {
+                //Su
+                if (y > 0)
+                    swipeEn = Swipe.Up;
+                //Giù
+                else if (y < 0) swipeEn = Swipe.Down;
+            }
+
+
+            //Se posso effettuare lo swipe
+            if (canSwipe)
+            {
+                if (changeG == false)
+                {
+                    //Se faccio lo swipe in alto
+                    if (swipeEn == Swipe.Up)
+                    {
+                        //Se tocco il pavimento
+                        if (isGround)
+                        {
+
+                            //Applico la forza del salto a verticalForce
+                            verticalForce.y = jumpForce;
+                            //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
+                            if (sliding) ResetSliding();
+
+
+                        }
+                    }
+                    //Altrimenti se sto effettuando lo swipe in basso
+                    else if (swipeEn == Swipe.Down)
+                    {
+                        //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
+                        if (isGround && !sliding)
+                            StartCoroutine("SlideCor");
+                        //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
+                        else if (!isGround)
+                            verticalForce.y = -34f;
+
+
+                    }
+                    //Altrimenti se sto facendo uno swipe orizzontale
+                    else
+                    {
+                        //if (!coroutineOn)
+                        //{
+                        //Fermo la coroutine nel caso in cui dovesse essere ancora attiva per la chiamata precedente
+                        StopCoroutine("ChangingPosition");
+                        StopAllCoroutines();
+                        //Chiamo la coroutine per cambiare carreggiata e gli passo la stringa dell'enum che servirà da target
+                        StartCoroutine(ChangingPosition(swipeEn.ToString()));
+                        //Non posso effettuare lo swipe fino all'inizio del prossimo tocco
+                        //}
+                    }
+                    //rendo canSwipe a false, in questo modo per fare un nuovo swipe dovrò ripoggiare il dito
+                    canSwipe = false;
+                    isKeyboard = true;
+                }
+                else
+                {
+                    //Se faccio lo swipe in alto
+                    if (swipeEn == Swipe.Down)
+                    {
+                        //Se tocco il pavimento
+                        if (isGround)
+                        {
+
+
+                            //Applico la forza del salto a verticalForce
+                            verticalForce.y = jumpForce;
+                            //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
+                            if (sliding) ResetSliding();
+
+
+                        }
+                    }
+                    //Altrimenti se sto effettuando lo swipe in basso
+                    else if (swipeEn == Swipe.Up)
+                    {
+
+
+                        //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
+                        if (isGround && !sliding)
+                            StartCoroutine("SlideCor");
+                        //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
+                        else if (!isGround)
+                            verticalForce.y = 34f;
+
+
+                    }
+                    //Altrimenti se sto facendo uno swipe orizzontale
+                    else
+                    {
+                        //if (!coroutineOn)
+                        //{
+                        //Fermo la coroutine nel caso in cui dovesse essere ancora attiva per la chiamata precedente
+                        StopCoroutine("ChangingPosition");
+                        StopAllCoroutines();
+                        //Chiamo la coroutine per cambiare carreggiata e gli passo la stringa dell'enum che servirà da target
+
+                        StartCoroutine(ChangingPosition(swipeEn.ToString()));
+                        //Non posso effettuare lo swipe fino all'inizio del prossimo tocco
+                        //}
+                    }
+                    //rendo canSwipe a false, in questo modo per fare un nuovo swipe dovrò ripoggiare il dito
+                    canSwipe = false;
+                    isKeyboard = true;
+
+                }
+
+            }
+        }
+        else if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0) isKeyboard = false;
+
+
+
+        #region Comandi da Telefono
         //Se lo swipe ha superato la deadzone di 125
         if (swipeDelta.magnitude > 10)
         {
@@ -357,6 +503,14 @@ public class PlayerMovement : MonoBehaviour
 
 
         }
+        #endregion
+
+        #region Comandi Tastiera
+
+        else if (isKeyboard && canSwipe) {
+            
+        }
+        #endregion
 
 
         //Applico verticalForce al controller
@@ -408,7 +562,8 @@ public class PlayerMovement : MonoBehaviour
     //Coroutine che si occupa di far cambiare carreggiata al player a seguito di uno swipe
     IEnumerator ChangingPosition(string target)
     {
-
+        Debug.Log("ChangingPos");
+        
         //Prendo la posizione iniziale del player
         Vector3 dest = transform.position;
         //Calcolo della posizione finale
@@ -462,11 +617,11 @@ public class PlayerMovement : MonoBehaviour
 
         //Elimino come poisizione finale le y e la z visto che non verranno intaccati dal cambio di carreggiata
         finalPos.y = finalPos.z = 0;
-
+        Debug.Log("Current State " + currentState);
         //Finchè il valore x della posizione non è uguale a quello del target
         while (transform.position.x != finalPos.x)
         {
-            //Debug.Log("Prova");
+           
             //Lerpo la posizione a quella finale
             dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
             dest.y = transform.position.y;
@@ -484,6 +639,7 @@ public class PlayerMovement : MonoBehaviour
             yield return null;
         }
         prePoint = currentState;
+ 
     }
 
     //Si occupa di effettuare lo slide
@@ -637,9 +793,9 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator ChangingPosition(Vector3 wallPos)
     {
-
+        wallTouch = true;
         string target = transform.position.x > wallPos.x ? target = "Right" : target = "Left";
-        Debug.Log(target);
+        
         //Prendo la posizione iniziale del player
         Vector3 dest = transform.position;
         //Calcolo della posizione finale
@@ -652,7 +808,7 @@ public class PlayerMovement : MonoBehaviour
             //e sono a fuori sinistra
             if (currentState == "LeftOut")
             {
-                Debug.Log("Prova");
+               
                 //Vado nel sinistro
                 finalPos = positions[0].position;
                 currentState = "Left";
@@ -698,7 +854,6 @@ public class PlayerMovement : MonoBehaviour
         //Finchè il valore x della posizione non è uguale a quello del target
         while (transform.position.x != finalPos.x)
         {
-
             //Lerpo la posizione a quella finale
             dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
             dest.y = transform.position.y;
@@ -717,6 +872,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         prePoint = currentState;
+        wallTouch = false;
 
     }
 
