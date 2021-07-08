@@ -116,10 +116,27 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     LayerMask wallMask;
 
+    public PowerUpsManager powerupsManager; ///
+
+
     #endregion
+
+    private void OnEnable()
+    {
+        controller.enabled = false;
+        controller.transform.position = new Vector3(positions[1].position.x, transform.position.y, transform.position.z);
+    }
 
     private void Start()
     {
+        controller.enabled = false;
+        controller.transform.position = new Vector3(positions[1].position.x, transform.position.y, transform.position.z);
+        controller.enabled = true;
+
+        Debug.Log("POSIZIONE" + this.gameObject.transform.position);
+        
+        //characterController.enabled = true;
+
         //pressTime = 0;
         //setto ChangeG a false, canIPress a true e il colore a green.
         changeG = false; ///
@@ -133,11 +150,17 @@ public class PlayerMovement : MonoBehaviour
 
         //Assegno di default il valore mid all'enum swipe
         swipeEn = Swipe.Mid;
+
+
+
     }
+
+
 
     void Update()
     {
-        
+        Debug.Log("POSIZIONE"+ controller.transform.position);
+
         isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
 
         value.x = positions[1].position.x - positions[0].position.x;
@@ -145,6 +168,7 @@ public class PlayerMovement : MonoBehaviour
         initialPoint = transform.position - (value) - Vector3.right;
         ray.origin = initialPoint;
         ray.direction = transform.right;
+
 
         if (Physics.Raycast(ray.origin, ray.direction, value.x + 8, wallMask))
         {
@@ -267,15 +291,17 @@ public class PlayerMovement : MonoBehaviour
                         //Se tocco il pavimento
                         if (isGround)
                         {
-
+                          
                             Debug.Log(0);
                             //Applico la forza del salto a verticalForce
                             verticalForce.y = jumpForce;
                             //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
                             if (sliding) ResetSliding();
 
-
                         }
+
+                      
+
                     }
                     //Altrimenti se sto effettuando lo swipe in basso
                     else if (swipeEn == Swipe.Down)
@@ -285,7 +311,14 @@ public class PlayerMovement : MonoBehaviour
                             StartCoroutine("SlideCor");
                         //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
                         else if (!isGround)
-                            verticalForce.y = -34f;
+                        {
+                            //verticalForce.y = -34f; // mah
+
+                            powerupsManager.inSlam = true;
+                            StartCoroutine(powerupsManager.Skianto());
+
+
+                        }
 
 
                     }
@@ -309,14 +342,11 @@ public class PlayerMovement : MonoBehaviour
                         //Se tocco il pavimento
                         if (isGround)
                         {
-
-
                             Debug.Log(1);
                             //Applico la forza del salto a verticalForce
                             verticalForce.y = jumpForce;
                             //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
                             if (sliding) ResetSliding();
-
 
                         }
                     }
@@ -364,6 +394,7 @@ public class PlayerMovement : MonoBehaviour
             if (changeG == false)
             {
                 if (verticalForce.y < 0) verticalForce.y = -3f;
+
             }
             else
             {
@@ -388,6 +419,7 @@ public class PlayerMovement : MonoBehaviour
     //Disattivo lo sliding, e setto a false l'animazione dello slide così che esca e ritorni allo stato corsa
     public void ResetSliding()
     {
+       // canIPress = true; ////////
         sliding = false;
         animator.SetBool("Slide", false);
     }

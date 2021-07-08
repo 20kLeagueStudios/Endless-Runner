@@ -21,21 +21,28 @@ public class PowerUpsManager : MonoBehaviour
 
     [SerializeField] PlayerMovement playerMovement;
 
-    public bool isInvincible = false;
+    public bool isDashing = false;
 
     GameObject player;
     public Vector3 powerupScale;
     Vector3 startScale;
 
+    public bool canUsePowerUp = true; // bool generale che di9venta false quando un PU è attivo per evitare attivazioni multiple
 
     [SerializeField]
     private Image button;
 
     public int pressTime=1;
 
+    /// variabili per il powerup slam
+    public bool inSlam; ///
+    bool firstGrounded; ///
+    int groundedTime; ///
+    public GameObject SlamArea;///
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle") && isInvincible == true)
+        if (other.CompareTag("Obstacle") && isDashing == true)
         {
             other.gameObject.SetActive(false);
         }
@@ -44,7 +51,9 @@ public class PowerUpsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        SlamArea.SetActive(false);///
+        firstGrounded = false;///
+        inSlam = false;///
 
         initialSpeed = objectPooling.speed;
 
@@ -57,7 +66,7 @@ public class PowerUpsManager : MonoBehaviour
 
     }
 
-
+    /*
     public void ChangeGravity() //questa funzione permette di cambiare gravità quando tocco un bottone.
     {
         if (playerMovement.canIPress == true)
@@ -96,7 +105,45 @@ public class PowerUpsManager : MonoBehaviour
         }
 
     }
+    */
 
+    public void ChangeGravity() //questa funzione permette di cambiare gravità quando tocco un bottone.
+    {
+
+        if (playerMovement.isGround)
+        {
+
+            playerMovement.changeG = !playerMovement.changeG; //allora cambio changeG da true a false o viceversa
+                                                              //StartCoroutine(switchColor()); //starto la couroutine per cambiare il colore del bottone
+            playerMovement.canIPress = false; //setto CaniPress a false
+
+            if (playerMovement.isTetto == false)
+                playerMovement.GoUp();
+
+            if (playerMovement.isTetto == true)
+                playerMovement.GoDown();
+        }
+        else
+        {
+            pressTime++; //se cambio gravità mentre sono in aria (quindi il giocatore non tocca il terreno !isGround) allora aumento "pressTime"
+            if (pressTime < 1) //se pressTime super 1 allora il giocatore non potrà più cambiare gravitò.
+            {
+                if (playerMovement.canIPress == true) //se canIPress è true
+                {
+                    playerMovement.changeG = !playerMovement.changeG; //allora cambio changeG da true a false o viceversa
+                                                                      //StartCoroutine(switchColor()); //starto la couroutine per cambiare il colore del bottone
+                                                                      //playerMovement.canIPress = false; //setto CaniPress a false
+                }
+                if (playerMovement.isTetto == false)
+                    playerMovement.GoUp();
+
+                if (playerMovement.isTetto == true)
+                    playerMovement.GoDown();
+            }
+        }
+
+
+    }
 
     public void ChangeGravityOFF()
     {
@@ -130,7 +177,8 @@ public class PowerUpsManager : MonoBehaviour
         Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, playerMovement.cam2pos.transform.rotation, Time.deltaTime * 2f);
     }
 
-    public IEnumerator switchColor() //cambio colore del bottone
+
+    public IEnumerator SwitchColor() //cambio colore del bottone
     {
 
         button.color = Color.red; //setto il colore a rosso
@@ -141,9 +189,11 @@ public class PowerUpsManager : MonoBehaviour
 
     }
 
-    IEnumerator InvinciblePowerUp(MeshRenderer meshToFade)
+    IEnumerator DashPowerUp(MeshRenderer meshToFade)
     {
+        isDashing = true;
         playerHealth.canBeHit = false;
+        canUsePowerUp = false;
 
         objectPooling.speed = objectPooling.maxSpeed; //per adesso il boost è uguale alla max speed dell'object pooling
 
@@ -161,7 +211,9 @@ public class PowerUpsManager : MonoBehaviour
 
         objectPooling.speed = initialSpeed;
         playerHealth.canBeHit = true;
-        isInvincible = false;
+        isDashing = false;
+        canUsePowerUp = true;
+
 
     }
 
@@ -170,7 +222,12 @@ public class PowerUpsManager : MonoBehaviour
         StartCoroutine(MiniPowerUp());
     }
 
-    IEnumerator MiniPowerUp()
+    public void CallCoroutineDash()
+    {
+        StartCoroutine(DashPowerUp(playerMesh));
+    }
+
+    public IEnumerator MiniPowerUp()
     {
 
         float elapsedTime = 0f;
@@ -178,9 +235,9 @@ public class PowerUpsManager : MonoBehaviour
 
         while (elapsedTime < waitTime)
         {
-            //this.GetComponent<PlayerMovement>().enabled = false;
-
             elapsedTime += Time.deltaTime;
+
+            canUsePowerUp = false;
 
             player.transform.localScale = Vector3.Lerp(startScale, powerupScale, elapsedTime / waitTime * 4);
 
@@ -192,18 +249,20 @@ public class PowerUpsManager : MonoBehaviour
 
         player.transform.localScale = powerupScale;
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(2f);
 
         StartCoroutine(ResetScale());
 
         yield return new WaitForSeconds(0.5f);
+
+        canUsePowerUp = true;
 
         yield return null;
 
 
     }
 
-    IEnumerator ResetScale()
+    public IEnumerator ResetScale()
     {
         float elapsedTime = 0f;
         float waitTime = 2f;
@@ -231,17 +290,63 @@ public class PowerUpsManager : MonoBehaviour
 
     }
 
+   
+
+    public IEnumerator Skianto() //sistema di Slam
+    {
+
+        if (!playerMovement.changeG) //in base se sono nel tetto o no, applico una verticalForce
+            playerMovement.verticalForce.y = -54f;
+        else
+            playerMovement.verticalForce.y =  54f;
+        if (firstGrounded) //se è la prima volta che tocco il terreno allora faccio lo Slam
+        {
+            inSlam = true;
+            yield return null;
+        }
+    }
+
+    public IEnumerator SlamTime() //se il giocatore fà lo Slem, allora lo attivo (nel momento in cui tocca il ground) e poi lo disttivo
+    {
+        SlamArea.SetActive(true);
+        yield return new WaitForSeconds(0.2f);
+        inSlam = false;
+        firstGrounded = false;
+    }
+
+    public void FirstGroundCheck()
+    {
+        if (playerMovement.isGround) //se è grounded allora aumento di 1 nel tempo groundedTime
+        {
+            groundedTime += 1;
+        }
+        else //sennò lo blocco a -1
+        {
+            groundedTime = -1;
+        }
+        if (groundedTime > 3) //se groundedTime è maggiore di 3 allora lo blocco a 2
+        {
+            groundedTime = 2;
+        }
+        if (groundedTime < 2) //se groundedTime è minore di 2 allora attivo firstGrounded
+            firstGrounded = true;
+    }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
+        FirstGroundCheck();
+
+        if (playerMovement.isGround)
         {
-            isInvincible = true;
-            StartCoroutine(InvinciblePowerUp(playerMesh));
-
+            if (inSlam)
+            {
+                StartCoroutine(SlamTime());
+            }
+            else
+                SlamArea.SetActive(false);
         }
-
+        
         if (playerMovement.isGround) //Se il giocatore torna a terra resetto il pulsante
         {
             pressTime = -1;
