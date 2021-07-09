@@ -16,6 +16,8 @@ public class PlayerMovement : MonoBehaviour
 
     bool isKeyboard = false;
 
+    int obstacleCount = 0;
+
     [SerializeField]
     TextMeshProUGUI scoreText;
 
@@ -149,6 +151,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        Debug.Log(objectPooling.speed);
         
         if (Time.time - scoreIncTime > .1f)
         {
@@ -874,6 +877,14 @@ public class PlayerMovement : MonoBehaviour
         prePoint = currentState;
         wallTouch = false;
 
+        if (Physics.CheckBox(transform.position, new Vector3(1, 1, 1), Quaternion.identity));
+
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawCube(transform.position, new Vector3(1,1,1));
+        Gizmos.color = Color.red;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -889,6 +900,13 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.CompareTag("Point"))
         {
+            
+            if (obstacleCount < 5) obstacleCount++;
+            else
+            {
+                obstacleCount = 0;
+                UpgradeSpeed();
+            }
             if (other.transform.parent.gameObject.GetInstanceID() != currentObstacle) IncreaseScore(200);
             else
             {
@@ -931,5 +949,11 @@ public class PlayerMovement : MonoBehaviour
     {
         currentMoney += 1;
         moneyText.text = ": " + currentMoney.ToString();
+    }
+
+    void UpgradeSpeed()
+    {
+        objectPooling.speed += 4;
+        if (objectPooling.speed > objectPooling.maxSpeed) objectPooling.speed = objectPooling.maxSpeed;
     }
 }
