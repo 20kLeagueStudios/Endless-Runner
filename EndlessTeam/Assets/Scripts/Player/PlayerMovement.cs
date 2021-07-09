@@ -331,7 +331,15 @@ public class PlayerMovement : MonoBehaviour
                             StartCoroutine("SlideCor");
                         //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
                         else if (!isGround)
-                            verticalForce.y = -34f;
+                        {
+                            verticalForce.y = -34f; 
+
+                            powerupsManager.inSlam = true;
+                            StartCoroutine(powerupsManager.Slam());
+
+
+                        }
+                        
 
 
                     }
@@ -380,7 +388,15 @@ public class PlayerMovement : MonoBehaviour
                             StartCoroutine("SlideCor");
                         //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
                         else if (!isGround)
-                            verticalForce.y = 34f;
+                        {
+                            verticalForce.y = 34f; 
+
+                            powerupsManager.inSlam = true;
+                            StartCoroutine(powerupsManager.Slam());
+
+
+                        }
+                        
 
 
                     }
