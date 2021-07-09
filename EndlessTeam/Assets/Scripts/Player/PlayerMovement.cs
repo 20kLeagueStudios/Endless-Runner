@@ -105,8 +105,6 @@ public class PlayerMovement : MonoBehaviour
 
     public  GameObject cam2pos; ////////prima era privata serializzata
 
-    public int pressTime; //////////////// prima era privata
-
     string prePoint;
     Vector3 value = default;
     Vector3 initialPoint;

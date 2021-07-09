@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class PowerUpsManager : MonoBehaviour
 {
@@ -9,7 +8,7 @@ public class PowerUpsManager : MonoBehaviour
 
     [SerializeField] Color playerColor;
 
-    float initialSpeed;
+    
 
     [SerializeField] MeshRenderer playerMesh;
 
@@ -21,24 +20,24 @@ public class PowerUpsManager : MonoBehaviour
 
     [SerializeField] PlayerMovement playerMovement;
 
+    float initialSpeed;
+
     public bool isDashing = false;
 
     GameObject player;
     public Vector3 powerupScale;
     Vector3 startScale;
 
-    public bool canUsePowerUp = true; // bool generale che di9venta false quando un PU è attivo per evitare attivazioni multiple
+    public bool canUsePowerUp = true; // bool generale che diventa false quando un PU è attivo per evitare attivazioni multiple
 
-    [SerializeField]
-    private Image button;
-
-    public int pressTime=1;
-
+ 
     /// variabili per il powerup slam
     public bool inSlam; ///
     bool firstGrounded; ///
-    int groundedTime; ///
+    int groundedTime; /// da rimuovere se la funzione FirstgroundCheck viene rimossa
     public GameObject SlamArea;///
+
+   
 
     private void OnTriggerEnter(Collider other)
     {
@@ -66,48 +65,14 @@ public class PowerUpsManager : MonoBehaviour
 
     }
 
-    /*
-    public void ChangeGravity() //questa funzione permette di cambiare gravità quando tocco un bottone.
+    
+
+    public void PowerUpActive(string nomePowerup) //funzione richiamat nello script PowerUpstarter per assegnare ad una piattaforma uno specifico powerup
     {
-        if (playerMovement.canIPress == true)
-        {
-            if (playerMovement.isGround)
-            {
-
-                playerMovement.changeG = !playerMovement.changeG; //allora cambio changeG da true a false o viceversa
-                StartCoroutine(switchColor()); //starto la couroutine per cambiare il colore del bottone
-                playerMovement.canIPress = false; //setto CaniPress a false
-
-                if (playerMovement.isTetto == false)
-                    playerMovement.GoUp();
-
-                if (playerMovement.isTetto == true)
-                    playerMovement.GoDown();
-            }
-            else
-            {
-                pressTime++; //se cambio gravità mentre sono in aria (quindi il giocatore non tocca il terreno !isGround) allora aumento "pressTime"
-                if (pressTime < 1) //se pressTime super 1 allora il giocatore non potrà più cambiare gravitò.
-                {
-                    if (playerMovement.canIPress == true) //se canIPress è true
-                    {
-                        playerMovement.changeG = !playerMovement.changeG; //allora cambio changeG da true a false o viceversa
-                        StartCoroutine(switchColor()); //starto la couroutine per cambiare il colore del bottone
-                        playerMovement.canIPress = false; //setto CaniPress a false
-                    }
-                    if (playerMovement.isTetto == false)
-                        playerMovement.GoUp();
-
-                    if (playerMovement.isTetto == true)
-                        playerMovement.GoDown();
-                }
-            }
-        }
-
+        Invoke(nomePowerup,0f);
     }
-    */
 
-    public void ChangeGravity() //questa funzione permette di cambiare gravità quando tocco un bottone.
+    public void ChangeGravityStarter() //questa funzione permette di cambiare gravità quando tocco un bottone.
     {
 
         if (playerMovement.isGround)
@@ -115,7 +80,7 @@ public class PowerUpsManager : MonoBehaviour
 
             playerMovement.changeG = !playerMovement.changeG; //allora cambio changeG da true a false o viceversa
                                                               //StartCoroutine(switchColor()); //starto la couroutine per cambiare il colore del bottone
-            playerMovement.canIPress = false; //setto CaniPress a false
+           // playerMovement.canIPress = false; //setto CaniPress a false
 
             if (playerMovement.isTetto == false)
                 playerMovement.GoUp();
@@ -125,21 +90,15 @@ public class PowerUpsManager : MonoBehaviour
         }
         else
         {
-            pressTime++; //se cambio gravità mentre sono in aria (quindi il giocatore non tocca il terreno !isGround) allora aumento "pressTime"
-            if (pressTime < 1) //se pressTime super 1 allora il giocatore non potrà più cambiare gravitò.
-            {
-                if (playerMovement.canIPress == true) //se canIPress è true
-                {
-                    playerMovement.changeG = !playerMovement.changeG; //allora cambio changeG da true a false o viceversa
-                                                                      //StartCoroutine(switchColor()); //starto la couroutine per cambiare il colore del bottone
-                                                                      //playerMovement.canIPress = false; //setto CaniPress a false
-                }
+
+                playerMovement.changeG = !playerMovement.changeG; //allora cambio changeG da true a false o viceversa
+                
                 if (playerMovement.isTetto == false)
                     playerMovement.GoUp();
 
                 if (playerMovement.isTetto == true)
                     playerMovement.GoDown();
-            }
+            
         }
 
 
@@ -177,18 +136,6 @@ public class PowerUpsManager : MonoBehaviour
         Camera.main.transform.rotation = Quaternion.Slerp(Camera.main.transform.rotation, playerMovement.cam2pos.transform.rotation, Time.deltaTime * 2f);
     }
 
-
-    public IEnumerator SwitchColor() //cambio colore del bottone
-    {
-
-        button.color = Color.red; //setto il colore a rosso
-        yield return new WaitForSeconds(0.5f); //dopo 1 secondo
-        button.color = Color.green; //setto il colore a verde
-        playerMovement.canIPress = true; //setto canIPress a true, così il bottone si può ripremere.
-
-
-    }
-
     IEnumerator DashPowerUp(MeshRenderer meshToFade)
     {
         isDashing = true;
@@ -217,16 +164,18 @@ public class PowerUpsManager : MonoBehaviour
 
     }
 
-    public void CallCoroutineMini()
-    {
-        StartCoroutine(MiniPowerUp());
-    }
 
-    public void CallCoroutineDash()
+    public void DashStarter()
     {
         StartCoroutine(DashPowerUp(playerMesh));
     }
 
+    /*
+    public void CallCoroutineMini()
+    {
+        StartCoroutine(MiniPowerUp());
+    }
+    */
     public IEnumerator MiniPowerUp()
     {
 
@@ -290,9 +239,19 @@ public class PowerUpsManager : MonoBehaviour
 
     }
 
-   
 
-    public IEnumerator Skianto() //sistema di Slam
+    public void MiniStarter()///
+    {
+        StartCoroutine(MiniPowerUp());
+    }
+
+    /*public void CallCoroutineDash()
+    {
+        StartCoroutine(DashPowerUp(playerMesh));
+    }
+    */
+
+    public IEnumerator Skianto() //sistema di Slam, viene chiamato nello script PlayerMovement
     {
 
         if (!playerMovement.changeG) //in base se sono nel tetto o no, applico una verticalForce
@@ -314,6 +273,7 @@ public class PowerUpsManager : MonoBehaviour
         firstGrounded = false;
     }
 
+    /*
     public void FirstGroundCheck()
     {
         if (playerMovement.isGround) //se è grounded allora aumento di 1 nel tempo groundedTime
@@ -331,11 +291,12 @@ public class PowerUpsManager : MonoBehaviour
         if (groundedTime < 2) //se groundedTime è minore di 2 allora attivo firstGrounded
             firstGrounded = true;
     }
+    */
 
     // Update is called once per frame
     void Update()
     {
-        FirstGroundCheck();
+        //FirstGroundCheck();
 
         if (playerMovement.isGround)
         {
@@ -346,21 +307,7 @@ public class PowerUpsManager : MonoBehaviour
             else
                 SlamArea.SetActive(false);
         }
-        
-        if (playerMovement.isGround) //Se il giocatore torna a terra resetto il pulsante
-        {
-            pressTime = -1;
-        }
-
-        if (pressTime >= 0) //Se il pulsante è stato premuto X volte allora diventerà giallo
-        {
-            button.color = Color.yellow; //setto il colore a giallo
-        }
-
-        if (button.color == Color.yellow & playerMovement.isGround) //se il pulsante è giallo e il giocatore è a terra.. allora resetto il colore a verde
-        {
-            button.color = Color.green;
-        }
+      
 
         if (playerMovement.changeG == false) ///
         {
