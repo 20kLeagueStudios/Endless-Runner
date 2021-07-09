@@ -877,15 +877,13 @@ public class PlayerMovement : MonoBehaviour
         prePoint = currentState;
         wallTouch = false;
 
-        if (Physics.CheckBox(transform.position, new Vector3(1, 1, 1), Quaternion.identity));
-
     }
 
-    private void OnDrawGizmosSelected()
-    {
-        Gizmos.DrawCube(transform.position, new Vector3(1,1,1));
-        Gizmos.color = Color.red;
-    }
+    //private void OnDrawGizmosSelected()
+    //{
+    //    Gizmos.DrawCube(transform.position, new Vector3(1,1,1));
+    //    Gizmos.color = Color.red;
+    //}
 
     private void OnTriggerEnter(Collider other)
     {
