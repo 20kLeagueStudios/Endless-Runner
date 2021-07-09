@@ -251,18 +251,33 @@ public class PowerUpsManager : MonoBehaviour
     }
     */
 
-    public IEnumerator Skianto() //sistema di Slam, viene chiamato nello script PlayerMovement
+
+    /* public IEnumerator Slam() //sistema di Slam, viene chiamato nello script PlayerMovement
+     {
+
+         if (!playerMovement.changeG) //in base se sono nel tetto o no, applico una verticalForce
+             playerMovement.verticalForce.y = -54f;
+         else
+             playerMovement.verticalForce.y =  54f;
+         if (firstGrounded) //se è la prima volta che tocco il terreno allora faccio lo Slam
+         {
+             inSlam = true;
+             yield return null;
+         }
+     }
+     */ //versione originale skianto
+
+    public IEnumerator Slam() //sistema di Slam, viene chiamato nello script PlayerMovement
     {
 
         if (!playerMovement.changeG) //in base se sono nel tetto o no, applico una verticalForce
             playerMovement.verticalForce.y = -54f;
         else
-            playerMovement.verticalForce.y =  54f;
-        if (firstGrounded) //se è la prima volta che tocco il terreno allora faccio lo Slam
-        {
+            playerMovement.verticalForce.y = 54f;
+        
             inSlam = true;
             yield return null;
-        }
+        
     }
 
     public IEnumerator SlamTime() //se il giocatore fà lo Slem, allora lo attivo (nel momento in cui tocca il ground) e poi lo disttivo

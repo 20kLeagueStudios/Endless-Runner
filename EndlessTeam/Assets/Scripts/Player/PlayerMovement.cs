@@ -310,10 +310,10 @@ public class PlayerMovement : MonoBehaviour
                         //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
                         else if (!isGround)
                         {
-                            //verticalForce.y = -34f; // mah
+                            //verticalForce.y = -34f; // 
 
                             powerupsManager.inSlam = true;
-                            StartCoroutine(powerupsManager.Skianto());
+                            StartCoroutine(powerupsManager.Slam());
 
 
                         }
