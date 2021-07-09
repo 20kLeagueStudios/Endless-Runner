@@ -3,10 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PlayerMovement : MonoBehaviour
 {
     #region Variabili
+    bool isKeyboard = false, wallTouch = false;
+
+    int currentObstacle = default;
+
+    int currentScore = 0, currentMoney = 0;
+
+
+    int obstacleCount = 0;
+
+    float scoreIncTime;
+
+    [SerializeField]
+    TextMeshProUGUI scoreText;
+
+    [SerializeField]
+    TextMeshProUGUI moneyText;
+
     [SerializeField]
     PlayerHealth healthScript;
     [SerializeField]
@@ -157,7 +175,14 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        Debug.Log("POSIZIONE"+ controller.transform.position);
+
+        if (Time.time - scoreIncTime > .1f)
+        {
+            IncreaseScore(5);
+            scoreIncTime = Time.time;
+        }
+
+        //Debug.Log("POSIZIONE"+ controller.transform.position);
 
         isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
 
@@ -246,7 +271,144 @@ public class PlayerMovement : MonoBehaviour
                 //Calcolo la differenza per effettuare lo swipe e l'assengo a swipeDelta
                 swipeDelta = touch.position - startPos;
             }
+        } //Comandi da tastiera, se premo un tasto orizzontale o verticale
+        else if ((Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) && !isKeyboard && !wallTouch)
+        {
+            canSwipe = true;
+
+            Debug.Log("Tastiera");
+            float x = Input.GetAxisRaw("Horizontal");
+            //Debug.Log("X: " + x);
+
+            float y = Input.GetAxisRaw("Vertical");
+            //Debug.Log("Y: " + y);
+            //Calcolo verso dove viene effettuato lo swipe, e poii lo assegno all'enum
+            //Orizzontale
+            if (Mathf.Abs(x) > Mathf.Abs(y))
+            {
+                //Destra
+                if (x > 0)
+                    swipeEn = Swipe.Right;
+                //Sinistra
+                else swipeEn = Swipe.Left;
+            }
+            //Verticale
+            else
+            {
+                //Su
+                if (y > 0)
+                    swipeEn = Swipe.Up;
+                //Giù
+                else if (y < 0) swipeEn = Swipe.Down;
+            }
+
+
+            //Se posso effettuare lo swipe
+            if (canSwipe)
+            {
+                if (changeG == false)
+                {
+                    //Se faccio lo swipe in alto
+                    if (swipeEn == Swipe.Up)
+                    {
+                        //Se tocco il pavimento
+                        if (isGround)
+                        {
+
+                            //Applico la forza del salto a verticalForce
+                            verticalForce.y = jumpForce;
+                            //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
+                            if (sliding) ResetSliding();
+
+
+                        }
+                    }
+                    //Altrimenti se sto effettuando lo swipe in basso
+                    else if (swipeEn == Swipe.Down)
+                    {
+                        //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
+                        if (isGround && !sliding)
+                            StartCoroutine("SlideCor");
+                        //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
+                        else if (!isGround)
+                            verticalForce.y = -34f;
+
+
+                    }
+                    //Altrimenti se sto facendo uno swipe orizzontale
+                    else
+                    {
+                        //if (!coroutineOn)
+                        //{
+                        //Fermo la coroutine nel caso in cui dovesse essere ancora attiva per la chiamata precedente
+                        StopCoroutine("ChangingPosition");
+                        StopAllCoroutines();
+                        //Chiamo la coroutine per cambiare carreggiata e gli passo la stringa dell'enum che servirà da target
+                        StartCoroutine(ChangingPosition(swipeEn.ToString()));
+                        //Non posso effettuare lo swipe fino all'inizio del prossimo tocco
+                        //}
+                    }
+                    //rendo canSwipe a false, in questo modo per fare un nuovo swipe dovrò ripoggiare il dito
+                    canSwipe = false;
+                    isKeyboard = true;
+                }
+                else
+                {
+                    //Se faccio lo swipe in alto
+                    if (swipeEn == Swipe.Down)
+                    {
+                        //Se tocco il pavimento
+                        if (isGround)
+                        {
+
+
+                            //Applico la forza del salto a verticalForce
+                            verticalForce.y = jumpForce;
+                            //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
+                            if (sliding) ResetSliding();
+
+
+                        }
+                    }
+                    //Altrimenti se sto effettuando lo swipe in basso
+                    else if (swipeEn == Swipe.Up)
+                    {
+
+
+                        //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
+                        if (isGround && !sliding)
+                            StartCoroutine("SlideCor");
+                        //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
+                        else if (!isGround)
+                            verticalForce.y = 34f;
+
+
+                    }
+                    //Altrimenti se sto facendo uno swipe orizzontale
+                    else
+                    {
+                        //if (!coroutineOn)
+                        //{
+                        //Fermo la coroutine nel caso in cui dovesse essere ancora attiva per la chiamata precedente
+                        StopCoroutine("ChangingPosition");
+                        StopAllCoroutines();
+                        //Chiamo la coroutine per cambiare carreggiata e gli passo la stringa dell'enum che servirà da target
+
+                        StartCoroutine(ChangingPosition(swipeEn.ToString()));
+                        //Non posso effettuare lo swipe fino all'inizio del prossimo tocco
+                        //}
+                    }
+                    //rendo canSwipe a false, in questo modo per fare un nuovo swipe dovrò ripoggiare il dito
+                    canSwipe = false;
+                    isKeyboard = true;
+
+                }
+
+            }
         }
+        else if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0) isKeyboard = false;
+
+
 
         //Se lo swipe ha superato la deadzone di 125
         if (swipeDelta.magnitude > 10)
@@ -750,6 +912,33 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Money"))
+        {
+            IncreaseScore(50);
+            IncreaseMoney();
+            Destroy(other.gameObject);
+        }
+        if (other.CompareTag("Obstacle"))
+        {
+            currentObstacle = other.gameObject.GetInstanceID();
+        }
+        if (other.CompareTag("Point"))
+        {
+
+            if (obstacleCount < 5) obstacleCount++;
+            else
+            {
+                obstacleCount = 0;
+                UpgradeSpeed();
+            }
+            if (other.transform.parent.gameObject.GetInstanceID() != currentObstacle) IncreaseScore(200);
+            else
+            {
+                IncreaseScore(-250);
+                currentObstacle = -1;
+            }
+
+        }
 
         if (rayWall)
         {
@@ -770,5 +959,25 @@ public class PlayerMovement : MonoBehaviour
                 healthScript.InstantDeath();
             }
         }
+    }
+
+    private void IncreaseScore(int value)
+    {
+        currentScore += value;
+        if (currentScore < 0) currentScore = 0;
+        scoreText.text = "Score: " + currentScore.ToString();
+
+    }
+
+    private void IncreaseMoney()
+    {
+        currentMoney += 1;
+        moneyText.text = ": " + currentMoney.ToString();
+    }
+
+    void UpgradeSpeed()
+    {
+        objectPooling.speed += 4;
+        if (objectPooling.speed > objectPooling.maxSpeed) objectPooling.speed = objectPooling.maxSpeed;
     }
 }
