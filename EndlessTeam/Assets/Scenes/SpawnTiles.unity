@@ -475,7 +475,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &388297332
 GameObject:
@@ -709,7 +709,7 @@ PrefabInstance:
     - target: {fileID: 2539507645114299316, guid: 66aa9e8e402136247899536a755bb828,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2539507645114299316, guid: 66aa9e8e402136247899536a755bb828,
         type: 3}
@@ -1391,8 +1391,6 @@ MonoBehaviour:
   isDashing: 0
   powerupScale: {x: 0.3, y: 0.3, z: 0.3}
   canUsePowerUp: 1
-  button: {fileID: 1120741959}
-  pressTime: 1
   inSlam: 0
   SlamArea: {fileID: 577138973}
 --- !u!1 &1649673370
