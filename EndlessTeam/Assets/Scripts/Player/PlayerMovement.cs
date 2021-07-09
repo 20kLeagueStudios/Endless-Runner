@@ -486,6 +486,7 @@ public class PlayerMovement : MonoBehaviour
                     else
                     {
                         //Fermo la coroutine nel caso in cui dovesse essere ancora attiva per la chiamata precedente
+                        StopAllCoroutines();
                         StopCoroutine("ChangingPosition");
                         //Chiamo la coroutine per cambiare carreggiata e gli passo la stringa dell'enum che servirà da target
                         StartCoroutine(ChangingPosition(swipeEn.ToString()));
@@ -528,6 +529,7 @@ public class PlayerMovement : MonoBehaviour
                     else
                     {
                         //Fermo la coroutine nel caso in cui dovesse essere ancora attiva per la chiamata precedente
+                        StopAllCoroutines();
                         StopCoroutine("ChangingPosition");
                         //Chiamo la coroutine per cambiare carreggiata e gli passo la stringa dell'enum che servirà da target
                         StartCoroutine(ChangingPosition(swipeEn.ToString()));
