@@ -6,6 +6,15 @@ using UnityEngine.EventSystems;
 
 public class InterazioneTest : MonoBehaviour, IPointerDownHandler
 {
+   
+    Vector3 startPos;
+    Vector3 endPos;
+
+    float speed = 3;
+
+    Renderer rend;
+
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -15,16 +24,15 @@ public class InterazioneTest : MonoBehaviour, IPointerDownHandler
 
     void Start()
     {
+        rend = GetComponent<Renderer>();
         startPos = this.transform.localPosition;
         endPos = new Vector3(startPos.x, 0.5f, startPos.z);
         addPhysicsRaycaster();
     }
 
-    Vector3 startPos;
-    Vector3 endPos;
-    bool trig = false;
+ 
 
-    void addPhysicsRaycaster()
+    void addPhysicsRaycaster() //safe check
     {
         PhysicsRaycaster physicsRaycaster = GameObject.FindObjectOfType<PhysicsRaycaster>();
         if (physicsRaycaster == null)
@@ -36,22 +44,21 @@ public class InterazioneTest : MonoBehaviour, IPointerDownHandler
     public void OnPointerDown(PointerEventData eventData)
     {
         Debug.Log("Clicked: " + eventData.pointerCurrentRaycast.gameObject.name);
-        //Destroy(this.gameObject);
 
-        //trig = true;
+        rend.material.SetFloat("_Emission", 10f);
+        rend.material.SetColor("_EmissionColor", Color.red);
 
         CallCoroutineInteraction();
     }
 
     void CallCoroutineInteraction()
     {
-        StartCoroutine(Interaction());
+        StartCoroutine(InteractionFallDown());
 
     }
 
-    float speed = 3;
 
-    IEnumerator Interaction()
+    IEnumerator InteractionFallDown()
     {
         float elapseTime = 0f;
         float waitTime = 2f;

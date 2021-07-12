@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 700342283166155479}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: -1.16, z: 0}
-  m_LocalScale: {x: 5, y: 0.15, z: 5}
+  m_LocalScale: {x: 9, y: 0.15, z: 9}
   m_Children: []
   m_Father: {fileID: 2539507645114299316}
   m_RootOrder: 7
@@ -88,7 +88,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 700342283166155479}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5000001
   m_Height: 2
@@ -285,6 +285,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a293c063b66c745a5657134beead6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreText: {fileID: 0}
+  moneyText: {fileID: 0}
   healthScript: {fileID: 0}
   objectPooling: {fileID: 0}
   controller: {fileID: 2539507645114299318}
@@ -312,7 +314,6 @@ MonoBehaviour:
   playerBody: {fileID: 2539507645337678076}
   cam1pos: {fileID: 2539507646484898900}
   cam2pos: {fileID: 2539507645088685672}
-  pressTime: 0
   wallMask:
     serializedVersion: 2
     m_Bits: 0

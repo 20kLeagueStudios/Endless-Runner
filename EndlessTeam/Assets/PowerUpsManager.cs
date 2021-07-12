@@ -20,7 +20,7 @@ public class PowerUpsManager : MonoBehaviour
 
     [SerializeField] PlayerMovement playerMovement;
 
-    float initialSpeed;
+    public float powerUpBoostSpeed = default;
 
     public bool isDashing = false;
 
@@ -54,7 +54,7 @@ public class PowerUpsManager : MonoBehaviour
         firstGrounded = false;///
         inSlam = false;///
 
-        initialSpeed = objectPooling.speed;
+        //initialSpeed = objectPooling.speed;
 
         playerColor = playerMesh.GetComponent<MeshRenderer>().material.color;
 
@@ -142,7 +142,9 @@ public class PowerUpsManager : MonoBehaviour
         playerHealth.canBeHit = false;
         canUsePowerUp = false;
 
-        objectPooling.speed = objectPooling.maxSpeed; //per adesso il boost è uguale alla max speed dell'object pooling
+        float tmpSpeed = objectPooling.speed;
+
+        objectPooling.speed += powerUpBoostSpeed; 
 
         Color fadeColor = meshToFade.material.color;
 
@@ -156,7 +158,7 @@ public class PowerUpsManager : MonoBehaviour
         }
 
 
-        objectPooling.speed = initialSpeed;
+        objectPooling.speed = tmpSpeed; //potrebbero esserci dei conflitti?
         playerHealth.canBeHit = true;
         isDashing = false;
         canUsePowerUp = true;

@@ -822,6 +822,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 700342283166155479, guid: 66aa9e8e402136247899536a755bb828,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2539507645114299316, guid: 66aa9e8e402136247899536a755bb828,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -962,6 +967,11 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1100e24eba6f67e47a8291e7d36b257e, type: 2}
+    - target: {fileID: 7933147773510801892, guid: 66aa9e8e402136247899536a755bb828,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 66aa9e8e402136247899536a755bb828, type: 3}
 --- !u!1 &577138973 stripped
@@ -1674,6 +1684,7 @@ MonoBehaviour:
   objectPooling: {fileID: 172854369}
   playerHealth: {fileID: 1440462365}
   playerMovement: {fileID: 1440462363}
+  powerUpBoostSpeed: 60
   isDashing: 0
   powerupScale: {x: 0.3, y: 0.3, z: 0.3}
   canUsePowerUp: 1
