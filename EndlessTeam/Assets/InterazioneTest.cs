@@ -15,7 +15,6 @@ public class InterazioneTest : MonoBehaviour, IPointerDownHandler
     Renderer rend;
 
 
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Obstacle"))
@@ -24,13 +23,28 @@ public class InterazioneTest : MonoBehaviour, IPointerDownHandler
 
     void Start()
     {
+
         rend = GetComponent<Renderer>();
         startPos = this.transform.localPosition;
         endPos = new Vector3(startPos.x, 0.5f, startPos.z);
         addPhysicsRaycaster();
     }
 
- 
+    void Awake()
+    {
+        startPos = this.transform.localPosition;
+    }    
+
+    void OnEnable()
+    {
+        this.transform.localPosition = startPos;
+
+        rend = GetComponent<Renderer>();
+        rend.material.SetFloat("_Emission", 80f);
+        rend.material.SetColor("_EmissionColor", Color.green);
+
+    }
+        
 
     void addPhysicsRaycaster() //safe check
     {
