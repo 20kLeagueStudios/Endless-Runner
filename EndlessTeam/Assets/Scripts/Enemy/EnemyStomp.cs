@@ -16,34 +16,35 @@ public class EnemyStomp : MonoBehaviour
 
     IEnumerator StompCor()
     {
-        
         Vector3 finalPos = default;
         //Debug.Log("FinalPos: " + finalPos.y);
         //Debug.Log("UpPos: " + upPos.position.y);
-        while (finalPos.y != upPos.position.y)
+        while (finalPos.y != upPos.localPosition.y)
         {
-
-            finalPos.y = Mathf.Lerp(finalPos.y, upPos.position.y, speed);
+            Debug.Log(upPos.localPosition.y);
+            finalPos.y = Mathf.Lerp(finalPos.y, upPos.localPosition.y, speed);
             //if (Vector3.Dot(finalPos, upPos.position))
             //    finalPos.y = upPos.position.y;
-            if (Mathf.Abs(finalPos.y - upPos.position.y) < .001f)
-                finalPos.y = upPos.position.y;
+            if (Mathf.Abs(finalPos.y - upPos.localPosition.y) < .001f)
+                finalPos.y = upPos.localPosition.y;
 
-            transform.position = finalPos;
+
+            transform.localPosition = finalPos;
        
             yield return null;
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         while (finalPos.y != 0)
         {
   
             finalPos.y = Mathf.Lerp(finalPos.y, 0, speed*2);
             if (finalPos.y < .01f)
                 finalPos.y = 0;
-            transform.position = finalPos;
+           
+            transform.localPosition = finalPos;
             yield return null;
         }
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         StartCoroutine("StompCor");
     }
 }
