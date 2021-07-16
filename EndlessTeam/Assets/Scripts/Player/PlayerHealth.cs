@@ -83,7 +83,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void Death()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0); //emanuele prima 1
         objectPooling.speed = initialSpeed;
     }
 

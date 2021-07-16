@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; ///emanuele
 
 public class ObjectPooling : MonoBehaviour
 {
@@ -27,6 +28,9 @@ public class ObjectPooling : MonoBehaviour
 
     public float maxSpeed = 76;
 
+    GameObject parentTiles; ////emanuele
+
+
     //Enum sulla difficoltà
     enum Mode
     {
@@ -35,11 +39,16 @@ public class ObjectPooling : MonoBehaviour
         Hard
     }
 
+
+    public Scene scenaNext; //emanuele
+    public int sceneIndex; //emanuele
+
     //Riferimento all'enum Mode
     Mode mode;
     void Start()
     {
-        
+       parentTiles = new GameObject("parentTiles" + SceneManager.GetActiveScene().name);////emanuele
+
         currentTimer = Time.time;
         //Modalità iniziale a facile
         mode = Mode.Easy;
@@ -51,6 +60,12 @@ public class ObjectPooling : MonoBehaviour
             for(int i=0; i<temp.prefab.Length; i++)
             {
                 GameObject Obj = Instantiate(temp.prefab[i], transform.position, Quaternion.identity);
+
+               
+                Obj.transform.parent = parentTiles.transform;////emanuele
+
+                SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneAt(sceneIndex)); //emanuele
+
                 Obj.SetActive(false);
                 tempList.Add(Obj);
             }
