@@ -41,13 +41,14 @@ public class ObjectPooling : MonoBehaviour
     }
 
 
-    public int sceneIndex; //emanuele
+     string sceneName; //emanuele
 
     //Riferimento all'enum Mode
     Mode mode;
     void Start()
     {
-        parentTiles = new GameObject("parentTiles" + SceneManager.GetSceneAt(sceneIndex).name);////emanuele
+        sceneName = gameObject.scene.name;
+        parentTiles = new GameObject("parentTiles" + sceneName);////emanuele
 
         speed = GameManager.instance.speed;
 
@@ -66,7 +67,12 @@ public class ObjectPooling : MonoBehaviour
                
                 Obj.transform.parent = parentTiles.transform;////emanuele
 
-                SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneAt(sceneIndex)); //emanuele
+                SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
+
+                //if (GameManager.instance.currentScene != -1)
+                //    SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneAt(sceneIndex)); //emanuele
+                //else
+                //    SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneAt(GameManager.instance.currentScene));
 
                 Obj.SetActive(false);
                 tempList.Add(Obj);

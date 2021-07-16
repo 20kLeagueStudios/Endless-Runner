@@ -12,6 +12,14 @@ public class MakePortalVisible : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameManager.instance.LoadScene(sceneTarget);
+            GameManager.instance.currentScene = sceneTarget;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            GameManager.instance.DeactivateScene(sceneTarget);
         }
     }
 }

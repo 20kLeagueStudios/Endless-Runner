@@ -42,7 +42,7 @@ public class PortalScript : MonoBehaviour
             transform.parent = null;
 
             if (parentTile!=null)
-             parentTile.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = newshader;
+                parentTile.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = newshader;
 
             // GetComponent<Material>().shader = newshader;
 
@@ -64,9 +64,5 @@ public class PortalScript : MonoBehaviour
     //}
 
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

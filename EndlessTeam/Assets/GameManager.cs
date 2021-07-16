@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
 
     public float speed = 36;
     public float maxSpeed = 76;
+    public int currentScene = -1;
 
     Dictionary<int, bool> sceneDict = new Dictionary<int, bool>();
 
