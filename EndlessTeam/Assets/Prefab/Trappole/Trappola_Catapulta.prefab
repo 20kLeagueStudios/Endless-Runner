@@ -196,6 +196,8 @@ GameObject:
   m_Component:
   - component: {fileID: 3490784858055608909}
   - component: {fileID: 3490784858055608908}
+  - component: {fileID: 6198674464720688405}
+  - component: {fileID: 4217655640599699145}
   m_Layer: 0
   m_Name: Trappola_Catapulta
   m_TagString: Untagged
@@ -239,6 +241,32 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!65 &6198674464720688405
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3490784858055608907}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.9096522, y: 6.498314, z: 80.82817}
+  m_Center: {x: -0.40324306, y: 1.749157, z: -38.914085}
+--- !u!114 &4217655640599699145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3490784858055608907}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f46702dc026d84a80e97b008628681, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aim: {fileID: 3490784858055608908}
 --- !u!1 &3490784858572518999
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,7 +281,7 @@ GameObject:
   - component: {fileID: 3490784858572518985}
   m_Layer: 0
   m_Name: Sphere
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
