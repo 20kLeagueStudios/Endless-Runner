@@ -144,9 +144,9 @@ public class PowerUpsManager : MonoBehaviour
         playerHealth.canBeHit = false;
         canUsePowerUp = false;
 
-        float tmpSpeed = objectPooling.speed;
+        float tmpSpeed = GameManager.instance.speed;
 
-        objectPooling.speed += powerUpBoostSpeed; 
+        GameManager.instance.speed += powerUpBoostSpeed; 
 
         Color fadeColor = meshToFade.material.color;
 
@@ -160,7 +160,7 @@ public class PowerUpsManager : MonoBehaviour
         }
 
 
-        objectPooling.speed = tmpSpeed; //potrebbero esserci dei conflitti?
+        GameManager.instance.speed = tmpSpeed; //potrebbero esserci dei conflitti?
         playerHealth.canBeHit = true;
         isDashing = false;
         canUsePowerUp = true;

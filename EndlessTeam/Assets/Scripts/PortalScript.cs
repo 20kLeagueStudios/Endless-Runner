@@ -10,7 +10,7 @@ public class PortalScript : MonoBehaviour
     {
         //transform.parent = null;
 
-        pezzo.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = startShader;
+        parentTile.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = startShader;
 
 
 
@@ -18,13 +18,13 @@ public class PortalScript : MonoBehaviour
 
     private void Awake()
     {
-        startShader = pezzo.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader;
+        startShader = parentTile.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader;
     }
 
     public Shader newshader;
     Shader startShader;
 
-   public GameObject pezzo;
+   public GameObject parentTile;
 
 
 
@@ -36,8 +36,8 @@ public class PortalScript : MonoBehaviour
 
             transform.parent = null;
 
-            if (pezzo!=null)
-             pezzo.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = newshader;  
+            if (parentTile!=null)
+             parentTile.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = newshader;  
 
            // GetComponent<Material>().shader = newshader;
 
