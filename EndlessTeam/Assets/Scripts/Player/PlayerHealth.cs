@@ -30,10 +30,14 @@ public class PlayerHealth : MonoBehaviour
     Animator animator;
 
     public bool canBeHit = true;
+
+    float gameManagerSpeed;
+
     void Start()
     {
+        gameManagerSpeed = GameManager.instance.speed;
         gameScript = GameObject.FindObjectOfType<Game>();
-        initialSpeed = objectPooling.speed;
+        initialSpeed = GameManager.instance.speed;
         playerColor = playerMesh.material.color;
         healthBar.SetMaxHealth(maxHealth);
         currentHealth = maxHealth / 2;
@@ -52,7 +56,7 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator HitCor(MeshRenderer meshToFade)
     {
-        objectPooling.speed = objectPooling.speed / 1.3f;
+        GameManager.instance.speed = GameManager.instance.speed / 1.3f;
         Color fadeColor = meshToFade.material.color;
 
         fadeColor.a = .1f;
@@ -64,7 +68,7 @@ public class PlayerHealth : MonoBehaviour
             meshToFade.material.color = playerColor;
         }
 
-        objectPooling.speed = initialSpeed;
+        GameManager.instance.speed = initialSpeed;
 
 
     }
@@ -83,8 +87,8 @@ public class PlayerHealth : MonoBehaviour
 
     public void Death()
     {
-        SceneManager.LoadScene(1);
-        objectPooling.speed = initialSpeed;
+        SceneManager.LoadScene(0); //emanuele prima 1
+        GameManager.instance.speed = initialSpeed;
     }
 
     public void InstantDeath()

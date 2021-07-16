@@ -973,7 +973,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (LayerMask.LayerToName(other.gameObject.layer) == "Wall")
             {
-                objectPooling.speed = 0;
+                GameManager.instance.speed = 0;
                 healthScript.InstantDeath();
             }
         }
@@ -993,9 +993,11 @@ public class PlayerMovement : MonoBehaviour
         moneyText.text = ": " + currentMoney.ToString();
     }
 
+
+
     void UpgradeSpeed()
     {
-        objectPooling.speed += 4;
-        if (objectPooling.speed > objectPooling.maxSpeed) objectPooling.speed = objectPooling.maxSpeed;
+        GameManager.instance.speed += 4;
+        if (GameManager.instance.speed > GameManager.instance.maxSpeed) GameManager.instance.speed = GameManager.instance.maxSpeed;
     }
 }

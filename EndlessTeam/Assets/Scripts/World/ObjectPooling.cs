@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement; ///emanuele
 
 public class ObjectPooling : MonoBehaviour
 {
@@ -16,9 +17,10 @@ public class ObjectPooling : MonoBehaviour
     //Lista di carreggiate attive che le farà muovere all'indietro
     List<GameObject> activeTiles = new List<GameObject>();
     //Carreggiate massime iniziali con l'istanza emptyTile
-    int maxTiles = 6;
+    [SerializeField]
+    int maxTiles;
     //Velocità di movimento delle carreggiate
-    public float speed = 36;
+    public float speed; // 36;
     //Riferimento al renderer per calcolare la differenza di distanza del renderer per capire dove posizionare 
     //la prossima carreggiata
     Renderer rend;
@@ -26,6 +28,9 @@ public class ObjectPooling : MonoBehaviour
     float currentTimer;
 
     public float maxSpeed = 76;
+
+    GameObject parentTiles; ////emanuele
+
 
     //Enum sulla difficoltà
     enum Mode
@@ -35,11 +40,17 @@ public class ObjectPooling : MonoBehaviour
         Hard
     }
 
+
+    public int sceneIndex; //emanuele
+
     //Riferimento all'enum Mode
     Mode mode;
     void Start()
     {
-        
+        parentTiles = new GameObject("parentTiles" + SceneManager.GetSceneAt(sceneIndex).name);////emanuele
+
+        speed = GameManager.instance.speed;
+
         currentTimer = Time.time;
         //Modalità iniziale a facile
         mode = Mode.Easy;
@@ -51,6 +62,12 @@ public class ObjectPooling : MonoBehaviour
             for(int i=0; i<temp.prefab.Length; i++)
             {
                 GameObject Obj = Instantiate(temp.prefab[i], transform.position, Quaternion.identity);
+
+               
+                Obj.transform.parent = parentTiles.transform;////emanuele
+
+                SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneAt(sceneIndex)); //emanuele
+
                 Obj.SetActive(false);
                 tempList.Add(Obj);
             }
@@ -100,24 +117,32 @@ public class ObjectPooling : MonoBehaviour
     private void AddTile()
     {
         GameObject tile = GetTile();
-        rend = emptyTile.transform.GetChild(1).GetComponent<Renderer>();
-        float temp = rend.bounds.extents.z * 2;
-        // position tile's z at 0 or behind the last item added to tiles collection
-        float zPos = activeTiles.Count == 0 ? 0f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
-        tile.transform.position = new Vector3(0f, 0f, zPos);
-        activeTiles.Add(tile);
-        tile.SetActive(true);
+        //if (tile)
+        //{
+            rend = emptyTile.transform.GetChild(1).GetComponent<Renderer>();
+            float temp = rend.bounds.extents.z * 2;
+            // position tile's z at 0 or behind the last item added to tiles collection
+            float zPos = activeTiles.Count == 0 ? 0f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
+            tile.transform.position = new Vector3(0f, 0f, zPos);
+
+            Debug.Log(tile);
+            activeTiles.Add(tile);
+            tile.SetActive(true);
+        //}
     }
 
     //Ritorna un tile random che dipende solo dalla difficoltà corrente
     private GameObject GetTile()
     {
         List<GameObject> tempList = dictPool[mode.ToString()];
+
         ShuffleList(tempList);
         if (tempList != null)
         {
+            Debug.Log(0);
             for (int i = 0; i < tempList.Count; i++)
             {
+                Debug.Log(1);
                 if (tempList[i].activeInHierarchy)
                     continue;
 
@@ -127,6 +152,7 @@ public class ObjectPooling : MonoBehaviour
                 
             }
         }
+        Debug.Log(3);
         return null;
     }
     //Muove i le carreggiate all'indietro lungo l'asse Z
@@ -136,7 +162,7 @@ public class ObjectPooling : MonoBehaviour
         for (int i = activeTiles.Count - 1; i >= 0; i--)
         {
             GameObject tile = activeTiles[i];
-            tile.transform.Translate(0f, 0f, -this.speed * Time.deltaTime);
+            tile.transform.Translate(0f, 0f, -GameManager.instance.speed * Time.deltaTime);
 
             // If a tile moves behind the camera release it and add a new one
             if (tile.transform.position.z < Camera.main.transform.position.z)

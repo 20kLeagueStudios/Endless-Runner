@@ -7,12 +7,24 @@ Shader "Custom/Curved"
     {
         _Color("Main Color", Color) = (1,1,1,1)
         _MainTex("Base (RGB)", 2D) = "white" {}
+
+       _Emission("Emission", float) = 0 ////////
+       _EmissionColor("Emission Color", Color) = (0,1,0)/////
+        
     }
 
         SubShader
     {
-        Tags { "RenderType" = "Opaque" }
+        Tags { "RenderType" = "Opaque" "Queue" = "Geometry+1" } // "Queue"="Geometry+1" 
         LOD 200
+
+        Stencil { ///////
+
+            Ref 1
+            Comp Greater //prima era equal
+
+
+        }
 
         CGPROGRAM
         #pragma surface surf Lambert vertex:vert addshadow
@@ -21,6 +33,9 @@ Shader "Custom/Curved"
         uniform float2 _BendAmount;
         uniform float3 _BendOrigin;
         uniform float _BendFalloff;
+
+        float _Emission; //////
+        fixed4 _EmissionColor;/////
 
         sampler2D _MainTex;
         fixed4 _Color;
@@ -58,6 +73,9 @@ Shader "Custom/Curved"
             fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
             o.Albedo = c.rgb;
             o.Alpha = c.a;
+
+            o.Emission = c.rgb * tex2D(_MainTex, IN.uv_MainTex).a * _EmissionColor *_Emission; ///////
+
       }
 
       ENDCG
