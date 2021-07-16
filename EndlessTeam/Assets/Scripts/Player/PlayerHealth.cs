@@ -71,6 +71,8 @@ public class PlayerHealth : MonoBehaviour
         GameManager.instance.speed = initialSpeed;
 
 
+
+
     }
 
     void TakeDamage(int value)
