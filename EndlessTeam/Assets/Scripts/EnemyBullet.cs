@@ -26,10 +26,10 @@ public class EnemyBullet : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (Physics.CheckSphere(transform.position, .1f, targetMask))
-        {
-            Destroy(gameObject);
-        }
+        //if (Physics.CheckSphere(transform.position, .1f, targetMask))
+        //{
+        //    Destroy(gameObject);
+        //}
     }
 
     private void OnDrawGizmos()
@@ -38,13 +38,9 @@ public class EnemyBullet : MonoBehaviour
         Gizmos.color = Color.red;
     }
 
-    //private void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Player") || other.CompareTag("Obstacle"))
-    //    {
-
-    //        Destroy(gameObject);
-    //    }
-
-    //}
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(gameObject);
+    }
+   
 }
