@@ -12,7 +12,9 @@ public class GameManager : MonoBehaviour
     public float speed = 36;
     public float maxSpeed = 76;
 
-    [SerializeField]GameObject parentTiles;
+    Dictionary<int, bool> sceneDict = new Dictionary<int, bool>();
+
+    [SerializeField] GameObject parentTiles;
 
     [SerializeField] Shader startShader;
 
@@ -23,24 +25,48 @@ public class GameManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-        } else if(instance != this)
+        }
+        else if (instance != this)
         {
             Destroy(this);
         }
     }
 
-   
+
 
     void Start()
     {
         parentTiles.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = startShader;
 
-        SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        //SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        LoadScene(1);
     }
 
-    // Update is called once per frame
-    void Update()
+    public void LoadScene(int scene)
     {
-        
+        if (!sceneDict.ContainsKey(scene))
+        {
+            sceneDict.Add(scene, true);
+            SceneManager.LoadScene(scene, LoadSceneMode.Additive);
+        }
+        else
+        {
+            if (sceneDict[scene] == false)
+            {
+                sceneDict[scene] = true;
+                SceneManager.LoadScene(scene, LoadSceneMode.Additive);
+            }
+        }
+
+
+    }
+
+    public void DeactivateScene(int scene)
+    {
+        if (sceneDict[scene] == true)
+        {
+            sceneDict[scene] = false;
+            SceneManager.UnloadSceneAsync(scene);
+        }
     }
 }

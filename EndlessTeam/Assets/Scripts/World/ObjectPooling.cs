@@ -139,10 +139,8 @@ public class ObjectPooling : MonoBehaviour
         ShuffleList(tempList);
         if (tempList != null)
         {
-            Debug.Log(0);
             for (int i = 0; i < tempList.Count; i++)
             {
-                Debug.Log(1);
                 if (tempList[i].activeInHierarchy)
                     continue;
 
@@ -152,7 +150,6 @@ public class ObjectPooling : MonoBehaviour
                 
             }
         }
-        Debug.Log(3);
         return null;
     }
     //Muove i le carreggiate all'indietro lungo l'asse Z
