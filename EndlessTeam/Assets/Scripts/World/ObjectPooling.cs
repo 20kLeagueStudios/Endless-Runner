@@ -82,7 +82,7 @@ public class ObjectPooling : MonoBehaviour
                
                 Obj.transform.parent = parentTiles.transform;////emanuele
 
-                SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
+                
 
                 //if (GameManager.instance.currentScene != -1)
                 //    SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneAt(sceneIndex)); //emanuele
@@ -110,7 +110,8 @@ public class ObjectPooling : MonoBehaviour
         { 
 
             GameObject tile = Instantiate(tutorialTiles[i], transform.position, Quaternion.identity);
-            SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
+            tile.transform.parent = parentTiles.transform;
+            //SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
             rend = emptyTile.transform.GetChild(1).GetComponent<Renderer>();
             float temp = rend.bounds.extents.z * 2;
             // position tile's z at 0 or behind the last item added to tiles collection
@@ -121,6 +122,8 @@ public class ObjectPooling : MonoBehaviour
             tile.SetActive(true);
 
         }
+
+        SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
 
         tutorial = false;
         AddTile();
