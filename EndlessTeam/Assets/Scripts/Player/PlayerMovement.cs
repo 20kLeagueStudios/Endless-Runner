@@ -14,10 +14,12 @@ public class PlayerMovement : MonoBehaviour
 
     int currentScore = 0, currentMoney = 0;
 
-
     int obstacleCount = 0;
 
     float scoreIncTime;
+
+    [SerializeField]
+    GameObject[] suggestions;
 
     [SerializeField]
     TextMeshProUGUI scoreText;
@@ -612,6 +614,9 @@ public class PlayerMovement : MonoBehaviour
     //Coroutine che si occupa di far cambiare carreggiata al player a seguito di uno swipe
     IEnumerator ChangingPosition(string target)
     {
+        GameObject temp = GetObjFromArray("Hint1", suggestions);
+        if (temp)
+            if (temp.activeSelf) TutorialManager.instance.DisableHint();
 
         //Prendo la posizione iniziale del player
         Vector3 dest = transform.position;
@@ -843,8 +848,22 @@ public class PlayerMovement : MonoBehaviour
     }
     */
 
+    GameObject GetObjFromArray(string name, GameObject[] array)
+    {
+        foreach(GameObject temp in array)
+        {
+            if (temp.name == name) return temp;
+           
+        }
+
+        return null;
+    }
+
     IEnumerator ChangingPosition(Vector3 wallPos)
     {
+        GameObject temp = GetObjFromArray("Hint1", suggestions);
+        if (temp)
+            if (temp.activeSelf) TutorialManager.instance.DisableHint();
 
         string target = transform.position.x > wallPos.x ? target = "Right" : target = "Left";
         Debug.Log(target);

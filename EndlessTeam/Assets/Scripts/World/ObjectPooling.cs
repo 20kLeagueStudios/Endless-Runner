@@ -16,6 +16,10 @@ public class ObjectPooling : MonoBehaviour
     
     //Lista di carreggiate attive che le farà muovere all'indietro
     List<GameObject> activeTiles = new List<GameObject>();
+
+    [SerializeField]
+    GameObject[] tutorialTiles;
+
     //Carreggiate massime iniziali con l'istanza emptyTile
     [SerializeField]
     int maxTiles;
@@ -29,6 +33,7 @@ public class ObjectPooling : MonoBehaviour
 
     public float maxSpeed = 76;
 
+
     GameObject parentTiles; ////emanuele
 
 
@@ -40,6 +45,7 @@ public class ObjectPooling : MonoBehaviour
         Hard
     }
 
+    bool tutorial = true;
 
      string sceneName; //emanuele
 
@@ -55,6 +61,15 @@ public class ObjectPooling : MonoBehaviour
         currentTimer = Time.time;
         //Modalità iniziale a facile
         mode = Mode.Easy;
+
+        //for(int i=0; i<tutorialTiles.Length; i++)
+        //{
+        //    GameObject Obj = Instantiate(tutorialTiles[i], transform.position, Quaternion.identity);
+        //    Obj.SetActive(false);
+        //    Obj.transform.parent = parentTiles.transform;
+
+        //    SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
+        //}
         //Istanzia tutti i GameObject presenti nella lista di Pool e li inserisco nel dizionario con il tag
         //associato
         foreach(Pool temp in poolList)
@@ -81,8 +96,35 @@ public class ObjectPooling : MonoBehaviour
             dictPool.Add(temp.GetTag, tempList);
         }
 
+        //Chiamo il metodo che si occupa di creare le carreggiate tutorial
+        TutorialTiles();
+
         //Chiamo il metodo che si occupa di creare le prime 6 carreggiate
-        initialTiles();
+        //initialTiles();
+    }
+
+    private void TutorialTiles()
+    {
+
+        for (int i = 0; i < tutorialTiles.Length; i++)
+        { 
+
+            GameObject tile = Instantiate(tutorialTiles[i], transform.position, Quaternion.identity);
+            SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
+            rend = emptyTile.transform.GetChild(1).GetComponent<Renderer>();
+            float temp = rend.bounds.extents.z * 2;
+            // position tile's z at 0 or behind the last item added to tiles collection
+            float zPos = activeTiles.Count == 0 ? 140f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
+            tile.transform.position = new Vector3(0f, 0f, zPos);
+
+            activeTiles.Add(tile);
+            tile.SetActive(true);
+
+        }
+
+        tutorial = false;
+        AddTile();
+        
     }
 
     private void Update()
@@ -115,8 +157,8 @@ public class ObjectPooling : MonoBehaviour
         //    activeTiles.Add(tile);
         //}
         //Metodo effettivo che aggiungerà le carreggiate in base alla difficolta
-        for (int i = 0; i < maxTiles; i++)
-            AddTile();
+        //for (int i = 0; i < maxTiles; i++)
+        //    AddTile();
     }
 
     //Aggiunge un tile alla fine della carreggiata
@@ -131,7 +173,7 @@ public class ObjectPooling : MonoBehaviour
             float zPos = activeTiles.Count == 0 ? 0f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
             tile.transform.position = new Vector3(0f, 0f, zPos);
 
-            Debug.Log(tile);
+            //Debug.Log(tile);
             activeTiles.Add(tile);
             tile.SetActive(true);
         //}
@@ -172,10 +214,27 @@ public class ObjectPooling : MonoBehaviour
             {
                 activeTiles.RemoveAt(i);
                 DisableObject(tile);
-                AddTile();
+                if (!tutorial)
+                    AddTile();
             }
         }
     }
+
+    //public void UpdateTutorialTiles()
+    //{
+    //    for (int i = activeTiles.Count - 1; i >= 0; i--)
+    //    {
+    //        GameObject tile = activeTiles[i];
+    //        tile.transform.Translate(0f, 0f, -GameManager.instance.speed * Time.deltaTime);
+
+    //        // If a tile moves behind the camera release it and add a new one
+    //        if (tile.transform.position.z < Camera.main.transform.position.z)
+    //        {
+    //            activeTiles.RemoveAt(i);
+    //            DisableObject(tile);
+    //        }
+    //    }
+    //}
 
     //Mescola la lista
     void ShuffleList(List<GameObject> list)

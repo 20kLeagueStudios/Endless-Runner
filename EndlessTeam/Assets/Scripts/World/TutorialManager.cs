@@ -7,12 +7,24 @@ using TMPro;
 public class TutorialManager : MonoBehaviour
 {
 
+    public static TutorialManager instance = null;
     //Lista di istanze Suggestions che conterranno in ordine l'HUD dei consigli da mostrare
     [SerializeField]
     List<GameObject> suggestionList = new List<GameObject>();
 
     GameObject currentSuggestion = default;
 
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else if (instance != this)
+        {
+            Destroy(this);
+        }
+    }
     //Index dei suggestion
     int i = 0;
     public void ShowHint()
