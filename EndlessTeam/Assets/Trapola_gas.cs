@@ -11,10 +11,14 @@ public class Trapola_gas : MonoBehaviour
     private Animator aim;
     [SerializeField]
     private Animator cc;
+    [SerializeField]
+    private ParticleSystem ps;
     // Start is called before the first frame update
     void Start()
     {
         inesco.SetActive(true);
+     
+
     }
 
     void OnTriggerEnter(Collider other)
@@ -22,12 +26,14 @@ public class Trapola_gas : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             V_Inesco();
-           
+          
+         
         }
 
     }
     void V_Inesco()
     {
+        
         inesco.SetActive(false);
         cc.SetTrigger("Trigger_Inesco");
         aim.SetTrigger("Trigger_Gas");
