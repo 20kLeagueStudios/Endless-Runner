@@ -313,10 +313,13 @@ public class PlayerMovement : MonoBehaviour
                     //Se faccio lo swipe in alto
                     if (swipeEn == Swipe.Up)
                     {
+                        GameObject temp = GetObjFromArray("Hint2", suggestions);
+                        if (temp)
+                            if (temp.activeSelf) TutorialManager.instance.DisableHint();
                         //Se tocco il pavimento
                         if (isGround)
                         {
-
+                            
                             //Applico la forza del salto a verticalForce
                             verticalForce.y = jumpForce;
                             //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
@@ -334,6 +337,8 @@ public class PlayerMovement : MonoBehaviour
                         //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
                         else if (!isGround)
                         {
+                         
+
                             verticalForce.y = -34f; 
 
                             powerupsManager.inSlam = true;
@@ -391,6 +396,8 @@ public class PlayerMovement : MonoBehaviour
                         //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
                         else if (!isGround)
                         {
+                          
+
                             verticalForce.y = 34f; 
 
                             powerupsManager.inSlam = true;
