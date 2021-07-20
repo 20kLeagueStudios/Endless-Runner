@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2347852363390378247}
   - component: {fileID: 2347852363390378244}
   - component: {fileID: 7084158962470972148}
+  - component: {fileID: 8526053113246336015}
   m_Layer: 0
   m_Name: PORTAL
   m_TagString: Untagged
@@ -107,10 +108,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b1d2b6fc73f01ca48bd447c740696426, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneTarget: 0
   newshader: {fileID: 4800000, guid: c0ac108901e0dcd4eb6974358411c7d9, type: 3}
   parentTile: {fileID: 4523336909541068390, guid: 31a674b1b79b8e74cb82b66466e416a3,
     type: 3}
+--- !u!54 &8526053113246336015
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2347852363390378245}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &7180393355102819565
 GameObject:
   m_ObjectHideFlags: 0
