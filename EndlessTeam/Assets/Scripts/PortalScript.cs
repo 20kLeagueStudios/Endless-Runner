@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 public class PortalScript : MonoBehaviour
 {
     int i = 0;
-
-    MeshRenderer mesh;
+    
 
     int currentScene;
     void Start()
@@ -18,12 +17,9 @@ public class PortalScript : MonoBehaviour
 
         currentScene = gameObject.scene.buildIndex;
 
-        mesh = GetComponent<MeshRenderer>();
-        mesh.enabled = false;
+
 
     }
-
-
 
     private void Awake()
     {
@@ -58,16 +54,6 @@ public class PortalScript : MonoBehaviour
             Debug.Log("SCARICA");
 
           }
-
-        if (other.tag == "PortalTrigger")
-        {
-
-            mesh.enabled = true;
-        
-        }
-
-
-
       }
 
 
