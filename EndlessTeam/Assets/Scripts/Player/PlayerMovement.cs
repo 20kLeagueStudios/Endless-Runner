@@ -331,6 +331,10 @@ public class PlayerMovement : MonoBehaviour
                     //Altrimenti se sto effettuando lo swipe in basso
                     else if (swipeEn == Swipe.Down)
                     {
+
+                        GameObject temp = GetObjFromArray("Hint2", suggestions);
+                        if (temp)
+                            if (temp.activeSelf) TutorialManager.instance.DisableHint();
                         //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
                         if (isGround && !sliding)
                             StartCoroutine("SlideCor");
