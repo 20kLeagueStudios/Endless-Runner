@@ -8,6 +8,9 @@ using TMPro;
 public class PlayerMovement : MonoBehaviour
 {
     #region Variabili
+    [SerializeField]
+    LayerMask interactiveMask;
+
     bool isKeyboard = false, wallTouch = false;
 
     int currentObstacle = default;
@@ -246,6 +249,16 @@ public class PlayerMovement : MonoBehaviour
         //Se si sta toccando lo schermo
         if (Input.touchCount > 0)
         {
+            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);       
+
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity, interactiveMask, QueryTriggerInteraction.Ignore))
+            {
+                Debug.Log(hit.transform.tag);
+                Interactive temp = hit.transform.GetComponent<Interactive>();
+                if (temp)
+                    temp.CallInteraction();
+            }
+
             //Prendo la reference del primo tocco
             Touch touch = Input.touches[0];
             //Se è appena iniziato

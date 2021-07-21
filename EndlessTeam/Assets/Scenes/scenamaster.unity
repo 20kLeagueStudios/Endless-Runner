@@ -953,7 +953,7 @@ PrefabInstance:
     - target: {fileID: 2539507645114299317, guid: 66aa9e8e402136247899536a755bb828,
         type: 3}
       propertyPath: m_Layer
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2539507645114299319, guid: 66aa9e8e402136247899536a755bb828,
         type: 3}
@@ -1035,6 +1035,11 @@ PrefabInstance:
       propertyPath: suggestions.Array.data[2]
       value: 
       objectReference: {fileID: 926762848}
+    - target: {fileID: 2539507645114299319, guid: 66aa9e8e402136247899536a755bb828,
+        type: 3}
+      propertyPath: interactiveMask.m_Bits
+      value: 1024
+      objectReference: {fileID: 0}
     - target: {fileID: 2539507645360058985, guid: 66aa9e8e402136247899536a755bb828,
         type: 3}
       propertyPath: m_LocalPosition.y
