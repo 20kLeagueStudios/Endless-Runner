@@ -9,9 +9,14 @@ public class GameManager : MonoBehaviour
 
     public PowerUpsManager powerupsManager;
 
+    public bool firstGame = true;
+
     public float speed = 36;
     public float maxSpeed = 76;
     public int currentScene = -1;
+    public bool firstPortal = true;
+    
+    public GameObject[] suggestions;
 
     Dictionary<int, bool> sceneDict = new Dictionary<int, bool>();
 
@@ -20,6 +25,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] Shader startShader;
 
 
+    public GameObject GetObjFromArray(string name, GameObject[] array)
+    {
+        foreach (GameObject temp in array)
+        {
+            if (temp.name == name) return temp;
+
+        }
+
+        return null;
+    }
 
     private void Awake()
     {

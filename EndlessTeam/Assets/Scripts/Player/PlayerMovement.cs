@@ -21,7 +21,8 @@ public class PlayerMovement : MonoBehaviour
 
     float scoreIncTime;
 
-    [SerializeField]
+    bool stopMovement;
+
     GameObject[] suggestions;
 
     [SerializeField]
@@ -172,7 +173,7 @@ public class PlayerMovement : MonoBehaviour
         //Assegno di default il valore mid all'enum swipe
         swipeEn = Swipe.Mid;
 
-
+        this.suggestions = GameManager.instance.suggestions;
 
     }
 
@@ -180,7 +181,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        stopMovement = suggestions[2].activeSelf || suggestions[3].activeSelf;
 
+        Debug.Log(stopMovement);
         if (Time.time - scoreIncTime > .1f)
         {
             IncreaseScore(5);
@@ -246,18 +249,44 @@ public class PlayerMovement : MonoBehaviour
         }
         */
 
+        #region Mouse interazione con trappole
+        Ray rayMouse = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Input.GetMouseButton(0))
+        {
+            
+            if (Physics.Raycast(rayMouse, out hit, 100, interactiveMask, QueryTriggerInteraction.Ignore))
+            {
+                GameObject suggTemp = GameManager.instance.GetObjFromArray("Hint3", suggestions);
+                Interactive temp = hit.transform.GetComponent<Interactive>();
+                if (temp)
+                {
+                    temp.CallInteraction();
+                    if (suggTemp.activeSelf) TutorialManager.instance.DisableHint();
+                }
+            }
+        }
+        #endregion
+
         //Se si sta toccando lo schermo
         if (Input.touchCount > 0)
         {
-            Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);       
 
-            if (Physics.Raycast(ray, out hit, Mathf.Infinity, interactiveMask, QueryTriggerInteraction.Ignore))
+            #region Touch interazione con trappole
+            Ray rayMobile = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+        
+
+            if (Physics.Raycast(rayMobile, out hit, 100, interactiveMask, QueryTriggerInteraction.Ignore))
             {
-                Debug.Log(hit.transform.tag);
+                GameObject suggTemp = GameManager.instance.GetObjFromArray("Hint3", suggestions);
                 Interactive temp = hit.transform.GetComponent<Interactive>();
                 if (temp)
+                {
                     temp.CallInteraction();
+                    if (suggTemp.activeSelf) TutorialManager.instance.DisableHint();
+                }
             }
+            #endregion
+
 
             //Prendo la reference del primo tocco
             Touch touch = Input.touches[0];
@@ -326,7 +355,7 @@ public class PlayerMovement : MonoBehaviour
                     //Se faccio lo swipe in alto
                     if (swipeEn == Swipe.Up)
                     {
-                        GameObject temp = GetObjFromArray("Hint2", suggestions);
+                        GameObject temp = GameManager.instance.GetObjFromArray("Hint2", suggestions);
                         if (temp)
                             if (temp.activeSelf) TutorialManager.instance.DisableHint();
                         //Se tocco il pavimento
@@ -634,84 +663,90 @@ public class PlayerMovement : MonoBehaviour
     //Coroutine che si occupa di far cambiare carreggiata al player a seguito di uno swipe
     IEnumerator ChangingPosition(string target)
     {
-        GameObject temp = GetObjFromArray("Hint1", suggestions);
-        if (temp)
-            if (temp.activeSelf) TutorialManager.instance.DisableHint();
-
-        //Prendo la posizione iniziale del player
-        Vector3 dest = transform.position;
-        //Calcolo della posizione finale
-        Vector3 finalPos = default;
-        //Se il target è sinistra
-        if (target == "Left")
+        if (!stopMovement)
         {
-            //e sono a destra
-            if (currentState == "Right")
+            GameObject temp = GameManager.instance.GetObjFromArray("Hint1", suggestions);
+            if (temp)
             {
-                //Vado nel mezzo
-                finalPos = positions[1].position;
-                currentState = "Mid";
+                Debug.Log("Prova");
+                if (temp.activeSelf) TutorialManager.instance.DisableHint();
             }
-            //Altrimenti se sono al centro mi sposto a sinistra
-            else if (currentState == "Mid")
+
+            //Prendo la posizione iniziale del player
+            Vector3 dest = transform.position;
+            //Calcolo della posizione finale
+            Vector3 finalPos = default;
+            //Se il target è sinistra
+            if (target == "Left")
             {
-                finalPos = positions[0].position;
-                currentState = "Left";
-                //Altrimenti se sono a sinistra mi sposto fuori sinistra
+                //e sono a destra
+                if (currentState == "Right")
+                {
+                    //Vado nel mezzo
+                    finalPos = positions[1].position;
+                    currentState = "Mid";
+                }
+                //Altrimenti se sono al centro mi sposto a sinistra
+                else if (currentState == "Mid")
+                {
+                    finalPos = positions[0].position;
+                    currentState = "Left";
+                    //Altrimenti se sono a sinistra mi sposto fuori sinistra
+                }
+                else if (currentState == "Left")
+                {
+                    finalPos = positions[0].position * 2;
+                    currentState = "LeftOut";
+                }
             }
-            else if (currentState == "Left")
+            //Se il target è destra
+            else if (target == "Right")
             {
-                finalPos = positions[0].position * 2;
-                currentState = "LeftOut";
+                //e sono a sinistra mi sposto nel mezzo
+                if (currentState == "Left")
+                {
+                    //Vado nel mezzo
+                    finalPos = positions[1].position;
+                    currentState = "Mid";
+                }
+                //Altrimenti se sono al centro vado a destra
+                else if (currentState == "Mid")
+                {
+                    finalPos = positions[2].position;
+                    currentState = "Right";
+                }
+                //Altrimenti se sono a destra vado fuori destra
+                else if (currentState == "Right")
+                {
+                    finalPos = positions[2].position * 2;
+                    currentState = "RightOut";
+                }
             }
+
+            //Elimino come poisizione finale le y e la z visto che non verranno intaccati dal cambio di carreggiata
+            finalPos.y = finalPos.z = 0;
+
+            //Finchè il valore x della posizione non è uguale a quello del target
+            while (transform.position.x != finalPos.x)
+            {
+                //Lerpo la posizione a quella finale
+                dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
+                dest.y = transform.position.y;
+                dest.z = transform.position.z;
+
+                //Se manca poco all'arrivo della posizione, viene direttamente messa uguale alla posizione finale
+                //In questo modo si evitano loop infiniti
+                if (Mathf.Abs(dest.x - finalPos.x) < .4f)
+                    dest.x = finalPos.x;
+
+                //Assegno continuamente la posizione lerpata a quella effettiva del player
+                transform.position = dest;
+
+                //Ritorno null
+                yield return null;
+            }
+            prePoint = currentState;
         }
-        //Se il target è destra
-        else if (target == "Right")
-        {
-            //e sono a sinistra mi sposto nel mezzo
-            if (currentState == "Left")
-            {
-                //Vado nel mezzo
-                finalPos = positions[1].position;
-                currentState = "Mid";
-            }
-            //Altrimenti se sono al centro vado a destra
-            else if (currentState == "Mid")
-            {
-                finalPos = positions[2].position;
-                currentState = "Right";
-            }
-            //Altrimenti se sono a destra vado fuori destra
-            else if (currentState == "Right")
-            {
-                finalPos = positions[2].position * 2;
-                currentState = "RightOut";
-            }
-        }
-
-        //Elimino come poisizione finale le y e la z visto che non verranno intaccati dal cambio di carreggiata
-        finalPos.y = finalPos.z = 0;
-
-        //Finchè il valore x della posizione non è uguale a quello del target
-        while (transform.position.x != finalPos.x)
-        {
-            //Lerpo la posizione a quella finale
-            dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
-            dest.y = transform.position.y;
-            dest.z = transform.position.z;
-
-            //Se manca poco all'arrivo della posizione, viene direttamente messa uguale alla posizione finale
-            //In questo modo si evitano loop infiniti
-            if (Mathf.Abs(dest.x - finalPos.x) < .4f)
-                dest.x = finalPos.x;
-
-            //Assegno continuamente la posizione lerpata a quella effettiva del player
-            transform.position = dest;
-
-            //Ritorno null
-            yield return null;
-        }
-        prePoint = currentState;
     }
 
     //Si occupa di effettuare lo slide
@@ -868,20 +903,11 @@ public class PlayerMovement : MonoBehaviour
     }
     */
 
-    GameObject GetObjFromArray(string name, GameObject[] array)
-    {
-        foreach(GameObject temp in array)
-        {
-            if (temp.name == name) return temp;
-           
-        }
-
-        return null;
-    }
+  
 
     IEnumerator ChangingPosition(Vector3 wallPos)
     {
-        GameObject temp = GetObjFromArray("Hint1", suggestions);
+        GameObject temp = GameManager.instance.GetObjFromArray("Hint1", suggestions);
         if (temp)
             if (temp.activeSelf) TutorialManager.instance.DisableHint();
 
