@@ -2,12 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public TextLanguageChange dropdownText; 
+
     public static GameManager instance = null;
 
     public PowerUpsManager powerupsManager;
+
+    public int savedLanguage = 0;
 
     public bool firstGame = true;
 
@@ -84,5 +89,21 @@ public class GameManager : MonoBehaviour
             sceneDict[scene] = false;
             SceneManager.UnloadSceneAsync(scene);
         }
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1;
+    }
+
+    public void Pause()
+    {
+        Time.timeScale = 0;
+    }
+
+    public void HandleDropDown(int value)
+    {
+        if (value == 0) dropdownText.UpdateText("Italiano", "Italian");
+        if (value == 1) dropdownText.UpdateText("Inglese", "English");
     }
 }

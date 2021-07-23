@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
     GameObject[] suggestions;
 
     [SerializeField]
-    TextMeshProUGUI scoreText;
+    TextLanguageChange scoreText;
 
     [SerializeField]
     TextMeshProUGUI moneyText;
@@ -1048,7 +1048,7 @@ public class PlayerMovement : MonoBehaviour
     {
         currentScore += value;
         if (currentScore < 0) currentScore = 0;
-        scoreText.text = "Score: " + currentScore.ToString();
+        scoreText.UpdateText("Punti: " + currentScore, "Score: " + currentScore);
 
     }
 
