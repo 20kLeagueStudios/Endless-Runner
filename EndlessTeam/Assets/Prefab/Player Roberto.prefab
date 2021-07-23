@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3090756725580330476}
   - component: {fileID: 5407072027203090293}
   - component: {fileID: 7933147773510801892}
+  - component: {fileID: 9130811326004497120}
   m_Layer: 0
   m_Name: slamArea
   m_TagString: slam
@@ -94,6 +95,18 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!114 &9130811326004497120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 700342283166155479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3dc88c13b4061424782ea028bbe8fb61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2539507644809401716
 GameObject:
   m_ObjectHideFlags: 0

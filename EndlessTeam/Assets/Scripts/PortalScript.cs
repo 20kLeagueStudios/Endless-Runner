@@ -34,6 +34,9 @@ public class PortalScript : MonoBehaviour
 
     private void Awake()
     {
+        portalMesh = this.gameObject.GetComponent<MeshRenderer>();
+
+        portalMesh.enabled = false;
         startShader = parentTile.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader;
     }
 
@@ -63,23 +66,30 @@ public class PortalScript : MonoBehaviour
 
            if (other.CompareTag("PortalTrigger"))
            {
-            portalMesh.enabled = true;
-           }
-           else if (other.CompareTag("PortalTriggerExit"))
-           {
-            portalMesh.enabled = false;
-           }
+            if (this.enabled)
+            {
+                Debug.Log("ENTRATA PORT");
+                portalMesh.enabled = true;
+            }
 
+           }
+           
+           
+ 
 
       }
 
 
-   
-    //private void OnDisable()
-    //{
-    //    once = true;
-    //}
 
+    private void OnDisable()
+    {
+        portalMesh.enabled = false;
+    }
+
+    private void Update()
+    {
+        Debug.Log("PORT"+portalMesh.enabled);
+    }
 
 
 }
