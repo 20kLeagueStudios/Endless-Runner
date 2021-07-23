@@ -42,11 +42,14 @@ public class ObjectPooling : MonoBehaviour
 
 
      string sceneName; //emanuele
+     int o;
 
     //Riferimento all'enum Mode
     Mode mode;
     void Start()
     {
+       
+
         sceneName = gameObject.scene.name;
         parentTiles = new GameObject("parentTiles" + sceneName);////emanuele
 
@@ -125,15 +128,22 @@ public class ObjectPooling : MonoBehaviour
         GameObject tile = GetTile();
         //if (tile)
         //{
-            rend = emptyTile.transform.GetChild(1).GetComponent<Renderer>();
+
+
+
+        rend = emptyTile.transform.GetChild(1).GetComponent<Renderer>();
             float temp = rend.bounds.extents.z * 2;
             // position tile's z at 0 or behind the last item added to tiles collection
             float zPos = activeTiles.Count == 0 ? 0f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
+
             tile.transform.position = new Vector3(0f, 0f, zPos);
 
             Debug.Log(tile);
             activeTiles.Add(tile);
+
             tile.SetActive(true);
+
+
         //}
     }
 
@@ -142,20 +152,23 @@ public class ObjectPooling : MonoBehaviour
     {
         List<GameObject> tempList = dictPool[mode.ToString()];
 
+
         ShuffleList(tempList);
         if (tempList != null)
         {
             for (int i = 0; i < tempList.Count; i++)
             {
                 if (tempList[i].activeInHierarchy)
+
                     continue;
-
-
-                
+   
                 return tempList[i];
                 
             }
+
         }
+
+
         return null;
     }
     //Muove i le carreggiate all'indietro lungo l'asse Z
@@ -164,6 +177,7 @@ public class ObjectPooling : MonoBehaviour
     {
         for (int i = activeTiles.Count - 1; i >= 0; i--)
         {
+            
             GameObject tile = activeTiles[i];
             tile.transform.Translate(0f, 0f, -GameManager.instance.speed * Time.deltaTime);
 
@@ -186,6 +200,7 @@ public class ObjectPooling : MonoBehaviour
             int randomIndex = Random.Range(i, list.Count);
             list[i] = list[randomIndex];
             list[randomIndex] = temp;
+
         }
     }
 
