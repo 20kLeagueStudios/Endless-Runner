@@ -93,10 +93,11 @@ public class LanguageManager : MonoBehaviour
 			if (value == 0) languageDropdownList.AddOptions(englishDropOptions);
 			else if (value == 1) languageDropdownList.AddOptions(italianDropOptions);
 			languageDropdownList.SetValueWithoutNotify(value);
+			LanguageChange();
 
 
-          
-        }
+
+		}
     }
 	/// <summary>
 	/// Permette ad altri script di sapere la lingua corrente nel gioco

@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     int currentObstacle = default;
 
-    int currentScore = 0, currentMoney = 0;
+    int currentScore = 0;
 
     int obstacleCount = 0;
 
@@ -24,12 +24,6 @@ public class PlayerMovement : MonoBehaviour
     bool stopMovement;
 
     GameObject[] suggestions;
-
-    [SerializeField]
-    TextLanguageChange scoreText;
-
-    [SerializeField]
-    TextMeshProUGUI moneyText;
 
     [SerializeField]
     PlayerHealth healthScript;
@@ -186,7 +180,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log(stopMovement);
         if (Time.time - scoreIncTime > .1f)
         {
-            IncreaseScore(5);
+            GameManager.instance.IncreaseScore(5);
             scoreIncTime = Time.time;
         }
 
@@ -997,8 +991,8 @@ public class PlayerMovement : MonoBehaviour
     {
         if (other.CompareTag("Money"))
         {
-            IncreaseScore(50);
-            IncreaseMoney();
+            GameManager.instance.IncreaseScore(50);
+            GameManager.instance.IncreaseMoney();
             Destroy(other.gameObject);
         }
         if (other.CompareTag("Obstacle"))
@@ -1014,10 +1008,10 @@ public class PlayerMovement : MonoBehaviour
                 obstacleCount = 0;
                 UpgradeSpeed();
             }
-            if (other.transform.parent.gameObject.GetInstanceID() != currentObstacle) IncreaseScore(200);
+            if (other.transform.parent.gameObject.GetInstanceID() != currentObstacle) GameManager.instance.IncreaseScore(200);
             else
             {
-                IncreaseScore(-250);
+                GameManager.instance.IncreaseScore(-250);
                 currentObstacle = -1;
             }
 
@@ -1043,21 +1037,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
-
-    private void IncreaseScore(int value)
-    {
-        currentScore += value;
-        if (currentScore < 0) currentScore = 0;
-        scoreText.UpdateText("Score: " + currentScore, "Punti: " + currentScore);
-
-    }
-
-    private void IncreaseMoney()
-    {
-        currentMoney += 1;
-        moneyText.text = ": " + currentMoney.ToString();
-    }
-
 
 
     void UpgradeSpeed()
