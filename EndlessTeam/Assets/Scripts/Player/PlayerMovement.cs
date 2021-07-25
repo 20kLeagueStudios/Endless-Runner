@@ -1048,7 +1048,7 @@ public class PlayerMovement : MonoBehaviour
     {
         currentScore += value;
         if (currentScore < 0) currentScore = 0;
-        scoreText.UpdateText("Punti: " + currentScore, "Score: " + currentScore);
+        scoreText.UpdateText("Score: " + currentScore, "Punti: " + currentScore);
 
     }
 

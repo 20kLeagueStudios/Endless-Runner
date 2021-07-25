@@ -42,7 +42,7 @@ public class TextLanguageChange : MonoBehaviour
             case 0:
                 {
                     //cambia il testo in italiano
-                    textToChange.text = italianText;
+                    textToChange.text = englishText;
                     break;
 
                 }
@@ -50,7 +50,7 @@ public class TextLanguageChange : MonoBehaviour
             case 1:
                 {
                     //cambia il testo in inglese
-                    textToChange.text = englishText;
+                    textToChange.text = italianText;
                     break;
 
                 }
@@ -97,7 +97,7 @@ public class TextLanguageChange : MonoBehaviour
     /// </summary>
     /// <param name="italianText"></param>
     /// <param name="englishText"></param>
-    public void UpdateText(string italianText, string englishText)
+    public void UpdateText(string englishText, string italianText)
     {
         //aggiorna il testo italiano al parametro del testo italiano ricevuto
         this.italianText = italianText;
