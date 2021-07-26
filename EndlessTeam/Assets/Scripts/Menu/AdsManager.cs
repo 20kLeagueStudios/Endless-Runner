@@ -20,7 +20,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     {
         Advertisement.AddListener(this);
         // Inizializza gli annunci:
-        //Advertisement.Initialize(gameId, testMode);
+        Advertisement.Initialize(gameId, testMode);
     }
 
     public void ShowInterstitialAd()
