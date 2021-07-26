@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
 public class Energy : MonoBehaviour
 {
@@ -69,6 +70,11 @@ public class Energy : MonoBehaviour
         {
             Debug.Log("Energia finita!!"); //Sennò l'energia è finita
         }
+    }
+
+    public void Play()
+    {
+        SceneManager.LoadScene(1);
     }
 
     private IEnumerator RestoreEnergy()
