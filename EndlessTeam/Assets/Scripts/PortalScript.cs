@@ -5,13 +5,24 @@ using UnityEngine.SceneManagement;
 
 public class PortalScript : MonoBehaviour
 {
-    int i = 0;
-    
+
+    public Shader newshader;
+    Shader startShader;
+
+    public GameObject parentTile;
+
+    MeshRenderer portalMesh;
 
     int currentScene;
+
+
     void Start()
     {
         //transform.parent = null;
+
+        portalMesh = this.gameObject.GetComponent<MeshRenderer>();
+
+        portalMesh.enabled = false;
 
         parentTile.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = startShader;
 
@@ -23,19 +34,17 @@ public class PortalScript : MonoBehaviour
 
     private void Awake()
     {
+        portalMesh = this.gameObject.GetComponent<MeshRenderer>();
+
+        portalMesh.enabled = false;
         startShader = parentTile.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader;
     }
-
-    public Shader newshader;
-    Shader startShader;
-
-   public GameObject parentTile;
 
 
 
       private void OnTriggerEnter(Collider other)
       {
-          if (other.tag == "Player")
+          if (other.CompareTag("Player"))
           {
             //SceneManager.UnloadSceneAsync(1);
 
@@ -54,15 +63,33 @@ public class PortalScript : MonoBehaviour
             Debug.Log("SCARICA");
 
           }
+
+           if (other.CompareTag("PortalTrigger"))
+           {
+            if (this.enabled)
+            {
+                Debug.Log("ENTRATA PORT");
+                portalMesh.enabled = true;
+            }
+
+           }
+           
+           
+ 
+
       }
 
 
-   
-    //private void OnDisable()
-    //{
-    //    once = true;
-    //}
 
+    private void OnDisable()
+    {
+        portalMesh.enabled = false;
+    }
+
+    private void Update()
+    {
+        Debug.Log("PORT"+portalMesh.enabled);
+    }
 
 
 }

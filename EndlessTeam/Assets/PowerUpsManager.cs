@@ -295,6 +295,7 @@ public class PowerUpsManager : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         inSlam = false;
         firstGrounded = false;
+
     }
 
     /*
