@@ -54,6 +54,7 @@ public class ObjectPooling : MonoBehaviour
     void Start()
     {
         sceneName = gameObject.scene.name;
+        Debug.Log(sceneName);
         parentTiles = new GameObject("parentTiles" + sceneName);////emanuele
 
         speed = GameManager.instance.speed;
@@ -81,8 +82,8 @@ public class ObjectPooling : MonoBehaviour
 
                
                 Obj.transform.parent = parentTiles.transform;////emanuele
-
-                SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
+                
+                
 
                 //if (GameManager.instance.currentScene != -1)
                 //    SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneAt(sceneIndex)); //emanuele
@@ -93,12 +94,23 @@ public class ObjectPooling : MonoBehaviour
                 tempList.Add(Obj);
             }
 
+       
+                
             dictPool.Add(temp.GetTag, tempList);
         }
 
         //Chiamo il metodo che si occupa di creare le carreggiate tutorial
-        TutorialTiles();
-
+        if (GameManager.instance.firstGame)
+            TutorialTiles();
+        else
+        {
+            tutorial = false;
+            SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
+            for (int i = 0; i < maxTiles; i++)
+            {
+                AddTile();
+            }
+        }
         //Chiamo il metodo che si occupa di creare le prime 6 carreggiate
         //initialTiles();
     }
@@ -110,7 +122,8 @@ public class ObjectPooling : MonoBehaviour
         { 
 
             GameObject tile = Instantiate(tutorialTiles[i], transform.position, Quaternion.identity);
-            SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
+            tile.transform.parent = parentTiles.transform;
+            //SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
             rend = emptyTile.transform.GetChild(1).GetComponent<Renderer>();
             float temp = rend.bounds.extents.z * 2;
             // position tile's z at 0 or behind the last item added to tiles collection
@@ -122,6 +135,9 @@ public class ObjectPooling : MonoBehaviour
 
         }
 
+        SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
+
+        GameManager.instance.firstGame = false;
         tutorial = false;
         AddTile();
         
@@ -177,6 +193,8 @@ public class ObjectPooling : MonoBehaviour
             activeTiles.Add(tile);
             tile.SetActive(true);
         //}
+
+
     }
 
     //Ritorna un tile random che dipende solo dalla difficoltà corrente
