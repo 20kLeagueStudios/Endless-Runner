@@ -22,19 +22,11 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
         indexSkin = eventData.pointerCurrentRaycast.gameObject.transform.parent.GetSiblingIndex();
         Debug.Log("SELEZIONATO" + " " + indexSkin);
 
-        // PlayerPrefs.SetInt("Skin",indexSkin);
-
-        //Debug.Log("mainmenu" + mainMenu.itemShop[1].name);
-
 
         if (mydelegate != null)
         {
             mydelegate(this.transform.parent.root.transform.GetChild(7).GetComponent<MainMenu>().itemShop[indexSkin]);
-            Debug.Log("CURRENCY= " + currencyManager.currency);
-
-           // SetInt("PlayerSkin", indexSkin);
-
-
+        
 
         }
 
@@ -47,18 +39,20 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
         if (currencyManager.currency > 0) 
         {
-           
+            tempCurrency = currencyManager.currency;
+
             currencyManager.currency -= item.itemCost;
-            
+
+
         }
-       
+ 
         if (currencyManager.currency - item.itemCost < 0)
         {
             currencyManager.currency = tempCurrency;
-            Debug.Log("MONEY FINITI");
 
         }
-
+     
+        Debug.Log("CURRENCY= " + currencyManager.currency);
 
     }
 
@@ -70,6 +64,21 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
         PlayerPrefs.SetInt(_string, Value);
     }
 
+    public void Accessorio(ItemsShopSO item)
+    {
+        string _string = "Accessorio";
+        if (item.itemType == ItemType.Accessorio)
+        {
+            
+            //item.accessorioMesh.SetActive(true);
+            PlayerPrefs.SetInt(_string, 1);
+            Debug.Log("accessorio " + PlayerPrefs.GetInt("Accessorio"));
+        }
+        else
+        {
+            PlayerPrefs.SetInt(_string, 0);
+        }
+    }
 
     public void AddItem(ItemsShopSO item)
     {
@@ -83,7 +92,7 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
     }
 
 
-    // Start is called before the first frame update
+
     void Start()
     {
         mainMenu = this.transform.parent.root.transform.GetChild(7).GetComponent<MainMenu>();
@@ -94,15 +103,16 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
          mydelegate += BuyItem;
          mydelegate += AddItem;
+         mydelegate += Accessorio;
 
     }
 
-    // Update is called once per frame
+
     void Update()
     {
-        //Debug.Log("CURRENCY= " + currency);
-
-      //  Debug.Log("parent " + this.transform.parent.root.transform.GetChild(7).name);
 
     }
+
+
+    
 }

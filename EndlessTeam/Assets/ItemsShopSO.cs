@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public enum ItemType
 {
-    Corpo,
-    Gadget
+    Tuta,
+    Pilota,
+    Accessorio
 }
 
 [CreateAssetMenuAttribute(fileName ="ItemShop", menuName = "ItemShop/ItemSO")]
@@ -16,6 +17,7 @@ public class ItemsShopSO : ScriptableObject
     public Sprite itemImage;
     public Texture playerSkin;
     public int itemCost;
+    public GameObject accessorioMesh;
 
     public ItemType itemType = default;
     
