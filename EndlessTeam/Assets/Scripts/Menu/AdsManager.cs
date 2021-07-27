@@ -12,7 +12,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     private string gameId = "4215265";
 #endif
 
-
+    bool resurrection = false;
     bool testMode = true;
     string mySurfacingId = "rewardedVideo";
 
@@ -29,6 +29,21 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         if (Advertisement.IsReady())
         {
             Advertisement.Show();
+            // Sostituisci mySurfacingId con l'id with the ID dei posizionamenti che desideri visualizzare (come mostrato nella tua Unity Dashboard)
+        }
+        else
+        {
+            Debug.Log("Interstitial Ads non è pronto al momento! Per favore riprova più tardi!");
+        }
+    }
+
+    public void ShowAdAndResurrection()
+    {
+        // Controlla se UnityAds è pronto prima di chiamare il metodo Show :
+        if (Advertisement.IsReady())
+        {
+            Advertisement.Show();
+            
             // Sostituisci mySurfacingId con l'id with the ID dei posizionamenti che desideri visualizzare (come mostrato nella tua Unity Dashboard)
         }
         else

@@ -11,6 +11,10 @@ public class PlayerHealth : MonoBehaviour
     MeshRenderer playerMesh;
     [SerializeField]
     PlayerMovement playerMovement;
+    [SerializeField]
+    GameObject GameOver;
+
+    bool once = true;
 
     [SerializeField]
     HealthBar healthBar;
@@ -47,15 +51,19 @@ public class PlayerHealth : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle"))
+        if (currentHealth > 0)
         {
-            StartCoroutine("HitCor", playerMesh);
-            TakeDamage(1);
+            if (other.CompareTag("Obstacle"))
+            {
+                StartCoroutine("HitCor", playerMesh);
+                TakeDamage(1);
+            }
         }
     }
 
     IEnumerator HitCor(MeshRenderer meshToFade)
     {
+        
         GameManager.instance.speed = GameManager.instance.speed / 1.3f;
         Color fadeColor = meshToFade.material.color;
 
@@ -89,12 +97,28 @@ public class PlayerHealth : MonoBehaviour
 
     public void Death()
     {
-        SceneManager.LoadScene(0); //emanuele prima 1
-        GameManager.instance.speed = initialSpeed;
+        //SceneManager.LoadScene(0); //emanuele prima 1
+        //GameManager.instance.speed = initialSpeed;
+
+        if (once)
+        {
+            GameOver.SetActive(true);
+            once = false;
+        }
+
     }
 
     public void InstantDeath()
     {
         TakeDamage(9999);
     }
+
+    public void ResetHealth()
+    {
+        currentHealth = maxHealth / 2;
+    }
+    //IEnumerator OpenGameOver()
+    //{
+    //    yield return new WaitForSecondsRealtime()
+    //}
 }

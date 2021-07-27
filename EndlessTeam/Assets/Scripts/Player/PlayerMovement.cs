@@ -1017,6 +1017,11 @@ public class PlayerMovement : MonoBehaviour
 
         }
 
+        if (other.CompareTag("CheckPoint"))
+        {
+            GameManager.instance.checkPoint = other.transform.position;
+        }
+
         if (rayWall)
         {
             if (LayerMask.LayerToName(other.gameObject.layer) == "Wall")

@@ -8,16 +8,23 @@ using System.IO;
 public class GameManager : MonoBehaviour, ISaveable
 {
     [SerializeField]
+    GameObject playerGb;
+
+    [SerializeField]
     TextMeshProUGUI moneyText;
 
     [SerializeField]
     TextLanguageChange scoreText;
 
-    int currentScore = 0;
+    public int currentScore = 0;
+
+    public Vector3 checkPoint = default;
 
     public TextLanguageChange dropdownText;
 
     public int currentMoney;
+
+    public int moneyInMatch = 0;
 
     public static GameManager instance = null;
 
@@ -76,6 +83,8 @@ public class GameManager : MonoBehaviour, ISaveable
 
         //SceneManager.LoadScene(1, LoadSceneMode.Additive);
         LoadScene(1);
+
+        checkPoint = playerGb.transform.position;
     }
 
     public void LoadScene(int scene)
@@ -95,6 +104,11 @@ public class GameManager : MonoBehaviour, ISaveable
         }
 
 
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F)) Respawn();
     }
 
     public void DeactivateScene(int scene)
@@ -118,7 +132,8 @@ public class GameManager : MonoBehaviour, ISaveable
 
     public void IncreaseMoney()
     {
-        currentMoney += 1;
+        currentMoney++;
+        moneyInMatch++;
         moneyText.text = ": " + currentMoney.ToString();
     }
 
@@ -167,5 +182,14 @@ public class GameManager : MonoBehaviour, ISaveable
     void OnApplicationQuit()
     {
         SaveJsonData();
+    }
+
+    public void Respawn()
+    {
+        
+        Debug.Log("Respawn");
+        checkPoint = new Vector3(checkPoint.x, 1.346f, checkPoint.z);
+        playerGb.transform.position = checkPoint;
+        Time.timeScale = 1;
     }
 }

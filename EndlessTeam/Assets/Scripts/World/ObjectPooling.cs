@@ -5,6 +5,7 @@ using UnityEngine.SceneManagement; ///emanuele
 
 public class ObjectPooling : MonoBehaviour
 {
+
     //Conterrà i tag associati ai GameObject creati con la lista poolList
     Dictionary<string, List<GameObject>> dictPool = new Dictionary<string, List<GameObject>>();
     [SerializeField]
@@ -113,6 +114,8 @@ public class ObjectPooling : MonoBehaviour
         }
         //Chiamo il metodo che si occupa di creare le prime 6 carreggiate
         //initialTiles();
+
+     
     }
 
     private void TutorialTiles()
