@@ -14,7 +14,8 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 
 
     bool testMode = true;
-    string mySurfacingId = "rewardedVideo";
+    string mySurfacingId = "Interstitial_Android";
+    public FortuneWheel FortuneWh;
 
     void Start()
     {
@@ -56,6 +57,10 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         // Define conditional logic for each ad completion status:
         if (showResult == ShowResult.Finished)
         {
+            if(gameObject.tag == "Wheel")
+            {
+                FortuneWh.GiraRuota();
+            }
             // Reward the user for watching the ad to completion.
             Debug.Log("hai guadagnato 30.000 euro");
         }
