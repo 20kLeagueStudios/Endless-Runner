@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement; ///emanuele
 public class ObjectPooling : MonoBehaviour
 {
 
+    public static ObjectPooling instance = null;
     //Conterrà i tag associati ai GameObject creati con la lista poolList
     Dictionary<string, List<GameObject>> dictPool = new Dictionary<string, List<GameObject>>();
     [SerializeField]
@@ -48,10 +49,23 @@ public class ObjectPooling : MonoBehaviour
 
     bool tutorial = true;
 
-     string sceneName; //emanuele
+    string sceneName; //emanuele
 
     //Riferimento all'enum Mode
     Mode mode;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        //else if (instance != this)
+        //{
+        //    Destroy(this);
+        //}
+
+    }
     void Start()
     {
         sceneName = gameObject.scene.name;
@@ -198,6 +212,23 @@ public class ObjectPooling : MonoBehaviour
         //}
 
 
+    }
+
+    public void CheckPointOffset()
+    {
+        float temp = rend.bounds.extents.z * 2;
+        activeTiles[0].transform.position = new Vector3(0, 0, 140);
+
+        for (int i = 1; i < activeTiles.Count - 1; i++) {
+            Debug.Log(activeTiles[0].transform.name);
+            float zPos = activeTiles[i-1] != null ? activeTiles[i-1].transform.position.z + temp : 0;
+            activeTiles[i].transform.position = new Vector3(0,0,zPos);
+        }
+        //foreach (GameObject tiles in activeTiles)
+        //{
+        //    float zPos = activeTiles.Count == 0 ? 0f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
+        //    tiles.transform.position = new Vector3(0f, 0f, zPos);
+        //}
     }
 
     //Ritorna un tile random che dipende solo dalla difficoltà corrente

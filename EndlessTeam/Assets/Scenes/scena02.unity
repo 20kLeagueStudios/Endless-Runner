@@ -152,8 +152,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpeed: 50
   tileTypes:
-  - {fileID: 3002355898758732295, guid: a048264e74a7fa54cbaa2ce08f3adb2a, type: 3}
-  - {fileID: 3222978876594551630, guid: 22ac47c9d504712498da235782d920d5, type: 3}
+  - {fileID: 6643858638677306987, guid: 4247f90a5bd0b5240a3217f8045e2ca4, type: 3}
+  - {fileID: 6643858638677306987, guid: c174f4e82ec14d0438bc3f5c52604648, type: 3}
 --- !u!4 &143677926
 Transform:
   m_ObjectHideFlags: 0
@@ -406,8 +406,29 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameController
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1342993841368832789, guid: 1e25462dc21433c42864eaa84dd6566d, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 1e25462dc21433c42864eaa84dd6566d, type: 3}
+--- !u!1 &1342993841998836268 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1342993841368832790, guid: 1e25462dc21433c42864eaa84dd6566d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1342993841998836267}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1342993841998836269
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342993841998836268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71047950ab363004cb9f7925fa306c55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  TileHolder: {fileID: 143677924}
+  objPooling: {fileID: 172854369}
 --- !u!1001 &2297439252047976284
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -438,7 +459,7 @@ PrefabInstance:
     - target: {fileID: 2297439251875650365, guid: 1a67c3f4608f2df46b520e51c7d5644f,
         type: 3}
       propertyPath: tutorialTiles.Array.size
-      value: 4
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2297439251875650365, guid: 1a67c3f4608f2df46b520e51c7d5644f,
         type: 3}

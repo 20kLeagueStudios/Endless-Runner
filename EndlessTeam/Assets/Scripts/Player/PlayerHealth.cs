@@ -14,7 +14,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField]
     GameObject GameOver;
 
-    bool once = true;
+    public bool once = true;
 
     [SerializeField]
     HealthBar healthBar;

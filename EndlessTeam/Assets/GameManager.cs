@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour, ISaveable
     [SerializeField]
     GameObject playerGb;
 
+    public bool playerDeath = false;
+
     [SerializeField]
     TextMeshProUGUI moneyText;
 
@@ -18,7 +20,7 @@ public class GameManager : MonoBehaviour, ISaveable
 
     public int currentScore = 0;
 
-    public Vector3 checkPoint = default;
+    public Vector3 initialPlayerPos = default;
 
     public TextLanguageChange dropdownText;
 
@@ -84,7 +86,7 @@ public class GameManager : MonoBehaviour, ISaveable
         //SceneManager.LoadScene(1, LoadSceneMode.Additive);
         LoadScene(1);
 
-        checkPoint = playerGb.transform.position;
+        initialPlayerPos = playerGb.transform.position;
     }
 
     public void LoadScene(int scene)
@@ -106,10 +108,7 @@ public class GameManager : MonoBehaviour, ISaveable
 
     }
 
-    void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F)) Respawn();
-    }
+ 
 
     public void DeactivateScene(int scene)
     {
@@ -186,10 +185,10 @@ public class GameManager : MonoBehaviour, ISaveable
 
     public void Respawn()
     {
-        
-        Debug.Log("Respawn");
-        checkPoint = new Vector3(checkPoint.x, 1.346f, checkPoint.z);
-        playerGb.transform.position = checkPoint;
+        speed = 36;
+        playerDeath = false;
         Time.timeScale = 1;
+        playerGb.GetComponent<PlayerMovement>().Resurrection();
+        ObjectPooling.instance.CheckPointOffset();
     }
 }

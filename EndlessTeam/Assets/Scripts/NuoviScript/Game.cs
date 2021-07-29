@@ -45,6 +45,7 @@ public class Game : MonoBehaviour
     {
         //this.tileManager.IncreaseSpeed(speedIncrease);
         //this.tileManager.UpdateTiles(RND);
-        objPooling.UpdateTiles();
+        if (!GameManager.instance.playerDeath)
+            objPooling.UpdateTiles();
     }
 }

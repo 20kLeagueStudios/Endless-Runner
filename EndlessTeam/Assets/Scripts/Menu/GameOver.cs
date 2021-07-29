@@ -14,10 +14,6 @@ public class GameOver : MonoBehaviour
     [SerializeField]
     PlayerHealth playerHealth;
 
-    private void Update()
-    {
-        GameManager.instance.speed = 0;
-    }
     private void OnEnable()
     {
 
@@ -35,7 +31,6 @@ public class GameOver : MonoBehaviour
 
     public void Resurrection()
     {
-        Debug.Log("Resurrection");
         GameManager.instance.Respawn();
         //gameObject.SetActive(false);
         
