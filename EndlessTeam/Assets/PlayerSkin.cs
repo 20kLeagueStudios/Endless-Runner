@@ -4,22 +4,26 @@ using UnityEngine;
 
 public class PlayerSkin : MonoBehaviour
 {
-    [SerializeField] ItemsShopSO[] skins;
+    [SerializeField] ItemsShopSO[] skin;
+    [SerializeField] ItemsShopSO[] gadget;
+
     [SerializeField] GameObject player;
 
-    int indexBodySkin;
 
     void Start()
     {
-        indexBodySkin = PlayerPrefs.GetInt("Corpo");
 
-        player.GetComponent<MeshRenderer>().material.mainTexture = skins[indexBodySkin].playerSkin;
-        Debug.Log("indice " + indexBodySkin);
+            skin = InventoryManager.instance.itemSelected.ToArray();
+            gadget = InventoryManager.instance.gadgetSelected.ToArray();
+
+            player.GetComponent<MeshRenderer>().material.mainTexture = skin[0].playerSkin;     
+
     }
 
     // Update is called once per frame
     void Update()
     {
- 
+
     }
+
 }

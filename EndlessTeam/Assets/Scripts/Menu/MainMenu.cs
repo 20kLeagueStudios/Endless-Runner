@@ -10,9 +10,13 @@ public class MainMenu : MonoBehaviour
     public GameObject shopButtonPrefab;
     public GameObject shopButtonContainer;
 
+    public InventoryManager inventory;
+
     public ItemsShopSO[] itemShop;
 
     public Material playerMaterial;
+
+    //public List<ItemsShopSO> a;
 
     public void Play()
     {
@@ -22,14 +26,16 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        //inventory.itemSelected = a;
+
         foreach (ItemsShopSO item in itemShop)
         {
-            GameObject container = Instantiate(shopButtonPrefab) as GameObject;
-            container.GetComponent<Image>().sprite = item.itemImage;
-            container.transform.SetParent(shopButtonContainer.transform, false);
+            GameObject shopButton = Instantiate(shopButtonPrefab) as GameObject;
+            shopButton.GetComponent<Image>().sprite = item.itemImage;
+            shopButton.transform.SetParent(shopButtonContainer.transform, false);
 
-            container.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemName;
-            container.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemCost.ToString();
+            shopButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemName;
+            shopButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemCost.ToString();
 
         }
     }
