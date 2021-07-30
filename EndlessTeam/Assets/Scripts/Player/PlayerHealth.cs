@@ -63,20 +63,23 @@ public class PlayerHealth : MonoBehaviour
 
     IEnumerator HitCor(MeshRenderer meshToFade)
     {
-        
-        GameManager.instance.speed = GameManager.instance.speed / 1.3f;
-        Color fadeColor = meshToFade.material.color;
-
-        fadeColor.a = .1f;
-        for (int i = 0; i<4; i++)
+        if (!GameManager.instance.playerDeath)
         {
-            yield return new WaitForSeconds(.3f);
-            meshToFade.material.color = fadeColor;
-            yield return new WaitForSeconds(.2f);
-            meshToFade.material.color = playerColor;
-        }
+            GameManager.instance.speed = GameManager.instance.speed / 1.3f;
+            Color fadeColor = meshToFade.material.color;
 
-        GameManager.instance.speed = initialSpeed;
+            fadeColor.a = .1f;
+            for (int i = 0; i < 4; i++)
+            {
+                yield return new WaitForSeconds(.3f);
+                meshToFade.material.color = fadeColor;
+                yield return new WaitForSeconds(.2f);
+                meshToFade.material.color = playerColor;
+            }
+
+            GameManager.instance.speed = initialSpeed;
+        }
+        
 
 
 

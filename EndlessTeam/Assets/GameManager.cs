@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour, ISaveable
     TextMeshProUGUI moneyText;
 
     [SerializeField]
+    GameObject countDown;
+
+    [SerializeField]
     TextLanguageChange scoreText;
 
     public int currentScore = 0;
@@ -185,10 +188,41 @@ public class GameManager : MonoBehaviour, ISaveable
 
     public void Respawn()
     {
-        speed = 36;
-        playerDeath = false;
+       
+     
         Time.timeScale = 1;
         playerGb.GetComponent<PlayerMovement>().Resurrection();
         ObjectPooling.instance.CheckPointOffset();
+    }
+
+    public void StartCountDown()
+    {
+        StartCoroutine("CountDownCor");
+    }
+
+    IEnumerator CountDownCor()
+    {
+        countDown.SetActive(true);
+        TextMeshProUGUI countDownText = countDown.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        float initialSize = countDownText.fontSize;
+        //float desiredSize = 190f;
+        speed = 0;
+        for (int i = 3; i >= 1; i--)
+        {
+            countDownText.text = i.ToString();
+            float time = Time.unscaledTime;
+            while (Time.unscaledTime - time < 1)
+            {
+                countDownText.fontSize += 1f;
+                yield return null;
+            }
+            time = Time.unscaledTime;
+            countDownText.fontSize = initialSize;
+
+        }
+        countDown.SetActive(false);
+        playerDeath = false;
+        speed = 36;
+        yield return null;
     }
 }

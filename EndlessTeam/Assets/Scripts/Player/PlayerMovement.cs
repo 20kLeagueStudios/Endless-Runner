@@ -1028,5 +1028,6 @@ public class PlayerMovement : MonoBehaviour
         animator.SetTrigger("Resurrection");
         controller.enabled = true;
         healthScript.once = true;
+        GameManager.instance.StartCountDown();
     }
 }
