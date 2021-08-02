@@ -1,14 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.IO;
+
 
 public class GameManager : MonoBehaviour, ISaveable
 {
     [SerializeField]
     GameObject playerGb;
+
+    [SerializeField]
+    Image gemsImg;
+
+    [SerializeField]
+    TextLanguageChange retryText;
+
+    int respawnCount = 0;
 
     public bool playerDeath = false;
 
@@ -188,11 +198,14 @@ public class GameManager : MonoBehaviour, ISaveable
 
     public void Respawn()
     {
-       
-     
         Time.timeScale = 1;
         playerGb.GetComponent<PlayerMovement>().Resurrection();
         ObjectPooling.instance.CheckPointOffset();
+
+        retryText.GetComponent<TextMeshProUGUI>().fontSize = 5.2f;
+        retryText.UpdateText("Gems to retry!", "Gemme per riprovare!");
+        gemsImg.gameObject.SetActive(true);
+        
     }
 
     public void StartCountDown()

@@ -37,20 +37,20 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         }
     }
 
-    public void ShowAdAndResurrection()
-    {
-        // Controlla se UnityAds è pronto prima di chiamare il metodo Show :
-        if (Advertisement.IsReady())
-        {
-            Advertisement.Show();
+    //public void ShowAdAndResurrection()
+    //{
+    //    // Controlla se UnityAds è pronto prima di chiamare il metodo Show :
+    //    if (Advertisement.IsReady())
+    //    {
+    //        Advertisement.Show();
             
-            // Sostituisci mySurfacingId con l'id with the ID dei posizionamenti che desideri visualizzare (come mostrato nella tua Unity Dashboard)
-        }
-        else
-        {
-            Debug.Log("Interstitial Ads non è pronto al momento! Per favore riprova più tardi!");
-        }
-    }
+    //        // Sostituisci mySurfacingId con l'id with the ID dei posizionamenti che desideri visualizzare (come mostrato nella tua Unity Dashboard)
+    //    }
+    //    else
+    //    {
+    //        Debug.Log("Interstitial Ads non è pronto al momento! Per favore riprova più tardi!");
+    //    }
+    //}
 
     public void ShowRewardedVideo()
     {
@@ -68,11 +68,17 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     // Implement IUnityAdsListener interface methods:
     public void OnUnityAdsDidFinish(string surfacingId, ShowResult showResult)
     {
+        resurrection = GameManager.instance.playerDeath;
+        
         // Define conditional logic for each ad completion status:
         if (showResult == ShowResult.Finished)
         {
-            // Reward the user for watching the ad to completion.
-            Debug.Log("hai guadagnato 30.000 euro");
+            if (resurrection)
+            {
+                GameManager.instance.Respawn();            
+            }
+            else
+                Debug.Log("hai guadagnato 30.000 euro");
         }
         else if (showResult == ShowResult.Skipped)
         {
