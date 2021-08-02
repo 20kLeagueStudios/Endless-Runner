@@ -17,6 +17,7 @@ public class InventoryButton : MonoBehaviour, IPointerDownHandler
     InventoryManager inventory;
 
 
+
     public void OnPointerDown(PointerEventData eventData)
     {
 
@@ -68,7 +69,35 @@ public class InventoryButton : MonoBehaviour, IPointerDownHandler
            
     }
 
-     
+    public void ChangePreviewTexture(ItemsShopSO item)
+    {
+        string _string = item.itemType.ToString();
+        if (_string == "Tuta")
+        {
+            inventory.tutaMesh.material.mainTexture = item.playerSkin;
+        }
+        else if (_string == "Accessorio")
+        {
+            if (item.accessorio != null)
+            {
+                inventory.accessorioMeshRenderer.enabled = true;
+
+                // GameObject accessorio = Instantiate(item.accessorioMesh, inventory.accessorioPosition.transform.position, Quaternion.identity) as GameObject;
+                inventory.accessorioMesh.mesh = item.accessorio.GetComponent<MeshFilter>().sharedMesh;
+                inventory.accessorioMeshRenderer.material = item.accessorioMaterial;
+                inventory.accessorioMesh.transform.localScale = item.accessorio.transform.localScale;
+                Debug.Log("CIAO");
+            }
+            else { 
+
+                inventory.accessorioMeshRenderer.enabled = false;
+                inventory.accessorioMeshRenderer.material = null;
+                Debug.Log("POLLO");
+                return; 
+            }
+        }
+    }
+
 
     // Start is called before the first frame update
     void Start()
@@ -83,6 +112,7 @@ public class InventoryButton : MonoBehaviour, IPointerDownHandler
 
         mydelegate2 += EquipItemSkin;
         mydelegate2 += EquipItemAccessorio;
+        mydelegate2 += ChangePreviewTexture;
 
     }
 

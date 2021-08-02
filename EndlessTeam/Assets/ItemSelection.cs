@@ -60,11 +60,15 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
                 inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemName;
                 inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemCost.ToString();
+
+                inventory.currencyText.text = (tempCurrency).ToString(); ///
+
             }
             else
             {
                 Debug.Log("POLPETTA= ");
                 currencyManager.currency = tempCurrency;
+                //inventory.currencyText.text = tempCurrency.ToString(); ///
             }
         }
 

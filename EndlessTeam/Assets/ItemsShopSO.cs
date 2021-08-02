@@ -17,7 +17,8 @@ public class ItemsShopSO : ScriptableObject
     public Sprite itemImage;
     public Texture playerSkin;
     public int itemCost;
-    public GameObject accessorioMesh;
+    public GameObject accessorio;
+    public Material accessorioMaterial;
 
     public ItemType itemType = default;
     
