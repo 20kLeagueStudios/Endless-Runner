@@ -97,7 +97,7 @@ public class GameManager : MonoBehaviour, ISaveable
         parentTiles.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = startShader;
 
         //SceneManager.LoadScene(1, LoadSceneMode.Additive);
-        LoadScene(1);
+        LoadScene(2);
 
         initialPlayerPos = playerGb.transform.position;
     }
