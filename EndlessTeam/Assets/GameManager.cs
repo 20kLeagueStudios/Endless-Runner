@@ -1,23 +1,45 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.IO;
 
+
 public class GameManager : MonoBehaviour, ISaveable
 {
+    [SerializeField]
+    GameObject playerGb;
+
+    [SerializeField]
+    Image gemsImg;
+
+    [SerializeField]
+    TextLanguageChange retryText;
+
+    int respawnCount = 0;
+
+    public bool playerDeath = false;
+
     [SerializeField]
     TextMeshProUGUI moneyText;
 
     [SerializeField]
+    GameObject countDown;
+
+    [SerializeField]
     TextLanguageChange scoreText;
 
-    int currentScore = 0;
+    public int currentScore = 0;
+
+    public Vector3 initialPlayerPos = default;
 
     public TextLanguageChange dropdownText;
 
     public int currentMoney;
+
+    public int moneyInMatch = 0;
 
     public static GameManager instance = null;
 
@@ -75,7 +97,9 @@ public class GameManager : MonoBehaviour, ISaveable
         parentTiles.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = startShader;
 
         //SceneManager.LoadScene(1, LoadSceneMode.Additive);
-        LoadScene(2);
+        LoadScene(1);
+
+        initialPlayerPos = playerGb.transform.position;
     }
 
     public void LoadScene(int scene)
@@ -96,6 +120,8 @@ public class GameManager : MonoBehaviour, ISaveable
 
 
     }
+
+ 
 
     public void DeactivateScene(int scene)
     {
@@ -118,7 +144,8 @@ public class GameManager : MonoBehaviour, ISaveable
 
     public void IncreaseMoney()
     {
-        currentMoney += 1;
+        currentMoney++;
+        moneyInMatch++;
         moneyText.text = ": " + currentMoney.ToString();
     }
 
@@ -132,7 +159,7 @@ public class GameManager : MonoBehaviour, ISaveable
 
     public void PopulateSaveData(SaveData saveData)
     {
-        saveData.money = currentMoney;
+        saveData.money = this.currentMoney;
         saveData.savedLanguage = this.savedLanguage;
     }
 
@@ -167,5 +194,48 @@ public class GameManager : MonoBehaviour, ISaveable
     void OnApplicationQuit()
     {
         SaveJsonData();
+    }
+
+    public void Respawn()
+    {
+        Time.timeScale = 1;
+        playerGb.GetComponent<PlayerMovement>().Resurrection();
+        ObjectPooling.instance.CheckPointOffset();
+
+        retryText.GetComponent<TextMeshProUGUI>().fontSize = 5.2f;
+        retryText.UpdateText("Gems to retry!", "Gemme per riprovare!");
+        gemsImg.gameObject.SetActive(true);
+        
+    }
+
+    public void StartCountDown()
+    {
+        StartCoroutine("CountDownCor");
+    }
+
+    IEnumerator CountDownCor()
+    {
+        countDown.SetActive(true);
+        TextMeshProUGUI countDownText = countDown.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        float initialSize = countDownText.fontSize;
+        //float desiredSize = 190f;
+        speed = 0;
+        for (int i = 3; i >= 1; i--)
+        {
+            countDownText.text = i.ToString();
+            float time = Time.unscaledTime;
+            while (Time.unscaledTime - time < 1)
+            {
+                countDownText.fontSize += 1f;
+                yield return null;
+            }
+            time = Time.unscaledTime;
+            countDownText.fontSize = initialSize;
+
+        }
+        countDown.SetActive(false);
+        playerDeath = false;
+        speed = 36;
+        yield return null;
     }
 }

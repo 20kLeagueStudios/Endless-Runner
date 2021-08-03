@@ -10,6 +10,7 @@ public class DeathSTM : StateMachineBehaviour
     float currentTime;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        GameManager.instance.playerDeath = true;
         objScript = GameObject.FindObjectOfType<ObjectPooling>();
         objScript.speed = 0;
         currentTime = Time.time;

@@ -11,6 +11,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     LayerMask interactiveMask;
 
+    Vector3 initialPos;
+
     bool isKeyboard = false, wallTouch = false;
 
     int currentObstacle = default;
@@ -169,15 +171,17 @@ public class PlayerMovement : MonoBehaviour
 
         this.suggestions = GameManager.instance.suggestions;
 
+        initialPos = transform.position;
     }
 
 
 
     void Update()
     {
-        stopMovement = suggestions[2].activeSelf || suggestions[3].activeSelf;
+        if (Input.GetKeyDown(KeyCode.F)) transform.position = initialPos;
 
-        Debug.Log(stopMovement);
+        stopMovement = suggestions[1].activeSelf || suggestions[2].activeSelf || suggestions[3].activeSelf;
+
         if (Time.time - scoreIncTime > .1f)
         {
             GameManager.instance.IncreaseScore(5);
@@ -205,43 +209,10 @@ public class PlayerMovement : MonoBehaviour
             rayWall = false;
         }
 
-        //if (Physics.CheckSphere(transform.position, 5f, wallMask))
-        //{
-        //    rayWall = true;
-        //}
 
         Debug.DrawRay(transform.position, transform.forward * 8f, Color.red);
 
-        /*
-        if (isGround) //Se il giocatore torna a terra resetto il pulsante
-        {
-            pressTime = -1;
-        }
-
-        if (pressTime >= 0) //Se il pulsante è stato premuto X volte allora diventerà giallo
-        {
-            button.color = Color.yellow; //setto il colore a giallo
-        }
-
-        if (button.color == Color.yellow & isGround) //se il pulsante è giallo e il giocatore è a terra.. allora resetto il colore a verde
-        {
-            button.color = Color.green;
-        }
-        */
-
-
-        /* ADESSO QUESTO CHECK VIENE FATTO NELL UPDATE DELLO SCRIPT POWERUPMANAGER
-        if (changeG == false) ///
-        {
-            //se ChangeG è false allora richiamo questo metodo
-            ChangeGravityOFF();
-        }
-        else
-        {
-            //se ChangeG è true allora richiamo questo metodo
-            ChangeGravityON();
-        }
-        */
+    
 
         #region Mouse interazione con trappole
         Ray rayMouse = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -309,7 +280,8 @@ public class PlayerMovement : MonoBehaviour
                 //Calcolo la differenza per effettuare lo swipe e l'assengo a swipeDelta
                 swipeDelta = touch.position - startPos;
             }
-        } //Comandi da tastiera, se premo un tasto orizzontale o verticale
+        }
+        #region Tastiera
         else if ((Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) && !isKeyboard && !wallTouch)
         {
             canSwipe = true;
@@ -468,9 +440,11 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         else if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0) isKeyboard = false;
+        #endregion
 
 
 
+        #region Touch movimento
         //Se lo swipe ha superato la deadzone di 125
         if (swipeDelta.magnitude > 10)
         {
@@ -513,7 +487,6 @@ public class PlayerMovement : MonoBehaviour
                         if (isGround)
                         {
                           
-                            Debug.Log(0);
                             //Applico la forza del salto a verticalForce
                             verticalForce.y = jumpForce;
                             //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
@@ -564,7 +537,6 @@ public class PlayerMovement : MonoBehaviour
                         //Se tocco il pavimento
                         if (isGround)
                         {
-                            Debug.Log(1);
                             //Applico la forza del salto a verticalForce
                             verticalForce.y = jumpForce;
                             //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
@@ -604,6 +576,7 @@ public class PlayerMovement : MonoBehaviour
 
 
         }
+        #endregion
 
 
         //Applico verticalForce al controller
@@ -629,12 +602,13 @@ public class PlayerMovement : MonoBehaviour
         {
 
             //Aggiungo la gravità alla verticalForce
-            verticalForce.y += gravity * Time.deltaTime;
+            if (!GameManager.instance.playerDeath)
+                verticalForce.y += gravity * Time.deltaTime;
         }
 
 
         //Movimento continuo in avanti
-        controller.Move(transform.forward * movSpeed * Time.deltaTime);
+        //controller.Move(transform.forward * movSpeed * Time.deltaTime);
     }
 
 
@@ -1043,5 +1017,17 @@ public class PlayerMovement : MonoBehaviour
     {
         GameManager.instance.speed += 4;
         if (GameManager.instance.speed > GameManager.instance.maxSpeed) GameManager.instance.speed = GameManager.instance.maxSpeed;
+    }
+
+    public void Resurrection()
+    {
+        controller.enabled = false;
+        transform.position = initialPos;
+        swipeEn = Swipe.Mid;
+        currentState = swipeEn.ToString();
+        animator.SetTrigger("Resurrection");
+        controller.enabled = true;
+        healthScript.once = true;
+        GameManager.instance.StartCountDown();
     }
 }
