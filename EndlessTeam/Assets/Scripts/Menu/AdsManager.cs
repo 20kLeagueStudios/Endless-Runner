@@ -15,6 +15,8 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     bool resurrection = false;
     bool testMode = true;
     string mySurfacingId = "rewardedVideo";
+    [SerializeField]
+    GameObject gameOver;
 
     void Start()
     {
@@ -75,7 +77,8 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         {
             if (resurrection)
             {
-                GameManager.instance.Respawn();            
+                GameManager.instance.Respawn();
+                if (gameOver.activeSelf) gameOver.SetActive(false);
             }
             else
                 Debug.Log("hai guadagnato 30.000 euro");

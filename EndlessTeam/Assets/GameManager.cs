@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour, ISaveable
 
     public void PopulateSaveData(SaveData saveData)
     {
-        saveData.money = currentMoney;
+        saveData.money = this.currentMoney;
         saveData.savedLanguage = this.savedLanguage;
     }
 
