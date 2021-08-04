@@ -30,7 +30,6 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
         {
             mydelegate(this.transform.parent.root.transform.GetChild(2).GetComponent<MainMenu>().itemShop[indexSkin]);
         
-
         }
 
     }
@@ -43,33 +42,42 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
         if (currencyManager.currency > 0 && shopped==false) 
         {
-
-            if (currencyManager.currency - item.itemCost > 0 && shopped == false)
+            if (!inventory.itemsAcquistati.Contains(item)) //if aggiuntoora
             {
-                currencyManager.currency -= item.itemCost;
+                if (currencyManager.currency - item.itemCost > 0 && shopped == false)
+                {
+                    currencyManager.currency -= item.itemCost;
 
-                tempCurrency = currencyManager.currency;
+                    tempCurrency = currencyManager.currency;
 
-                shopped = true;
+                    shopped = true;
 
-                AddItem(item);
+                    AddItem(item);
 
-                GameObject inventoryButton = Instantiate(inventory.inventoryButtonPrefab) as GameObject;
-                inventoryButton.GetComponent<Image>().sprite = item.itemImage;
-                inventoryButton.transform.SetParent(inventory.inventoryButtonContainer.transform, false);
 
-                inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemName;
-                inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemCost.ToString();
+                    GameObject inventoryButton = Instantiate(inventory.inventoryButtonPrefab) as GameObject;
+                    inventoryButton.GetComponent<Image>().sprite = item.itemImage;
+                    inventoryButton.transform.SetParent(inventory.inventoryButtonContainer.transform, false);
 
-                inventory.currencyText.text = (tempCurrency).ToString(); ///
+                    inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemName;
+                    inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemCost.ToString();
 
+                    inventory.currencyText.text = (tempCurrency).ToString();  
+
+                    //inventoryButton.GetComponent<Button>().interactable = false; ////
+
+
+                }
+                else
+                {
+                    Debug.Log("POLPETTA= ");
+                    currencyManager.currency = tempCurrency;
+                    //inventory.currencyText.text = tempCurrency.ToString(); ///
+                }
             }
-            else
-            {
-                Debug.Log("POLPETTA= ");
-                currencyManager.currency = tempCurrency;
-                //inventory.currencyText.text = tempCurrency.ToString(); ///
-            }
+
+
+            
         }
 
         Debug.Log("CURRENCY= " + currencyManager.currency);

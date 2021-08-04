@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
-public class InventoryButton : MonoBehaviour, IPointerDownHandler
+public class InventoryButton : MonoBehaviour, IPointerClickHandler
 {
     public int indexSkin;
 
@@ -16,12 +17,23 @@ public class InventoryButton : MonoBehaviour, IPointerDownHandler
     CurrencyManager currencyManager;
     InventoryManager inventory;
 
-
-
-    public void OnPointerDown(PointerEventData eventData)
+ 
+    public void OnPointerClick(PointerEventData eventData)
     {
 
         indexSkin = eventData.pointerCurrentRaycast.gameObject.transform.parent.GetSiblingIndex();
+
+ 
+        foreach (Transform item in inventory.inventoryButtonContainer.transform)
+        {
+           item.GetComponent<Button>().interactable = true;
+
+            Debug.Log("PERA " + eventData.pointerCurrentRaycast.gameObject.transform.parent.GetComponent<Button>().gameObject.name);
+        }
+       
+        eventData.pointerCurrentRaycast.gameObject.transform.parent.GetComponent<Button>().interactable = false;
+
+
         Debug.Log("SELEZIONATO" + " " + indexSkin);
 
 
@@ -35,7 +47,7 @@ public class InventoryButton : MonoBehaviour, IPointerDownHandler
 
     public void EquipItemSkin(ItemsShopSO item)
     {
-
+ 
         string _string = item.itemType.ToString();
         int Value = indexSkin;
 
@@ -49,7 +61,8 @@ public class InventoryButton : MonoBehaviour, IPointerDownHandler
 
             inventory.itemSelected.Add(item); ////
 
-            PlayerPrefs.SetInt(_string, Value);
+
+           // PlayerPrefs.SetInt(_string, Value);
         }
 
     }

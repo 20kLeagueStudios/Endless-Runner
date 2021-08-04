@@ -161,6 +161,7 @@ public class GameManager : MonoBehaviour, ISaveable
     {
         saveData.money = this.currentMoney;
         saveData.savedLanguage = this.savedLanguage;
+
     }
 
     public void LoadFromSaveData(SaveData saveData)
@@ -174,8 +175,7 @@ public class GameManager : MonoBehaviour, ISaveable
         SaveData saveData = new SaveData();
         this.PopulateSaveData(saveData);
 
-        if (FileManager.WriteToFile("SaveData0", saveData.ToJson())) { 
-            //Salvataggio eseguito
+        if (FileManager.WriteToFile("SaveData0", saveData.ToJson())) {
         }
         
     }

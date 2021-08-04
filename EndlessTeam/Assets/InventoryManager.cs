@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 
 
-public class InventoryManager : MonoBehaviour
+public class InventoryManager : MonoBehaviour, ISaveable
 {
     public static InventoryManager instance;
 
@@ -33,6 +33,49 @@ public class InventoryManager : MonoBehaviour
 
     public float previewRotationSpeed;
 
+    public bool caricaDati=true;
+
+    public void LoadFromSaveData(SaveData saveData)
+    {
+        itemsAcquistati = saveData.items;
+ 
+    }
+
+    void  LoadJsonData()
+    {
+        SaveData saveData = new SaveData();
+
+        if (FileManager.LoadFromFile("SaveData1", out var jsonFile))
+        {
+            saveData.LoadFromJson(jsonFile);
+            itemsAcquistati = saveData.items ;
+
+
+            Debug.Log("CARICA " + saveData.items.Count);
+        }
+    }
+
+
+    public void PopulateSaveData(SaveData saveData)
+    {
+        saveData.items = this.itemsAcquistati;
+    }
+
+    void SaveJsonData()
+    {
+        SaveData saveData = new SaveData();
+
+        this.PopulateSaveData(saveData);
+        Debug.Log("SALVA " + saveData.items.Count);
+
+        if (FileManager.WriteToFile("SaveData1", saveData.ToJson()))
+        {
+            
+
+        }
+
+    }
+
     private void Awake()
     {
         if (instance == null)
@@ -45,21 +88,50 @@ public class InventoryManager : MonoBehaviour
         }
 
 
+
         currencyText.text = shop.currency.ToString();
         tutaMesh = previewTutaPrefab.GetComponent<MeshRenderer>();
 
     }
 
-   
+    void OnApplicationQuit()
+    {
+        SaveJsonData();
+    }
+
     private void Start()
     {
-        defaultItems.Add(itemSelected[0]);
-        defaultItems.Add(gadgetSelected[0]);
+       // defaultItems.Add(itemSelected[0]);
+        //defaultItems.Add(gadgetSelected[0]);
 
+       itemsAcquistati.Add(defaultItems[0]);
+       itemsAcquistati.Add(defaultItems[1]);
 
+        if (caricaDati)
+        {
+            LoadJsonData();
+        }
+       
+
+        /*
         foreach (ItemsShopSO item in defaultItems)
         {
-            itemsAcquistati.Add(item);
+            // itemsAcquistati.Add(item);
+
+
+            GameObject inventoryButton = Instantiate(inventoryButtonPrefab) as GameObject;
+            inventoryButton.GetComponent<Image>().sprite = item.itemImage;
+            inventoryButton.transform.SetParent(inventoryButtonContainer.transform, false);
+
+            inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemName;
+            inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemCost.ToString();
+
+        }
+        */
+
+        foreach (ItemsShopSO item in itemsAcquistati)
+        {
+           // itemsAcquistati.Add(item);
 
 
             GameObject inventoryButton = Instantiate(inventoryButtonPrefab) as GameObject;
@@ -72,7 +144,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-  
+
 
     // Update is called once per frame
     void Update()

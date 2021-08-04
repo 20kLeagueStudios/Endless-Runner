@@ -6,6 +6,8 @@ public class SaveData
 {
     public int money, savedLanguage;
 
+    public List<ItemsShopSO> items;///
+
     //Ritorna la classe in formato json
     public string ToJson()
     {
