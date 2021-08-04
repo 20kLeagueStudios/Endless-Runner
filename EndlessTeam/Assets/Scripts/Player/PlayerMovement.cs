@@ -636,7 +636,6 @@ public class PlayerMovement : MonoBehaviour
             GameObject temp = GameManager.instance.GetObjFromArray("Hint1", suggestions);
             if (temp)
             {
-                Debug.Log("Prova");
                 if (temp.activeSelf) TutorialManager.instance.DisableHint();
             }
 
@@ -704,7 +703,7 @@ public class PlayerMovement : MonoBehaviour
 
                 //Se manca poco all'arrivo della posizione, viene direttamente messa uguale alla posizione finale
                 //In questo modo si evitano loop infiniti
-                if (Mathf.Abs(dest.x - finalPos.x) < .4f)
+                if (Mathf.Abs(dest.x - finalPos.x) < .1f)
                     dest.x = finalPos.x;
 
                 //Assegno continuamente la posizione lerpata a quella effettiva del player
@@ -947,7 +946,7 @@ public class PlayerMovement : MonoBehaviour
 
             //Se manca poco all'arrivo della posizione, viene direttamente messa uguale alla posizione finale
             //In questo modo si evitano loop infiniti
-            if (Mathf.Abs(dest.x - finalPos.x) < .3f)
+            if (Mathf.Abs(dest.x - finalPos.x) < .1f)
                 dest.x = finalPos.x;
 
             //Assegno continuamente la posizione lerpata a quella effettiva del player
