@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2815445242215938382}
   - component: {fileID: 3942083787772302802}
   - component: {fileID: 2341081816724375607}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: albero_alto
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -29,8 +29,7 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 6, y: 1.4210854e-16, z: -103.7}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
-  m_Children:
-  - {fileID: 2362861696527854217}
+  m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -60,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 6840103bd0c8825438d3ab60ff24dbdf, type: 3}
+  - {fileID: 2100000, guid: 08029e47c457d4b41b4c4caf4a9d9aaf, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -94,47 +93,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 419.66382, y: 791.08594, z: 374.7606}
   m_Center: {x: -8.32746, y: 395.54297, z: 102.89695}
---- !u!1 &2041087377001286531
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2362861696527854217}
-  - component: {fileID: 312110553965337506}
-  m_Layer: 0
-  m_Name: Point (1)
-  m_TagString: Point
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2362861696527854217
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2041087377001286531}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1, y: 678.95996, z: -154}
-  m_LocalScale: {x: 320, y: 1374.0302, z: 80.82883}
-  m_Children: []
-  m_Father: {fileID: 8168585126737160513}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &312110553965337506
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2041087377001286531}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1.2560624, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}

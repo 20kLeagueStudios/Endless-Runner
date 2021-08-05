@@ -144,7 +144,7 @@ Transform:
   - {fileID: 8379247035448412938}
   m_Father: {fileID: 1244884680929705734}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -2.926776e-15, y: -1.9345635e-15, z: 33.46422}
 --- !u!1 &3173206416835471181
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,7 +174,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3710615818144048083}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -2.926776e-15, y: -1.9345635e-15, z: 33.46422}
 --- !u!1 &6667413079684595185
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,7 +205,7 @@ Transform:
   - {fileID: 3710615818144048083}
   m_Father: {fileID: 164345064193261099}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -2.926776e-15, y: -1.9345635e-15, z: 33.46422}
 --- !u!1 &7667079365187213763
 GameObject:
   m_ObjectHideFlags: 0
@@ -319,7 +319,10 @@ SkinnedMeshRenderer:
   - {fileID: 1244884680929705734}
   - {fileID: 3710615818144048083}
   - {fileID: 8379247035448412938}
-  m_BlendShapeWeights: []
+  m_BlendShapeWeights:
+  - 0
+  - 0
+  - 0
   m_RootBone: {fileID: 5661338322513047662}
   m_AABB:
     m_Center: {x: -1.4958539, y: -0.28897578, z: -0.0065540075}

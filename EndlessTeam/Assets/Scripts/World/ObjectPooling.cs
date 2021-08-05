@@ -141,10 +141,10 @@ public class ObjectPooling : MonoBehaviour
             GameObject tile = Instantiate(tutorialTiles[i], transform.position, Quaternion.identity);
             tile.transform.parent = parentTiles.transform;
             //SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
-            rend = emptyTile.transform.GetChild(1).GetComponent<Renderer>();
+            rend = emptyTile.transform.GetChild(0).GetComponent<Renderer>();
             float temp = rend.bounds.extents.z * 2;
             // position tile's z at 0 or behind the last item added to tiles collection
-            float zPos = activeTiles.Count == 0 ? 140f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
+            float zPos = activeTiles.Count == 0 ? 120f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
             tile.transform.position = new Vector3(0f, 0f, zPos);
 
             activeTiles.Add(tile);
@@ -200,7 +200,7 @@ public class ObjectPooling : MonoBehaviour
         GameObject tile = GetTile();
         //if (tile)
         //{
-            rend = emptyTile.transform.GetChild(1).GetComponent<Renderer>();
+            rend = emptyTile.transform.GetChild(0).GetComponent<Renderer>();
             float temp = rend.bounds.extents.z * 2;
             // position tile's z at 0 or behind the last item added to tiles collection
             float zPos = activeTiles.Count == 0 ? 0f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
@@ -217,7 +217,7 @@ public class ObjectPooling : MonoBehaviour
     public void CheckPointOffset()
     {
         float temp = rend.bounds.extents.z * 2;
-        activeTiles[0].transform.position = new Vector3(0, 0, 140);
+        activeTiles[0].transform.position = new Vector3(0, 0, 120);
 
         for (int i = 1; i < activeTiles.Count - 1; i++) {
             Debug.Log(activeTiles[0].transform.name);
