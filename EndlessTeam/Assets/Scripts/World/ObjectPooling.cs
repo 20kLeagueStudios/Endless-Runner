@@ -266,6 +266,7 @@ public class ObjectPooling : MonoBehaviour
             {
                 activeTiles.RemoveAt(i);
                 DisableObject(tile);
+
                 if (!tutorial)
                     AddTile();
             }

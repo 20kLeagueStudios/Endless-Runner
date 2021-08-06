@@ -3284,7 +3284,7 @@ PrefabInstance:
     - target: {fileID: 2539507645114299317, guid: 66aa9e8e402136247899536a755bb828,
         type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 2539507645114299319, guid: 66aa9e8e402136247899536a755bb828,
         type: 3}
@@ -3405,6 +3405,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalPosition.z
       value: -12.710003
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539507645360058990, guid: 66aa9e8e402136247899536a755bb828,
+        type: 3}
+      propertyPath: near clip plane
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2539507645360058990, guid: 66aa9e8e402136247899536a755bb828,
+        type: 3}
+      propertyPath: far clip plane
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 2539507646253671650, guid: 66aa9e8e402136247899536a755bb828,
         type: 3}
@@ -8710,7 +8720,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1649673370}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cac88e6bef1b66c4cb7c4dac34e038dd, type: 3}
   m_Name: 

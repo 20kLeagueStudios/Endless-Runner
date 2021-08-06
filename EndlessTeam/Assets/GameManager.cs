@@ -90,7 +90,13 @@ public class GameManager : MonoBehaviour, ISaveable
         moneyText.text = ": " + currentMoney.ToString();
     }
 
-
+    void Update() //////////////////////////////////////////////////////////////
+    {
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            SceneManager.LoadScene(3, LoadSceneMode.Additive);
+        }
+    }
 
     void Start()
     {

@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 08029e47c457d4b41b4c4caf4a9d9aaf, type: 2}
+  - {fileID: 2100000, guid: 1c434618089a2b54989bbcc0a344df3e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -181,8 +181,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 70d03510f2d0a564ea4c76e58e3b3a35, type: 2}
-  - {fileID: 2100000, guid: 70d03510f2d0a564ea4c76e58e3b3a35, type: 2}
+  - {fileID: 2100000, guid: 1c434618089a2b54989bbcc0a344df3e, type: 2}
+  - {fileID: 2100000, guid: 1c434618089a2b54989bbcc0a344df3e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -361,6 +361,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: roccia
       objectReference: {fileID: 0}
+    - target: {fileID: 2123305278639006057, guid: 634b37622456abd40995dab09516f347,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1c434618089a2b54989bbcc0a344df3e, type: 2}
     - target: {fileID: 3403737744168293897, guid: 634b37622456abd40995dab09516f347,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -431,6 +436,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8983592695202666889}
     m_Modifications:
+    - target: {fileID: 2656895732247603289, guid: 3c1926a1b3ac10d4d91e2edf6467be92,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 1c434618089a2b54989bbcc0a344df3e, type: 2}
     - target: {fileID: 5245006891971639134, guid: 3c1926a1b3ac10d4d91e2edf6467be92,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -12,7 +12,7 @@ public class EnemySmoothHor : MonoBehaviour
 
     Animator anim;
 
-    public float speed = 20;
+    public float speed ;
 
 
     private void Awake()
@@ -42,6 +42,7 @@ public class EnemySmoothHor : MonoBehaviour
        
     }
 
+    [SerializeField] bool deveAncheRuotare;
 
     IEnumerator ChangePos()
     {
@@ -61,17 +62,19 @@ public class EnemySmoothHor : MonoBehaviour
 
             transform.localPosition = Vector3.Lerp(startPos, targetPos, pingpong);
 
-            anim.Play("WalkFWD");
+            anim.Play("GranchioFermo_Idle");
 
-            if(transform.localPosition.x >= targetPos.x - 0.2f)
+            if (deveAncheRuotare)
             {
-                transform.localRotation = Quaternion.Euler(0, -90, 0);
+                if (transform.localPosition.x >= targetPos.x - 0.2f)
+                {
+                    transform.localRotation = Quaternion.Euler(0, -90, 0);
+                }
+                if (transform.localPosition.x <= startPos.x + 0.2f)
+                {
+                    transform.localRotation = Quaternion.Euler(0, 90, 0);
+                }
             }
-            if (transform.localPosition.x <= startPos.x + 0.2f) 
-            {
-                transform.localRotation = Quaternion.Euler(0, 90, 0);
-            }
-
           
             yield return null;
 

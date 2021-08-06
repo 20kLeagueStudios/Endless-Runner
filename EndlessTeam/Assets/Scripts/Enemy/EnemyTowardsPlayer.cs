@@ -26,7 +26,7 @@ public class EnemyTowardsPlayer : MonoBehaviour
 
     private void Awake()
     {
-        anim = GetComponent<Animator>();
+        anim = this.gameObject.GetComponent<Animator>();
         startPos = transform.localPosition;
 
         targetPos = new Vector3(startPos.x, startPos.y, startPos.z - offsetZ);
@@ -38,17 +38,22 @@ public class EnemyTowardsPlayer : MonoBehaviour
         isAttack = false;
         // transform.localPosition = trackPos[rndPos].transform.localPosition;
         transform.localPosition = startPos;
-        anim.Play("IdleNormal");
+        anim.Play("GranchioRoccia_Idle");
 
+    }
+
+    private void OnDisable()
+    {
+        transform.localPosition = startPos;
     }
 
     IEnumerator ChangePos()
     {
         float elapsedTime = 0;
         float waitTime = 1.5f;
-
-        anim.Play("Attack01");
-
+        anim.Play("Granchuio_rotolata");
+   
+        /*
         while (elapsedTime < waitTime)
         {
 
@@ -61,9 +66,12 @@ public class EnemyTowardsPlayer : MonoBehaviour
 
         }
 
+       
         transform.localPosition = targetPos;
-
+     
+        */
         yield return null;
+
     }
 
     void Start()
@@ -85,16 +93,26 @@ public class EnemyTowardsPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         tmp = new Vector3(this.transform.position.x, this.transform.position.y + .5f, this.transform.position.z);
 
         RaycastHit hit;
 
         ray = new Ray(tmp, this.transform.forward);
 
-        if (Physics.Raycast(ray, out hit, 30f, layerMask))
+        if (Physics.Raycast(ray, out hit, 100f, layerMask))
         {
-          
+            collision = hit.point;
 
+            lasthit = hit.transform.gameObject;
+
+            if (lasthit.name  == "Player Roberto")
+            {
+                StartCoroutine(ChangePos());
+
+                Debug.Log("CANE " + hit.collider.name);
+            }
+            /*
             collision = hit.point;
 
             StartCoroutine(ChangePos());
@@ -103,8 +121,9 @@ public class EnemyTowardsPlayer : MonoBehaviour
             lasthit = hit.transform.gameObject;
 
             Debug.Log("hit"+lasthit.name);
-
+            */
         }
+
 
 
     }
