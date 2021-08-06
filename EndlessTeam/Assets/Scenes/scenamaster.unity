@@ -1430,7 +1430,7 @@ Light:
     m_Type: 2
     m_Resolution: -1
     m_CustomResolution: -1
-    m_Strength: 1
+    m_Strength: 0.5
     m_Bias: 0.05
     m_NormalBias: 0.4
     m_NearPlane: 0.2
@@ -6053,6 +6053,12 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.00012207031}
   m_SizeDelta: {x: 300, y: 595.69507}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!4 &1076740064 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2539507645360058985, guid: 66aa9e8e402136247899536a755bb828,
+    type: 3}
+  m_PrefabInstance: {fileID: 577138972}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1081563476
 GameObject:
   m_ObjectHideFlags: 0
@@ -10510,7 +10516,7 @@ PrefabInstance:
         type: 3}
       propertyPath: CurveOrigin
       value: 
-      objectReference: {fileID: 1235666580}
+      objectReference: {fileID: 1076740064}
     - target: {fileID: 6565710215739372171, guid: 8e4021b4fe0fdab4fbc0439215f68223,
         type: 3}
       propertyPath: x
@@ -10519,7 +10525,7 @@ PrefabInstance:
     - target: {fileID: 6565710215739372171, guid: 8e4021b4fe0fdab4fbc0439215f68223,
         type: 3}
       propertyPath: y
-      value: 0
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 6565710215739372172, guid: 8e4021b4fe0fdab4fbc0439215f68223,
         type: 3}
