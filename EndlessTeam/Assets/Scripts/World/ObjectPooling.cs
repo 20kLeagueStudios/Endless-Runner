@@ -203,7 +203,7 @@ public class ObjectPooling : MonoBehaviour
             rend = emptyTile.transform.GetChild(0).GetComponent<Renderer>();
             float temp = rend.bounds.extents.z * 2;
             // position tile's z at 0 or behind the last item added to tiles collection
-            float zPos = activeTiles.Count == 0 ? 0f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
+            float zPos = activeTiles.Count == 0 ? 130f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
             tile.transform.position = new Vector3(0f, 0f, zPos);
 
             //Debug.Log(tile);
@@ -217,7 +217,7 @@ public class ObjectPooling : MonoBehaviour
     public void CheckPointOffset()
     {
         float temp = rend.bounds.extents.z * 2;
-        activeTiles[0].transform.position = new Vector3(0, 0, 120);
+        activeTiles[0].transform.position = new Vector3(0, 0, 130);
 
         for (int i = 1; i < activeTiles.Count - 1; i++) {
             Debug.Log(activeTiles[0].transform.name);

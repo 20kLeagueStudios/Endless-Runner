@@ -200,7 +200,8 @@ public class GameManager : MonoBehaviour, ISaveable
     {
         Time.timeScale = 1;
         playerGb.GetComponent<PlayerMovement>().Resurrection();
-        ObjectPooling.instance.CheckPointOffset();
+        GameObject.FindObjectOfType<ObjectPooling>().CheckPointOffset();
+        //ObjectPooling.instance.CheckPointOffset();
 
         retryText.GetComponent<TextMeshProUGUI>().fontSize = 5.2f;
         retryText.UpdateText("Gems to retry!", "Gemme per riprovare!");
