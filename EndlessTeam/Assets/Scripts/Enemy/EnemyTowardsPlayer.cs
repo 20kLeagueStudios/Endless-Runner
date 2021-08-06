@@ -38,7 +38,7 @@ public class EnemyTowardsPlayer : MonoBehaviour
         isAttack = false;
         // transform.localPosition = trackPos[rndPos].transform.localPosition;
         transform.localPosition = startPos;
-        anim.Play("GranchioRoccia_Idle");
+        anim.Play("GranchioRoccia_idle2");
 
     }
 
@@ -51,7 +51,7 @@ public class EnemyTowardsPlayer : MonoBehaviour
     {
         float elapsedTime = 0;
         float waitTime = 1.5f;
-        anim.Play("Granchuio_rotolata");
+        anim.Play("GranchioRoccia_rotolata");
    
         /*
         while (elapsedTime < waitTime)
@@ -110,18 +110,9 @@ public class EnemyTowardsPlayer : MonoBehaviour
             {
                 StartCoroutine(ChangePos());
 
-                Debug.Log("CANE " + hit.collider.name);
+               // Debug.Log("colpisce " + hit.collider.name);
             }
-            /*
-            collision = hit.point;
-
-            StartCoroutine(ChangePos());
-
-
-            lasthit = hit.transform.gameObject;
-
-            Debug.Log("hit"+lasthit.name);
-            */
+     
         }
 
 
