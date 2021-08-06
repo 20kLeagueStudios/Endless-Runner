@@ -1,11 +1,14 @@
 fileFormatVersion: 2
-guid: 8d3d8291fed573d49b0a274046ae767c
+guid: 1b2fa450031a3fe4693a8627313130a6
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
   - first:
-      74: -6580939896264874450
-    second: Retotem2
+      74: 1827226128182048838
+    second: Second
+  - first:
+      74: -1804416175580268182
+    second: First
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,18 +38,47 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Retotem2
-      takeName: Retotem2
+      name: Second
+      takeName: Take 001
       internalID: 0
-      firstFrame: 1
-      lastFrame: 301
+      firstFrame: 64
+      lastFrame: 281
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: First
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 1
+      lastFrame: 63
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -66,7 +98,7 @@ ModelImporter:
     isReadable: 0
   meshes:
     lODScreenPercentages: []
-    globalScale: 0.3
+    globalScale: 1
     meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
@@ -113,7 +145,7 @@ ModelImporter:
     armStretch: 0.05
     legStretch: 0.05
     feetSpacing: 0
-    globalScale: 0.3
+    globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
     hasExtraRoot: 0
