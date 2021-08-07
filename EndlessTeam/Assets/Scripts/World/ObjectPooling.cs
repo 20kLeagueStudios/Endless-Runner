@@ -220,7 +220,6 @@ public class ObjectPooling : MonoBehaviour
         activeTiles[0].transform.position = new Vector3(0, 0, 130);
 
         for (int i = 1; i < activeTiles.Count - 1; i++) {
-            Debug.Log(activeTiles[0].transform.name);
             float zPos = activeTiles[i-1] != null ? activeTiles[i-1].transform.position.z + temp : 0;
             activeTiles[i].transform.position = new Vector3(0,0,zPos);
         }
