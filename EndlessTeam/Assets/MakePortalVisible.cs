@@ -9,6 +9,7 @@ public class MakePortalVisible : MonoBehaviour
     [SerializeField]
     int sceneTarget;
 
+    int number = 3;
     GameObject suggestion;
 
     private void OnTriggerEnter(Collider other)
@@ -19,7 +20,7 @@ public class MakePortalVisible : MonoBehaviour
             if (GameManager.instance.firstPortal)
             {
                 suggestion = GameManager.instance.GetObjFromArray("Hint4", GameManager.instance.suggestions);
-                TutorialManager.instance.ShowHint();
+                TutorialManager.instance.ShowHint(number);
                 StartCoroutine(WaitCor(4));
                 GameManager.instance.firstPortal = false;
             }

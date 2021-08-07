@@ -58,7 +58,8 @@ public  class InterazioneTrappole : MonoBehaviour, IPointerClickHandler
     public virtual void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Clicked: " + eventData.pointerCurrentRaycast.gameObject.name);
-
+        GameObject suggTemp = GameManager.instance.GetObjFromArray("Hint3", GameManager.instance.suggestions);
+        if (suggTemp.activeSelf) TutorialManager.instance.DisableHint();
         //rend.material.SetFloat("_Emission", 10f);
         //rend.material.SetColor("_EmissionColor", Color.red);
 

@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class CallSuggestion : MonoBehaviour
 {
+    [SerializeField]
+    int hint;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            TutorialManager.instance.ShowHint();
+            TutorialManager.instance.ShowHint(hint);
         }
     }
 }

@@ -77,6 +77,7 @@ public class ObjectPooling : MonoBehaviour
         currentTimer = Time.time;
         //Modalità iniziale a facile
         mode = Mode.Easy;
+        rend = emptyTile.transform.GetChild(0).GetComponent<Renderer>();
 
         //for(int i=0; i<tutorialTiles.Length; i++)
         //{
@@ -88,7 +89,7 @@ public class ObjectPooling : MonoBehaviour
         //}
         //Istanzia tutti i GameObject presenti nella lista di Pool e li inserisco nel dizionario con il tag
         //associato
-        foreach(Pool temp in poolList)
+        foreach (Pool temp in poolList)
         {
             List<GameObject> tempList = new List<GameObject>();
             for(int i=0; i<temp.prefab.Length; i++)
@@ -141,7 +142,7 @@ public class ObjectPooling : MonoBehaviour
             GameObject tile = Instantiate(tutorialTiles[i], transform.position, Quaternion.identity);
             tile.transform.parent = parentTiles.transform;
             //SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
-            rend = emptyTile.transform.GetChild(0).GetComponent<Renderer>();
+            //rend = emptyTile.transform.GetChild(0).GetComponent<Renderer>();
             float temp = rend.bounds.extents.z * 2;
             // position tile's z at 0 or behind the last item added to tiles collection
             float zPos = activeTiles.Count == 0 ? 120f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
@@ -200,7 +201,7 @@ public class ObjectPooling : MonoBehaviour
         GameObject tile = GetTile();
         //if (tile)
         //{
-            rend = emptyTile.transform.GetChild(0).GetComponent<Renderer>();
+            
             float temp = rend.bounds.extents.z * 2;
             // position tile's z at 0 or behind the last item added to tiles collection
             float zPos = activeTiles.Count == 0 ? 130f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
@@ -219,7 +220,7 @@ public class ObjectPooling : MonoBehaviour
         float temp = rend.bounds.extents.z * 2;
         activeTiles[0].transform.position = new Vector3(0, 0, 130);
 
-        for (int i = 1; i < activeTiles.Count - 1; i++) {
+        for (int i = 1; i < activeTiles.Count; i++) {
             float zPos = activeTiles[i-1] != null ? activeTiles[i-1].transform.position.z + temp : 0;
             activeTiles[i].transform.position = new Vector3(0,0,zPos);
         }
@@ -303,7 +304,6 @@ public class ObjectPooling : MonoBehaviour
     //Disattiva GameObject passato così potrà essere riutilizzato dal metodo GetTile
     public void DisableObject(GameObject obj)
     {
-       
         obj.SetActive(false);
     }
 

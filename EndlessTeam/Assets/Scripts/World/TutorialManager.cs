@@ -27,13 +27,13 @@ public class TutorialManager : MonoBehaviour
     }
     //Index dei suggestion
     int i = 0;
-    public void ShowHint()
+    public void ShowHint(int number)
     {
         Time.timeScale = 0;
 
-        currentSuggestion = suggestionList[i];
+        currentSuggestion = suggestionList[number];
 
-        suggestionList[i].SetActive(true);
+        suggestionList[number].SetActive(true);
         //Image[] tempImg = suggestionList[i].gameObject.GetComponentsInChildren<Image>();
         //TextMeshProUGUI[] tempTxt = suggestionList[i].gameObject.GetComponentsInChildren<TextMeshProUGUI>();
 
@@ -47,8 +47,8 @@ public class TutorialManager : MonoBehaviour
         //{
         //    tempTxt[i].gameObject.SetActive(true);
         //}
-        if (i <suggestionList.Count -1)
-            i++;
+        //if (i <suggestionList.Count -1)
+        //    i++;
     }
 
     public void DisableHint()
@@ -72,15 +72,6 @@ public class TutorialManager : MonoBehaviour
         //}
     }
 
-    private void Update()
-    {   
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            if (currentSuggestion != null && currentSuggestion.activeSelf) DisableHint();
-            else ShowHint();
-        }
-      
-    }
 }
 
 
