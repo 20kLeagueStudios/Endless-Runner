@@ -202,9 +202,9 @@ GameObject:
   - component: {fileID: 168418555714259109}
   - component: {fileID: 7969252827717727269}
   - component: {fileID: 7049953306744086667}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: box_spara_spine
-  m_TagString: Untagged
+  m_TagString: Interactive
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -289,9 +289,11 @@ MonoBehaviour:
   spine:
   - {fileID: 1053379816237331250}
   - {fileID: 5768018789201708415}
-  pos:
+  endPos:
   - {fileID: 4510055494517952537}
   - {fileID: 291882810609049951}
+  startPos1: {x: 0, y: 0, z: 0}
+  startPos2: {x: 0, y: 0, z: 0}
 --- !u!65 &7969252827717727269
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -303,8 +305,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2659.6814, y: 1462.2128, z: 271.75482}
-  m_Center: {x: 928.6923, y: 731.1064, z: -1027.1013}
+  m_Size: {x: 843.2226, y: 620.2635, z: 271.75482}
+  m_Center: {x: 928.6923, y: 310.13174, z: -1027.1013}
 --- !u!54 &7049953306744086667
 Rigidbody:
   m_ObjectHideFlags: 0

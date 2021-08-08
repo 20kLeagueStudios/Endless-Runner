@@ -621,6 +621,28 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &135403215 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2539507645360058988, guid: 66aa9e8e402136247899536a755bb828,
+    type: 3}
+  m_PrefabInstance: {fileID: 577138972}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &135403218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 135403215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c49b4cc203aa6414fae5c798d1d0e7d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EventMask:
+    serializedVersion: 2
+    m_Bits: 1024
+  m_MaxRayIntersections: 0
 --- !u!1 &144966679
 GameObject:
   m_ObjectHideFlags: 0
@@ -8659,6 +8681,7 @@ GameObject:
   - component: {fileID: 1649673372}
   - component: {fileID: 1649673371}
   - component: {fileID: 1649673373}
+  - component: {fileID: 1649673374}
   m_Layer: 0
   m_Name: GAME_MANAGER
   m_TagString: Untagged
@@ -8705,6 +8728,7 @@ MonoBehaviour:
   parentTiles: {fileID: 4523336909541068390, guid: 31a674b1b79b8e74cb82b66466e416a3,
     type: 3}
   startShader: {fileID: 4800000, guid: 3ab026a016955254ba00bdc6eeee8928, type: 3}
+  interazioneTrappole: {fileID: 0}
 --- !u!4 &1649673372
 Transform:
   m_ObjectHideFlags: 0
@@ -8736,6 +8760,18 @@ MonoBehaviour:
   - {fileID: 2065099507}
   - {fileID: 926762848}
   - {fileID: 1750439780}
+--- !u!114 &1649673374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649673370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9438c4daa43eb534a87b6ae92247e08a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1657401793
 GameObject:
   m_ObjectHideFlags: 0
@@ -10525,7 +10561,7 @@ PrefabInstance:
     - target: {fileID: 6565710215739372171, guid: 8e4021b4fe0fdab4fbc0439215f68223,
         type: 3}
       propertyPath: y
-      value: 0
+      value: -6.4
       objectReference: {fileID: 0}
     - target: {fileID: 6565710215739372172, guid: 8e4021b4fe0fdab4fbc0439215f68223,
         type: 3}

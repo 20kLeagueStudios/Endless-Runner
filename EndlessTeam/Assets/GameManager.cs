@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour, ISaveable
 
     [SerializeField] Shader startShader;
 
-
+    [SerializeField] InterazioneTrappole interazioneTrappole;
     public GameObject GetObjFromArray(string name, GameObject[] array)
     {
         foreach (GameObject temp in array)
