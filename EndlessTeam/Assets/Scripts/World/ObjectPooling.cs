@@ -114,7 +114,12 @@ public class ObjectPooling : MonoBehaviour
                 
             dictPool.Add(temp.GetTag, tempList);
         }
-
+        //PER TESTING SOLO, DA CANCELLARE
+        for (int i = 0; i < maxTiles; i++)
+        {
+            AddTile();
+        }
+        //
         //Chiamo il metodo che si occupa di creare le carreggiate tutorial
         if (GameManager.instance.firstGame)
             TutorialTiles();

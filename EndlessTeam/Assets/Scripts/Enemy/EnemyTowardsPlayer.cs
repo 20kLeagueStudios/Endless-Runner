@@ -119,4 +119,16 @@ public class EnemyTowardsPlayer : MonoBehaviour
 
     }
 
+    public void Death()
+    {
+        //anim.SetTrigger("Death");
+        transform.gameObject.SetActive(false);
+        StopAllCoroutines();
+        //transform.gameObject.SetActive(false);
+    }
+
+    public void Disable()
+    {
+        transform.gameObject.SetActive(false);
+    }
 }

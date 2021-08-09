@@ -62,7 +62,6 @@ public class EnemySmoothHor : MonoBehaviour
 
             transform.localPosition = Vector3.Lerp(startPos, targetPos, pingpong);
 
-            anim.Play("GranchioFermo_Idle");
 
             if (deveAncheRuotare)
             {
@@ -86,8 +85,16 @@ public class EnemySmoothHor : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    public void Death()
     {
-       
+        //anim.SetTrigger("Death");
+        transform.gameObject.SetActive(false);
+        StopAllCoroutines();
+        //transform.gameObject.SetActive(false);
+    }
+
+    public void Disable()
+    {
+        transform.gameObject.SetActive(false);
     }
 }

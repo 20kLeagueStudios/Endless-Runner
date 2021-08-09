@@ -216,10 +216,12 @@ public class PlayerMovement : MonoBehaviour
 
         #region Mouse interazione con trappole
         Ray rayMouse = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        //Controllo click
         if (Input.GetMouseButton(0))
         {
             
-            if (Physics.Raycast(rayMouse, out hit, 100, interactiveMask, QueryTriggerInteraction.Ignore))
+            if (Physics.Raycast(rayMouse, out hit, 100, interactiveMask))
             {
                 GameObject suggTemp = GameManager.instance.GetObjFromArray("Hint3", suggestions);
                 Interactive temp = hit.transform.GetComponent<Interactive>();
