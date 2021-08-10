@@ -6,8 +6,7 @@ using UnityEngine;
 public class MakePortalVisible : MonoBehaviour
 {
     //Scena da creare quando sono vicino al portale
-    [SerializeField]
-    int sceneTarget;
+    public int sceneTarget;
 
     int number = 3;
     GameObject suggestion;
@@ -19,17 +18,20 @@ public class MakePortalVisible : MonoBehaviour
         {
             if (GameManager.instance.firstPortal)
             {
-                suggestion = GameManager.instance.GetObjFromArray("Hint4", GameManager.instance.suggestions);
-                TutorialManager.instance.ShowHint(number);
+                //da riaggiungere
+                //suggestion = GameManager.instance.GetObjFromArray("Hint4", GameManager.instance.suggestions);
+                //TutorialManager.instance.ShowHint(number);
                 StartCoroutine(WaitCor(4));
                 GameManager.instance.firstPortal = false;
             }
             GameManager.instance.LoadScene(sceneTarget);
+    
+           
             GameManager.instance.currentScene = sceneTarget;
         }
     }
 
-    
+
 
     //Quando esco dal trigger, se lo faccio, disattivo la scena corrente
     private void OnTriggerExit(Collider other)

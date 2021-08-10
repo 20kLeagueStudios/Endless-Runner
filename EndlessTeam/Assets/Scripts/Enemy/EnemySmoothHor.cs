@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemySmoothHor : MonoBehaviour
+public class EnemySmoothHor : MonoBehaviour, IDamageable
 {
     public Transform[] trackPos;
 
@@ -12,7 +12,9 @@ public class EnemySmoothHor : MonoBehaviour
 
     Animator anim;
 
-    public float speed ;
+    public float speed;
+
+    bool dead = false;
 
 
     private void Awake()
@@ -32,6 +34,7 @@ public class EnemySmoothHor : MonoBehaviour
 
     void OnEnable()
     {
+        dead = false;
         //elapsedTime = 0; ----
         //pingpong = 0f;
         startPos = trackPos[0].transform.localPosition;
@@ -53,7 +56,7 @@ public class EnemySmoothHor : MonoBehaviour
         targetPos = trackPos[1].transform.localPosition;
         startPos = trackPos[0].transform.localPosition;
 
-        while (isActiveAndEnabled)
+        while (isActiveAndEnabled && !dead)
         {
 
             elapsedTime += Time.deltaTime;
@@ -79,6 +82,7 @@ public class EnemySmoothHor : MonoBehaviour
 
         }
 
+        Death();
 
         yield return null;
 
@@ -87,8 +91,9 @@ public class EnemySmoothHor : MonoBehaviour
     // Update is called once per frame
     public void Death()
     {
-        //anim.SetTrigger("Death");
-        transform.gameObject.SetActive(false);
+        dead = true;
+        anim.SetTrigger("Death");
+        //transform.gameObject.SetActive(false);
         StopAllCoroutines();
         //transform.gameObject.SetActive(false);
     }
@@ -96,5 +101,11 @@ public class EnemySmoothHor : MonoBehaviour
     public void Disable()
     {
         transform.gameObject.SetActive(false);
+        GameManager.instance.toReactive.Add(this.gameObject);
+    }
+
+    public void Damage()
+    {
+        Death();
     }
 }

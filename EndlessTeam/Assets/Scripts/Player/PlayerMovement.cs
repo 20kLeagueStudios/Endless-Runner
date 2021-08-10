@@ -150,12 +150,7 @@ public class PlayerMovement : MonoBehaviour
         controller.enabled = false;
         controller.transform.position = new Vector3(positions[1].position.x, transform.position.y, transform.position.z);
         controller.enabled = true;
-
-        Debug.Log("POSIZIONE" + this.gameObject.transform.position);
         
-        //characterController.enabled = true;
-
-        //pressTime = 0;
         //setto ChangeG a false, canIPress a true e il colore a green.
         changeG = false; ///
         canIPress = true; ///
@@ -188,13 +183,11 @@ public class PlayerMovement : MonoBehaviour
             scoreIncTime = Time.time;
         }
 
-        //Debug.Log("POSIZIONE"+ controller.transform.position);
-
         isGround = Physics.CheckSphere(groundCheck.position, .4f, groundMask);
 
         value.x = positions[1].position.x - positions[0].position.x;
 
-        initialPoint = transform.position - (value) - Vector3.right;
+        initialPoint = (Vector3.up * -1) + transform.position - (value) - Vector3.right;
         ray.origin = initialPoint;
         ray.direction = transform.right;
 
@@ -968,7 +961,8 @@ public class PlayerMovement : MonoBehaviour
         {
             GameManager.instance.IncreaseScore(50);
             GameManager.instance.IncreaseMoney();
-            Destroy(other.gameObject);
+            GameManager.instance.toReactive.Add(other.gameObject);
+            other.gameObject.SetActive(false);  
         }
         if (other.CompareTag("Obstacle"))
         {

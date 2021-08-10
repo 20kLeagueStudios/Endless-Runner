@@ -15,10 +15,12 @@ public class PortalScript : MonoBehaviour
 
     int currentScene;
 
+    int sceneTarget;
+
 
     void Start()
     {
-        //transform.parent = null;
+        this.sceneTarget = transform.GetChild(0).GetComponent<MakePortalVisible>().sceneTarget;
 
         portalMesh = this.gameObject.GetComponent<MeshRenderer>();
 
@@ -56,6 +58,8 @@ public class PortalScript : MonoBehaviour
             // GetComponent<Material>().shader = newshader;
 
             // SceneManager.MoveGameObjectToScene
+
+            ObjectPooling.instance.ChangeMatFromTo(GameManager.instance.currentScene, this.sceneTarget);
 
 
             GameManager.instance.DeactivateScene(currentScene);

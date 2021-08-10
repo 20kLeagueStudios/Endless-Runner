@@ -6,9 +6,8 @@ public class SpineTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.transform.CompareTag("Enemy"))
-        {
-            other.GetComponent<EnemySmoothHor>().Death();
-        }
+        IDamageable damageComp = other.transform.GetComponent<IDamageable>();
+        if (damageComp != null)
+            damageComp.Damage();
     }
 }

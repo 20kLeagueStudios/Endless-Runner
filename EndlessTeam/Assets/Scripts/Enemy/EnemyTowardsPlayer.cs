@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyTowardsPlayer : MonoBehaviour
+public class EnemyTowardsPlayer : MonoBehaviour, IDamageable
 {
     Vector3 targetPos;
 
@@ -29,7 +29,7 @@ public class EnemyTowardsPlayer : MonoBehaviour
         anim = this.gameObject.GetComponent<Animator>();
         startPos = transform.localPosition;
 
-        targetPos = new Vector3(startPos.x, startPos.y, startPos.z - offsetZ);
+        targetPos = new Vector3(startPos.x, startPos.y, startPos.z + offsetZ);
 
     }
 
@@ -50,26 +50,26 @@ public class EnemyTowardsPlayer : MonoBehaviour
     IEnumerator ChangePos()
     {
         float elapsedTime = 0;
-        float waitTime = 1.5f;
-        anim.Play("GranchioRoccia_rotolata");
-   
-        /*
+        float waitTime = 8f;
+
+        anim.SetTrigger("Attack");
+
         while (elapsedTime < waitTime)
         {
 
-         elapsedTime += Time.deltaTime;
+            elapsedTime += Time.deltaTime;
 
-         transform.localPosition = Vector3.Lerp(startPos, targetPos, (elapsedTime / waitTime) * speed);
+            transform.localPosition = Vector3.Lerp(startPos, targetPos, (elapsedTime / waitTime) * speed);
 
 
-         yield return null;
+            yield return null;
 
         }
 
-       
+
         transform.localPosition = targetPos;
-     
-        */
+
+
         yield return null;
 
     }
@@ -121,14 +121,17 @@ public class EnemyTowardsPlayer : MonoBehaviour
 
     public void Death()
     {
-        //anim.SetTrigger("Death");
         transform.gameObject.SetActive(false);
         StopAllCoroutines();
-        //transform.gameObject.SetActive(false);
     }
 
     public void Disable()
     {
         transform.gameObject.SetActive(false);
+    }
+
+    public void Damage()
+    {
+        Death();
     }
 }

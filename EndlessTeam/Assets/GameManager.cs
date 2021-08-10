@@ -9,6 +9,17 @@ using System.IO;
 
 public class GameManager : MonoBehaviour, ISaveable
 {
+    [System.Serializable]
+    public struct Biomes
+    {
+        public string name;
+        public Material[] mat;
+    }
+
+    public List<GameObject> toReactive = new List<GameObject>();
+
+    public Biomes[] biomes;
+
     [SerializeField]
     GameObject playerGb;
 

@@ -59,7 +59,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1c434618089a2b54989bbcc0a344df3e, type: 2}
+  - {fileID: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -93,36 +93,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 419.66382, y: 791.08594, z: 374.7606}
   m_Center: {x: -8.32746, y: 395.54297, z: 102.89695}
---- !u!1 &6965798082752783472
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1770533291256033149}
-  m_Layer: 0
-  m_Name: GroundDeserto
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1770533291256033149
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6965798082752783472}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.433672, y: -3.662981, z: -21.592077}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 8983592695202666889}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7807122386130282375
 GameObject:
   m_ObjectHideFlags: 0
@@ -181,8 +151,8 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1c434618089a2b54989bbcc0a344df3e, type: 2}
-  - {fileID: 2100000, guid: 1c434618089a2b54989bbcc0a344df3e, type: 2}
+  - {fileID: 2100000, guid: 70d03510f2d0a564ea4c76e58e3b3a35, type: 2}
+  - {fileID: 2100000, guid: 70d03510f2d0a564ea4c76e58e3b3a35, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -237,7 +207,6 @@ Transform:
   - {fileID: 2267591245938386398}
   - {fileID: 1305986846084860761}
   - {fileID: 2490274434611145422}
-  - {fileID: 1770533291256033149}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -365,7 +334,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 1c434618089a2b54989bbcc0a344df3e, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 3403737744168293897, guid: 634b37622456abd40995dab09516f347,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -440,7 +409,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 1c434618089a2b54989bbcc0a344df3e, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 5245006891971639134, guid: 3c1926a1b3ac10d4d91e2edf6467be92,
         type: 3}
       propertyPath: m_LocalPosition.x

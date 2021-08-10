@@ -5,7 +5,10 @@ using UnityEngine.SceneManagement; ///emanuele
 
 public class ObjectPooling : MonoBehaviour
 {
+    #region Variabili
+    
 
+ 
     public static ObjectPooling instance = null;
     //Conterrà i tag associati ai GameObject creati con la lista poolList
     Dictionary<string, List<GameObject>> dictPool = new Dictionary<string, List<GameObject>>();
@@ -30,14 +33,13 @@ public class ObjectPooling : MonoBehaviour
     //Riferimento al renderer per calcolare la differenza di distanza del renderer per capire dove posizionare 
     //la prossima carreggiata
     Renderer rend;
-    //Timer prova
-    float currentTimer;
 
     public float maxSpeed = 76;
 
 
     GameObject parentTiles; ////emanuele
 
+    Dictionary<string, Material[]> biomes = new Dictionary<string, Material[]>();
 
     //Enum sulla difficoltà
     enum Mode
@@ -53,6 +55,7 @@ public class ObjectPooling : MonoBehaviour
 
     //Riferimento all'enum Mode
     Mode mode;
+    #endregion
 
     private void Awake()
     {
@@ -68,13 +71,19 @@ public class ObjectPooling : MonoBehaviour
     }
     void Start()
     {
+
+        for (int i = 0; i < GameManager.instance.biomes.Length; i++)
+        {
+            biomes.Add(GameManager.instance.biomes[i].name, GameManager.instance.biomes[i].mat);
+
+            Debug.Log(biomes["Fungo"][0]);
+        }
+
         sceneName = gameObject.scene.name;
-        Debug.Log(sceneName);
         parentTiles = new GameObject("parentTiles" + sceneName);////emanuele
+        parentTiles.tag = "ParentTile";
 
         speed = GameManager.instance.speed;
-
-        currentTimer = Time.time;
         //Modalità iniziale a facile
         mode = Mode.Easy;
         rend = emptyTile.transform.GetChild(0).GetComponent<Renderer>();
@@ -115,10 +124,10 @@ public class ObjectPooling : MonoBehaviour
             dictPool.Add(temp.GetTag, tempList);
         }
         //PER TESTING SOLO, DA CANCELLARE
-        for (int i = 0; i < maxTiles; i++)
-        {
-            AddTile();
-        }
+        //for (int i = 0; i < maxTiles; i++)
+        //{
+        //    AddTile();
+        //}
         //
         //Chiamo il metodo che si occupa di creare le carreggiate tutorial
         if (GameManager.instance.firstGame)
@@ -166,21 +175,7 @@ public class ObjectPooling : MonoBehaviour
         
     }
 
-    private void Update()
-    {
-
-        //if (Time.time - currentTimer > 5f)
-        //{
-        //    if (mode == Mode.Easy)
-        //        mode = Mode.Medium;
-        //    else if (mode == Mode.Medium)
-        //        mode = Mode.Hard;
-        //    else mode = Mode.Easy;
-        //    currentTimer = Time.time;
-        //}
-        
-
-    }
+   
     //Metodo iniziale che crea i primi sei tiles
     void initialTiles()
     {
@@ -223,17 +218,14 @@ public class ObjectPooling : MonoBehaviour
     public void CheckPointOffset()
     {
         float temp = rend.bounds.extents.z * 2;
-        activeTiles[0].transform.position = new Vector3(0, 0, 130);
+
+        activeTiles[0].transform.position = new Vector3(0, 0, 106);
 
         for (int i = 1; i < activeTiles.Count; i++) {
             float zPos = activeTiles[i-1] != null ? activeTiles[i-1].transform.position.z + temp : 0;
             activeTiles[i].transform.position = new Vector3(0,0,zPos);
         }
-        //foreach (GameObject tiles in activeTiles)
-        //{
-        //    float zPos = activeTiles.Count == 0 ? 0f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
-        //    tiles.transform.position = new Vector3(0f, 0f, zPos);
-        //}
+      
     }
 
     //Ritorna un tile random che dipende solo dalla difficoltà corrente
@@ -249,14 +241,39 @@ public class ObjectPooling : MonoBehaviour
                 if (tempList[i].activeInHierarchy)
                     continue;
 
-
-                
                 return tempList[i];
                 
             }
         }
         return null;
     }
+
+    private void ReActiveObjs(GameObject value)
+    {
+        Transform[] trs = value.GetComponentsInChildren<Transform>(true);
+        foreach (Transform temp in trs)
+        {
+            bool tags = temp.CompareTag("Enemy") || temp.CompareTag("Money");
+            if (tags)
+                temp.gameObject.SetActive(true);
+        }
+            //if (GameManager.instance.toReactive.Count > 0 )
+            //{
+            //    for(int i=0; i<GameManager.instance.toReactive.Count; i++)
+            //    {
+            //        GameObject temp = GameManager.instance.toReactive[i];
+            //        int parentId = temp.transform.parent.GetInstanceID();
+            //        Debug.Log(temp.transform.parent.name);
+            //        if (parentId == id)
+            //        {
+            //            temp.SetActive(true);
+            //            GameManager.instance.toReactive.Remove(temp);
+            //        }
+            //    }      
+            //}
+
+        }
+
     //Muove i le carreggiate all'indietro lungo l'asse Z
     //Quando sono dietro la telecamera le disattiva e aggiunge la prossima
     public void UpdateTiles()
@@ -267,7 +284,7 @@ public class ObjectPooling : MonoBehaviour
             tile.transform.Translate(0f, 0f, -GameManager.instance.speed * Time.deltaTime);
 
             // If a tile moves behind the camera release it and add a new one
-            if (tile.transform.position.z < Camera.main.transform.position.z)
+            if (tile.transform.position.z < (Camera.main.transform.position.z * 1.5f))
             {
                 activeTiles.RemoveAt(i);
                 DisableObject(tile);
@@ -309,7 +326,83 @@ public class ObjectPooling : MonoBehaviour
     //Disattiva GameObject passato così potrà essere riutilizzato dal metodo GetTile
     public void DisableObject(GameObject obj)
     {
+
+        ReActiveObjs(obj);
         obj.SetActive(false);
+    }
+
+    public void ChangeMatFromTo(int scene1, int scene2)
+    {
+        GameObject scene1parent = default, scene2parent = default;
+
+        Scene firstScene = SceneManager.GetSceneByBuildIndex(scene1),
+              secondScene = SceneManager.GetSceneByBuildIndex(scene2);
+
+        GameObject[] allObjFirstScene = firstScene.GetRootGameObjects(),
+                     allObjSecondScene = secondScene.GetRootGameObjects();
+
+        Material mat1 = default, mat2 = default;
+        
+
+        for (int i=0; i<allObjFirstScene.Length; i++)
+        {
+            //Debug.Log("1 " + allObjFirstScene[i].name);
+            if (allObjFirstScene[i].CompareTag("ParentTile"))
+            {
+                if (allObjFirstScene[i].transform.GetChild(0).name == "Fungo") { mat1 = biomes["Fungo"][1]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).name == "Deserto") { mat1 = biomes["Deserto"][0]; }
+                scene1parent = allObjFirstScene[i];
+                break;
+            }
+        }
+
+        for(int i=0; i<allObjSecondScene.Length; i++)
+        {
+         
+            if (allObjSecondScene[i].CompareTag("ParentTile"))
+            {
+                if (allObjFirstScene[i].transform.GetChild(0).name == "Fungo") { mat1 = biomes["Fungo"][0]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).name == "Deserto") { mat2 = biomes["Deserto"][1]; }
+                scene2parent = allObjSecondScene[i];
+                break;
+            }
+        }
+ 
+        //for(int i=0;i<mat1.Length; i++)
+        //{
+        //    Debug.Log("1 " + mat1[i].name);
+        //    Debug.Log("2 " + mat2[i].name);
+        //}
+
+        Renderer[] rendererFirst = default, rendererSecond = default;
+        if (scene1parent.gameObject != null)
+            rendererFirst = scene1parent.GetComponentsInChildren<Renderer>();
+        if (scene2parent.gameObject != null)
+            rendererSecond = scene2parent.GetComponentsInChildren<Renderer>();
+        //foreach(Renderer temp in rendererFirst)
+        //    Debug.Log(temp.gameObject.name);
+        for (int i=0; i<rendererFirst.Length; i++)
+        {
+            rendererFirst[i].material = biomes["Fungo"][1];
+        }
+
+        for(int i=0; i<rendererSecond.Length; i++)
+        {
+            Material[] mats = new Material[biomes.Count];
+            for(int a=0; a<biomes["Deserto"].Length; a++)
+            {
+                mats[a] = biomes["Deserto"][0];
+            }
+            //rendererSecond[i].material = biomes["Deserto"][0];
+            //for (int j = 0; j < rendererSecond[i].materials.Length; j++)
+            //{
+            //    rendererSecond[i].materials[j] = biomes["Deserto"][0];
+            //}
+
+            rendererSecond[i].materials = mats;
+        }
+
+
     }
 
 
