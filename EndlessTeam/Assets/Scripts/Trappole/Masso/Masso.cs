@@ -7,6 +7,8 @@ public class Masso : MonoBehaviour
     [SerializeField]
     Transform finalPos;
 
+    [SerializeField]
+    float speed;
     IEnumerator FallCor()
     {
         Vector3 temp = transform.position;
@@ -14,7 +16,7 @@ public class Masso : MonoBehaviour
         {
             temp.x = transform.position.x;
             temp.z = transform.position.z;
-            temp.y = Mathf.Lerp(temp.y, finalPos.position.y, .03f);
+            temp.y = Mathf.SmoothStep(temp.y, finalPos.position.y, speed * Time.deltaTime);
 
             if (Mathf.Abs(temp.y - finalPos.position.y ) < .001f)
                 temp.y = finalPos.position.y;

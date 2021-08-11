@@ -179,10 +179,8 @@ public class PlayerMovement : MonoBehaviour
         rayDown.origin = rayPos;
         rayDown.direction = -Vector3.up;
 
-        if (!Physics.Raycast(rayDown.origin, rayDown.direction, 6, groundMask))
-        {
-            animator.SetTrigger("Air");
-        }
+        if (!Physics.Raycast(rayDown.origin, rayDown.direction, 4, groundMask))
+            animator.SetBool("Air", true); else animator.SetBool("Air", false);
 
         if (Physics.Raycast(ray.origin, ray.direction, value.x + 8, wallMask))
         {
@@ -219,7 +217,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        Debug.DrawRay(transform.position, -Vector3.up * 1f, Color.red);
+        Debug.DrawRay(transform.position, -Vector3.up * 4f, Color.red);
 
     
 
