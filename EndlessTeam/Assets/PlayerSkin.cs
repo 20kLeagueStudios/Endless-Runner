@@ -23,9 +23,9 @@ public class PlayerSkin : MonoBehaviour
 
        
 
-            player.GetComponent<MeshRenderer>().material.mainTexture = skin[0].playerSkin;
+            player.GetComponent<MeshRenderer>().material.mainTexture = skin[0].itemSO.playerSkin;
 
-        if (gadget[0].itemName != "DEFULT ACCESSORIO")
+        if (gadget[0].itemSO.itemName != "DEFULT ACCESSORIO")
         {
             SetGadget();
         }
@@ -36,9 +36,9 @@ public class PlayerSkin : MonoBehaviour
     public void SetGadget()
     {
         accessorio.SetActive(true);
-        accessorioMesh.mesh= gadget[0].accessorio.GetComponent<MeshFilter>().sharedMesh;
-        accessorioMeshRenderer.material = gadget[0].accessorioMaterial;
-        accessorio.transform.localScale = gadget[0].accessorio.transform.localScale;
+        accessorioMesh.mesh= gadget[0].itemSO.accessorio.GetComponent<MeshFilter>().sharedMesh;
+        accessorioMeshRenderer.material = gadget[0].itemSO.accessorioMaterial;
+        accessorio.transform.localScale = gadget[0].itemSO.accessorio.transform.localScale;
 
 
     }

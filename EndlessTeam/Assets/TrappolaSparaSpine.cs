@@ -31,11 +31,13 @@ public class TrappolaSparaSpine : InterazioneTrappole
 
     private void OnEnable()
     {
-        //rend.material.SetFloat("_Emission", 80f);
-        //rend.material.SetColor("_EmissionColor", Color.green);
+        ResetSpinePos();
 
-        startPos1 = spine[0].transform.position;
-        startPos2 = spine[1].transform.position;
+        rend.material.SetFloat("_Emission", 80f);
+        rend.material.SetColor("_EmissionColor", Color.green);
+
+        //startPos1 = spine[0].transform.position;
+       // startPos2 = spine[1].transform.position;
 
     }
 
@@ -64,13 +66,13 @@ public class TrappolaSparaSpine : InterazioneTrappole
 
     void ResetSpinePos()
     {
-        spine[0].transform.position = startPos1;
-        spine[1].transform.position = startPos2;
+        spine[0].transform.localPosition = startPos1;
+        spine[1].transform.localPosition = startPos2;
     }
 
     private void OnDisable()
     {
-        ResetSpinePos();
+       
     }
 
 
@@ -78,6 +80,8 @@ public class TrappolaSparaSpine : InterazioneTrappole
     {
         rend = GetComponent<Renderer>();
 
+          startPos1 = spine[0].transform.localPosition;
+          startPos2 = spine[1].transform.localPosition;
 
     }
 

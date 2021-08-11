@@ -54,23 +54,43 @@ public class EnemyMove : MonoBehaviour
 
         rndPos = Random.Range(0, trackPos.Length);
 
+        /*
         if (tmpRnd > 1 || tmpRnd==0)
         {
+            // rndPos = 1;
+            rndPos = 0;
+        }
+        */
+
+        if (tmpRnd ==2  )
+        {
+
             rndPos = 1;
         }
 
+        if (tmpRnd == 0)
+        {
+
+            rndPos = 1;
+        }
+
+
         if (rndPos==tmpRnd)
         {
-            if(tmpRnd==2)
-            rndPos = tmpRnd - 1;
+            if (tmpRnd == 2)
+                //rndPos = tmpRnd - 1;
+                rndPos = 1;
          
             if (tmpRnd == 0)
-                rndPos = tmpRnd + 1;
+                //rndPos = tmpRnd + 1;
+                rndPos = Random.Range(1, 2);
 
             if (tmpRnd == 1)
-                rndPos = Random.Range(0, 2) == 0 ? 0 : 2;
+                  rndPos = Random.Range(0, 2) == 0 ? 0 : 2;
+                // rndPos = 0;
+ 
         }
-      
+
 
         targetPos = trackPos[rndPos].transform.localPosition;
 

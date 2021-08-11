@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 using TMPro;
 
 
@@ -76,6 +77,7 @@ public class InventoryManager : MonoBehaviour, ISaveable
 
     }
 
+ 
     private void Awake()
     {
         if (instance == null)
@@ -87,8 +89,7 @@ public class InventoryManager : MonoBehaviour, ISaveable
             Destroy(this);
         }
 
-
-
+ 
         currencyText.text = shop.currency.ToString();
         tutaMesh = previewTutaPrefab.GetComponent<MeshRenderer>();
 
@@ -135,11 +136,11 @@ public class InventoryManager : MonoBehaviour, ISaveable
 
 
             GameObject inventoryButton = Instantiate(inventoryButtonPrefab) as GameObject;
-            inventoryButton.GetComponent<Image>().sprite = item.itemImage;
+            inventoryButton.GetComponent<Image>().sprite = item.itemSO.itemImage;
             inventoryButton.transform.SetParent(inventoryButtonContainer.transform, false);
 
-            inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemName;
-            inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemCost.ToString();
+            inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemSO.itemName;
+            inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemSO.itemCost.ToString();
 
         }
     }
@@ -151,5 +152,7 @@ public class InventoryManager : MonoBehaviour, ISaveable
     {
         previewTutaPrefab.transform.Rotate(0, previewRotationSpeed * Time.deltaTime, 0);
     }
+ 
 
 }
+

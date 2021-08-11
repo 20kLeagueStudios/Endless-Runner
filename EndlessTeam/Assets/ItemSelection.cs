@@ -37,16 +37,16 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
     public void BuyItem(ItemsShopSO item)
     {
         int tempCurrency = currencyManager.currency;
-        int _itemCost = item.itemCost;
+        int _itemCost = item.itemSO.itemCost;
       
 
         if (currencyManager.currency > 0 && shopped==false) 
         {
             if (!inventory.itemsAcquistati.Contains(item)) //if aggiuntoora
             {
-                if (currencyManager.currency - item.itemCost > 0 && shopped == false)
+                if (currencyManager.currency - item.itemSO.itemCost > 0 && shopped == false)
                 {
-                    currencyManager.currency -= item.itemCost;
+                    currencyManager.currency -= item.itemSO.itemCost;
 
                     tempCurrency = currencyManager.currency;
 
@@ -56,11 +56,11 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
 
                     GameObject inventoryButton = Instantiate(inventory.inventoryButtonPrefab) as GameObject;
-                    inventoryButton.GetComponent<Image>().sprite = item.itemImage;
+                    inventoryButton.GetComponent<Image>().sprite = item.itemSO.itemImage;
                     inventoryButton.transform.SetParent(inventory.inventoryButtonContainer.transform, false);
 
-                    inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemName;
-                    inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemCost.ToString();
+                    inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemSO.itemName;
+                    inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemSO.itemCost.ToString();
 
                     inventory.currencyText.text = (tempCurrency).ToString();  
 
@@ -101,7 +101,7 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
     public void Accessorio(ItemsShopSO item)
     {
         //string _string = "Accessorio";
-        if (item.itemType == ItemType.Accessorio)
+        if (item.itemSO.itemType == ItemType.Accessorio)
         {
             inventory.itemsAcquistati.Add(item);
 
@@ -114,7 +114,7 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
     public void AddItem(ItemsShopSO item)
     {
-        string _string = item.itemType.ToString();
+        string _string = item.itemSO.itemType.ToString();
         int Value = indexSkin;
 
         inventory.itemsAcquistati.Add(item);

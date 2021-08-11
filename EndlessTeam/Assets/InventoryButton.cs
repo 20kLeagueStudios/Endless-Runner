@@ -48,7 +48,7 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
     public void EquipItemSkin(ItemsShopSO item)
     {
  
-        string _string = item.itemType.ToString();
+        string _string = item.itemSO.itemType.ToString();
         int Value = indexSkin;
 
         // inventory.itemsAcquistati.Add(item);
@@ -69,7 +69,7 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
 
     public void EquipItemAccessorio(ItemsShopSO item)
     {
-        string _string = item.itemType.ToString();
+        string _string = item.itemSO.itemType.ToString();
         if (_string == "Accessorio")
         {
             inventory.gadgetSelected.Clear();
@@ -84,21 +84,21 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
 
     public void ChangePreviewTexture(ItemsShopSO item)
     {
-        string _string = item.itemType.ToString();
+        string _string = item.itemSO.itemType.ToString();
         if (_string == "Tuta")
         {
-            inventory.tutaMesh.material.mainTexture = item.playerSkin;
+            inventory.tutaMesh.material.mainTexture = item.itemSO.playerSkin;
         }
         else if (_string == "Accessorio")
         {
-            if (item.accessorio != null)
+            if (item.itemSO.accessorio != null)
             {
                 inventory.accessorioMeshRenderer.enabled = true;
 
                 // GameObject accessorio = Instantiate(item.accessorioMesh, inventory.accessorioPosition.transform.position, Quaternion.identity) as GameObject;
-                inventory.accessorioMesh.mesh = item.accessorio.GetComponent<MeshFilter>().sharedMesh;
-                inventory.accessorioMeshRenderer.material = item.accessorioMaterial;
-                inventory.accessorioMesh.transform.localScale = item.accessorio.transform.localScale;
+                inventory.accessorioMesh.mesh = item.itemSO.accessorio.GetComponent<MeshFilter>().sharedMesh;
+                inventory.accessorioMeshRenderer.material = item.itemSO.accessorioMaterial;
+                inventory.accessorioMesh.transform.localScale = item.itemSO.accessorio.transform.localScale;
                 Debug.Log("CIAO");
             }
             else { 
