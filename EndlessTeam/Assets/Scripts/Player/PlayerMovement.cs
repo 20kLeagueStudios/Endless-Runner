@@ -707,7 +707,7 @@ public class PlayerMovement : MonoBehaviour
             while (transform.position.x != finalPos.x)
             {
                 //Lerpo la posizione a quella finale
-                dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
+                dest.x = Mathf.Lerp(dest.x, finalPos.x, 14 * Time.deltaTime);
                 dest.y = transform.position.y;
                 dest.z = transform.position.z;
 
@@ -950,7 +950,7 @@ public class PlayerMovement : MonoBehaviour
         {
 
             //Lerpo la posizione a quella finale
-            dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
+            dest.x = Mathf.Lerp(dest.x, finalPos.x, 14 * Time.deltaTime);
             dest.y = transform.position.y;
             dest.z = transform.position.z;
 
