@@ -1,0 +1,530 @@
+fileFormatVersion: 2
+guid: ca6ccd07de3b0ee459aefe833b8b6072
+ModelImporter:
+  serializedVersion: 19301
+  internalIDToNameTable:
+  - first:
+      74: 1827226128182048838
+    second: Take 001
+  externalObjects: {}
+  materials:
+    materialImportMode: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.2
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: Corsa(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Tuta
+      parentName: Corsa(Clone)
+      position: {x: -0, y: -174.02606, z: -12.41282}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 0.01, y: 0.01, z: 0.01}
+    - name: controllertot
+      parentName: Corsa(Clone)
+      position: {x: -0, y: -0.103456736, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 0.01, y: 0.01, z: 0.01}
+    - name: controllerbody
+      parentName: controllertot
+      position: {x: -0, y: 166.22704, z: 12.38889}
+      rotation: {x: -0.061347567, y: -0.1392801, z: 0.008645534, w: 0.98831314}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bacino
+      parentName: controllerbody
+      position: {x: -5.654917, y: -3.6013799, z: -10.7673435}
+      rotation: {x: -0.23214902, y: -0.49635983, z: 0.45422405, w: 0.7024346}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Coscia_sx
+      parentName: Bacino
+      position: {x: -21.662611, y: -7.3413963, z: -34.53422}
+      rotation: {x: -0.007260546, y: 0.08036202, z: -0.00832989, w: 0.9967045}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ginocchio_sx
+      parentName: Coscia_sx
+      position: {x: -47.955635, y: -8.112265, z: -3.0999887}
+      rotation: {x: -0.069126844, y: 0.04736603, z: -0.2798603, w: 0.9563767}
+      scale: {x: 1, y: 1, z: 1}
+    - name: caviglia_sx
+      parentName: Ginocchio_sx
+      position: {x: -55.63033, y: 13.907966, z: 1.30224}
+      rotation: {x: 0.10133508, y: 0.1456522, z: -0.20427649, w: 0.96269816}
+      scale: {x: 1, y: 1, z: 1}
+    - name: dito2_sx 1
+      parentName: caviglia_sx
+      position: {x: -61.736927, y: -34.63495, z: -24.857466}
+      rotation: {x: 0.12900247, y: -0.10728338, z: 0.018237485, w: 0.9856552}
+      scale: {x: 1, y: 1, z: 1}
+    - name: artiglio2_sx
+      parentName: dito2_sx 1
+      position: {x: -53.291603, y: -6.194767, z: 5.5745726}
+      rotation: {x: -0.058613464, y: 0.12712774, z: 0.06519381, w: 0.98800445}
+      scale: {x: 1, y: 1, z: 1}
+    - name: dito1_sx 1
+      parentName: caviglia_sx
+      position: {x: -67.86951, y: -36.473934, z: 11.850948}
+      rotation: {x: 0.05500679, y: -0.1522067, z: -0.110256605, w: 0.98063797}
+      scale: {x: 1, y: 1, z: 1}
+    - name: artiglio1_sx
+      parentName: dito1_sx 1
+      position: {x: -39.800415, y: -17.026869, z: 13.482533}
+      rotation: {x: -0.0679315, y: 0.1517772, z: 0.23245236, w: 0.9582875}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ditopost_sx
+      parentName: caviglia_sx
+      position: {x: 31.977549, y: -28.262592, z: -2.4511902}
+      rotation: {x: 0.35304174, y: 0.88040495, z: 0.25127023, w: 0.1926447}
+      scale: {x: 1, y: 1, z: 1}
+    - name: artigliopost_sx
+      parentName: ditopost_sx
+      position: {x: -43.68224, y: -0.19475102, z: 6.5289116}
+      rotation: {x: 0.10115239, y: -0.06648214, z: -0.0004154297, w: 0.99264705}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Capo
+      parentName: Bacino
+      position: {x: 113.963524, y: 12.825246, z: 0.055427223}
+      rotation: {x: -7.8802407e-17, y: 2.8896913e-16, z: 0.1495713, w: 0.98875093}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Spalla_sx
+      parentName: Capo
+      position: {x: -12.193699, y: 10.449861, z: -94.78872}
+      rotation: {x: 0.38399535, y: -0.13609536, z: 0.32983258, w: 0.851608}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Gomito_sx
+      parentName: Spalla_sx
+      position: {x: -66.197525, y: -0.73521274, z: 2.5605428}
+      rotation: {x: -0.11008707, y: -0.20670518, z: 0.05970022, w: 0.97035545}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Polso_sx
+      parentName: Gomito_sx
+      position: {x: -49.751892, y: -0.19372986, z: -0.7048441}
+      rotation: {x: -0.030070921, y: 0.046206556, z: 0.03652169, w: 0.9978111}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dito3_up_sx
+      parentName: Polso_sx
+      position: {x: -14.165931, y: 12.449867, z: 16.22691}
+      rotation: {x: 0.8109865, y: -0.0038433874, z: 0.10706335, w: 0.57517266}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dito3_mid_sx
+      parentName: Dito3_up_sx
+      position: {x: -14.80396, y: 1.3575248, z: -0.11173449}
+      rotation: {x: -0.02934395, y: 0.02086844, z: -0.21009941, w: 0.97701675}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DIto3_dwn_sx
+      parentName: Dito3_mid_sx
+      position: {x: -14.547023, y: -4.998356, z: -0.8550171}
+      rotation: {x: -0.10328677, y: -0.03483669, z: 0.060327295, w: 0.99220914}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dito2_up_sx
+      parentName: Polso_sx
+      position: {x: -16.3896, y: 11.061166, z: -6.3627796}
+      rotation: {x: -0.07815531, y: 0.040189903, z: 0.016167346, w: 0.99599963}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dito2_mid_sx
+      parentName: Dito2_up_sx
+      position: {x: -14.269925, y: 2.2568657, z: -1.8610191}
+      rotation: {x: -0.0128187705, y: -0.09994411, z: 0.07009494, w: 0.9924382}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dito2_dwn_sx
+      parentName: Dito2_mid_sx
+      position: {x: -14.6852255, y: 2.477211, z: 0.9457664}
+      rotation: {x: -0.08125251, y: -0.013798774, z: -0.045503616, w: 0.9955587}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dito1_up_sx
+      parentName: Polso_sx
+      position: {x: -16.627012, y: -8.157931, z: -13.087738}
+      rotation: {x: 0.75740635, y: -0.0787443, z: -0.010088723, w: 0.64809966}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dito1_mid_sx
+      parentName: Dito1_up_sx
+      position: {x: -13.633499, y: -4.079446, z: 6.473172}
+      rotation: {x: 0.8926836, y: -0.05848565, z: -0.25539088, w: -0.36670274}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DIto1_dwn_sx
+      parentName: Dito1_mid_sx
+      position: {x: -15.672379, y: 2.0826063, z: -1.0734502}
+      rotation: {x: -0.036448106, y: -0.04857974, z: -0.019967798, w: 0.99795437}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Spalla_dx
+      parentName: Capo
+      position: {x: -12.928145, y: 7.079338, z: 95.00271}
+      rotation: {x: 0.045550954, y: 0.1658113, z: -0.3974871, w: 0.90135217}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Gomito_dx
+      parentName: Spalla_dx
+      position: {x: -67.948395, y: -0.157196, z: 3.3804536}
+      rotation: {x: 0.33606446, y: 0.2760979, z: -0.5008264, w: 0.7483338}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Polso_dx
+      parentName: Gomito_dx
+      position: {x: -44.138474, y: -4.1755424, z: -0.41780764}
+      rotation: {x: 0.16409793, y: 0.011339799, z: 0.24513122, w: 0.9554339}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dito3_up_dx
+      parentName: Polso_dx
+      position: {x: -17.595276, y: 9.320119, z: -14.969324}
+      rotation: {x: -0.4658881, y: 0.08156409, z: -0.2057029, w: 0.8567275}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dito3_mid_dx
+      parentName: Dito3_up_dx
+      position: {x: -13.234299, y: -1.1075113, z: 0.1954467}
+      rotation: {x: -0.0149941975, y: -0.003127237, z: -0.049732845, w: 0.9986451}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DIto3_dwn_dx
+      parentName: Dito3_mid_dx
+      position: {x: -16.460426, y: -2.7692382, z: 0.8921278}
+      rotation: {x: 0.14280865, y: 0.00515953, z: -0.0024166876, w: 0.98973393}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dito2_up_dx
+      parentName: Polso_dx
+      position: {x: -13.89018, y: 20.702414, z: 9.418011}
+      rotation: {x: -0.24383558, y: 0.23233005, z: -0.19335908, w: 0.9215092}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dito2_mid_dx
+      parentName: Dito2_up_dx
+      position: {x: -18.132948, y: 0.04671307, z: -0.7141914}
+      rotation: {x: -0.031757876, y: 0.080281585, z: -0.014492303, w: 0.9961608}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dito2_dwn_dx
+      parentName: Dito2_mid_dx
+      position: {x: -17.014053, y: -0.4061916, z: -3.666767}
+      rotation: {x: 0.11987281, y: 0.0137354, z: -0.030309876, w: 0.9922314}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dito1_up_dx
+      parentName: Polso_dx
+      position: {x: -21.124378, y: 1.0887789, z: 10.501332}
+      rotation: {x: 0.9375883, y: -0.25612664, z: 0.14650396, w: 0.18402164}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Dito1_mid_dx
+      parentName: Dito1_up_dx
+      position: {x: -15.273053, y: 2.6636112, z: -5.76569}
+      rotation: {x: 0.95886123, y: -0.15212901, z: 0.025538156, w: -0.23830593}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DIto1_dwn_dx
+      parentName: Dito1_mid_dx
+      position: {x: -14.517127, y: 4.494216, z: 4.239212}
+      rotation: {x: -0.02001043, y: 0.11220993, z: -0.087843426, w: 0.9895919}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Coscia_sx1
+      parentName: Bacino
+      position: {x: -21.555769, y: -8.588212, z: 34.312805}
+      rotation: {x: -0.024038654, y: -0.023352532, z: 0.18925785, w: 0.9813553}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Ginocchio_dx
+      parentName: Coscia_sx1
+      position: {x: -47.91674, y: -8.682429, z: 1.9406073}
+      rotation: {x: 0.07021471, y: 0.03691727, z: 0.112006664, w: 0.990536}
+      scale: {x: 1, y: 1, z: 1}
+    - name: caviglia_dx
+      parentName: Ginocchio_dx
+      position: {x: -55.16621, y: 13.725894, z: 7.625778}
+      rotation: {x: -0.005278353, y: 0.010594995, z: 0.9188776, w: -0.39436525}
+      scale: {x: 1, y: 1, z: 1}
+    - name: dito2_dx 1
+      parentName: caviglia_dx
+      position: {x: -36.286667, y: -39.45225, z: 59.12264}
+      rotation: {x: -0.019114837, y: 0.24988478, z: -0.14613274, w: 0.95699394}
+      scale: {x: 1, y: 1, z: 1}
+    - name: artiglio2_sx1
+      parentName: dito2_dx 1
+      position: {x: -49.41891, y: 1.3873129, z: -1.0739752}
+      rotation: {x: -0.061909504, y: -0.0032828755, z: -0.014535429, w: 0.9979706}
+      scale: {x: 1, y: 1, z: 1}
+    - name: dito1_dx 1
+      parentName: caviglia_dx
+      position: {x: -61.056343, y: -37.850414, z: 28.559391}
+      rotation: {x: 0.03918901, y: 0.12531431, z: -0.35326433, w: 0.9262639}
+      scale: {x: 1, y: 1, z: 1}
+    - name: artiglio1_sx1
+      parentName: dito1_dx 1
+      position: {x: -51.476223, y: -18.717707, z: 0.010576716}
+      rotation: {x: -0.07182444, y: -0.034252215, z: -0.05280496, w: 0.99542946}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ditopost_dx
+      parentName: caviglia_dx
+      position: {x: 26.626326, y: -27.239405, z: -19.401089}
+      rotation: {x: -0.24908108, y: 0.87906045, z: 0.29353043, w: 0.28116074}
+      scale: {x: 1, y: 1, z: 1}
+    - name: artigliopost_sx1
+      parentName: ditopost_dx
+      position: {x: -30.674591, y: -1.3503243, z: 31.749573}
+      rotation: {x: 0.10115239, y: -0.06648214, z: -0.0004154297, w: 0.99264705}
+      scale: {x: 1, y: 1, z: 1}
+    - name: controllerbraccio_dx
+      parentName: controllertot
+      position: {x: -151.47566, y: 155.88683, z: -94.452}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: braccio_dx
+      parentName: controllerbraccio_dx
+      position: {x: 46.186188, y: 78.03365, z: -1.755468}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: controllerbraccio_sx
+      parentName: controllertot
+      position: {x: 155.70244, y: 127.86977, z: 123.18368}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: braccio_sx
+      parentName: controllerbraccio_sx
+      position: {x: -39.46426, y: 72.39123, z: -11.733977}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: controllergamba_sx
+      parentName: controllertot
+      position: {x: 49.78025, y: 55.90304, z: -57.77351}
+      rotation: {x: 0.18502842, y: 0.21704331, z: 0.0546207, w: 0.95690817}
+      scale: {x: 1, y: 1, z: 1}
+    - name: reversefoot_sx
+      parentName: controllergamba_sx
+      position: {x: -9.690363, y: -24.269209, z: 12.104774}
+      rotation: {x: -0.0031961035, y: 0.88944674, z: -0.15008435, w: -0.43168154}
+      scale: {x: 1, y: 1, z: 1}
+    - name: joint3reverse_sx 1
+      parentName: reversefoot_sx
+      position: {x: -85.07708, y: 36.863594, z: 20.745676}
+      rotation: {x: 0, y: 0.18015924, z: -0, w: 0.98363745}
+      scale: {x: 1, y: 1, z: 1}
+    - name: joint2reverse_sx 1
+      parentName: joint3reverse_sx 1
+      position: {x: 53.353848, y: 12.411641, z: -0.34661818}
+      rotation: {x: 0, y: 0.065993205, z: -0, w: 0.9978201}
+      scale: {x: 1, y: 1, z: 1}
+    - name: joint1reverse_sx1 1
+      parentName: joint2reverse_sx 1
+      position: {x: 62.383877, y: 38.08864, z: 13.036319}
+      rotation: {x: -0.09241273, y: -0.11586869, z: 0.04708809, w: 0.9878346}
+      scale: {x: 1, y: 1, z: 1}
+    - name: gamba_sx
+      parentName: joint1reverse_sx1 1
+      position: {x: 3.0318284, y: -1.2486291, z: 0.23409477}
+      rotation: {x: 0.110690236, y: 0.83323216, z: -0.10844065, w: 0.53076595}
+      scale: {x: 1, y: 1, z: 1}
+    - name: artiglio2m_sx
+      parentName: joint2reverse_sx 1
+      position: {x: 7.989267, y: -2.1996832, z: -13.786631}
+      rotation: {x: -0.087287866, y: -0.080130726, z: 0.0014680313, w: 0.9929541}
+      scale: {x: 1, y: 1, z: 1}
+    - name: artiglio1m_sx
+      parentName: joint2reverse_sx 1
+      position: {x: -3.9357972, y: 2.2403054, z: 21.235899}
+      rotation: {x: -0.087287866, y: -0.080130726, z: 0.0014680313, w: 0.9929541}
+      scale: {x: 1, y: 1, z: 1}
+    - name: artiglio2p_sx
+      parentName: joint3reverse_sx 1
+      position: {x: 7.025184, y: 0.22245625, z: -22.841711}
+      rotation: {x: 0.043255784, y: -0.11856468, z: 0.036482494, w: 0.99133265}
+      scale: {x: 1, y: 1, z: 1}
+    - name: artiglio1p_sx
+      parentName: joint3reverse_sx 1
+      position: {x: 7.8272805, y: 5.606796, z: 20.412642}
+      rotation: {x: -0.027834674, y: -0.17495313, z: -0.08870307, w: 0.98017776}
+      scale: {x: 1, y: 1, z: 1}
+    - name: controllergamba_dx
+      parentName: controllertot
+      position: {x: -65.32233, y: -2.6520982, z: 97.71103}
+      rotation: {x: 0.15667613, y: -0.024322037, z: -0.0030531415, w: 0.9873458}
+      scale: {x: 1, y: 1, z: 1}
+    - name: reversefoot_dx
+      parentName: controllergamba_dx
+      position: {x: 7.002356, y: -27.448416, z: 3.5619886}
+      rotation: {x: 0.098465756, y: -0.47057042, z: -0.072554, w: 0.8738443}
+      scale: {x: 1, y: 1, z: 1}
+    - name: joint3reverse_sx
+      parentName: reversefoot_dx
+      position: {x: -76.26852, y: 10.2926445, z: -13.264406}
+      rotation: {x: 0, y: 0.15861256, z: -0, w: 0.9873409}
+      scale: {x: 1, y: 1, z: 1}
+    - name: joint2reverse_sx
+      parentName: joint3reverse_sx
+      position: {x: 40.998943, y: 28.59194, z: 19.207869}
+      rotation: {x: 0, y: -0.1241763, z: -0, w: 0.99226016}
+      scale: {x: 1, y: 1, z: 1}
+    - name: joint1reverse_sx1
+      parentName: joint2reverse_sx
+      position: {x: 39.98841, y: 58.006306, z: -0.06352346}
+      rotation: {x: 0.0070515173, y: 0.010171789, z: 0.07078167, w: 0.99741507}
+      scale: {x: 1, y: 1, z: 1}
+    - name: gamba_dx
+      parentName: joint1reverse_sx1
+      position: {x: -0.8346826, y: 0.14757745, z: -2.240605}
+      rotation: {x: -0.07650874, y: 0.43733725, z: 0.0018050717, w: 0.8960353}
+      scale: {x: 1, y: 1, z: 1}
+    - name: artiglio2_dx
+      parentName: joint2reverse_sx
+      position: {x: -0.40211162, y: -5.484734, z: -21.726496}
+      rotation: {x: -0.04322468, y: -0.45460325, z: 0.22395456, w: 0.8609947}
+      scale: {x: 1, y: 1, z: 1}
+    - name: artiglio1m_dx
+      parentName: joint2reverse_sx
+      position: {x: -12.3176365, y: -0.34251055, z: 15.445973}
+      rotation: {x: -0.04322468, y: -0.45460325, z: 0.22395456, w: 0.8609947}
+      scale: {x: 1, y: 1, z: 1}
+    - name: artiglio2p_dx
+      parentName: joint3reverse_sx
+      position: {x: 6.906528, y: -7.720122, z: -24.847437}
+      rotation: {x: 0.033277966, y: -0.22571087, z: 0.13734275, w: 0.96389014}
+      scale: {x: 1, y: 1, z: 1}
+    - name: artiglio1p_dx
+      parentName: joint3reverse_sx
+      position: {x: -12.952304, y: -0.22567427, z: 17.924986}
+      rotation: {x: -0.13923486, y: -0.17189248, z: 0.29416338, w: 0.9298035}
+      scale: {x: 1, y: 1, z: 1}
+    - name: locatorbraccio_dx
+      parentName: controllertot
+      position: {x: -94.66263, y: 221.3085, z: 335.71085}
+      rotation: {x: -0.060585693, y: 0, z: -0, w: 0.998163}
+      scale: {x: 1, y: 1, z: 1}
+    - name: locatorbraccio_sx
+      parentName: controllertot
+      position: {x: 176.09459, y: 233.1129, z: 327.75748}
+      rotation: {x: -0.058683366, y: 0, z: -0, w: 0.99827665}
+      scale: {x: 1, y: 1, z: 1}
+    - name: locatorgamba_sx
+      parentName: controllertot
+      position: {x: 35.572308, y: 86.46859, z: 337.12244}
+      rotation: {x: -0.060585693, y: 0, z: -0, w: 0.998163}
+      scale: {x: 1, y: 1, z: 1}
+    - name: locatorgamba_dx
+      parentName: controllertot
+      position: {x: -27.612614, y: 86.46859, z: 337.12244}
+      rotation: {x: -0.060585693, y: 0, z: -0, w: 0.998163}
+      scale: {x: 1, y: 1, z: 1}
+    - name: controllerdita_dx
+      parentName: controllertot
+      position: {x: -102.225365, y: 271.40005, z: -198.02446}
+      rotation: {x: 0.7949097, y: -0.22098249, z: 0.088491276, w: 0.55808127}
+      scale: {x: 1, y: 1, z: 1}
+    - name: braccio_dx 1
+      parentName: controllerdita_dx
+      position: {x: 25.568419, y: 43.199, z: -0.9718173}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: dito3_dx
+      parentName: controllerdita_dx
+      position: {x: 11.410621, y: 57.37572, z: 1.0364318}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: dito2_dx
+      parentName: controllerdita_dx
+      position: {x: 12.141724, y: 54.940285, z: -19.51953}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: dito1_dx
+      parentName: controllerdita_dx
+      position: {x: 33.222805, y: 49.09031, z: -12.050359}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: controllerdita_sx
+      parentName: controllertot
+      position: {x: 132.08145, y: 124.98982, z: 178.4823}
+      rotation: {x: -0.32626125, y: 0.06419474, z: -0.16211322, w: 0.92905974}
+      scale: {x: 1, y: 1, z: 1}
+    - name: braccio_sx 1
+      parentName: controllerdita_sx
+      position: {x: -21.847193, y: 40.07538, z: -6.4958644}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: dito3_sx
+      parentName: controllerdita_sx
+      position: {x: -36.640697, y: 46.67158, z: -14.937133}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: dito2_sx
+      parentName: controllerdita_sx
+      position: {x: -16.670557, y: 52.51538, z: -22.613928}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: dito1_sx
+      parentName: controllerdita_sx
+      position: {x: -9.3262205, y: 54.3533, z: -4.303384}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 0.2
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

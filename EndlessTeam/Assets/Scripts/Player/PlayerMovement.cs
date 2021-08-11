@@ -135,6 +135,7 @@ public class PlayerMovement : MonoBehaviour
     LayerMask wallMask;
 
     public PowerUpsManager powerupsManager; ///
+    Ray rayDown;
 
 
     #endregion
@@ -173,6 +174,21 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        Vector3 rayPos = transform.position;
+     
+        rayDown.origin = rayPos;
+        rayDown.direction = -Vector3.up;
+
+        if (!Physics.Raycast(rayDown.origin, rayDown.direction, 6, groundMask))
+        {
+            animator.SetTrigger("Air");
+        }
+
+        if (Physics.Raycast(ray.origin, ray.direction, value.x + 8, wallMask))
+        {
+            rayWall = true;
+        }
+
         if (Input.GetKeyDown(KeyCode.F)) transform.position = initialPos;
 
         stopMovement = suggestions[1].activeSelf || suggestions[2].activeSelf || suggestions[3].activeSelf;
@@ -187,7 +203,7 @@ public class PlayerMovement : MonoBehaviour
 
         value.x = positions[1].position.x - positions[0].position.x;
 
-        initialPoint = (Vector3.up * -1) + transform.position - (value) - Vector3.right;
+        initialPoint = new Vector3(0,-3,0) + transform.position - (value) - Vector3.right;
         ray.origin = initialPoint;
         ray.direction = transform.right;
 
@@ -203,7 +219,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        Debug.DrawRay(transform.position, transform.forward * 8f, Color.red);
+        Debug.DrawRay(transform.position, -Vector3.up * 1f, Color.red);
 
     
 
@@ -325,6 +341,7 @@ public class PlayerMovement : MonoBehaviour
                             
                             //Applico la forza del salto a verticalForce
                             verticalForce.y = jumpForce;
+                            animator.SetTrigger("Jump");
                             //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
                             if (sliding) ResetSliding();
 

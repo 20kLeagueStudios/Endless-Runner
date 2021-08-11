@@ -454,7 +454,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8769966100877761105}
   m_Layer: 0
-  m_Name: Ground01Tut 1
+  m_Name: 01G
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -478,7 +478,7 @@ Transform:
   - {fileID: 7984071164123681608}
   - {fileID: 2544423132858644328}
   - {fileID: 762170465808281803}
-  - {fileID: 8260685417081823448}
+  - {fileID: 7789779869991766272}
   - {fileID: 1762022935171352145}
   - {fileID: 399314433774817158}
   - {fileID: 14147618446460674}
@@ -778,6 +778,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 8769966100877761105}
     m_Modifications:
+    - target: {fileID: 5565804564574451911, guid: a1bb8e9815af9504db5b8f2fd01b3178,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 6018137143023849759, guid: a1bb8e9815af9504db5b8f2fd01b3178,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -845,9 +850,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1bb8e9815af9504db5b8f2fd01b3178, type: 3}
---- !u!4 &8260685417081823448 stripped
+--- !u!4 &7789779869991766272 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 6018137143023849759, guid: a1bb8e9815af9504db5b8f2fd01b3178,
+  m_CorrespondingSourceObject: {fileID: 5565804564574451911, guid: a1bb8e9815af9504db5b8f2fd01b3178,
     type: 3}
   m_PrefabInstance: {fileID: 2388999375174775239}
   m_PrefabAsset: {fileID: 0}
