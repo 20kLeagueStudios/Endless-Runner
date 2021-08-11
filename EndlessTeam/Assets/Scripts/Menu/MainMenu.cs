@@ -35,7 +35,7 @@ public class MainMenu : MonoBehaviour
             shopButton.transform.SetParent(shopButtonContainer.transform, false);
 
             shopButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemSO.itemName;
-            shopButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemSO.ToString();
+            shopButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemSO.itemCost.ToString();
 
         }
     }

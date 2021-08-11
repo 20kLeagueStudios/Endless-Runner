@@ -11,7 +11,7 @@ public class PortalScript : MonoBehaviour
 
     public GameObject parentTile;
 
-    MeshRenderer portalMesh;
+    public MeshRenderer portalMesh;
 
     int currentScene;
 
@@ -22,11 +22,11 @@ public class PortalScript : MonoBehaviour
     {
         this.sceneTarget = transform.GetChild(0).GetComponent<MakePortalVisible>().sceneTarget;
 
-        portalMesh = this.gameObject.GetComponent<MeshRenderer>();
+        //portalMesh = this.gameObject.GetComponent<MeshRenderer>();
 
-        portalMesh.enabled = false;
+       // portalMesh.enabled = false;
 
-        parentTile.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = startShader;
+        //parentTile.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = startShader;
 
         currentScene = gameObject.scene.buildIndex;
 
@@ -36,15 +36,21 @@ public class PortalScript : MonoBehaviour
 
     private void Awake()
     {
-        portalMesh = this.gameObject.GetComponent<MeshRenderer>();
+        //portalMesh = this.gameObject.GetComponent<MeshRenderer>();
 
-        portalMesh.enabled = false;
-        startShader = parentTile.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader;
+      portalMesh.enabled = false;
+      //  startShader = parentTile.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader;
     }
 
+    private void OnEnable()
+    {
+        portalMesh.enabled = false;
 
+    }
 
-      private void OnTriggerEnter(Collider other)
+  
+
+    private void OnTriggerEnter(Collider other)
       {
           if (other.CompareTag("Player"))
           {
@@ -68,13 +74,14 @@ public class PortalScript : MonoBehaviour
 
           }
 
-           if (other.CompareTag("PortalTrigger"))
+          else if (other.CompareTag("PortalTrigger"))
            {
-            if (this.enabled)
-            {
-                Debug.Log("ENTRATA PORT");
-                portalMesh.enabled = true;
-            }
+
+            //  Debug.Log("ENTRATA PORT");
+             portalMesh.enabled = true;
+
+          //  tifotto = true;
+            
 
            }
            
@@ -90,9 +97,17 @@ public class PortalScript : MonoBehaviour
         portalMesh.enabled = false;
     }
 
+    public bool tifotto = false;
+
     private void Update()
     {
-        Debug.Log("PORT"+portalMesh.enabled);
+        /*
+        if (tifotto)
+        {
+            Debug.Log("PAPARA");
+            portalMesh.enabled = true;
+        }
+        */
     }
 
 
