@@ -180,9 +180,7 @@ public class PlayerMovement : MonoBehaviour
         rayDown.direction = -Vector3.up;
 
         if (!Physics.Raycast(rayDown.origin, rayDown.direction, 4, groundMask))
-        {
-            animator.SetBool("Air", true);
-        } else animator.SetBool("Air", false);
+            animator.SetBool("Air", true); else animator.SetBool("Air", false);
 
         if (Physics.Raycast(ray.origin, ray.direction, value.x + 8, wallMask))
         {
