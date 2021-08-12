@@ -14,20 +14,20 @@ public class Masso : MonoBehaviour
     IEnumerator FallCor()
     {
         Vector3 temp = transform.position;
-        while(transform.position.y != finalPos.position.y)
+        while (transform.position.y != finalPos.position.y)
         {
             temp.x = transform.position.x;
             temp.z = transform.position.z;
-            temp.y = Mathf.SmoothDamp(temp.y, finalPos.position.y, ref vel ,0.1f);
+            temp.y = Mathf.SmoothDamp(temp.y, finalPos.position.y, ref vel, 0.1f);
 
-            if (Mathf.Abs(temp.y - finalPos.position.y ) < .001f)
+            if (Mathf.Abs(temp.y - finalPos.position.y) < .001f)
                 temp.y = finalPos.position.y;
 
             transform.position = temp;
 
             yield return null;
 
-            }
+        }
 
         yield return null;
     }

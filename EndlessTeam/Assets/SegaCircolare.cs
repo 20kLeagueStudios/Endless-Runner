@@ -1,41 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-
-public class SegaCircolare : InterazioneTrappole
+public class SegaCircolare : MonoBehaviour
 {
     public GameObject sega;
     public Transform pos1;
     public Transform pos2;
 
-    [SerializeField] bool ruotaSulPosto=false;
-
-    Renderer rend;
-
-    [SerializeField] bool isInteractive = false;
-
-    private void Start()
-    {
-        //StartCoroutine(RotazioneLama());
-    }
-    public override void OnPointerClick(PointerEventData eventData)
-    {
-        if (isInteractive)
-        {
-            Debug.Log("Clicked: " + eventData.pointerCurrentRaycast.gameObject.name);
-
-            //GameObject suggTemp = GameManager.instance.GetObjFromArray("Hint3", GameManager.instance.suggestions);
-            //if (suggTemp.activeSelf) TutorialManager.instance.DisableHint();
-
-            rend.material.SetFloat("_Emission", 10f);
-            rend.material.SetColor("_EmissionColor", Color.red);
-
-            CallCoroutineInteraction("RotazioneLamaCo");
-        }
-
-    }
+    public bool ruotaSulPosto=false;
+  
     IEnumerator RotazioneLamaCo()
     {
         float elapsedTime=0f;
@@ -45,13 +19,13 @@ public class SegaCircolare : InterazioneTrappole
         {
             elapsedTime += Time.deltaTime;
  
-            sega.transform.localPosition = Vector3.Lerp(pos1.transform.localPosition, pos2.transform.localPosition, elapsedTime/waitTime);
+            sega.transform.position = Vector3.Lerp(pos1.transform.position, pos2.transform.position, elapsedTime/waitTime);
             sega.transform.Rotate(Vector3.forward, 10);
 
             yield return null;
 
         }
-        sega.transform.localPosition = pos2.transform.localPosition;
+        sega.transform.position = pos2.transform.position;
         StartCoroutine(RotazioneLamaCoRev());
  
     }
@@ -65,13 +39,13 @@ public class SegaCircolare : InterazioneTrappole
         {
             
  
-            sega.transform.localPosition = Vector3.Lerp(pos2.transform.localPosition, pos1.transform.localPosition, elapsedTime / waitTime );
+            sega.transform.position = Vector3.Lerp(pos2.transform.position, pos1.transform.position, elapsedTime / waitTime );
             sega.transform.Rotate(-Vector3.forward, 10);
             elapsedTime += Time.deltaTime;
             yield return null;
 
         }
-        sega.transform.localPosition = pos1.transform.localPosition;
+        sega.transform.position = pos1.transform.position;
         StartCoroutine(RotazioneLamaCo());
 
      }
@@ -79,15 +53,12 @@ public class SegaCircolare : InterazioneTrappole
     IEnumerator RotazioneLama()
     {
         float elapsedTime = 0f;
-        float waitTime = 50;
- 
+        float waitTime = 3;
 
         while (elapsedTime < waitTime)
         {
+            sega.transform.Rotate(-Vector3.forward, 10);
             elapsedTime += Time.deltaTime;
-          
-            sega.transform.Rotate(Vector3.forward, 100 * Time.deltaTime);
-             
             yield return null;
 
         }
@@ -96,32 +67,17 @@ public class SegaCircolare : InterazioneTrappole
     }
 
     private void OnEnable()
-    {
-        rend = GetComponent<Renderer>();
-
-        sega.transform.localPosition = pos1.transform.localPosition;
-
-        if (ruotaSulPosto && !isInteractive)
+    {   
+        if(ruotaSulPosto==false)
+            StartCoroutine(RotazioneLamaCo());
+        else
         {
             StartCoroutine(RotazioneLama());
         }
-
-
-    }
-
-    private void Awake()
-    {
-        rend = GetComponent<Renderer>();
-        sega.transform.localPosition = pos1.transform.localPosition;
-
-        rend.material.SetFloat("_Emission", 80f);
-        rend.material.SetColor("_EmissionColor", Color.green);
-
-
-
     }
 
     private void Update()
-    { 
+    {
+      
     }
 }
