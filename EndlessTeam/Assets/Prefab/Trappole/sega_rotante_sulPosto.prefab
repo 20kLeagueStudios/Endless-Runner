@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6867707166769319660}
   - component: {fileID: 5689969311387172320}
   - component: {fileID: 8613637806689821197}
+  - component: {fileID: 2703521674164104108}
   m_Layer: 0
   m_Name: sega_circolare
   m_TagString: Obstacle
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2943289432487474334}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -244, y: 0.80357194, z: -0}
+  m_LocalPosition: {x: -244.00006, y: 0.803566, z: 0}
   m_LocalScale: {x: 4, y: 4, z: 4}
   m_Children: []
   m_Father: {fileID: 1869370146335894232}
@@ -93,6 +94,23 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 93.73767, y: 97.07715, z: 13.656494}
   m_Center: {x: 0, y: 0.000009536743, z: -0.000049591064}
+--- !u!114 &2703521674164104108
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2943289432487474334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42f61313eecb4ce4aaf099833ae9e1ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sega: {fileID: 2943289432487474334}
+  pos1: {fileID: 1794169857995933212}
+  pos2: {fileID: 0}
+  ruotaSulPosto: 1
+  isInteractive: 0
 --- !u!1 &4699328033815050215
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +122,6 @@ GameObject:
   - component: {fileID: 1869370146335894232}
   - component: {fileID: 2561001287368883986}
   - component: {fileID: 8110765276983061545}
-  - component: {fileID: 6446479052440811651}
   m_Layer: 0
   m_Name: sega_rotante_sulPosto
   m_TagString: Untagged
@@ -120,7 +137,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4699328033815050215}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 10, y: 0, z: -10.99}
+  m_LocalPosition: {x: 12.946606, y: 21.040531, z: -58.023125}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_Children:
   - {fileID: 1794169857995933212}
@@ -174,19 +191,3 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &6446479052440811651
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4699328033815050215}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 42f61313eecb4ce4aaf099833ae9e1ef, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sega: {fileID: 2943289432487474334}
-  pos1: {fileID: 0}
-  pos2: {fileID: 0}
-  ruotaSulPosto: 1
