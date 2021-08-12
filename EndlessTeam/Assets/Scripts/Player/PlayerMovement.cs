@@ -295,7 +295,6 @@ public class PlayerMovement : MonoBehaviour
         {
             canSwipe = true;
 
-            Debug.Log("Tastiera");
             float x = Input.GetAxisRaw("Horizontal");
             //Debug.Log("X: " + x);
 
@@ -349,14 +348,15 @@ public class PlayerMovement : MonoBehaviour
                     //Altrimenti se sto effettuando lo swipe in basso
                     else if (swipeEn == Swipe.Down)
                     {
+                        GameObject temp = GameManager.instance.GetObjFromArray("Hint2", suggestions);
+                        if (temp)
+                            if (temp.activeSelf) TutorialManager.instance.DisableHint();
                         //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
                         if (isGround && !sliding)
                             StartCoroutine("SlideCor");
                         //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
                         else if (!isGround)
                         {
-                         
-
                             verticalForce.y = -34f; 
 
                             powerupsManager.inSlam = true;
@@ -456,7 +456,7 @@ public class PlayerMovement : MonoBehaviour
 
         #region Touch movimento
         //Se lo swipe ha superato la deadzone di 125
-        if (swipeDelta.magnitude > 10)
+        if (swipeDelta.magnitude > 7)
         {
             //Prendo i suoi valori x e y
             float x = swipeDelta.x;
@@ -493,6 +493,9 @@ public class PlayerMovement : MonoBehaviour
                     //Se faccio lo swipe in alto
                     if (swipeEn == Swipe.Up)
                     {
+                        GameObject temp = GameManager.instance.GetObjFromArray("Hint2", suggestions);
+                        if (temp)
+                            if (temp.activeSelf) TutorialManager.instance.DisableHint();
                         //Se tocco il pavimento
                         if (isGround)
                         {
@@ -544,6 +547,9 @@ public class PlayerMovement : MonoBehaviour
                     //Se faccio lo swipe in alto
                     if (swipeEn == Swipe.Down)
                     {
+                        GameObject temp = GameManager.instance.GetObjFromArray("Hint2", suggestions);
+                        if (temp)
+                            if (temp.activeSelf) TutorialManager.instance.DisableHint();
                         //Se tocco il pavimento
                         if (isGround)
                         {

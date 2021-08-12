@@ -57,7 +57,7 @@ public class SegaCircolare : MonoBehaviour
 
         while (elapsedTime < waitTime)
         {
-            sega.transform.Rotate(Vector3.forward, 10);
+            sega.transform.Rotate(-Vector3.forward, 10);
             elapsedTime += Time.deltaTime;
             yield return null;
 
@@ -69,7 +69,7 @@ public class SegaCircolare : MonoBehaviour
     private void OnEnable()
     {   
         if(ruotaSulPosto==false)
-        StartCoroutine(RotazioneLamaCo());
+            StartCoroutine(RotazioneLamaCo());
         else
         {
             StartCoroutine(RotazioneLama());
