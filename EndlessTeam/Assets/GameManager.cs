@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour, ISaveable
     GameObject countDown;
 
     [SerializeField]
-    TextLanguageChange scoreText;
+    TextMeshProUGUI scoreText;
 
     public int currentScore = 0;
 
@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour, ISaveable
     public int savedLanguage = 0;
 
     public bool firstGame = true;
+
+    bool inTutorial = false;
 
     public float speed = 36;
     public float maxSpeed = 76;
@@ -151,11 +153,17 @@ public class GameManager : MonoBehaviour, ISaveable
 
     public void ResumeGame()
     {
-        Time.timeScale = 1;
+        if (!inTutorial)
+        {
+            Time.timeScale = 1;
+        }
     }
 
     public void Pause()
     {
+        //Le prime due righe servono per controllare se già il tempo è fermato a causa del tutorial
+        if (Time.timeScale == 0) inTutorial = true;
+        else inTutorial = false;
         Time.timeScale = 0;
     }
 
@@ -170,7 +178,7 @@ public class GameManager : MonoBehaviour, ISaveable
     {
         currentScore += value;
         if (currentScore < 0) currentScore = 0;
-        scoreText.UpdateText("Score: " + currentScore, "Punti: " + currentScore);
+        scoreText.text = currentScore.ToString();
 
     }
 

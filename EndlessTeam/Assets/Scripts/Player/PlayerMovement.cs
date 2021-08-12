@@ -295,7 +295,6 @@ public class PlayerMovement : MonoBehaviour
         {
             canSwipe = true;
 
-            Debug.Log("Tastiera");
             float x = Input.GetAxisRaw("Horizontal");
             //Debug.Log("X: " + x);
 
@@ -339,7 +338,8 @@ public class PlayerMovement : MonoBehaviour
                             
                             //Applico la forza del salto a verticalForce
                             verticalForce.y = jumpForce;
-                            animator.SetTrigger("Jump");
+                            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
+                                animator.SetTrigger("Jump");
                             //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
                             if (sliding) ResetSliding();
 
@@ -349,16 +349,17 @@ public class PlayerMovement : MonoBehaviour
                     //Altrimenti se sto effettuando lo swipe in basso
                     else if (swipeEn == Swipe.Down)
                     {
+                        GameObject temp = GameManager.instance.GetObjFromArray("Hint2", suggestions);
+                        if (temp)
+                            if (temp.activeSelf) TutorialManager.instance.DisableHint();
                         //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
                         if (isGround && !sliding)
                             StartCoroutine("SlideCor");
                         //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
                         else if (!isGround)
                         {
-                         
-
-                            verticalForce.y = -34f; 
-
+                            verticalForce.y = -34f;
+                            animator.SetTrigger("Attack");
                             powerupsManager.inSlam = true;
                             StartCoroutine(powerupsManager.Slam());
 
@@ -456,7 +457,7 @@ public class PlayerMovement : MonoBehaviour
 
         #region Touch movimento
         //Se lo swipe ha superato la deadzone di 125
-        if (swipeDelta.magnitude > 10)
+        if (swipeDelta.magnitude > 7)
         {
             //Prendo i suoi valori x e y
             float x = swipeDelta.x;
@@ -493,10 +494,14 @@ public class PlayerMovement : MonoBehaviour
                     //Se faccio lo swipe in alto
                     if (swipeEn == Swipe.Up)
                     {
+                        GameObject temp = GameManager.instance.GetObjFromArray("Hint2", suggestions);
+                        if (temp)
+                            if (temp.activeSelf) TutorialManager.instance.DisableHint();
                         //Se tocco il pavimento
                         if (isGround)
                         {
-                          
+                            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
+                                animator.SetTrigger("Jump");
                             //Applico la forza del salto a verticalForce
                             verticalForce.y = jumpForce;
                             //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
@@ -517,7 +522,7 @@ public class PlayerMovement : MonoBehaviour
                         else if (!isGround)
                         {
                             //verticalForce.y = -34f; // 
-
+                            animator.SetTrigger("Attack");
                             powerupsManager.inSlam = true;
                             StartCoroutine(powerupsManager.Slam());
 
@@ -544,6 +549,9 @@ public class PlayerMovement : MonoBehaviour
                     //Se faccio lo swipe in alto
                     if (swipeEn == Swipe.Down)
                     {
+                        GameObject temp = GameManager.instance.GetObjFromArray("Hint2", suggestions);
+                        if (temp)
+                            if (temp.activeSelf) TutorialManager.instance.DisableHint();
                         //Se tocco il pavimento
                         if (isGround)
                         {
@@ -707,7 +715,7 @@ public class PlayerMovement : MonoBehaviour
             while (transform.position.x != finalPos.x)
             {
                 //Lerpo la posizione a quella finale
-                dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
+                dest.x = Mathf.Lerp(dest.x, finalPos.x, 14 * Time.deltaTime);
                 dest.y = transform.position.y;
                 dest.z = transform.position.z;
 
@@ -950,7 +958,7 @@ public class PlayerMovement : MonoBehaviour
         {
 
             //Lerpo la posizione a quella finale
-            dest.x = Mathf.Lerp(dest.x, finalPos.x, .1f);
+            dest.x = Mathf.Lerp(dest.x, finalPos.x, 14 * Time.deltaTime);
             dest.y = transform.position.y;
             dest.z = transform.position.z;
 
