@@ -338,7 +338,8 @@ public class PlayerMovement : MonoBehaviour
                             
                             //Applico la forza del salto a verticalForce
                             verticalForce.y = jumpForce;
-                            animator.SetTrigger("Jump");
+                            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
+                                animator.SetTrigger("Jump");
                             //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
                             if (sliding) ResetSliding();
 
@@ -357,8 +358,8 @@ public class PlayerMovement : MonoBehaviour
                         //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
                         else if (!isGround)
                         {
-                            verticalForce.y = -34f; 
-
+                            verticalForce.y = -34f;
+                            animator.SetTrigger("Attack");
                             powerupsManager.inSlam = true;
                             StartCoroutine(powerupsManager.Slam());
 
@@ -499,7 +500,8 @@ public class PlayerMovement : MonoBehaviour
                         //Se tocco il pavimento
                         if (isGround)
                         {
-                          
+                            if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
+                                animator.SetTrigger("Jump");
                             //Applico la forza del salto a verticalForce
                             verticalForce.y = jumpForce;
                             //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
@@ -520,7 +522,7 @@ public class PlayerMovement : MonoBehaviour
                         else if (!isGround)
                         {
                             //verticalForce.y = -34f; // 
-
+                            animator.SetTrigger("Attack");
                             powerupsManager.inSlam = true;
                             StartCoroutine(powerupsManager.Slam());
 
