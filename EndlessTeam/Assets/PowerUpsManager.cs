@@ -8,7 +8,7 @@ public class PowerUpsManager : MonoBehaviour
 
     [SerializeField] Color playerColor;
 
-    
+    [SerializeField] ParticleSystem ps;
 
     [SerializeField] MeshRenderer playerMesh;
 
@@ -207,7 +207,7 @@ public class PowerUpsManager : MonoBehaviour
 
         player.transform.localScale = powerupScale;
 
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
 
         StartCoroutine(ResetScale());
 
@@ -279,8 +279,12 @@ public class PowerUpsManager : MonoBehaviour
     public IEnumerator Slam() //sistema di Slam, viene chiamato nello script PlayerMovement
     {
 
-        if (!playerMovement.changeG) //in base se sono nel tetto o no, applico una verticalForce
+        if (!playerMovement.changeG) 
+        {  //in base se sono nel tetto o no, applico una verticalForce
             playerMovement.verticalForce.y = -54f;
+            ps.Play();
+        }
+
         else
             playerMovement.verticalForce.y = 54f;
         
@@ -292,6 +296,7 @@ public class PowerUpsManager : MonoBehaviour
     public IEnumerator SlamTime() //se il giocatore fà lo Slem, allora lo attivo (nel momento in cui tocca il ground) e poi lo disttivo
     {
         SlamArea.SetActive(true);
+
         yield return new WaitForSeconds(0.2f);
         inSlam = false;
         firstGrounded = false;

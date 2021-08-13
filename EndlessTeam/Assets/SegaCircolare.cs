@@ -53,12 +53,15 @@ public class SegaCircolare : MonoBehaviour
     IEnumerator RotazioneLama()
     {
         float elapsedTime = 0f;
-        float waitTime = 3;
+        float waitTime = 50;
+
 
         while (elapsedTime < waitTime)
         {
-            sega.transform.Rotate(-Vector3.forward, 10);
             elapsedTime += Time.deltaTime;
+
+            sega.transform.Rotate(Vector3.forward, 400 * Time.deltaTime);
+
             yield return null;
 
         }

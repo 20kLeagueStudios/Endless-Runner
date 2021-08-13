@@ -6,7 +6,7 @@ public class SlamScript : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle"))
+        if (other.CompareTag("Enemy"))
         {
             other.gameObject.SetActive(false);
         }

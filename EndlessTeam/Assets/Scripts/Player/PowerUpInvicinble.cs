@@ -114,12 +114,7 @@ public class PowerUpInvicinble : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            isInvincible = true;
-            StartCoroutine(HitCor(playerMesh));
-
-        }
+        
 
         /*
         if (Input.GetKeyDown(KeyCode.Z))

@@ -98,6 +98,9 @@ public class SegaCircolareInterattiva : InterazioneTrappole
     {
         rend = GetComponent<Renderer>();
 
+        rend.material.SetFloat("_Emission", 80f);
+        rend.material.SetColor("_EmissionColor", Color.green);
+
         sega.transform.localPosition = pos1.transform.localPosition;
 
         if (ruotaSulPosto && !isInteractive)
