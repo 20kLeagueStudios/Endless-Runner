@@ -76,7 +76,6 @@ public class ObjectPooling : MonoBehaviour
         {
             biomes.Add(GameManager.instance.biomes[i].name, GameManager.instance.biomes[i].mat);
 
-            Debug.Log(biomes["Fungo"][0]);
         }
 
         sceneName = gameObject.scene.name;
@@ -219,7 +218,7 @@ public class ObjectPooling : MonoBehaviour
     {
         float temp = rend.bounds.extents.z * 2;
 
-        activeTiles[0].transform.position = new Vector3(0, 0, 106);
+        activeTiles[0].transform.position = new Vector3(0, 0, 120);
 
         for (int i = 1; i < activeTiles.Count; i++) {
             float zPos = activeTiles[i-1] != null ? activeTiles[i-1].transform.position.z + temp : 0;

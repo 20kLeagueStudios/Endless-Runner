@@ -41,10 +41,10 @@ public class PowerUpsManager : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Obstacle") && isDashing == true)
-        {
-            other.gameObject.SetActive(false);
-        }
+        //if (other.CompareTag("Obstacle") && isDashing == true)
+        //{
+        //    other.gameObject.SetActive(false);
+        //}
     }
 
     // Start is called before the first frame update

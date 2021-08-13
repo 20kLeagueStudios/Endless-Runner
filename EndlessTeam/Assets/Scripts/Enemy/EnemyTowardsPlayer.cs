@@ -121,7 +121,7 @@ public class EnemyTowardsPlayer : MonoBehaviour, IDamageable
 
     public void Death()
     {
-        transform.gameObject.SetActive(false);
+        anim.SetTrigger("Death");
         StopAllCoroutines();
     }
 

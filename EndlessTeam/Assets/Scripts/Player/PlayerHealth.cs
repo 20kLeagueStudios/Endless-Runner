@@ -53,7 +53,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (currentHealth > 0)
         {
-            if (other.CompareTag("Obstacle"))
+            if (other.CompareTag("Obstacle") || other.CompareTag("Enemy"))
             {
                 StartCoroutine("HitCor", playerMesh);
                 TakeDamage(1);

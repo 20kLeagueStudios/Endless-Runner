@@ -174,6 +174,9 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (sliding) Crouch();
+        else Idle();
+
         Vector3 rayPos = transform.position;
      
         rayDown.origin = rayPos;
@@ -457,7 +460,7 @@ public class PlayerMovement : MonoBehaviour
 
         #region Touch movimento
         //Se lo swipe ha superato la deadzone di 125
-        if (swipeDelta.magnitude > 7)
+        if (swipeDelta.magnitude > 4)
         {
             //Prendo i suoi valori x e y
             float x = swipeDelta.x;
@@ -649,6 +652,7 @@ public class PlayerMovement : MonoBehaviour
     //Coroutine che si occupa di far cambiare carreggiata al player a seguito di uno swipe
     IEnumerator ChangingPosition(string target)
     {
+        Idle();
         if (!stopMovement)
         {
             GameObject temp = GameManager.instance.GetObjFromArray("Hint1", suggestions);
@@ -892,6 +896,8 @@ public class PlayerMovement : MonoBehaviour
 
     IEnumerator ChangingPosition(Vector3 wallPos)
     {
+
+        Idle();
         GameObject temp = GameManager.instance.GetObjFromArray("Hint1", suggestions);
         if (temp)
             if (temp.activeSelf) TutorialManager.instance.DisableHint();
@@ -1015,6 +1021,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 StopCoroutine("ChangingPosition");
                 StopAllCoroutines();
+         
+
                 StartCoroutine("ChangingPosition", other.transform.position);
 
                 rayWall = false;
@@ -1047,5 +1055,22 @@ public class PlayerMovement : MonoBehaviour
         controller.enabled = true;
         healthScript.once = true;
         GameManager.instance.StartCountDown();
+    }
+
+    void Idle()
+    {
+        Vector3 controllerIdlePos = new Vector3(0, idlePos, 0);
+
+        controller.height = idleHeight;
+        controller.center = controllerIdlePos;
+
+    }
+
+    void Crouch()
+    {
+        Vector3 controllerCrouchPos = new Vector3(0, crouchPos, 0);
+
+        controller.height = crouchHeight;
+        controller.center = controllerCrouchPos;
     }
 }
