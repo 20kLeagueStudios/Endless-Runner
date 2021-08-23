@@ -17,10 +17,12 @@ public class PortalScript : MonoBehaviour
 
     int sceneTarget;
 
+    [SerializeField] MakePortalVisible makePortalVisible;
+
 
     void Start()
     {
-        this.sceneTarget = transform.GetChild(0).GetComponent<MakePortalVisible>().sceneTarget;
+        this.sceneTarget = makePortalVisible.sceneTarget;
 
         //portalMesh = this.gameObject.GetComponent<MeshRenderer>();
 
