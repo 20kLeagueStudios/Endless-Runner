@@ -94,8 +94,7 @@ public class PlayerMovement : MonoBehaviour
     float idleHeight, idlePos;
 
     //Riferimento all'animatore
-    [SerializeField]
-    Animator animator;
+    public Animator animator;
 
     //ChangeG è una booleane che mi servirà per invertire la gravità
     //canIPress è una booleana che mi servirà a mettere un countdown al bottone
@@ -192,7 +191,8 @@ public class PlayerMovement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.F)) transform.position = initialPos;
 
-        stopMovement = suggestions[1].activeSelf || suggestions[2].activeSelf || suggestions[3].activeSelf;
+        stopMovement = suggestions[1].activeSelf || suggestions[2].activeSelf || suggestions[3].activeSelf || GameManager.instance.playerDeath;
+        bool stopJump = GameManager.instance.preDeath;
 
         if (Time.time - scoreIncTime > .1f)
         {
@@ -336,7 +336,7 @@ public class PlayerMovement : MonoBehaviour
                         if (temp)
                             if (temp.activeSelf) TutorialManager.instance.DisableHint();
                         //Se tocco il pavimento
-                        if (isGround)
+                        if (isGround && !stopJump)
                         {
                             
                             //Applico la forza del salto a verticalForce
@@ -359,7 +359,7 @@ public class PlayerMovement : MonoBehaviour
                         if (isGround && !sliding)
                             StartCoroutine("SlideCor");
                         //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
-                        else if (!isGround)
+                        else if (!isGround && !stopJump)
                         {
                             verticalForce.y = -34f;
                             animator.SetTrigger("Attack");
@@ -501,7 +501,7 @@ public class PlayerMovement : MonoBehaviour
                         if (temp)
                             if (temp.activeSelf) TutorialManager.instance.DisableHint();
                         //Se tocco il pavimento
-                        if (isGround)
+                        if (isGround && !stopJump)
                         {
                             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
                                 animator.SetTrigger("Jump");
@@ -518,11 +518,14 @@ public class PlayerMovement : MonoBehaviour
                     //Altrimenti se sto effettuando lo swipe in basso
                     else if (swipeEn == Swipe.Down)
                     {
+                        GameObject temp = GameManager.instance.GetObjFromArray("Hint2", suggestions);
+                        if (temp)
+                            if (temp.activeSelf) TutorialManager.instance.DisableHint();
                         //Se sto toccando il pavimento e non sto già usando lo slide attivo la coroutine SlideCor
                         if (isGround && !sliding)
                             StartCoroutine("SlideCor");
                         //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
-                        else if (!isGround)
+                        else if (!isGround && !stopJump)
                         {
                             //verticalForce.y = -34f; // 
                             animator.SetTrigger("Attack");
@@ -623,8 +626,8 @@ public class PlayerMovement : MonoBehaviour
         {
 
             //Aggiungo la gravità alla verticalForce
-            if (!GameManager.instance.playerDeath)
-                verticalForce.y += gravity * Time.deltaTime;
+            //if (!GameManager.instance.playerDeath)
+            verticalForce.y += gravity * Time.deltaTime;
         }
 
 
@@ -719,7 +722,7 @@ public class PlayerMovement : MonoBehaviour
             while (transform.position.x != finalPos.x)
             {
                 //Lerpo la posizione a quella finale
-                dest.x = Mathf.Lerp(dest.x, finalPos.x, 14 * Time.deltaTime);
+                dest.x = Mathf.Lerp(dest.x, finalPos.x, 8 * Time.deltaTime);
                 dest.y = transform.position.y;
                 dest.z = transform.position.z;
 
@@ -964,7 +967,7 @@ public class PlayerMovement : MonoBehaviour
         {
 
             //Lerpo la posizione a quella finale
-            dest.x = Mathf.Lerp(dest.x, finalPos.x, 14 * Time.deltaTime);
+            dest.x = Mathf.Lerp(dest.x, finalPos.x, 8 * Time.deltaTime);
             dest.y = transform.position.y;
             dest.z = transform.position.z;
 

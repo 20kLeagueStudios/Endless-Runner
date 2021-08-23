@@ -6,7 +6,7 @@ using System;
 using TMPro;
 
 
-public class InventoryManager : MonoBehaviour, ISaveable
+public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager instance;
 
@@ -36,48 +36,44 @@ public class InventoryManager : MonoBehaviour, ISaveable
 
     public bool caricaDati=true;
 
-    public void LoadFromSaveData(SaveData saveData)
-    {
-        itemsAcquistati = saveData.items;
- 
-    }
+  
 
-    void  LoadJsonData()
-    {
-        SaveData saveData = new SaveData();
+    //void  LoadJsonData()
+    //{
+    //    SaveData saveData = new SaveData();
 
-        if (FileManager.LoadFromFile("SaveData1", out var jsonFile))
-        {
-            saveData.LoadFromJson(jsonFile);
-            itemsAcquistati = saveData.items ;
+    //    if (FileManager.LoadFromFile("SaveData1", out var jsonFile))
+    //    {
+    //        saveData.LoadFromJson(jsonFile);
+    //        itemsAcquistati = saveData.items ;
 
 
-            Debug.Log("CARICA " + saveData.items.Count);
-        }
-    }
+    //        Debug.Log("CARICA " + saveData.items.Count);
+    //    }
+    //}
 
 
-    public void PopulateSaveData(SaveData saveData)
-    {
-        saveData.items = this.itemsAcquistati;
-    }
+    //public void PopulateSaveData(SaveData saveData)
+    //{
+    //    saveData.items = this.itemsAcquistati;
+    //}
 
-    void SaveJsonData()
-    {
-        SaveData saveData = new SaveData();
+    //void SaveJsonData()
+    //{
+    //    SaveData saveData = new SaveData();
 
-        this.PopulateSaveData(saveData);
-        Debug.Log("SALVA " + saveData.items.Count);
+    //    this.PopulateSaveData(saveData);
+    //    Debug.Log("SALVA " + saveData.items.Count);
 
-        if (FileManager.WriteToFile("SaveData1", saveData.ToJson()))
-        {
-            
+    //    if (FileManager.WriteToFile("SaveData1", saveData.ToJson()))
+    //    {
 
-        }
 
-    }
+    //    }
 
- 
+    //}
+
+
     private void Awake()
     {
         if (instance == null)
@@ -93,24 +89,37 @@ public class InventoryManager : MonoBehaviour, ISaveable
         currencyText.text = shop.currency.ToString();
         tutaMesh = previewTutaPrefab.GetComponent<MeshRenderer>();
 
+     
+    }
+
+    public void LoadData()
+    {
+        //itemsAcquistati = saveData.items;
+        SaveData temp = SaveSystem.Loading();
+        if (temp != null)
+        {
+            itemsAcquistati = temp.items;
+        }
     }
 
     void OnApplicationQuit()
     {
-        SaveJsonData();
+        //SaveSystem.Saving(null);
     }
 
     private void Start()
     {
-       // defaultItems.Add(itemSelected[0]);
+        // defaultItems.Add(itemSelected[0]);
         //defaultItems.Add(gadgetSelected[0]);
+      
 
        itemsAcquistati.Add(defaultItems[0]);
        itemsAcquistati.Add(defaultItems[1]);
 
         if (caricaDati)
         {
-            LoadJsonData();
+            //LoadJsonData();
+            LoadData();
         }
        
 

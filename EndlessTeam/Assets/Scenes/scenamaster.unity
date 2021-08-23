@@ -6281,6 +6281,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1112982430}
+  - component: {fileID: 1112982431}
   m_Layer: 5
   m_Name: Pause
   m_TagString: Untagged
@@ -6309,6 +6310,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 640, y: 1138}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1112982431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112982429}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4712af8c29f9f345a9ca9d28384ed66, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1123022517
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9236,6 +9249,7 @@ MonoBehaviour:
   gemsImg: {fileID: 995142770}
   retryText: {fileID: 988321336}
   playerDeath: 0
+  preDeath: 0
   moneyText: {fileID: 4865017821066395725}
   countDown: {fileID: 1198326712}
   scoreText: {fileID: 851122562}
@@ -9644,7 +9658,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1820101244}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1112982431}
+        m_MethodName: Scene
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1820101244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11778,6 +11803,11 @@ PrefabInstance:
       propertyPath: positions.Array.data[2]
       value: 
       objectReference: {fileID: 2107109720}
+    - target: {fileID: 2539507645114299319, guid: 66aa9e8e402136247899536a755bb828,
+        type: 3}
+      propertyPath: crouchPos
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5407072027203090293, guid: 66aa9e8e402136247899536a755bb828,
         type: 3}
       propertyPath: m_Enabled

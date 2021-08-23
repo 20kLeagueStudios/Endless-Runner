@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 using System.IO;
+using System;
 
-
-public class GameManager : MonoBehaviour, ISaveable
+public class GameManager : MonoBehaviour
 {
     [System.Serializable]
     public struct Biomes
@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour, ISaveable
 
     int respawnCount = 0;
 
-    public bool playerDeath = false;
+    public bool playerDeath = false, preDeath = false;
 
     [SerializeField]
     TextMeshProUGUI moneyText;
@@ -98,9 +98,7 @@ public class GameManager : MonoBehaviour, ISaveable
             Destroy(this);
         }
 
-        LoadJsonData();
-
-        moneyText.text = ": " + currentMoney.ToString();
+        Time.timeScale = 1;
     }
 
     void Update() //////////////////////////////////////////////////////////////
@@ -118,7 +116,25 @@ public class GameManager : MonoBehaviour, ISaveable
         //SceneManager.LoadScene(1, LoadSceneMode.Additive);
         LoadScene(2);
 
+        //LoadJsonData();
+
+        moneyText.text = ": " + currentMoney.ToString();
+
         initialPlayerPos = playerGb.transform.position;
+
+        LoadData();
+       
+    }
+
+    private void LoadData()
+    {
+        SaveData temp = SaveSystem.Loading();
+        if (temp != null)
+        {
+            currentMoney = temp.money;
+            savedLanguage = temp.savedLanguage;
+            moneyText.text = currentMoney.ToString();
+        }
     }
 
     public void LoadScene(int scene)
@@ -182,43 +198,44 @@ public class GameManager : MonoBehaviour, ISaveable
 
     }
 
-    public void PopulateSaveData(SaveData saveData)
-    {
-        saveData.money = this.currentMoney;
-        saveData.savedLanguage = this.savedLanguage;
+    //public void PopulateSaveData(SaveData saveData)
+    //{
+    //    saveData.money = this.currentMoney;
+    //    saveData.savedLanguage = this.savedLanguage;
 
-    }
+    //}
 
-    public void LoadFromSaveData(SaveData saveData)
-    {
-        currentMoney = saveData.money;
-        this.savedLanguage = saveData.savedLanguage;
-    }
+    //public void LoadFromSaveData(SaveData saveData)
+    //{
+    //    this.currentMoney = saveData.money;
+    //    this.savedLanguage = saveData.savedLanguage;
+    //}
 
-    void SaveJsonData()
-    {
-        SaveData saveData = new SaveData();
-        this.PopulateSaveData(saveData);
+    //public void SaveJsonData()
+    //{
+    //    SaveData saveData = new SaveData();
+    //    this.PopulateSaveData(saveData);
 
-        if (FileManager.WriteToFile("SaveData0", saveData.ToJson())) {
-        }
+    //    if (FileManager.WriteToFile("SaveData0", saveData.ToJson())) {
+    //    }
         
-    }
+    //}
 
-    void LoadJsonData()
-    {
-        if (FileManager.LoadFromFile("SaveData0", out var jsonFile))
-        {
-            SaveData saveData = new SaveData();
-            saveData.LoadFromJson(jsonFile);
-            currentMoney = saveData.money;
-            this.savedLanguage = saveData.savedLanguage;
-        }
-    }
+    //void LoadJsonData()
+    //{
+    //    if (FileManager.LoadFromFile("SaveData0", out var jsonFile))
+    //    {
+    //        SaveData saveData = new SaveData();
+    //        saveData.LoadFromJson(jsonFile);
+    //        currentMoney = saveData.money;
+    //        this.savedLanguage = saveData.savedLanguage;
+    //    }
+    //}
 
     void OnApplicationQuit()
     {
-        SaveJsonData();
+        //SaveJsonData();
+        SaveSystem.Saving(this);
     }
 
     public void Respawn()
@@ -243,7 +260,9 @@ public class GameManager : MonoBehaviour, ISaveable
     {
         countDown.SetActive(true);
         TextMeshProUGUI countDownText = countDown.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        playerGb.GetComponent<PlayerMovement>().animator.Play("Running");
         float initialSize = countDownText.fontSize;
+        Time.timeScale = 0;
         //float desiredSize = 190f;
         speed = 0;
         for (int i = 3; i >= 1; i--)
@@ -261,7 +280,9 @@ public class GameManager : MonoBehaviour, ISaveable
         }
         countDown.SetActive(false);
         playerDeath = false;
+        preDeath = false;
         speed = 36;
+        Time.timeScale = 1;
         yield return null;
     }
 

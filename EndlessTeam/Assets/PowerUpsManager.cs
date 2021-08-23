@@ -295,11 +295,14 @@ public class PowerUpsManager : MonoBehaviour
 
     public IEnumerator SlamTime() //se il giocatore fà lo Slem, allora lo attivo (nel momento in cui tocca il ground) e poi lo disttivo
     {
-        SlamArea.SetActive(true);
+        if (!GameManager.instance.preDeath)
+        {
+            SlamArea.SetActive(true);
 
-        yield return new WaitForSeconds(0.2f);
-        inSlam = false;
-        firstGrounded = false;
+            yield return new WaitForSeconds(0.2f);
+            inSlam = false;
+            firstGrounded = false;
+        }
 
     }
 

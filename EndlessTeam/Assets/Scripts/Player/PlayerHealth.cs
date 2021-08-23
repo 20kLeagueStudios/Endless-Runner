@@ -92,10 +92,12 @@ public class PlayerHealth : MonoBehaviour
         if (currentHealth > 0)
             healthBar.SetHealth(currentHealth);
         else healthBar.SetHealth(0);
-            
+
         if (currentHealth <= 0)
+        {
+            GameManager.instance.preDeath = true;
             animator.SetTrigger("Death");
-       
+        }       
     }
 
     public void Death()
