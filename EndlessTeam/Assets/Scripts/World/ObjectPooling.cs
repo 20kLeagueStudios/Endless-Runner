@@ -348,8 +348,9 @@ public class ObjectPooling : MonoBehaviour
             //Debug.Log("1 " + allObjFirstScene[i].name);
             if (allObjFirstScene[i].CompareTag("ParentTile"))
             {
-                if (allObjFirstScene[i].transform.GetChild(0).name == "Fungo") { mat1 = biomes["Fungo"][1]; }
-                else if (allObjFirstScene[i].transform.GetChild(0).name == "Deserto") { mat1 = biomes["Deserto"][0]; }
+                if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Fungo")) { mat1 = biomes["Fungo"][1]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Deserto")) { mat1 = biomes["Deserto"][1]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Cristallo")) { mat1 = biomes["Cristallo"][1]; }
                 scene1parent = allObjFirstScene[i];
                 break;
             }
@@ -360,8 +361,10 @@ public class ObjectPooling : MonoBehaviour
          
             if (allObjSecondScene[i].CompareTag("ParentTile"))
             {
-                if (allObjFirstScene[i].transform.GetChild(0).name == "Fungo") { mat1 = biomes["Fungo"][0]; }
-                else if (allObjFirstScene[i].transform.GetChild(0).name == "Deserto") { mat2 = biomes["Deserto"][1]; }
+                Debug.Log(allObjFirstScene[i].transform.GetChild(0).name);
+                if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Fungo")) { mat2 = biomes["Fungo"][0]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Deserto")) { mat2 = biomes["Deserto"][0]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Cristallo")) { mat2 = biomes["Cristallo"][0]; }
                 scene2parent = allObjSecondScene[i];
                 break;
             }
@@ -382,7 +385,7 @@ public class ObjectPooling : MonoBehaviour
         //    Debug.Log(temp.gameObject.name);
         for (int i=0; i<rendererFirst.Length; i++)
         {
-            rendererFirst[i].material = biomes["Fungo"][1];
+            rendererFirst[i].material = mat1;
         }
 
         for(int i=0; i<rendererSecond.Length; i++)
@@ -397,8 +400,9 @@ public class ObjectPooling : MonoBehaviour
             //{
             //    rendererSecond[i].materials[j] = biomes["Deserto"][0];
             //}
-
-            rendererSecond[i].materials = mats;
+         
+            rendererSecond[i].material = mat2;
+            Debug.Log(mat2);
         }
 
 
