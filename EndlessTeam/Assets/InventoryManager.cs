@@ -111,6 +111,7 @@ public class InventoryManager : MonoBehaviour
         SaveSystem.Saving(this);
     }
 
+
     private void Start()
     {
         // defaultItems.Add(itemSelected[0]);
@@ -144,6 +145,7 @@ public class InventoryManager : MonoBehaviour
         }
         */
 
+
         foreach (ItemsShopSO item in itemsAcquistati)
         {
            // itemsAcquistati.Add(item);
@@ -155,6 +157,7 @@ public class InventoryManager : MonoBehaviour
 
             inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemSO.itemName;
             inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemSO.itemCost.ToString();
+            
 
         }
     }

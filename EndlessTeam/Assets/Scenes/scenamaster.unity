@@ -1856,7 +1856,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 6967
 --- !u!114 &388297334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11589,12 +11589,12 @@ PrefabInstance:
     - target: {fileID: 6565710215739372171, guid: 8e4021b4fe0fdab4fbc0439215f68223,
         type: 3}
       propertyPath: x
-      value: -0.0408516
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6565710215739372171, guid: 8e4021b4fe0fdab4fbc0439215f68223,
         type: 3}
       propertyPath: y
-      value: -0.0817032
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6565710215739372171, guid: 8e4021b4fe0fdab4fbc0439215f68223,
         type: 3}
@@ -11605,6 +11605,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: CurveController
+      objectReference: {fileID: 0}
+    - target: {fileID: 6565710215739372172, guid: 8e4021b4fe0fdab4fbc0439215f68223,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8e4021b4fe0fdab4fbc0439215f68223, type: 3}

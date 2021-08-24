@@ -8,7 +8,7 @@ public class SaveData
     public int money = 0, savedLanguage = 0;
 
 
-    public List<ItemSerializzato> items = default;
+    public List<ItemSerializzato> items = new List<ItemSerializzato>();
 
 
     ////Ritorna la classe in formato json
@@ -33,11 +33,10 @@ public class SaveData
 
     public SaveData(InventoryManager inv)
     {
-
         for(int i=0; i<inv.itemsAcquistati.Count; i++)
         {
-            Debug.Log(inv.itemsAcquistati[i].name);
-            this.items[i] = inv.itemsAcquistati[i].itemSO;
+            Debug.Log(i);
+            this.items.Add(inv.itemsAcquistati[i].itemSO);
         }
         //this.items = InventoryManager.instance.itemsAcquistati;
     }

@@ -204,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
 
         value.x = positions[1].position.x - positions[0].position.x;
 
-        initialPoint = new Vector3(0,-3,0) + transform.position - (value) - Vector3.right;
+        initialPoint = new Vector3(0,-15,0) + transform.position - (value) - Vector3.right;
         ray.origin = initialPoint;
         ray.direction = transform.right;
 
@@ -220,7 +220,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
 
-        Debug.DrawRay(transform.position, -Vector3.up * 4f, Color.red);
+   
 
     
 
@@ -1054,7 +1054,7 @@ public class PlayerMovement : MonoBehaviour
         transform.position = initialPos;
         swipeEn = Swipe.Mid;
         currentState = swipeEn.ToString();
-        animator.SetTrigger("Resurrection");
+        //animator.SetTrigger("Resurrection");
         controller.enabled = true;
         healthScript.once = true;
         GameManager.instance.StartCountDown();

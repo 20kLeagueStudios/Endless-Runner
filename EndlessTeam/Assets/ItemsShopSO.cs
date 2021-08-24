@@ -27,14 +27,15 @@ public class ItemsShopSO : ScriptableObject
 
     public ItemSerializzato itemSO;
 
-
-    
 }
 
 [Serializable]
 public class ItemSerializzato
 {
     public string itemName;
+
+    public int id;
+
     public Sprite itemImage;
     public Texture playerSkin;
     public int itemCost;
