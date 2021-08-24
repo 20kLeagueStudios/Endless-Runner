@@ -98,23 +98,28 @@ public class InventoryManager : MonoBehaviour
         SaveData temp = SaveSystem.Loading();
         if (temp != null)
         {
-            itemsAcquistati = temp.items;
+            for(int i=0;i<temp.items.Count; i++)
+            {
+                itemsAcquistati[i].itemSO = temp.items[i];
+            }
+            
         }
     }
 
     void OnApplicationQuit()
     {
-        //SaveSystem.Saving(null);
+        SaveSystem.Saving(this);
     }
 
     private void Start()
     {
         // defaultItems.Add(itemSelected[0]);
         //defaultItems.Add(gadgetSelected[0]);
-      
+    
 
        itemsAcquistati.Add(defaultItems[0]);
        itemsAcquistati.Add(defaultItems[1]);
+
 
         if (caricaDati)
         {

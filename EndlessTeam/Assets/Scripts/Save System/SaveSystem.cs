@@ -69,6 +69,19 @@ public static class SaveSystem
         stream.Close();
     }
 
+    public static void Saving(InventoryManager inv)
+    {
+        BinaryFormatter formatter = new BinaryFormatter();
+
+        string path = Application.persistentDataPath + "/SaveData.sav";
+        FileStream stream = new FileStream(path, FileMode.Create);
+
+        SaveData data = new SaveData(inv);
+        formatter.Serialize(stream, data);
+
+        stream.Close();
+    }
+
     public static SaveData Loading()
     {
         string path = Application.persistentDataPath + "/SaveData.sav";

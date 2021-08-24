@@ -27,6 +27,7 @@ public class ItemsShopSO : ScriptableObject
 
     public ItemSerializzato itemSO;
 
+
     
 }
 
