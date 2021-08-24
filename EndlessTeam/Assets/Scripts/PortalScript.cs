@@ -65,7 +65,7 @@ public class PortalScript : MonoBehaviour
 
           }
 
-          else if (other.CompareTag("PortalTrigger"))
+          if (other.CompareTag("PortalTrigger"))
            {
 
             //  Debug.Log("ENTRATA PORT");
