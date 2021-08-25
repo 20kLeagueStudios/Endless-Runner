@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MakePortalVisible : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class MakePortalVisible : MonoBehaviour
     public int sceneTarget;
 
     int number = 3;
+    [SerializeField]
+    bool once = true;
     GameObject suggestion;
 
     private void OnTriggerEnter(Collider other)
@@ -25,12 +28,11 @@ public class MakePortalVisible : MonoBehaviour
                 GameManager.instance.firstPortal = false;
             }
             GameManager.instance.LoadScene(sceneTarget);
-    
-           
+
             GameManager.instance.currentScene = sceneTarget;
+
         }
     }
-
 
 
     //Quando esco dal trigger, se lo faccio, disattivo la scena corrente
@@ -47,4 +49,15 @@ public class MakePortalVisible : MonoBehaviour
         yield return new WaitForSecondsRealtime(seconds);
         if (suggestion.activeSelf) TutorialManager.instance.DisableHint();
     }
+
+    private void Update()
+    {
+        //Imposta il bioma in modalità curved tested per non mostrare la sovrapposizione
+        if (SceneManager.GetSceneByBuildIndex(sceneTarget).isLoaded && once)
+        {
+            ObjectPooling.instance.ChangeMatFromTo(this.sceneTarget);
+            once = false;
+        }
+    }
+
 }

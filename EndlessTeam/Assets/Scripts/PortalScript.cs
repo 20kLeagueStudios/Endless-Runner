@@ -54,14 +54,8 @@ public class PortalScript : MonoBehaviour
             if (parentTile!=null)
                 parentTile.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = newshader;
 
-        
-
             ObjectPooling.instance.ChangeMatFromTo(GameManager.instance.currentScene, this.sceneTarget);
-
-
             GameManager.instance.DeactivateScene(currentScene);
-
-            Debug.Log("SCARICA");
 
           }
 
@@ -86,12 +80,6 @@ public class PortalScript : MonoBehaviour
     private void OnDisable()
     {
         portalMesh.enabled = false;
-    }
-
-
-    private void Update()
-    {
-       
     }
 
 

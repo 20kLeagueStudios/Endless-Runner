@@ -369,12 +369,6 @@ public class ObjectPooling : MonoBehaviour
                 break;
             }
         }
- 
-        //for(int i=0;i<mat1.Length; i++)
-        //{
-        //    Debug.Log("1 " + mat1[i].name);
-        //    Debug.Log("2 " + mat2[i].name);
-        //}
 
         Renderer[] rendererFirst = default, rendererSecond = default;
         if (scene1parent.gameObject != null)
@@ -390,25 +384,50 @@ public class ObjectPooling : MonoBehaviour
 
         for(int i=0; i<rendererSecond.Length; i++)
         {
-            Material[] mats = new Material[biomes.Count];
-            for(int a=0; a<biomes["Deserto"].Length; a++)
-            {
-                mats[a] = biomes["Deserto"][0];
-            }
-            //rendererSecond[i].material = biomes["Deserto"][0];
-            //for (int j = 0; j < rendererSecond[i].materials.Length; j++)
-            //{
-            //    rendererSecond[i].materials[j] = biomes["Deserto"][0];
-            //}
          
             rendererSecond[i].material = mat2;
-            Debug.Log(mat2);
+   
         }
 
 
     }
 
+    public void ChangeMatFromTo(int scene)
+    {
+        GameObject scene1parent = default;
 
+        Scene firstScene = SceneManager.GetSceneByBuildIndex(scene);
+
+        GameObject[] allObjFirstScene = firstScene.GetRootGameObjects();
+
+        Debug.Log(allObjFirstScene[0].name);
+
+        Material mat = default;
+
+
+        for (int i = 0; i < allObjFirstScene.Length; i++)
+        {
+           
+            if (allObjFirstScene[i].CompareTag("ParentTile"))
+            {
+                if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Fungo")) { mat = biomes["Fungo"][1]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Deserto")) { mat = biomes["Deserto"][1]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Cristallo")) { mat = biomes["Cristallo"][1]; }
+                scene1parent = allObjFirstScene[i];
+                break;
+            }
+        }      
+
+        Renderer[] rendererFirst = default;
+        if (scene1parent.gameObject != null)
+            rendererFirst = scene1parent.GetComponentsInChildren<Renderer>();
+
+        for (int i = 0; i < rendererFirst.Length; i++)
+        {
+            rendererFirst[i].material = mat;
+        }
+
+    }
 }
 
 [System.Serializable]
