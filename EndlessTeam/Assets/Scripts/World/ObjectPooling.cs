@@ -6,8 +6,8 @@ using UnityEngine.SceneManagement; ///emanuele
 public class ObjectPooling : MonoBehaviour
 {
     #region Variabili
-    
 
+    bool tags;
  
     public static ObjectPooling instance = null;
     //Conterrà i tag associati ai GameObject creati con la lista poolList
@@ -18,7 +18,9 @@ public class ObjectPooling : MonoBehaviour
     //Carreggiata vuota da far apparire 6 volte ad inizio partita
     [SerializeField]
     GameObject emptyTile;
-    
+
+
+
     //Lista di carreggiate attive che le farà muovere all'indietro
     List<GameObject> activeTiles = new List<GameObject>();
 
@@ -337,6 +339,8 @@ public class ObjectPooling : MonoBehaviour
         Scene firstScene = SceneManager.GetSceneByBuildIndex(scene1),
               secondScene = SceneManager.GetSceneByBuildIndex(scene2);
 
+
+
         GameObject[] allObjFirstScene = firstScene.GetRootGameObjects(),
                      allObjSecondScene = secondScene.GetRootGameObjects();
 
@@ -377,15 +381,19 @@ public class ObjectPooling : MonoBehaviour
             rendererSecond = scene2parent.GetComponentsInChildren<Renderer>();
         //foreach(Renderer temp in rendererFirst)
         //    Debug.Log(temp.gameObject.name);
+       
         for (int i=0; i<rendererFirst.Length; i++)
         {
-            rendererFirst[i].material = mat1;
+            tags = rendererFirst[i].CompareTag("Money") || rendererFirst[i].CompareTag("Enemy") || rendererFirst[i].CompareTag("Portal");
+            if (!tags)
+                rendererFirst[i].material = mat1;
         }
 
         for(int i=0; i<rendererSecond.Length; i++)
         {
-         
-            rendererSecond[i].material = mat2;
+            tags = rendererSecond[i].CompareTag("Money") || rendererSecond[i].CompareTag("Enemy") || rendererSecond[i].CompareTag("Portal");
+            if (!tags)
+                rendererSecond[i].material = mat2;
    
         }
 
@@ -395,12 +403,10 @@ public class ObjectPooling : MonoBehaviour
     public void ChangeMatFromTo(int scene)
     {
         GameObject scene1parent = default;
-
+     
         Scene firstScene = SceneManager.GetSceneByBuildIndex(scene);
 
         GameObject[] allObjFirstScene = firstScene.GetRootGameObjects();
-
-        Debug.Log(allObjFirstScene[0].name);
 
         Material mat = default;
 
@@ -424,7 +430,9 @@ public class ObjectPooling : MonoBehaviour
 
         for (int i = 0; i < rendererFirst.Length; i++)
         {
-            rendererFirst[i].material = mat;
+            tags = rendererFirst[i].CompareTag("Money") || rendererFirst[i].CompareTag("Enemy") || rendererFirst[i].CompareTag("Portal");
+            if (!tags)
+                    rendererFirst[i].material = mat;
         }
 
     }

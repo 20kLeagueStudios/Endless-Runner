@@ -10,28 +10,57 @@ public class MakePortalVisible : MonoBehaviour
     public int sceneTarget;
 
     int number = 3;
-    [SerializeField]
-    bool once = true;
+    bool once = false;
     GameObject suggestion;
+
+
 
     private void OnTriggerEnter(Collider other)
     {
         //Creo la scena e la imposto come corrente
         if (other.CompareTag("Player"))
         {
+            once = true;
             if (GameManager.instance.firstPortal)
             {
                 //da riaggiungere
                 //suggestion = GameManager.instance.GetObjFromArray("Hint4", GameManager.instance.suggestions);
                 //TutorialManager.instance.ShowHint(number);
+
+
                 StartCoroutine(WaitCor(4));
                 GameManager.instance.firstPortal = false;
             }
             GameManager.instance.LoadScene(sceneTarget);
 
+
             GameManager.instance.currentScene = sceneTarget;
 
         }
+
+
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (SceneManager.GetSceneByBuildIndex(sceneTarget).isLoaded && once && GameManager.portal == -1)
+        {
+            GameManager.portal = gameObject.GetInstanceID();
+            once = false;
+            Debug.Log("nome ogg. " + this.gameObject.name + " " + SceneManager.GetSceneByBuildIndex(sceneTarget).isLoaded);
+            Debug.Log(this.gameObject.GetInstanceID());
+  
+            ObjectPooling.instance.ChangeMatFromTo(sceneTarget);
+
+
+        }
+    }
+
+
+
+    private void OnDisable()
+    {
+        if (gameObject.GetInstanceID() == GameManager.portal) GameManager.portal = -1;
     }
 
 
@@ -41,23 +70,22 @@ public class MakePortalVisible : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             GameManager.instance.DeactivateScene(sceneTarget);
+            GameManager.portal = -1;
         }
     }
 
     IEnumerator WaitCor(int seconds)
     {
         yield return new WaitForSecondsRealtime(seconds);
-        if (suggestion.activeSelf) TutorialManager.instance.DisableHint();
+        //if (suggestion.activeSelf) TutorialManager.instance.DisableHint();
     }
+
+
+
 
     private void Update()
     {
-        //Imposta il bioma in modalità curved tested per non mostrare la sovrapposizione
-        if (SceneManager.GetSceneByBuildIndex(sceneTarget).isLoaded && once)
-        {
-            ObjectPooling.instance.ChangeMatFromTo(this.sceneTarget);
-            once = false;
-        }
+
     }
 
 }

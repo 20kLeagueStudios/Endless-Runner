@@ -13,11 +13,11 @@ public class PortalScript : MonoBehaviour
 
     public MeshRenderer portalMesh;
 
-    int currentScene;
-
     int sceneTarget;
 
     [SerializeField] MakePortalVisible makePortalVisible;
+
+    static int currentScene = 2;
 
 
     void Start()
@@ -25,8 +25,6 @@ public class PortalScript : MonoBehaviour
         portalMesh.enabled = false;
 
         this.sceneTarget = makePortalVisible.sceneTarget;
-
-        currentScene = gameObject.scene.buildIndex;
 
     }
 
@@ -55,13 +53,17 @@ public class PortalScript : MonoBehaviour
                 parentTile.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = newshader;
 
             ObjectPooling.instance.ChangeMatFromTo(GameManager.instance.currentScene, this.sceneTarget);
-            GameManager.instance.DeactivateScene(currentScene);
 
-          }
+            GameManager.instance.DeactivateScene(currentScene);
+            currentScene = sceneTarget;
+            
+
+        }
 
           if (other.CompareTag("PortalTrigger"))
            {
 
+          
             //  Debug.Log("ENTRATA PORT");
              portalMesh.enabled = true;
 

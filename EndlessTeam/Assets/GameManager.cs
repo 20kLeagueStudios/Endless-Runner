@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
 
     public List<GameObject> toReactive = new List<GameObject>();
 
+    public static int portal = -1;
+
     public Biomes[] biomes;
 
     [SerializeField]
