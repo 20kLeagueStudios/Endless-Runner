@@ -12,6 +12,11 @@ public class TrappolaSparaSpine : InterazioneTrappole
     public Vector3 startPos1;
     public Vector3 startPos2;
 
+    private void Start()
+    {
+        rend.material.SetFloat("_Emission", 80f);
+        rend.material.SetColor("_EmissionColor", Color.green);
+    }
 
 
     Renderer rend;
@@ -41,7 +46,7 @@ public class TrappolaSparaSpine : InterazioneTrappole
 
     }
 
-
+     
 
     public IEnumerator SparaSpine()
     {
@@ -80,8 +85,11 @@ public class TrappolaSparaSpine : InterazioneTrappole
     {
         rend = GetComponent<Renderer>();
 
-          startPos1 = spine[0].transform.localPosition;
-          startPos2 = spine[1].transform.localPosition;
+        rend.material.SetFloat("_Emission", 80f);
+        rend.material.SetColor("_EmissionColor", Color.green);
+
+        startPos1 = spine[0].transform.localPosition;
+        startPos2 = spine[1].transform.localPosition;
 
     }
 
