@@ -43,43 +43,46 @@ public class PortalScript : MonoBehaviour
   
 
     private void OnTriggerEnter(Collider other)
-      {
+    {
           if (other.CompareTag("Player"))
           {
 
             transform.parent = null;
 
-            if (parentTile!=null)
-                parentTile.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = newshader;
-
+           
             ObjectPooling.instance.ChangeMatFromTo(GameManager.instance.currentScene, this.sceneTarget);
 
             GameManager.instance.DeactivateScene(currentScene);
             currentScene = sceneTarget;
             
 
-        }
+          }
 
           if (other.CompareTag("PortalTrigger"))
-           {
+          {
 
-          
-            //  Debug.Log("ENTRATA PORT");
+           
              portalMesh.enabled = true;
-
-          //  tifotto = true;
-            
-
-           }
+             
+          }
            
-           
- 
+         
+    }
 
-      }
-
-
+    /*
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            Debug.Log("diocornuto");
+            GameManager.instance.DeactivateScene(currentScene);
+            currentScene = sceneTarget;
+        }
+    }
+    */
 
     private void OnDisable()
+
     {
         portalMesh.enabled = false;
     }
