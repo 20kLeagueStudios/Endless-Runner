@@ -368,7 +368,7 @@ public class ObjectPooling : MonoBehaviour
          
             if (allObjSecondScene[i].CompareTag("ParentTile"))
             {
-                Debug.Log(allObjFirstScene[i].transform.GetChild(0).name);
+    
                 if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Fungo")) { mat2 = biomes["Fungo"][0]; }
                 else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Deserto")) { mat2 = biomes["Deserto"][0]; }
                 else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Cristallo")) { mat2 = biomes["Cristallo"][0]; }
@@ -387,17 +387,28 @@ public class ObjectPooling : MonoBehaviour
        
         for (int i=0; i<rendererFirst.Length; i++)
         {
-            tags = rendererFirst[i].CompareTag("Money") || rendererFirst[i].CompareTag("Enemy") || rendererFirst[i].CompareTag("Portal");
+            Renderer temp = rendererFirst[i];
+            //tags = rendererFirst[i].CompareTag("Money") || rendererFirst[i].CompareTag("Enemy") || rendererFirst[i].CompareTag("Portal");
+            //if (!tags)
+            //    rendererFirst[i].material = mat1;
+            tags = temp.CompareTag("Money") || temp.CompareTag("Enemy") || temp.CompareTag("Portal") || temp.CompareTag("PortalShader");
             if (!tags)
-                rendererFirst[i].material = mat1;
+                temp.material = mat1;
+            else if (temp.CompareTag("Money")) temp.material = biomes["Money"][1];
+            else if (temp.CompareTag("Enemy")) temp.material = biomes["Enemy"][1];
+            else if (temp.CompareTag("Portal")) temp.material = biomes["Portal"][1];
         }
 
-        for(int i=0; i<rendererSecond.Length; i++)
+        for (int i=0; i<rendererSecond.Length; i++)
         {
-            tags = rendererSecond[i].CompareTag("Money") || rendererSecond[i].CompareTag("Enemy") || rendererSecond[i].CompareTag("Portal");
+            Renderer temp = rendererSecond[i];
+            tags = temp.CompareTag("Money") || temp.CompareTag("Enemy") || temp.CompareTag("Portal") || temp.CompareTag("PortalShader");
             if (!tags)
                 rendererSecond[i].material = mat2;
-   
+            else if (temp.CompareTag("Money")) temp.material = biomes["Money"][0];
+            else if (temp.CompareTag("Enemy")) temp.material = biomes["Enemy"][0];
+            else if (temp.CompareTag("Portal")) temp.material = biomes["Portal"][0];
+
         }
 
 
@@ -433,9 +444,13 @@ public class ObjectPooling : MonoBehaviour
 
         for (int i = 0; i < rendererFirst.Length; i++)
         {
-            tags = rendererFirst[i].CompareTag("Money") || rendererFirst[i].CompareTag("Enemy") || rendererFirst[i].CompareTag("Portal");
+            Renderer temp = rendererFirst[i];
+            tags = temp.CompareTag("Money") || temp.CompareTag("Enemy") || temp.CompareTag("Portal") || temp.CompareTag("PortalShader");
             if (!tags)
-                    rendererFirst[i].material = mat;
+                temp.material = mat;
+            else if (temp.CompareTag("Money")) temp.material = biomes["Money"][1];
+            else if (temp.CompareTag("Enemy")) temp.material = biomes["Enemy"][1];
+            else if (temp.CompareTag("Portal")) temp.material = biomes["Portal"][1];
         }
 
     }
