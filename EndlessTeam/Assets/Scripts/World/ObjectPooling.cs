@@ -73,7 +73,10 @@ public class ObjectPooling : MonoBehaviour
     }
     void Start()
     {
-
+        for (int i = 0; i < GameManager.instance.othersMat.Length; i++)
+        {
+            biomes.Add(GameManager.instance.othersMat[i].name, GameManager.instance.othersMat[i].mat);
+        }
         for (int i = 0; i < GameManager.instance.biomes.Length; i++)
         {
             biomes.Add(GameManager.instance.biomes[i].name, GameManager.instance.biomes[i].mat);

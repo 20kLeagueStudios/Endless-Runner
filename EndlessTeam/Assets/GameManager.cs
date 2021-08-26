@@ -15,12 +15,19 @@ public class GameManager : MonoBehaviour
         public string name;
         public Material[] mat;
     }
+    [System.Serializable]
+    public struct OtherMaterials
+    {
+        public string name;
+        public Material[] mat;
+    }
 
     public List<GameObject> toReactive = new List<GameObject>();
 
     public static int portal = -1;
 
     public Biomes[] biomes;
+    public OtherMaterials[] othersMat;
 
     [SerializeField]
     GameObject playerGb;
