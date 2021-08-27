@@ -204,7 +204,7 @@ public class PlayerMovement : MonoBehaviour
 
         value.x = positions[1].position.x - positions[0].position.x;
 
-        initialPoint = new Vector3(0,-15,0) + transform.position - (value) - Vector3.right;
+        initialPoint = new Vector3(0,0,0) + transform.position - (value) - Vector3.right;
         ray.origin = initialPoint;
         ray.direction = transform.right;
 
@@ -1024,7 +1024,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 StopCoroutine("ChangingPosition");
                 StopAllCoroutines();
-         
+
 
                 StartCoroutine("ChangingPosition", other.transform.position);
 
@@ -1040,6 +1040,7 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
 
 
     void UpgradeSpeed()

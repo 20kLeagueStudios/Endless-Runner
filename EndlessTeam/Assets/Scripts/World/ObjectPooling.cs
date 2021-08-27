@@ -391,24 +391,25 @@ public class ObjectPooling : MonoBehaviour
             //tags = rendererFirst[i].CompareTag("Money") || rendererFirst[i].CompareTag("Enemy") || rendererFirst[i].CompareTag("Portal");
             //if (!tags)
             //    rendererFirst[i].material = mat1;
-            tags = temp.CompareTag("Money") || temp.CompareTag("Enemy") || temp.CompareTag("Portal") || temp.CompareTag("PortalShader");
+            tags = temp.CompareTag("Money") || temp.CompareTag("Enemy") || temp.CompareTag("Portal") || temp.CompareTag("PortalShader") || temp.CompareTag("PowerUp");
             if (!tags)
                 temp.material = mat1;
             else if (temp.CompareTag("Money")) temp.material = biomes["Money"][1];
             else if (temp.CompareTag("Enemy")) temp.material = biomes["Enemy"][1];
             else if (temp.CompareTag("Portal")) temp.material = biomes["Portal"][1];
+            else if (temp.CompareTag("PowerUp")) temp.material = biomes["PowerUp"][1];
         }
 
         for (int i=0; i<rendererSecond.Length; i++)
         {
             Renderer temp = rendererSecond[i];
-            tags = temp.CompareTag("Money") || temp.CompareTag("Enemy") || temp.CompareTag("Portal") || temp.CompareTag("PortalShader");
+            tags = temp.CompareTag("Money") || temp.CompareTag("Enemy") || temp.CompareTag("Portal") || temp.CompareTag("PortalShader") || temp.CompareTag("PowerUp");
             if (!tags)
                 rendererSecond[i].material = mat2;
             else if (temp.CompareTag("Money")) temp.material = biomes["Money"][0];
             else if (temp.CompareTag("Enemy")) temp.material = biomes["Enemy"][0];
             else if (temp.CompareTag("Portal")) temp.material = biomes["Portal"][0];
-
+            else if (temp.CompareTag("PowerUp")) temp.material = biomes["PowerUp"][0];
         }
 
 
@@ -445,12 +446,13 @@ public class ObjectPooling : MonoBehaviour
         for (int i = 0; i < rendererFirst.Length; i++)
         {
             Renderer temp = rendererFirst[i];
-            tags = temp.CompareTag("Money") || temp.CompareTag("Enemy") || temp.CompareTag("Portal") || temp.CompareTag("PortalShader");
+            tags = temp.CompareTag("Money") || temp.CompareTag("Enemy") || temp.CompareTag("Portal") || temp.CompareTag("PortalShader") || temp.CompareTag("PowerUp");
             if (!tags)
                 temp.material = mat;
             else if (temp.CompareTag("Money")) temp.material = biomes["Money"][1];
             else if (temp.CompareTag("Enemy")) temp.material = biomes["Enemy"][1];
             else if (temp.CompareTag("Portal")) temp.material = biomes["Portal"][1];
+            else if (temp.CompareTag("PowerUp")) temp.material = biomes["PowerUp"][1];
         }
 
     }

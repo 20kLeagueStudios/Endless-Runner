@@ -9160,6 +9160,10 @@ MonoBehaviour:
     mat:
     - {fileID: 2100000, guid: 705f807747288ac468955b9f995c6db2, type: 2}
     - {fileID: 2100000, guid: ba3e2cff863bd4747a0b7f390dfeceaf, type: 2}
+  - name: PowerUp
+    mat:
+    - {fileID: 2100000, guid: 8294e0d524ad06d41a1119d8e5674a76, type: 2}
+    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
   playerGb: {fileID: 2539507645611197097}
   gemsImg: {fileID: 995142770}
   retryText: {fileID: 988321336}
@@ -11751,6 +11755,11 @@ PrefabInstance:
       propertyPath: positions.Array.data[2]
       value: 
       objectReference: {fileID: 2107109720}
+    - target: {fileID: 2684724535750816438, guid: 66aa9e8e402136247899536a755bb828,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5407072027203090293, guid: 66aa9e8e402136247899536a755bb828,
         type: 3}
       propertyPath: m_Enabled

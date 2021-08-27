@@ -24,8 +24,8 @@ public class MakePortalVisible : MonoBehaviour
             if (GameManager.instance.firstPortal)
             {
                 //da riaggiungere
-                //suggestion = GameManager.instance.GetObjFromArray("Hint4", GameManager.instance.suggestions);
-                //TutorialManager.instance.ShowHint(number);
+                suggestion = GameManager.instance.GetObjFromArray("Hint4", GameManager.instance.suggestions);
+                TutorialManager.instance.ShowHint(number);
 
 
                 StartCoroutine(WaitCor(4));
@@ -77,7 +77,7 @@ public class MakePortalVisible : MonoBehaviour
     IEnumerator WaitCor(int seconds)
     {
         yield return new WaitForSecondsRealtime(seconds);
-        //if (suggestion.activeSelf) TutorialManager.instance.DisableHint();
+        if (suggestion.activeSelf) TutorialManager.instance.DisableHint();
     }
 
 
