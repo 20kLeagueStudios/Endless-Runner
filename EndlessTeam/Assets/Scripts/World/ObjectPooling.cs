@@ -86,7 +86,7 @@ public class ObjectPooling : MonoBehaviour
         sceneName = gameObject.scene.name;
         parentTiles = new GameObject("parentTiles" + sceneName);////emanuele
         if (!GameManager.instance.firstGame)
-            parentTiles.SetActive(false);
+            parentTiles.SetActive(true);
         parentTiles.tag = "ParentTile";
 
         speed = GameManager.instance.speed;
@@ -145,6 +145,7 @@ public class ObjectPooling : MonoBehaviour
           
             for (int i = 0; i < maxTiles; i++)
             {
+                Debug.Log("AddTiles");
                 AddTile();
             }
         }
@@ -214,8 +215,10 @@ public class ObjectPooling : MonoBehaviour
             float zPos = activeTiles.Count == 0 ? 130f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
             tile.transform.position = new Vector3(0f, 0f, zPos);
 
-            //Debug.Log(tile);
-            activeTiles.Add(tile);
+        Debug.Log(parentTiles + " Offset: " + zPos + tile.name);
+
+        //Debug.Log(tile);
+        activeTiles.Add(tile);
             tile.SetActive(true);
         //}
 
@@ -355,7 +358,7 @@ public class ObjectPooling : MonoBehaviour
 
         for (int i=0; i<allObjFirstScene.Length; i++)
         {
-            //Debug.Log("1 " + allObjFirstScene[i].name);
+            Debug.Log("1 " + allObjFirstScene[i].name);
             if (allObjFirstScene[i].CompareTag("ParentTile"))
             {
                 if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Fungo")) { mat1 = biomes["Fungo"][1]; }
@@ -420,10 +423,8 @@ public class ObjectPooling : MonoBehaviour
 
     public void ChangeMatFromTo(int scene)
     {
-
-
         GameObject scene1parent = default;
-     
+
         Scene firstScene = SceneManager.GetSceneByBuildIndex(scene);
 
         GameObject[] allObjFirstScene = firstScene.GetRootGameObjects();
@@ -441,8 +442,7 @@ public class ObjectPooling : MonoBehaviour
             //}
             if(allObjFirstScene[i].CompareTag("ParentTile"))
             {
-                allObjFirstScene[i].SetActive(false);
-                Debug.Log(allObjFirstScene[i].name);
+                //allObjFirstScene[i].SetActive(false);
                 if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Fungo")) { mat = biomes["Fungo"][1]; }
                 else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Deserto")) { mat = biomes["Deserto"][1]; }
                 else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Cristallo")) { mat = biomes["Cristallo"][1]; }
@@ -468,7 +468,6 @@ public class ObjectPooling : MonoBehaviour
         }
 
         scene1parent.SetActive(true);
-
     }
 }
 
