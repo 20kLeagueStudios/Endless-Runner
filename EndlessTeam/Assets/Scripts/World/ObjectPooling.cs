@@ -22,7 +22,7 @@ public class ObjectPooling : MonoBehaviour
 
 
     //Lista di carreggiate attive che le farà muovere all'indietro
-    List<GameObject> activeTiles = new List<GameObject>();
+    public List<GameObject> activeTiles = new List<GameObject>();
 
     [SerializeField]
     GameObject[] tutorialTiles;
@@ -85,6 +85,8 @@ public class ObjectPooling : MonoBehaviour
 
         sceneName = gameObject.scene.name;
         parentTiles = new GameObject("parentTiles" + sceneName);////emanuele
+        if (!GameManager.instance.firstGame)
+            parentTiles.SetActive(false);
         parentTiles.tag = "ParentTile";
 
         speed = GameManager.instance.speed;
@@ -140,6 +142,7 @@ public class ObjectPooling : MonoBehaviour
         {
             tutorial = false;
             SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
+          
             for (int i = 0; i < maxTiles; i++)
             {
                 AddTile();
@@ -163,7 +166,7 @@ public class ObjectPooling : MonoBehaviour
             //rend = emptyTile.transform.GetChild(0).GetComponent<Renderer>();
             float temp = rend.bounds.extents.z * 2;
             // position tile's z at 0 or behind the last item added to tiles collection
-            float zPos = activeTiles.Count == 0 ? 120f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
+            float zPos = activeTiles.Count == 0 ? 130f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
             tile.transform.position = new Vector3(0f, 0f, zPos);
 
             activeTiles.Add(tile);
@@ -417,6 +420,8 @@ public class ObjectPooling : MonoBehaviour
 
     public void ChangeMatFromTo(int scene)
     {
+
+
         GameObject scene1parent = default;
      
         Scene firstScene = SceneManager.GetSceneByBuildIndex(scene);
@@ -428,9 +433,16 @@ public class ObjectPooling : MonoBehaviour
 
         for (int i = 0; i < allObjFirstScene.Length; i++)
         {
-           
-            if (allObjFirstScene[i].CompareTag("ParentTile"))
+            //if (allObjFirstScene[i].CompareTag("Manager"))
+            //{
+            //    ObjectPooling temp = allObjFirstScene[i].GetComponent<ObjectPooling>();
+            //    temp.activeTiles.Clear();
+            //    Debug.Log("Cleared");
+            //}
+            if(allObjFirstScene[i].CompareTag("ParentTile"))
             {
+                allObjFirstScene[i].SetActive(false);
+                Debug.Log(allObjFirstScene[i].name);
                 if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Fungo")) { mat = biomes["Fungo"][1]; }
                 else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Deserto")) { mat = biomes["Deserto"][1]; }
                 else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Cristallo")) { mat = biomes["Cristallo"][1]; }
@@ -454,6 +466,8 @@ public class ObjectPooling : MonoBehaviour
             else if (temp.CompareTag("Portal")) temp.material = biomes["Portal"][1];
             else if (temp.CompareTag("PowerUp")) temp.material = biomes["PowerUp"][1];
         }
+
+        scene1parent.SetActive(true);
 
     }
 }
