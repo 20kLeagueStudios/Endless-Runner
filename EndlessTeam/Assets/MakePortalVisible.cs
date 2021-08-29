@@ -24,8 +24,8 @@ public class MakePortalVisible : MonoBehaviour
             if (GameManager.instance.firstPortal)
             {
                 //da riaggiungere
-                suggestion = GameManager.instance.GetObjFromArray("Hint4", GameManager.instance.suggestions);
-                TutorialManager.instance.ShowHint(number);
+                //suggestion = GameManager.instance.GetObjFromArray("Hint4", GameManager.instance.suggestions);
+                //TutorialManager.instance.ShowHint(number);
 
 
                 StartCoroutine(WaitCor(4));
@@ -47,8 +47,6 @@ public class MakePortalVisible : MonoBehaviour
         {
             GameManager.portal = gameObject.GetInstanceID();
             once = false;
-            Debug.Log("nome ogg. " + this.gameObject.name + " " + SceneManager.GetSceneByBuildIndex(sceneTarget).isLoaded);
-            Debug.Log(this.gameObject.GetInstanceID());
   
             ObjectPooling.instance.ChangeMatFromTo(sceneTarget);
 

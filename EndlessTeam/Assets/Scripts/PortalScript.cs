@@ -52,6 +52,7 @@ public class PortalScript : MonoBehaviour
            
             ObjectPooling.instance.ChangeMatFromTo(GameManager.instance.currentScene, this.sceneTarget);
 
+            Debug.Log("CurrentScene: " + currentScene);
             GameManager.instance.DeactivateScene(currentScene);
             currentScene = sceneTarget;
             
