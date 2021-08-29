@@ -35,8 +35,8 @@ public class CurveController : MonoBehaviour
         bendAmountId = Shader.PropertyToID("_BendAmount"); //i tre int sono inizializzati al valore dei label presenti nello script dello shader
         bendOriginId = Shader.PropertyToID("_BendOrigin");
         bendFalloffId = Shader.PropertyToID("_BendFalloff");
-        x = y = 0;
-        StartCoroutine(LerpValue(-2, -4));
+       // x = y = 0;
+        //StartCoroutine(LerpValue(-2, -4));
     }
 
     void Update()

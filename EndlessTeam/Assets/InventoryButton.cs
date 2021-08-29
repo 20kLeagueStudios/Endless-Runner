@@ -17,7 +17,8 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
     CurrencyManager currencyManager;
     InventoryManager inventory;
 
- 
+  
+
     public void OnPointerClick(PointerEventData eventData)
     {
 

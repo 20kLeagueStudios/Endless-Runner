@@ -72,8 +72,12 @@ public class Energy : MonoBehaviour
         }
     }
 
+    [SerializeField] InventoryManager inventory; //emanuele
     public void Play()
     {
+        SaveSystem.Saving(inventory); //emanuele
+
+        Debug.Log("CALAMARO");
         SceneManager.LoadScene(1);
     }
 

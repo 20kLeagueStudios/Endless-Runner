@@ -52,7 +52,8 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
                     shopped = true;
 
-                    AddItem(item);
+                    AddItem(item); ///////////////////////////////////////////////////
+                    AddIndexItem(item);
 
 
                     GameObject inventoryButton = Instantiate(inventory.inventoryButtonPrefab) as GameObject;
@@ -110,6 +111,12 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
             Debug.Log("accessorio " + PlayerPrefs.GetInt("Accessorio"));
         }
        
+    }
+
+
+    public void AddIndexItem(ItemsShopSO item)
+    {
+        inventory.itemListIndex.Add(item.itemSO.id);
     }
 
     public void AddItem(ItemsShopSO item)

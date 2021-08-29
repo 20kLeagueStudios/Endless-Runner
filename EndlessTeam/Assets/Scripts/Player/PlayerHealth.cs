@@ -26,7 +26,7 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField]
     int maxHealth;
-    int currentHealth;
+    public int currentHealth;
 
     Color playerColor;
 
@@ -111,6 +111,8 @@ public class PlayerHealth : MonoBehaviour
             once = false;
         }
 
+        ResetHealth();
+
     }
 
     public void InstantDeath()
@@ -121,6 +123,8 @@ public class PlayerHealth : MonoBehaviour
     public void ResetHealth()
     {
         currentHealth = maxHealth / 2;
+
+        healthBar.SetHealth(currentHealth);
     }
     //IEnumerator OpenGameOver()
     //{

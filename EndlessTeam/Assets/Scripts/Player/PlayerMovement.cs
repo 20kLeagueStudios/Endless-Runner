@@ -209,7 +209,7 @@ public class PlayerMovement : MonoBehaviour
         ray.direction = transform.right;
 
 
-        if (Physics.Raycast(ray.origin, ray.direction, value.x + 8, wallMask))
+        if (Physics.Raycast(ray.origin, ray.direction, value.x + 8, wallMask)) 
         {
             rayWall = true;
         }

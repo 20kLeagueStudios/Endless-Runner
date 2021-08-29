@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Shader startShader;
 
-
+  
     public GameObject GetObjFromArray(string name, GameObject[] array)
     {
         foreach (GameObject temp in array)
@@ -112,21 +112,15 @@ public class GameManager : MonoBehaviour
 
     void Update() //////////////////////////////////////////////////////////////
     {
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            SceneManager.LoadScene(3, LoadSceneMode.Additive);
-        }
+        
     }
 
     void Start()
     {
         parentTiles.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = startShader;
-
-        //SceneManager.LoadScene(1, LoadSceneMode.Additive);
+         
         LoadScene(2);
-
-        //LoadJsonData();
-
+         
         moneyText.text = ": " + currentMoney.ToString();
 
         initialPlayerPos = playerGb.transform.position;
@@ -137,7 +131,8 @@ public class GameManager : MonoBehaviour
 
     private void LoadData()
     {
-        SaveData temp = SaveSystem.Loading();
+        //SaveData temp = SaveSystem.Loading();
+        SaveData temp = SaveSystem.LoadingGameManager();
         if (temp != null)
         {
             currentMoney = temp.money;
@@ -243,8 +238,9 @@ public class GameManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        //SaveJsonData();
-        SaveSystem.Saving(this);
+        
+        SaveSystem.Saving(this); // FIXATO
+
     }
 
     public void Respawn()

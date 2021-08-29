@@ -8,8 +8,8 @@ public class SaveData
     public int money = 0, savedLanguage = 0;
 
 
-    public List<ItemSerializzato> items = new List<ItemSerializzato>();
-
+    // public List<ItemSerializzato> items = new List<ItemSerializzato>(); /////
+    public List<int> itemListIndex = new List<int>();
 
     ////Ritorna la classe in formato json
     //public string ToJson()
@@ -33,12 +33,12 @@ public class SaveData
 
     public SaveData(InventoryManager inv)
     {
-        for(int i=0; i<inv.itemsAcquistati.Count; i++)
-        {
-            Debug.Log(i);
-            this.items.Add(inv.itemsAcquistati[i].itemSO);
+            for (int i = 0; i < inv.itemListIndex.Count; i++)
+       {
+            Debug.Log(inv.itemListIndex[i]);
+            this.itemListIndex.Add(inv.itemListIndex[i]); 
+
         }
-        //this.items = InventoryManager.instance.itemsAcquistati;
     }
 }
 

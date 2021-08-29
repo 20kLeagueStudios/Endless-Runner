@@ -123,6 +123,7 @@ public class EnemyTowardsPlayer : MonoBehaviour, IDamageable
     {
         anim.SetTrigger("Death");
         StopAllCoroutines();
+        this.gameObject.SetActive(false);
     }
 
     public void Disable()

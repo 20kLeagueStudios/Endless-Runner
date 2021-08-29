@@ -36,7 +36,9 @@ public class InventoryManager : MonoBehaviour
 
     public bool caricaDati=true;
 
-  
+    public List<int> itemListIndex;////////////////////////////////////////////////////////////////////
+
+    public List<ItemsShopSO> itemDisponibili; ///////////////////////////////////////////////////
 
     //void  LoadJsonData()
     //{
@@ -89,13 +91,19 @@ public class InventoryManager : MonoBehaviour
         currencyText.text = shop.currency.ToString();
         tutaMesh = previewTutaPrefab.GetComponent<MeshRenderer>();
 
-     
+        if (caricaDati)
+        {
+            //LoadJsonData();
+            LoadData();
+        }
+
     }
 
     public void LoadData()
     {
         //itemsAcquistati = saveData.items;
         SaveData temp = SaveSystem.Loading();
+        /*
         if (temp != null)
         {
             for(int i=0;i<temp.items.Count; i++)
@@ -104,6 +112,30 @@ public class InventoryManager : MonoBehaviour
             }
             
         }
+        */
+        if (temp != null)
+        {
+            Debug.Log("CANARINO");
+            for (int i = 0; i < temp.itemListIndex.Count; i++) //////////////////////////////////////////////////////
+            {
+                itemListIndex.Add(temp.itemListIndex[i]);
+            }
+
+        }
+
+
+
+
+    }
+
+    public void Quit()
+    {
+        Application.Quit();
+    }
+
+    public void Saveatstart()
+    {
+        SaveSystem.Saving(this);
     }
 
     void OnApplicationQuit()
@@ -114,20 +146,49 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
-        // defaultItems.Add(itemSelected[0]);
-        //defaultItems.Add(gadgetSelected[0]);
-    
+        
 
-       itemsAcquistati.Add(defaultItems[0]);
-       itemsAcquistati.Add(defaultItems[1]);
+        //itemsAcquistati.Add(defaultItems[0]); ////777///////////
+        //itemsAcquistati.Add(defaultItems[1]);/////////////
 
-
-        if (caricaDati)
+        if (!itemListIndex.Contains(defaultItems[0].itemSO.id))
         {
-            //LoadJsonData();
-            LoadData();
+
+            itemListIndex.Add(defaultItems[1].itemSO.id);
+            itemListIndex.Add(defaultItems[0].itemSO.id);
         }
-       
+
+        foreach (int  id in itemListIndex)
+        {
+
+            for (int i = 0; i < itemDisponibili.Count; i++) //////////////////////////////////////////////////////
+            {
+
+                if (id == itemDisponibili[i].itemSO.id)
+                {
+                    itemsAcquistati.Add(itemDisponibili[i]);
+
+                }
+
+            }
+
+        }
+
+        /*
+        for (int i = 0; i < itemListIndex.Count; i++) //////////////////////////////////////////////////////
+        {
+
+            if (itemListIndex[i] == itemDisponibili[i].itemSO.id)
+            {
+                itemsAcquistati.Add(itemDisponibili[i]);
+
+            }
+
+        }
+        */
+
+
+
 
         /*
         foreach (ItemsShopSO item in defaultItems)
@@ -168,6 +229,7 @@ public class InventoryManager : MonoBehaviour
     void Update()
     {
         previewTutaPrefab.transform.Rotate(0, previewRotationSpeed * Time.deltaTime, 0);
+
     }
  
 

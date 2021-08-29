@@ -60,7 +60,8 @@ public static class SaveSystem
     {
         BinaryFormatter formatter = new BinaryFormatter();
 
-        string path = Application.persistentDataPath + "/SaveData.sav";
+        //string path = Application.persistentDataPath + "/SaveData.sav";
+        string path = Application.persistentDataPath + "/SaveDataGM.sav";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         SaveData data = new SaveData(gm);
@@ -73,7 +74,8 @@ public static class SaveSystem
     {
         BinaryFormatter formatter = new BinaryFormatter();
 
-        string path = Application.persistentDataPath + "/SaveData.sav";
+        //string path = Application.persistentDataPath + "/SaveData.sav";
+        string path = Application.persistentDataPath + "/SaveDataINV.sav";
         FileStream stream = new FileStream(path, FileMode.Create);
 
         SaveData data = new SaveData(inv);
@@ -81,10 +83,34 @@ public static class SaveSystem
 
         stream.Close();
     }
+    
 
-    public static SaveData Loading()
+    public static SaveData LoadingGameManager()
     {
-        string path = Application.persistentDataPath + "/SaveData.sav";
+        string path = Application.persistentDataPath + "/SaveDataGM.sav";
+
+        if (File.Exists(path))
+        {
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+
+            SaveData data = formatter.Deserialize(stream) as SaveData;
+
+            stream.Close();
+
+            return data;
+        }
+        else
+        {
+            Debug.LogError("Save file not found in " + path);
+            return null;
+        }
+    }
+    
+        public static SaveData Loading()
+    {
+        //string path = Application.persistentDataPath + "/SaveData.sav";
+        string path = Application.persistentDataPath + "/SaveDataINV.sav";
 
         if (File.Exists(path))
         {
