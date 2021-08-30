@@ -20,6 +20,8 @@ public class PowerUpsManager : MonoBehaviour
 
     [SerializeField] PlayerMovement playerMovement;
 
+    AudioManager audioManager;
+
     public float powerUpBoostSpeed = default;
 
     public bool isDashing = false;
@@ -50,6 +52,7 @@ public class PowerUpsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        audioManager = GameManager.instance.audioManager;
         SlamArea.SetActive(false);///
         firstGrounded = false;///
         inSlam = false;///
@@ -283,13 +286,15 @@ public class PowerUpsManager : MonoBehaviour
         {  //in base se sono nel tetto o no, applico una verticalForce
             playerMovement.verticalForce.y = -54f;
             ps.Play();
+          
         }
 
         else
             playerMovement.verticalForce.y = 54f;
         
-            inSlam = true;
-            yield return null;
+        inSlam = true;
+        audioManager.PlaySound("Slam");
+        yield return null;
         
     }
 
@@ -298,7 +303,7 @@ public class PowerUpsManager : MonoBehaviour
         if (!GameManager.instance.preDeath)
         {
             SlamArea.SetActive(true);
-
+            
             yield return new WaitForSeconds(0.2f);
             inSlam = false;
             firstGrounded = false;
@@ -341,7 +346,9 @@ public class PowerUpsManager : MonoBehaviour
                 SlamArea.SetActive(false);
         }
       
+        
 
+         
         if (playerMovement.changeG == false) ///
         {
             //se ChangeG è false allora richiamo questo metodo
@@ -352,7 +359,7 @@ public class PowerUpsManager : MonoBehaviour
             //se ChangeG è true allora richiamo questo metodo
             ChangeGravityON();
         }
-
+         
 
     }
 }

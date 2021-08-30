@@ -15,10 +15,13 @@ public class PowerUpStarter : MonoBehaviour
     [Header("Seleziona un powerup da attivare")]
 
     [SerializeField] PowerUpsEnum powerupDaAttivare = PowerUpsEnum.ChangeGravityStarter;
+    AudioManager audioManager;
 
     private void Awake()
     {
         rend = GetComponent<Renderer>(); //per debug, coloro la piattaforma in base al tipo di powerup da attivare
+
+        audioManager = GameManager.instance.audioManager;
 
         if (powerupDaAttivare == PowerUpsEnum.ChangeGravityStarter)
         {
@@ -42,19 +45,10 @@ public class PowerUpStarter : MonoBehaviour
         if (other.CompareTag("Player") && GameManager.instance.powerupsManager.canUsePowerUp)
         {
             GameManager.instance.powerupsManager.PowerUpActive(powerupDaAttivare.ToString());
+            audioManager.PlaySound("PowerUp");
         }
 
     }
 
 
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }

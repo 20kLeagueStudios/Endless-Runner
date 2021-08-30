@@ -136,6 +136,7 @@ public class PlayerMovement : MonoBehaviour
     public PowerUpsManager powerupsManager; ///
     Ray rayDown;
 
+    AudioManager audioManager;
 
     #endregion
 
@@ -150,7 +151,9 @@ public class PlayerMovement : MonoBehaviour
         controller.enabled = false;
         controller.transform.position = new Vector3(positions[1].position.x, transform.position.y, transform.position.z);
         controller.enabled = true;
-        
+
+        audioManager = GameManager.instance.audioManager;
+
         //setto ChangeG a false, canIPress a true e il colore a green.
         changeG = false; ///
         canIPress = true; ///
@@ -293,11 +296,15 @@ public class PlayerMovement : MonoBehaviour
                 swipeDelta = touch.position - startPos;
             }
         }
+
+       
+
         #region Tastiera
+
         else if ((Input.GetAxisRaw("Horizontal") != 0 || Input.GetAxisRaw("Vertical") != 0) && !isKeyboard && !wallTouch)
         {
             canSwipe = true;
-
+         
             float x = Input.GetAxisRaw("Horizontal");
             //Debug.Log("X: " + x);
 
@@ -327,18 +334,21 @@ public class PlayerMovement : MonoBehaviour
             //Se posso effettuare lo swipe
             if (canSwipe)
             {
+
                 if (changeG == false)
                 {
                     //Se faccio lo swipe in alto
                     if (swipeEn == Swipe.Up)
                     {
                         GameObject temp = GameManager.instance.GetObjFromArray("Hint2", suggestions);
+
                         if (temp)
                             if (temp.activeSelf) TutorialManager.instance.DisableHint();
                         //Se tocco il pavimento
                         if (isGround && !stopJump)
                         {
-                            
+                            audioManager.PlaySound("Salto"); ///emanuele
+
                             //Applico la forza del salto a verticalForce
                             verticalForce.y = jumpForce;
                             if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Jump"))
@@ -453,6 +463,7 @@ public class PlayerMovement : MonoBehaviour
 
             }
         }
+
         else if (Input.GetAxisRaw("Horizontal") == 0 && Input.GetAxisRaw("Vertical") == 0) isKeyboard = false;
         #endregion
 
@@ -992,8 +1003,11 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Money"))
         {
             GameManager.instance.IncreaseScore(50);
+
+            audioManager.PlaySound("RaccoltaMonete"); ///
+
             GameManager.instance.IncreaseMoney();
-            GameManager.instance.toReactive.Add(other.gameObject);
+            GameManager.instance.toReactive.Add(other.gameObject);            
             other.gameObject.SetActive(false);  
         }
         if (other.CompareTag("Obstacle"))
@@ -1071,9 +1085,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     void Crouch()
-    {
+    {     
+        audioManager.PlaySound("Crouch");////emanuele
         Vector3 controllerCrouchPos = new Vector3(0, crouchPos, 0);
-
+        
         controller.height = crouchHeight;
         controller.center = controllerCrouchPos;
     }

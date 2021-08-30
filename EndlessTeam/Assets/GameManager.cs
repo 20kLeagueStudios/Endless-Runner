@@ -84,6 +84,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] Shader startShader;
 
+    public AudioManager audioManager;
+
   
     public GameObject GetObjFromArray(string name, GameObject[] array)
     {
@@ -117,6 +119,8 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        audioManager.PlaySound("LivelloFunghi");
+
         parentTiles.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = startShader;
          
         LoadScene(2);
@@ -183,7 +187,7 @@ public class GameManager : MonoBehaviour
     {
         //Le prime due righe servono per controllare se già il tempo è fermato a causa del tutorial
         if (Time.timeScale == 0) inTutorial = true;
-        else inTutorial = false;
+        else { inTutorial = false; audioManager.PlaySound("Pulsante_1"); }
         Time.timeScale = 0;
     }
 

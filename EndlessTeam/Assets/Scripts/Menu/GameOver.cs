@@ -14,6 +14,8 @@ public class GameOver : MonoBehaviour
     [SerializeField]
     PlayerHealth playerHealth;
 
+    
+
     private void OnEnable()
     {
 
@@ -35,4 +37,7 @@ public class GameOver : MonoBehaviour
         //gameObject.SetActive(false);
         
     }
+
+    
+
 }

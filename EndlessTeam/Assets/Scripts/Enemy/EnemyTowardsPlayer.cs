@@ -23,9 +23,10 @@ public class EnemyTowardsPlayer : MonoBehaviour, IDamageable
 
     Ray ray;
 
-
+    AudioManager audioManager;
     private void Awake()
     {
+        audioManager = GameManager.instance.audioManager;
         anim = this.gameObject.GetComponent<Animator>();
         startPos = transform.localPosition;
 
@@ -121,6 +122,7 @@ public class EnemyTowardsPlayer : MonoBehaviour, IDamageable
 
     public void Death()
     {
+        audioManager.PlaySound("MorteNemico");
         anim.SetTrigger("Death");
         StopAllCoroutines();
         this.gameObject.SetActive(false);

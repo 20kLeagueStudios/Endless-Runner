@@ -604,6 +604,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1649673375}
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Pulsante_1
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &59487631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1098,6 +1109,17 @@ MonoBehaviour:
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1649673375}
+        m_MethodName: PlaySound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Pulsante_1
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &146250101
@@ -9108,6 +9130,7 @@ GameObject:
   - component: {fileID: 1649673371}
   - component: {fileID: 1649673373}
   - component: {fileID: 1649673374}
+  - component: {fileID: 1649673375}
   m_Layer: 0
   m_Name: GAME_MANAGER
   m_TagString: Untagged
@@ -9186,6 +9209,7 @@ MonoBehaviour:
   parentTiles: {fileID: 4523336909541068390, guid: 31a674b1b79b8e74cb82b66466e416a3,
     type: 3}
   startShader: {fileID: 4800000, guid: 3ab026a016955254ba00bdc6eeee8928, type: 3}
+  audioManager: {fileID: 1649673375}
 --- !u!4 &1649673372
 Transform:
   m_ObjectHideFlags: 0
@@ -9229,6 +9253,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9438c4daa43eb534a87b6ae92247e08a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1649673375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649673370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeafaf73763491e49965dc0915d55218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+  - clipName: LivelloFunghi
+    audioClip: {fileID: 8300000, guid: 2e3dd46f6cb9c80438cb8368f9a11736, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    playOnAwake: 1
+  - clipName: RaccoltaMonete
+    audioClip: {fileID: 8300000, guid: d0251cf68a751914b8838e43a123e714, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+  - clipName: Salto
+    audioClip: {fileID: 8300000, guid: d2907593ad3ba0643ae4f41b2def22a8, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+  - clipName: Corsa1
+    audioClip: {fileID: 8300000, guid: 3f8841848434fe64c994b1c6787263f8, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 1
+    playOnAwake: 0
+  - clipName: Crouch
+    audioClip: {fileID: 8300000, guid: 2a81e727dde986c4caeac1ab598837b4, type: 3}
+    volume: 0.3
+    pitch: 1.5
+    loop: 0
+    playOnAwake: 0
+  - clipName: Slam
+    audioClip: {fileID: 8300000, guid: a628f05bf1731db4f863e24c9a552929, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+  - clipName: MorteNemico
+    audioClip: {fileID: 8300000, guid: bdae7569944d758469e3ce6b0e5f45d1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+  - clipName: PowerUp
+    audioClip: {fileID: 8300000, guid: 668e4cce09dc3eb42a3bf3087e03ce7a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+  - clipName: Pulsante_1
+    audioClip: {fileID: 8300000, guid: 5c87d222d3cdb7b4889f5ea5b40ff992, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+  - clipName: Pulsante_2
+    audioClip: {fileID: 8300000, guid: 3a3b8e2cd6150a04691b62c7ff998ada, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
 --- !u!1 &1750439780
 GameObject:
   m_ObjectHideFlags: 0
