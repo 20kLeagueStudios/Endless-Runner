@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public Biomes[] biomes;
     public OtherMaterials[] othersMat;
 
-    [SerializeField]
+    public
     GameObject playerGb;
 
     [SerializeField]

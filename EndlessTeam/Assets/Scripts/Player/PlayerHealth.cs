@@ -35,7 +35,22 @@ public class PlayerHealth : MonoBehaviour
 
     public bool canBeHit = true;
 
+    bool isSLam;
+
     float gameManagerSpeed;
+
+    public bool canCollide = true;
+
+    IEnumerator CanCollideCo()
+    {
+        canCollide = false;
+
+        yield return new WaitForSeconds(1f);
+
+        canCollide = true;
+
+        yield return null;
+    }
 
     void Start()
     {
@@ -46,18 +61,29 @@ public class PlayerHealth : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
         currentHealth = maxHealth / 2;
         healthBar.SetHealth(currentHealth);
-
+        isSLam = GameManager.instance.playerGb.GetComponent<PowerUpsManager>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (currentHealth > 0)
+        if (currentHealth > 0 && canCollide)
         {
-            if (other.CompareTag("Obstacle") || other.CompareTag("Enemy"))
+            if (other.CompareTag("Obstacle") )
             {
                 StartCoroutine("HitCor", playerMesh);
                 TakeDamage(1);
+                
+                StartCoroutine("CanCollideCo");
             }
+            if (other.CompareTag("Enemy") && !GameManager.instance.playerGb.GetComponent<PowerUpsManager>().inSlam)
+            {
+                StartCoroutine("HitCor", playerMesh);
+                TakeDamage(1);
+          
+                StartCoroutine("CanCollideCo");
+            }
+
+            
         }
     }
 
