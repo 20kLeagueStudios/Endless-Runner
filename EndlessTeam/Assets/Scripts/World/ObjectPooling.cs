@@ -65,14 +65,35 @@ public class ObjectPooling : MonoBehaviour
         {
             instance = this;
         }
+        sceneName = gameObject.scene.name;
+        parentTiles = new GameObject("parentTiles" + sceneName);////emanuele
+
+        parentTiles.tag = "ParentTile";
+        //if (!GameManager.instance.firstGame)
+        //{
+           
+        //}
         //else if (instance != this)
         //{
         //    Destroy(this);
         //}
 
     }
+
+
+    void Material()
+    {
+        Renderer[] temp = parentTiles.GetComponentsInChildren<Renderer>();
+        Debug.Log("SEEEEE" + temp.Length);
+        foreach (Renderer rend in temp)
+        {
+            rend.enabled = false;
+        
+        }
+    }
     void Start()
     {
+    
         for (int i = 0; i < GameManager.instance.othersMat.Length; i++)
         {
             biomes.Add(GameManager.instance.othersMat[i].name, GameManager.instance.othersMat[i].mat);
@@ -83,11 +104,7 @@ public class ObjectPooling : MonoBehaviour
 
         }
 
-        sceneName = gameObject.scene.name;
-        parentTiles = new GameObject("parentTiles" + sceneName);////emanuele
-        if (!GameManager.instance.firstGame)
-            parentTiles.SetActive(true);
-        parentTiles.tag = "ParentTile";
+
 
         speed = GameManager.instance.speed;
         //Modalità iniziale a facile
@@ -151,8 +168,12 @@ public class ObjectPooling : MonoBehaviour
         }
         //Chiamo il metodo che si occupa di creare le prime 6 carreggiate
         //initialTiles();
+        
+    }
 
-     
+    private void Update()
+    {
+        Debug.Log(GameManager.instance.firstGame);
     }
 
     private void TutorialTiles()
@@ -206,20 +227,20 @@ public class ObjectPooling : MonoBehaviour
     //Aggiunge un tile alla fine della carreggiata
     private void AddTile()
     {
+
         GameObject tile = GetTile();
-        //if (tile)
-        //{
-            
+        if (tile)
+        {
+
             float temp = rend.bounds.extents.z * 2;
             // position tile's z at 0 or behind the last item added to tiles collection
             float zPos = activeTiles.Count == 0 ? 130f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
             tile.transform.position = new Vector3(0f, 0f, zPos);
-
-        Debug.Log(parentTiles + " Offset: " + zPos + tile.name);
-
+       
         //Debug.Log(tile);
         activeTiles.Add(tile);
             tile.SetActive(true);
+        }
         //}
 
 
@@ -423,6 +444,8 @@ public class ObjectPooling : MonoBehaviour
 
     public void ChangeMatFromTo(int scene)
     {
+        parentTiles.SetActive(true);
+
         GameObject scene1parent = default;
 
         Scene firstScene = SceneManager.GetSceneByBuildIndex(scene);
@@ -434,12 +457,6 @@ public class ObjectPooling : MonoBehaviour
 
         for (int i = 0; i < allObjFirstScene.Length; i++)
         {
-            //if (allObjFirstScene[i].CompareTag("Manager"))
-            //{
-            //    ObjectPooling temp = allObjFirstScene[i].GetComponent<ObjectPooling>();
-            //    temp.activeTiles.Clear();
-            //    Debug.Log("Cleared");
-            //}
             if(allObjFirstScene[i].CompareTag("ParentTile"))
             {
                 //allObjFirstScene[i].SetActive(false);
@@ -458,13 +475,17 @@ public class ObjectPooling : MonoBehaviour
         for (int i = 0; i < rendererFirst.Length; i++)
         {
             Renderer temp = rendererFirst[i];
+          
             tags = temp.CompareTag("Money") || temp.CompareTag("Enemy") || temp.CompareTag("Portal") || temp.CompareTag("PortalShader") || temp.CompareTag("PowerUp");
             if (!tags)
+            {
                 temp.material = mat;
-            else if (temp.CompareTag("Money")) temp.material = biomes["Money"][1];
-            else if (temp.CompareTag("Enemy")) temp.material = biomes["Enemy"][1];
-            else if (temp.CompareTag("Portal")) temp.material = biomes["Portal"][1];
-            else if (temp.CompareTag("PowerUp")) temp.material = biomes["PowerUp"][1];
+                if (!temp.CompareTag("Invisible")) temp.enabled = true;
+            }
+            else if (temp.CompareTag("Money")) { temp.material = biomes["Money"][1]; temp.enabled = true; }
+            else if (temp.CompareTag("Enemy")) { temp.material = biomes["Enemy"][1]; temp.enabled = true; }
+            else if (temp.CompareTag("Portal")) { temp.material = biomes["Portal"][1]; temp.enabled = true; }
+            else if (temp.CompareTag("PowerUp")) { temp.material = biomes["PowerUp"][1]; temp.enabled = true; }
         }
 
         scene1parent.SetActive(true);

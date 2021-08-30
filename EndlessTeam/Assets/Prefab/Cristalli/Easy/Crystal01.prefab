@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 3634996284117519224}
   m_Layer: 9
   m_Name: MuroCorto (4)
-  m_TagString: Obstacle
+  m_TagString: Invisible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -322,7 +322,7 @@ GameObject:
   - component: {fileID: 3634996285213800979}
   m_Layer: 9
   m_Name: MuroCorto (3)
-  m_TagString: Obstacle
+  m_TagString: Invisible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -490,6 +490,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4447612374589204095}
   - component: {fileID: 3959446166620683460}
+  - component: {fileID: 838645535759282879}
   m_Layer: 8
   m_Name: Crystal01
   m_TagString: Cristallo
@@ -561,6 +562,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 92.0157, y: 1, z: 200.28955}
   m_Center: {x: 0, y: 0, z: -87.45572}
+--- !u!114 &838645535759282879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3959446166620683461}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb243663071ccc14ebb6207a8a538a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5179388362945975292
 GameObject:
   m_ObjectHideFlags: 0

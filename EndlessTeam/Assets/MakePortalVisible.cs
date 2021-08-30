@@ -47,7 +47,7 @@ public class MakePortalVisible : MonoBehaviour
         {
             GameManager.portal = gameObject.GetInstanceID();
             once = false;
-  
+
             ObjectPooling.instance.ChangeMatFromTo(sceneTarget);
 
 

@@ -257,6 +257,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9051613952783147720}
+  - component: {fileID: 4408583483351061324}
   m_Layer: 0
   m_Name: Ground06
   m_TagString: Fungo
@@ -331,6 +332,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4408583483351061324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9051613952783326888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb243663071ccc14ebb6207a8a538a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9051613952783326892
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,7 +358,7 @@ GameObject:
   - component: {fileID: 9051613952789247660}
   m_Layer: 8
   m_Name: Ground
-  m_TagString: Untagged
+  m_TagString: Invisible
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -956,6 +969,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: MuroCorto (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8228800518416385742, guid: c521a9a0b498aa049bcad92d7473d1f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Invisible
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c521a9a0b498aa049bcad92d7473d1f5, type: 3}
 --- !u!4 &6515817012527998719 stripped
@@ -1500,6 +1518,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MuroCorto (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8228800518416385742, guid: c521a9a0b498aa049bcad92d7473d1f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Invisible
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c521a9a0b498aa049bcad92d7473d1f5, type: 3}
@@ -2588,15 +2611,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e2f96f324c42b094a92e307b18368c29, type: 3}
---- !u!4 &295729550735231588 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 4221933326278487177, guid: e2f96f324c42b094a92e307b18368c29,
-    type: 3}
-  m_PrefabInstance: {fileID: 4507528768530589421}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &295729551042543515 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4221933325979703670, guid: e2f96f324c42b094a92e307b18368c29,
+    type: 3}
+  m_PrefabInstance: {fileID: 4507528768530589421}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &295729550735231588 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4221933326278487177, guid: e2f96f324c42b094a92e307b18368c29,
     type: 3}
   m_PrefabInstance: {fileID: 4507528768530589421}
   m_PrefabAsset: {fileID: 0}
@@ -4462,6 +4485,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: PonteFunghi _TEST
       objectReference: {fileID: 0}
+    - target: {fileID: 6063874597029396294, guid: 9a8e7cde8081c3c40beaab3c761aa382,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a63b86e951f943c4b9edd25b799311dd, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9a8e7cde8081c3c40beaab3c761aa382, type: 3}
 --- !u!4 &3067458914200557701 stripped
