@@ -81,16 +81,6 @@ public class ObjectPooling : MonoBehaviour
     }
 
 
-    void Material()
-    {
-        Renderer[] temp = parentTiles.GetComponentsInChildren<Renderer>();
-        Debug.Log("SEEEEE" + temp.Length);
-        foreach (Renderer rend in temp)
-        {
-            rend.enabled = false;
-        
-        }
-    }
     void Start()
     {
     
@@ -379,7 +369,7 @@ public class ObjectPooling : MonoBehaviour
 
         for (int i=0; i<allObjFirstScene.Length; i++)
         {
-            Debug.Log("1 " + allObjFirstScene[i].name);
+            
             if (allObjFirstScene[i].CompareTag("ParentTile"))
             {
                 if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Fungo")) { mat1 = biomes["Fungo"][1]; }
