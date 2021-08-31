@@ -33,7 +33,6 @@ public class MakePortalVisible : MonoBehaviour
             }
             GameManager.instance.LoadScene(sceneTarget);
 
-
             GameManager.instance.currentScene = sceneTarget;
 
         }

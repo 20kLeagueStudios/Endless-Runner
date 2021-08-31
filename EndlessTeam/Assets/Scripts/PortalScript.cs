@@ -44,12 +44,12 @@ public class PortalScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-          if (other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
           {
 
-            transform.parent = null;
+            //transform.parent = null;
 
-           
+
             ObjectPooling.instance.ChangeMatFromTo(GameManager.instance.currentScene, this.sceneTarget);
 
             Debug.Log("CurrentScene: " + currentScene);
@@ -59,30 +59,27 @@ public class PortalScript : MonoBehaviour
 
           }
 
-          if (other.CompareTag("PortalTrigger"))
+          if (other.CompareTag("PortalMat"))
           {
 
-           
-             portalMesh.enabled = true;
-             
-          }
+            Debug.Log("PortalTrigger");
+            this.portalMesh.enabled = true;
+
+           }
            
          
     }
 
-    /*
+
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("diocornuto");
-            GameManager.instance.DeactivateScene(currentScene);
-            currentScene = sceneTarget;
+            portalMesh.enabled = false;
         }
     }
-    */
 
-    private void OnDisable()
+        private void OnDisable()
 
     {
         portalMesh.enabled = false;

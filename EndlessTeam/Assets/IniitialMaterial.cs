@@ -10,13 +10,14 @@ public class IniitialMaterial : MonoBehaviour
             Material();
     }
 
+
+
     void Material()
     {
         Renderer[] temp = transform.GetComponentsInChildren<Renderer>();
         foreach (Renderer rend in temp)
-        {
-            rend.enabled = false;
-
+        {    
+             rend.enabled = false;
         }
 
         Invoke("MaterialFix",1);
