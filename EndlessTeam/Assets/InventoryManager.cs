@@ -32,13 +32,10 @@ public class InventoryManager : MonoBehaviour
     public Text currencyText;
 
     public GameObject previewTutaPrefab;
-    //public MeshRenderer tutaMesh;
 
     public SkinnedMeshRenderer skinnedTutaMesh;
 
-    //public Transform accessorioPosition;
-    //public MeshFilter accessorioMesh;
-    //public MeshRenderer accessorioMeshRenderer;
+    public Transform pilotaPosition;
 
     public float previewRotationSpeed;
 
@@ -92,8 +89,9 @@ public class InventoryManager : MonoBehaviour
  
         currencyText.text = shop.currency.ToString();
         //tutaMesh = previewTutaPrefab.GetComponent<MeshRenderer>();
-        skinnedTutaMesh = previewTutaPrefab.GetComponent<SkinnedMeshRenderer>();
+        //skinnedTutaMesh = previewTutaPrefab.GetComponent<SkinnedMeshRenderer>();
 
+       
 
         if (caricaDati)
         {
@@ -137,6 +135,7 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
+
         audioManager.PlaySound("MusicaMenu");
        
 
@@ -163,9 +162,6 @@ public class InventoryManager : MonoBehaviour
 
         }
 
-      
-
-
         foreach (ItemsShopSO item in itemsAcquistati)
         {
           
@@ -175,7 +171,6 @@ public class InventoryManager : MonoBehaviour
 
             inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemSO.itemName;
             inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemSO.itemCost.ToString();
-            
 
         }
     }

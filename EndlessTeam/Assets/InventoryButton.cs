@@ -142,8 +142,18 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
 
                     break;
                 case TutaType.Gambe:
+
+                    inventory.skinnedTutaMesh.sharedMaterials[2].mainTexture = item.itemSO.playerSkin;
+                    //AddItemInSelection(item);
+                    inventory.skinVetroSelected = item;
+
                     break;
                 case TutaType.Braccia:
+
+                    inventory.skinnedTutaMesh.sharedMaterials[0].mainTexture = item.itemSO.playerSkin;
+                    //AddItemInSelection(item);
+                    inventory.skinVetroSelected = item;
+
                     break;
                 default:
                     break;
@@ -152,29 +162,28 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
         }
 
 
-        /*
-        else if (_string == "Accessorio")
+        
+        else if (_string == "Pilota")
         {
-            if (item.itemSO.accessorio != null)
+            if (item.itemSO.pilota != null)
             {
-                inventory.accessorioMeshRenderer.enabled = true;
+                // inventory.pilotaMeshRenderer.enabled = true;
 
-                // GameObject accessorio = Instantiate(item.accessorioMesh, inventory.accessorioPosition.transform.position, Quaternion.identity) as GameObject;
-                inventory.accessorioMesh.mesh = item.itemSO.accessorio.GetComponent<MeshFilter>().sharedMesh;
-                inventory.accessorioMeshRenderer.material = item.itemSO.accessorioMaterial;
-                inventory.accessorioMesh.transform.localScale = item.itemSO.accessorio.transform.localScale;
+                // GameObject accessorio = Instantiate(item.apilota, inventory.pilotaPosition.transform.position, Quaternion.identity) as GameObject;
+ 
+
+                // inventory.pilotaMeshRenderer.material = item.itemSO.accessorioMaterial;
+              //  inventory.pilotaMesh.transform.localScale = item.itemSO.pilota.transform.localScale;
                 Debug.Log("CIAO");
             }
             else { 
 
-                inventory.accessorioMeshRenderer.enabled = false;
-                inventory.accessorioMeshRenderer.material = null;
-                Debug.Log("POLLO");
+               
                 return; 
             }
 
         }
-        */
+        
     }
 
 
