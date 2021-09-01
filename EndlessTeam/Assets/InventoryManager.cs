@@ -19,40 +19,41 @@ public class InventoryManager : MonoBehaviour
     public List<ItemsShopSO> defaultItems;
 
 
-    public List<ItemsShopSO> itemSelected;
+    public ItemsShopSO skinBodySelected;
+    public ItemsShopSO skinGambraDestraSelected;
+    public ItemsShopSO skinGambaSinistraselected;
+    public ItemsShopSO skinBraccioDestroSelected;
+    public ItemsShopSO skinBraccioSinistroSelected;
+    public ItemsShopSO skinVetroSelected;
+
     public List<ItemsShopSO> gadgetSelected;
 
     public CurrencyManager shop;
     public Text currencyText;
 
     public GameObject previewTutaPrefab;
-    public MeshRenderer tutaMesh;
+    //public MeshRenderer tutaMesh;
 
-    public Transform accessorioPosition;
-    public MeshFilter accessorioMesh;
-    public MeshRenderer accessorioMeshRenderer;
+    public SkinnedMeshRenderer skinnedTutaMesh;
+
+    //public Transform accessorioPosition;
+    //public MeshFilter accessorioMesh;
+    //public MeshRenderer accessorioMeshRenderer;
 
     public float previewRotationSpeed;
 
     public bool caricaDati=true;
 
-    public List<int> itemListIndex;////////////////////////////////////////////////////////////////////
+    public List<int> itemListIndex; 
 
-    public List<ItemsShopSO> itemDisponibili; ///////////////////////////////////////////////////
+    public List<ItemsShopSO> itemDisponibili;  
 
-    //void  LoadJsonData()
-    //{
-    //    SaveData saveData = new SaveData();
+    public AudioManager audioManager;
 
-    //    if (FileManager.LoadFromFile("SaveData1", out var jsonFile))
-    //    {
-    //        saveData.LoadFromJson(jsonFile);
-    //        itemsAcquistati = saveData.items ;
+    public GameObject player; //////////////////////
 
+    public Material[] matArray;
 
-    //        Debug.Log("CARICA " + saveData.items.Count);
-    //    }
-    //}
 
 
     //public void PopulateSaveData(SaveData saveData)
@@ -87,13 +88,16 @@ public class InventoryManager : MonoBehaviour
             Destroy(this);
         }
 
+        matArray = new Material[player.transform.GetChild(1).GetComponent<SkinnedMeshRenderer>().sharedMaterials.Length];
  
         currencyText.text = shop.currency.ToString();
-        tutaMesh = previewTutaPrefab.GetComponent<MeshRenderer>();
+        //tutaMesh = previewTutaPrefab.GetComponent<MeshRenderer>();
+        skinnedTutaMesh = previewTutaPrefab.GetComponent<SkinnedMeshRenderer>();
+
 
         if (caricaDati)
         {
-            //LoadJsonData();
+
             LoadData();
         }
 
@@ -101,30 +105,17 @@ public class InventoryManager : MonoBehaviour
 
     public void LoadData()
     {
-        //itemsAcquistati = saveData.items;
         SaveData temp = SaveSystem.Loading();
-        /*
-        if (temp != null)
-        {
-            for(int i=0;i<temp.items.Count; i++)
-            {
-                itemsAcquistati[i].itemSO = temp.items[i];
-            }
-            
-        }
-        */
+
         if (temp != null)
         {
             Debug.Log("CANARINO");
-            for (int i = 0; i < temp.itemListIndex.Count; i++) //////////////////////////////////////////////////////
+            for (int i = 0; i < temp.itemListIndex.Count; i++) 
             {
                 itemListIndex.Add(temp.itemListIndex[i]);
             }
 
         }
-
-
-
 
     }
 
@@ -146,10 +137,8 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
-        
-
-        //itemsAcquistati.Add(defaultItems[0]); ////777///////////
-        //itemsAcquistati.Add(defaultItems[1]);/////////////
+        audioManager.PlaySound("MusicaMenu");
+       
 
         if (!itemListIndex.Contains(defaultItems[0].itemSO.id))
         {
@@ -174,44 +163,12 @@ public class InventoryManager : MonoBehaviour
 
         }
 
-        /*
-        for (int i = 0; i < itemListIndex.Count; i++) //////////////////////////////////////////////////////
-        {
-
-            if (itemListIndex[i] == itemDisponibili[i].itemSO.id)
-            {
-                itemsAcquistati.Add(itemDisponibili[i]);
-
-            }
-
-        }
-        */
-
-
-
-
-        /*
-        foreach (ItemsShopSO item in defaultItems)
-        {
-            // itemsAcquistati.Add(item);
-
-
-            GameObject inventoryButton = Instantiate(inventoryButtonPrefab) as GameObject;
-            inventoryButton.GetComponent<Image>().sprite = item.itemImage;
-            inventoryButton.transform.SetParent(inventoryButtonContainer.transform, false);
-
-            inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemName;
-            inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemCost.ToString();
-
-        }
-        */
+      
 
 
         foreach (ItemsShopSO item in itemsAcquistati)
         {
-           // itemsAcquistati.Add(item);
-
-
+          
             GameObject inventoryButton = Instantiate(inventoryButtonPrefab) as GameObject;
             inventoryButton.GetComponent<Image>().sprite = item.itemSO.itemImage;
             inventoryButton.transform.SetParent(inventoryButtonContainer.transform, false);

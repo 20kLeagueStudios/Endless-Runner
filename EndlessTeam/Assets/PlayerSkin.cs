@@ -8,31 +8,33 @@ public class PlayerSkin : MonoBehaviour
     [SerializeField] ItemsShopSO[] gadget;
 
     [SerializeField] GameObject player;
-    [SerializeField] GameObject accessorio;
+    //[SerializeField] GameObject accessorio;
 
-    public MeshFilter accessorioMesh;
-    public MeshRenderer accessorioMeshRenderer;
+    //public MeshFilter accessorioMesh;
+    //public MeshRenderer accessorioMeshRenderer;
 
 
 
     void Start()
     {
 
-            skin = InventoryManager.instance.itemSelected.ToArray();
+           // skin = InventoryManager.instance.itemSelected.ToArray();
             gadget = InventoryManager.instance.gadgetSelected.ToArray();
 
        
 
             player.GetComponent<MeshRenderer>().material.mainTexture = skin[0].itemSO.playerSkin;
 
+        /*
         if (gadget[0].itemSO.itemName != "DEFULT ACCESSORIO")
         {
             SetGadget();
         }
-            
+        */
 
     }
 
+    /*
     public void SetGadget()
     {
         accessorio.SetActive(true);
@@ -42,6 +44,7 @@ public class PlayerSkin : MonoBehaviour
 
 
     }
+    */
 
     // Update is called once per frame
     void Update()

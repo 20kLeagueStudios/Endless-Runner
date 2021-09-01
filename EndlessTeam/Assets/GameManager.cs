@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     public Biomes[] biomes;
     public OtherMaterials[] othersMat;
 
-    [SerializeField]
+    public
     GameObject playerGb;
 
     [SerializeField]
@@ -177,14 +177,18 @@ public class GameManager : MonoBehaviour
 
     public void ResumeGame()
     {
+        pauseButton.SetActive(true);
         if (!inTutorial)
         {
             Time.timeScale = 1;
+            
         }
     }
 
+    [SerializeField] GameObject pauseButton;
     public void Pause()
     {
+        pauseButton.SetActive(false);
         //Le prime due righe servono per controllare se già il tempo è fermato a causa del tutorial
         if (Time.timeScale == 0) inTutorial = true;
         else { inTutorial = false; audioManager.PlaySound("Pulsante_1"); }

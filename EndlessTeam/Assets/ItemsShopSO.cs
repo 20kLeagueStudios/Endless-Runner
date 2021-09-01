@@ -4,26 +4,24 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+public enum TutaType
+{
+    Busto,
+    Vetro,
+    Gambe,
+    Braccia
+}
+
 public enum ItemType
 {
     Tuta,
     Pilota,
-    Accessorio
+    
 }
 
 [CreateAssetMenuAttribute(fileName ="ItemShop", menuName = "ItemShop/ItemSO")]
 public class ItemsShopSO : ScriptableObject
 {
-    /*
-    public string itemName;
-    public Sprite itemImage;
-    public Texture playerSkin;
-    public int itemCost;
-    public GameObject accessorio;
-    public Material accessorioMaterial;
-
-    public ItemType itemType = default;
-    */
 
     public ItemSerializzato itemSO;
 
@@ -39,9 +37,10 @@ public class ItemSerializzato
     public Sprite itemImage;
     public Texture playerSkin;
     public int itemCost;
-    public GameObject accessorio;
-    public Material accessorioMaterial;
+    //public GameObject accessorio;
+    //public Material accessorioMaterial;
 
     public ItemType itemType = default;
+    public TutaType tutaType = default;
 
 }

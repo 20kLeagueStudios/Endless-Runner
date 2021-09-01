@@ -2,12 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.Audio;
 
 [Serializable]
 public class Sound
 {
     AudioSource source;
-
+    public AudioMixerGroup audioMixerGroup;
     public string clipName;
     public AudioClip audioClip;
 
@@ -25,6 +26,7 @@ public class Sound
         source.loop = loop;
         source.volume = volume;
         source.playOnAwake = playOnAwake;
+        source.outputAudioMixerGroup = audioMixerGroup;
 
     }
 
