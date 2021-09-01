@@ -839,7 +839,7 @@ public class PlayerMovement : MonoBehaviour
         if (isGround)
         {
             //Applico la forza del salto a verticalForce
-            verticalForce.y = Mathf.Sqrt(jumpForce * -2f * gravity);
+            //verticalForce.y = Mathf.Sqrt(jumpForce * -2f * gravity);
             //Se sto usando lo sliding lo disattivo chiamando ResetSliding()
             if (sliding) ResetSliding();
         }

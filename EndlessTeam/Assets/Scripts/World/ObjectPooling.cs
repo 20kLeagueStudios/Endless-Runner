@@ -47,7 +47,9 @@ public class ObjectPooling : MonoBehaviour
     enum Mode
     {
         Easy,
+        InterMedium,
         Medium,
+        InterHard,
         Hard
     }
 

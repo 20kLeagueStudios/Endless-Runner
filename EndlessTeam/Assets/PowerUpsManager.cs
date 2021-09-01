@@ -107,6 +107,9 @@ public class PowerUpsManager : MonoBehaviour
 
     }
 
+    public void JumpPowerUp() {
+        playerMovement.GoUp();
+    }
     public void ChangeGravityOFF()
     {
         playerMovement.jumpForce = 18;
@@ -141,7 +144,6 @@ public class PowerUpsManager : MonoBehaviour
  
     IEnumerator DashPowerUp(MeshRenderer meshToFade)
     {
-        Debug.Log("DASH ATTIVATO");
 
         isDashing = true;
         playerHealth.canBeHit = false;

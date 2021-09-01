@@ -9,7 +9,8 @@ public class PowerUpStarter : MonoBehaviour
     {
         ChangeGravityStarter,
         MiniStarter,
-        DashStarter
+        DashStarter,
+        JumpPowerUp
     };
 
     [Header("Seleziona un powerup da attivare")]
@@ -38,11 +39,17 @@ public class PowerUpStarter : MonoBehaviour
             rend.material.SetColor("_Color", Color.blue);
         }
 
+        if (powerupDaAttivare == PowerUpsEnum.JumpPowerUp)
+        {
+            rend.material.SetColor("_Color", Color.gray);
+        }
+
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && GameManager.instance.powerupsManager.canUsePowerUp)
+        //&& GameManager.instance.powerupsManager.canUsePowerUp
+        if (other.CompareTag("Player") )
         {
             GameManager.instance.powerupsManager.PowerUpActive(powerupDaAttivare.ToString());
             audioManager.PlaySound("PowerUp");
