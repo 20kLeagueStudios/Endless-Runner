@@ -5,7 +5,8 @@ using UnityEngine.UI;
 using System;
 
 public enum TutaType
-{
+{   
+    None,
     Busto,
     Vetro,
     Gambe,
@@ -37,10 +38,13 @@ public class ItemSerializzato
     public Sprite itemImage;
     public Texture playerSkin;
     public int itemCost;
-    //public GameObject accessorio;
+    public GameObject pilota;
+    public SkinnedMeshRenderer skinnedMeshRender; 
     //public Material accessorioMaterial;
 
     public ItemType itemType = default;
     public TutaType tutaType = default;
+
+   
 
 }

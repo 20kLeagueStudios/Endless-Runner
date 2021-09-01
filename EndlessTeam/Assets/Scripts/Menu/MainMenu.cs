@@ -16,8 +16,6 @@ public class MainMenu : MonoBehaviour
 
     public Material playerMaterial;
 
-    //public List<ItemsShopSO> a;
-
     public void Play()
     {
         Debug.Log("Funge");
@@ -26,7 +24,7 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        //inventory.itemSelected = a;
+        itemShop = inventory.itemDisponibili.ToArray();
 
         foreach (ItemsShopSO item in itemShop)
         {

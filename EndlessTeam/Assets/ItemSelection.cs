@@ -90,25 +90,18 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
     }
 
-    /*
-    public void SetInt(ItemsShopSO item)
-    {
-        string _string = item.itemType.ToString();
-        int Value = this.transform.parent.root.transform.GetChild(7).GetComponent<MainMenu>().itemShop[indexSkin].itemCost;
+   
 
-        PlayerPrefs.SetInt(_string, Value);
-    }
-    */
 
     /*
-    public void Accessorio(ItemsShopSO item)
+    public void Pilota(ItemsShopSO item)
     {
-        //string _string = "Accessorio";
-        if (item.itemSO.itemType == ItemType.Accessorio)
+        //string _string = "Pilota";
+        if (item.itemSO.itemType == ItemType.Pilota)
         {
             inventory.itemsAcquistati.Add(item);
 
-            //item.accessorioMesh.SetActive(true);
+            //item.pilota.SetActive(true);
             // PlayerPrefs.SetInt(_string, 1);
             Debug.Log("accessorio " + PlayerPrefs.GetInt("Accessorio"));
         }
