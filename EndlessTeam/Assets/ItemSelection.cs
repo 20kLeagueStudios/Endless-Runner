@@ -52,6 +52,7 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
                     shopped = true;
 
+                    
                     AddItem(item); ///////////////////////////////////////////////////
                     AddIndexItem(item);
 
@@ -99,6 +100,7 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
     }
     */
 
+    /*
     public void Accessorio(ItemsShopSO item)
     {
         //string _string = "Accessorio";
@@ -112,7 +114,7 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
         }
        
     }
-
+    */
 
     public void AddIndexItem(ItemsShopSO item)
     {
@@ -123,7 +125,7 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
     {
         string _string = item.itemSO.itemType.ToString();
         int Value = indexSkin;
-
+        inventory.audioManager.PlaySound("PulsanteAcquisti");
         inventory.itemsAcquistati.Add(item);
 
 

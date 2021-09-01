@@ -17,14 +17,15 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
     CurrencyManager currencyManager;
     InventoryManager inventory;
 
-  
+    AudioManager audioManager;
 
     public void OnPointerClick(PointerEventData eventData)
     {
 
         indexSkin = eventData.pointerCurrentRaycast.gameObject.transform.parent.GetSiblingIndex();
 
- 
+        audioManager.PlaySound("Pulsante1");
+
         foreach (Transform item in inventory.inventoryButtonContainer.transform)
         {
            item.GetComponent<Button>().interactable = true;
@@ -48,26 +49,40 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
 
     public void EquipItemSkin(ItemsShopSO item)
     {
- 
+        
         string _string = item.itemSO.itemType.ToString();
         int Value = indexSkin;
 
         // inventory.itemsAcquistati.Add(item);
         if (_string == "Tuta")
         {
-            inventory.itemSelected.Clear();
+            switch (item.itemSO.tutaType)
+            {
+                case TutaType.Busto:
+
+                    break;
+                case TutaType.Vetro:
+                    break;
+                case TutaType.Gambe:
+                    break;
+                case TutaType.Braccia:
+                    break;
+                default:
+                    break;
+            }
+            //  inventory.itemSelected.Clear();
 
             Debug.Log(_string);
             Debug.Log("value" + Value);
 
-            inventory.itemSelected.Add(item); ////
+           // inventory.itemSelected.Add(item); ////
 
-
-           // PlayerPrefs.SetInt(_string, Value);
         }
 
     }
 
+
+    /*
     public void EquipItemAccessorio(ItemsShopSO item)
     {
         string _string = item.itemSO.itemType.ToString();
@@ -77,19 +92,67 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
 
             inventory.gadgetSelected.Add(item); ////
         }
+    
+    }
+     */
+
+    /*
+    public void AddItemInSelection(ItemsShopSO item)
+    {
+        for (int i = 0; i < inventory.itemSelected.Count; i++)
+        {
+            if (!inventory.itemSelected.Contains(item))
+            {
+                if (item.itemSO.tutaType != inventory.itemSelected[i].itemSO.tutaType)
+                {
+                    inventory.itemSelected.Add(item);
+                }
+
+            }
+        }
+    }
+    */
+
+    public void AddItemInSelection(ItemsShopSO item)
+    {
 
 
-           
-           
+
     }
 
-    public void ChangePreviewTexture(ItemsShopSO item)
+
+
+        public void ChangePreviewTexture(ItemsShopSO item)
     {
         string _string = item.itemSO.itemType.ToString();
         if (_string == "Tuta")
         {
-            inventory.tutaMesh.material.mainTexture = item.itemSO.playerSkin;
+            switch (item.itemSO.tutaType)
+            {
+                case TutaType.Busto:
+                    inventory.skinnedTutaMesh.sharedMaterials[5].mainTexture = item.itemSO.playerSkin;
+                    //AddItemInSelection(item);
+                    inventory.skinBodySelected = item;
+
+                    break;
+                case TutaType.Vetro:
+                    inventory.skinnedTutaMesh.sharedMaterials[4].mainTexture = item.itemSO.playerSkin;
+                    //AddItemInSelection(item);
+                    inventory.skinVetroSelected = item;
+
+                    break;
+                case TutaType.Gambe:
+                    break;
+                case TutaType.Braccia:
+                    break;
+                default:
+                    break;
+            }
+            //inventory.tutaMesh.material.mainTexture = item.itemSO.playerSkin;
         }
+
+
+        /*
         else if (_string == "Accessorio")
         {
             if (item.itemSO.accessorio != null)
@@ -109,7 +172,9 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
                 Debug.Log("POLLO");
                 return; 
             }
+
         }
+        */
     }
 
 
@@ -119,20 +184,17 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
         mainMenu = this.transform.parent.root.transform.GetChild(7).GetComponent<MainMenu>();
         // inventory = this.transform.parent.root.transform.GetChild(8).GetComponent<InventoryManager>(); //
 
-
+        audioManager = InventoryManager.instance.audioManager; ;
         inventory = InventoryManager.instance;
 
         currencyManager = this.transform.parent.root.transform.GetChild(7).GetComponent<CurrencyManager>();
 
         mydelegate2 += EquipItemSkin;
-        mydelegate2 += EquipItemAccessorio;
+        //mydelegate2 += EquipItemAccessorio;
         mydelegate2 += ChangePreviewTexture;
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+   
+
 }

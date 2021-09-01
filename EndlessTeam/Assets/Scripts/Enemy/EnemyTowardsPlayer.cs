@@ -107,11 +107,11 @@ public class EnemyTowardsPlayer : MonoBehaviour, IDamageable
 
             lasthit = hit.transform.gameObject;
 
-            if (lasthit.name  == "Player Roberto")
+            if (lasthit.GetComponent<PlayerMovement>())
             {
                 StartCoroutine(ChangePos());
 
-               // Debug.Log("colpisce " + hit.collider.name);
+             
             }
      
         }
