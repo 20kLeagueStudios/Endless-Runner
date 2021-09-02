@@ -2392,9 +2392,6 @@ MonoBehaviour:
   skin: []
   gadget: []
   player: {fileID: 3283469670660978569}
-  accessorio: {fileID: 8829172857393012120}
-  accessorioMesh: {fileID: 8829172857393012101}
-  accessorioMeshRenderer: {fileID: 8829172857393012102}
 --- !u!114 &8829172856879166986
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2418,6 +2415,7 @@ MonoBehaviour:
   currentHealth: 0
   animator: {fileID: 3283469670660978571}
   canBeHit: 1
+  canCollide: 1
 --- !u!114 &8829172856879166984
 MonoBehaviour:
   m_ObjectHideFlags: 0
