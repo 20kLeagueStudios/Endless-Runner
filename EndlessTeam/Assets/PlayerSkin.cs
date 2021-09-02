@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerSkin : MonoBehaviour
 {
     [SerializeField] ItemsShopSO[] skin;
-    [SerializeField] ItemsShopSO[] gadget;
+    [SerializeField] ItemsShopSO[] pilota;
 
     [SerializeField] GameObject player;
     //[SerializeField] GameObject accessorio;
@@ -19,7 +19,7 @@ public class PlayerSkin : MonoBehaviour
     {
 
            // skin = InventoryManager.instance.itemSelected.ToArray();
-            gadget = InventoryManager.instance.gadgetSelected.ToArray();
+            pilota = InventoryManager.instance.gadgetSelected.ToArray();
 
        
 

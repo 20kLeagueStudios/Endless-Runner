@@ -192,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
             rayWall = true;
         }
 
-        if (Input.GetKeyDown(KeyCode.F)) transform.position = initialPos;
+        if (Input.GetKeyDown(KeyCode.F)) transform.position = initialPos; //IMMAGINO SIA DA CANCELLARE KEVIN
 
         stopMovement = suggestions[1].activeSelf || suggestions[2].activeSelf || suggestions[3].activeSelf || GameManager.instance.playerDeath;
         bool stopJump = GameManager.instance.preDeath;

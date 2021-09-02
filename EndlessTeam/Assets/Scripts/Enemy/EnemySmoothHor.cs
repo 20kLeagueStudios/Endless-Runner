@@ -16,9 +16,13 @@ public class EnemySmoothHor : MonoBehaviour, IDamageable
 
     bool dead = false;
 
+    GameManager gameManager;
+    AudioManager audioManager;
 
     private void Awake()
     {
+        gameManager = GameManager.instance;
+        audioManager = GameManager.instance.audioManager;
         anim = GetComponent<Animator>();
         targetPos = trackPos[1].transform.localPosition;
         startPos = trackPos[0].transform.localPosition;
@@ -35,8 +39,7 @@ public class EnemySmoothHor : MonoBehaviour, IDamageable
     void OnEnable()
     {
         dead = false;
-        //elapsedTime = 0; ----
-        //pingpong = 0f;
+
         startPos = trackPos[0].transform.localPosition;
 
         transform.localPosition = startPos;
@@ -88,10 +91,11 @@ public class EnemySmoothHor : MonoBehaviour, IDamageable
 
     }
 
-    // Update is called once per frame
+
     public void Death()
     {
         dead = true;
+        audioManager.PlaySound("MorteNemico");
         anim.SetTrigger("Death");
         //transform.gameObject.SetActive(false);
         StopAllCoroutines();
@@ -101,11 +105,12 @@ public class EnemySmoothHor : MonoBehaviour, IDamageable
     public void Disable()
     {
         transform.gameObject.SetActive(false);
-        GameManager.instance.toReactive.Add(this.gameObject);
+        gameManager.toReactive.Add(this.gameObject);
     }
 
     public void Damage()
     {
         Death();
+        gameManager.IncreaseScore(200);
     }
 }
