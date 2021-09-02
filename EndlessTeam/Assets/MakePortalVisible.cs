@@ -16,7 +16,16 @@ public class MakePortalVisible : MonoBehaviour
     public Animator portaleAnim;
     public BoxCollider colliderPortello;
 
-    bool a = true;
+    AudioManager audioManager;
+
+    bool a = true; //bool per animazione apertura portelli
+
+    private void Awake()
+    {
+        audioManager = GameManager.instance.audioManager; //emanuele
+    }
+
+
     void AperturaPortelli()
     {
         if (a)
@@ -34,11 +43,16 @@ public class MakePortalVisible : MonoBehaviour
         colliderPortello.enabled = true;
     }
 
+    int tmpCurScene;///////emanuele
+    int tmpTargScene;
+
     private void OnTriggerEnter(Collider other)
     {
         //Creo la scena e la imposto come corrente
         if (other.CompareTag("Player"))
         {
+            tmpCurScene = GameManager.instance.currentScene; ///////////emanuele
+
             AperturaPortelli();
 
             once = true;
@@ -52,9 +66,14 @@ public class MakePortalVisible : MonoBehaviour
                 StartCoroutine(WaitCor(4));
                 GameManager.instance.firstPortal = false;
             }
+
+            audioManager.SwapMusicLevel(GameManager.instance.currentScene, sceneTarget); //emanuele
+
             GameManager.instance.LoadScene(sceneTarget);
 
-            GameManager.instance.currentScene = sceneTarget;
+            GameManager.instance.currentScene = sceneTarget; 
+
+            tmpTargScene = sceneTarget; /////emanuele
 
         }
 
@@ -87,7 +106,9 @@ public class MakePortalVisible : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            ChiusuraPortelli();
+            GameManager.instance.currentScene = tmpCurScene;///////emanuele
+            ChiusuraPortelli();//emanuele
+            audioManager.SwapMusicLevel(tmpTargScene, GameManager.instance.currentScene ); //emanuele
             GameManager.instance.DeactivateScene(sceneTarget);
             GameManager.portal = -1;
         }
@@ -104,7 +125,7 @@ public class MakePortalVisible : MonoBehaviour
 
     private void Update()
     {
-
+        Debug.Log("TMPTARG " + tmpTargScene);
     }
 
 }

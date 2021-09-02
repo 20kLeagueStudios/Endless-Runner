@@ -1,7 +1,7 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System;
 using UnityEngine.Audio;
 
 [Serializable]
@@ -35,9 +35,14 @@ public class Sound
         source.Play();
     }
 
-    public IEnumerator LerpMusic(string _name)
+    public void Stop()
     {
-        float currentVol = source.volume;
+        source.Stop();
+    }
+
+    public IEnumerator AbbassaVolumeCO(string _name, float vol)
+    {
+        float currentVol = vol;
         float currentTime = 0;
 
         float duration = 1.5f;
@@ -57,16 +62,22 @@ public class Sound
         }
 
 
-        yield break;
-    }public IEnumerator LerpMusicRev(string _name)
+        yield return null;
+    }
+    
+    public IEnumerator AlzaVolumeCo(string _name, float vol)
     {
-        float currentVol = source.volume;
+        
+
+        float currentVol = vol;
+        Debug.Log("SOURCE VOL " + source.volume);
         float currentTime = 0;
 
         float duration = 1.5f;
 
         currentVol = Mathf.Pow(10, currentVol / 20);
         float targetValue = Mathf.Clamp(1, 0.0001f, 1);
+
 
         while (currentTime < duration)
         {
@@ -79,8 +90,10 @@ public class Sound
 
         }
 
+        Debug.Log("clipname "  + source.clip.name);
 
-        yield break;
+        yield return null;
+
     }
 
 
@@ -91,6 +104,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     Sound[] sound;
 
+    Dictionary<int, string> musiche = new Dictionary<int, string>();
+
     private void Awake()
     {
         for (int i = 0; i < sound.Length; i++)
@@ -99,6 +114,11 @@ public class AudioManager : MonoBehaviour
             _go.transform.SetParent(this.transform);
             sound[i].SetSource(_go.AddComponent<AudioSource>());
         }
+       
+        musiche.Add(-1, "LivelloFunghi");
+        musiche.Add(2, "LivelloFunghi");
+        musiche.Add(3, "LivelloGhiaccio");
+        
 
     }
 
@@ -113,14 +133,25 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+    public void StopSound(string _name)
+    {
+        for (int i = 0; i < sound.Length; i++)
+        {
+            if(sound[i].clipName == _name)
+            {
+                sound[i].Stop();
+                return;
+            }
+        }
+    }
 
-    public void Lerpa(string _name)
+    public void AbbassaVolume(string _name)
     {
         for (int i = 0; i < sound.Length; i++)
         {
             if (sound[i].clipName == _name)
             {
-              StartCoroutine( sound[i].LerpMusic(sound[i].clipName));
+              StartCoroutine(sound[i].AbbassaVolumeCO(sound[i].clipName, sound[i].volume));
 
                 return;
             }
@@ -128,13 +159,14 @@ public class AudioManager : MonoBehaviour
         
     }
 
-    public void Slerpa(string _name)
+    public void AlzaVolume(string _name)
     {
+
         for (int i = 0; i < sound.Length; i++)
         {
             if (sound[i].clipName == _name)
             {
-                StartCoroutine(sound[i].LerpMusicRev(sound[i].clipName));
+                StartCoroutine(sound[i].AlzaVolumeCo(sound[i].clipName, sound[i].volume));
 
                 return;
             }
@@ -142,17 +174,23 @@ public class AudioManager : MonoBehaviour
 
     }
 
-    private void Update()
+    public void SwapMusicLevel(int currentScene, int targetScene)
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            Lerpa("LivelloFunghi");
-            PlaySound("LivelloLava");
-            Slerpa("LivelloLava");
-            
-        }
+
+        Debug.Log("musica cur" + musiche[currentScene]);
+
+        Debug.Log("musica tar" + musiche[targetScene]);
+
+        AbbassaVolume(musiche[currentScene]);
+        //StopSound(musiche[currentScene]);
+
+        PlaySound(musiche[targetScene]);
+
+        AlzaVolume(musiche[targetScene]);
+
     }
 
+   
 
 
 }
