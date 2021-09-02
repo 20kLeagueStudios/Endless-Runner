@@ -35,6 +35,55 @@ public class Sound
         source.Play();
     }
 
+    public IEnumerator LerpMusic(string _name)
+    {
+        float currentVol = source.volume;
+        float currentTime = 0;
+
+        float duration = 1.5f;
+
+        currentVol = Mathf.Pow(10, currentVol / 20);
+        float targetValue = Mathf.Clamp(1, 0.0001f, 1);
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            float newVol = Mathf.Lerp(currentVol, targetValue, currentTime / duration);
+
+            source.volume= Mathf.Log10(newVol) * 20;
+
+            yield return null;
+
+        }
+
+
+        yield break;
+    }public IEnumerator LerpMusicRev(string _name)
+    {
+        float currentVol = source.volume;
+        float currentTime = 0;
+
+        float duration = 1.5f;
+
+        currentVol = Mathf.Pow(10, currentVol / 20);
+        float targetValue = Mathf.Clamp(1, 0.0001f, 1);
+
+        while (currentTime < duration)
+        {
+            currentTime += Time.deltaTime;
+            float newVol = Mathf.Lerp(targetValue, currentVol, currentTime / duration);
+
+            source.volume= Mathf.Log10(newVol) * 20;
+
+            yield return null;
+
+        }
+
+
+        yield break;
+    }
+
+
 }
 
 public class AudioManager : MonoBehaviour
@@ -64,5 +113,46 @@ public class AudioManager : MonoBehaviour
             }
         }
     }
+
+    public void Lerpa(string _name)
+    {
+        for (int i = 0; i < sound.Length; i++)
+        {
+            if (sound[i].clipName == _name)
+            {
+              StartCoroutine( sound[i].LerpMusic(sound[i].clipName));
+
+                return;
+            }
+        }
+        
+    }
+
+    public void Slerpa(string _name)
+    {
+        for (int i = 0; i < sound.Length; i++)
+        {
+            if (sound[i].clipName == _name)
+            {
+                StartCoroutine(sound[i].LerpMusicRev(sound[i].clipName));
+
+                return;
+            }
+        }
+
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            Lerpa("LivelloFunghi");
+            PlaySound("LivelloLava");
+            Slerpa("LivelloLava");
+            
+        }
+    }
+
+
 
 }
