@@ -68,7 +68,7 @@ public class PlayerHealth : MonoBehaviour
     {
         if (currentHealth > 0 && canCollide)
         {
-            if (other.CompareTag("Obstacle") )
+            if (other.CompareTag("Obstacle") || (LayerMask.LayerToName(other.gameObject.layer) == "Wall"))
             {
                 StartCoroutine("HitCor", playerMesh);
                 TakeDamage(1);
@@ -82,7 +82,6 @@ public class PlayerHealth : MonoBehaviour
           
                 StartCoroutine("CanCollideCo");
             }
-
             
         }
     }
