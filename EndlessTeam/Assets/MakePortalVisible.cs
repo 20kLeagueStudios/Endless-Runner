@@ -13,20 +13,41 @@ public class MakePortalVisible : MonoBehaviour
     bool once = false;
     GameObject suggestion;
 
+    public Animator portaleAnim;
+    public BoxCollider colliderPortello;
 
+    bool a = true;
+    void AperturaPortelli()
+    {
+        if (a)
+        {
+            a = false;
+            portaleAnim.SetTrigger("apri");
+            colliderPortello.enabled = false;
+            
+        }
+    }
+
+    void ChiusuraPortelli()
+    {
+        portaleAnim.SetTrigger("chiudi");
+        colliderPortello.enabled = true;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         //Creo la scena e la imposto come corrente
         if (other.CompareTag("Player"))
         {
+            AperturaPortelli();
+
             once = true;
             if (GameManager.instance.firstPortal)
             {
+  
                 //da riaggiungere
                 //suggestion = GameManager.instance.GetObjFromArray("Hint4", GameManager.instance.suggestions);
                 //TutorialManager.instance.ShowHint(number);
-
 
                 StartCoroutine(WaitCor(4));
                 GameManager.instance.firstPortal = false;
@@ -66,6 +87,7 @@ public class MakePortalVisible : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            ChiusuraPortelli();
             GameManager.instance.DeactivateScene(sceneTarget);
             GameManager.portal = -1;
         }

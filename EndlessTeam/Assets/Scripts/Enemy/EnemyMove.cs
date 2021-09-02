@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyMove : MonoBehaviour
+public class EnemyMove : MonoBehaviour, IDamageable
 {
     public Transform[] trackPos;
 
@@ -18,8 +18,13 @@ public class EnemyMove : MonoBehaviour
 
     Animator anim;
 
+    GameManager gameManager;
+    AudioManager audioManager;
+
     private void Awake()
     {
+        gameManager = GameManager.instance;
+        audioManager = GameManager.instance.audioManager;
         anim = GetComponent<Animator>();
         startPos = this.transform.localPosition;
 
@@ -116,9 +121,28 @@ public class EnemyMove : MonoBehaviour
 
     }
 
-    // Update is called once per frame
-    void Update()
+    
+    public void Death()
     {
-        
+        audioManager.PlaySound("MorteNemico");
+        // dead = true;
+        anim.SetTrigger("Death");
+        //transform.gameObject.SetActive(false);
+        StopAllCoroutines();
+        //transform.gameObject.SetActive(false);
     }
+
+    public void Disable()
+    {
+        transform.gameObject.SetActive(false);
+        gameManager.toReactive.Add(this.gameObject);
+    }
+
+    public void Damage()
+    {
+        Death();
+        gameManager.IncreaseScore(200);
+    }
+
+
 }

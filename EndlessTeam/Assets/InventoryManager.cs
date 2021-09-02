@@ -26,7 +26,9 @@ public class InventoryManager : MonoBehaviour
     public ItemsShopSO skinBraccioSinistroSelected;
     public ItemsShopSO skinVetroSelected;
 
-    public List<ItemsShopSO> gadgetSelected;
+    public ItemsShopSO pilotaSelected;
+
+    public List<ItemsShopSO> gadgetSelected; //PENSO DA RIMUOVERE
 
     public CurrencyManager shop;
     public Text currencyText;

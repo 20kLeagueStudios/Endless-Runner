@@ -145,14 +145,14 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
 
                     inventory.skinnedTutaMesh.sharedMaterials[2].mainTexture = item.itemSO.playerSkin;
                     //AddItemInSelection(item);
-                    inventory.skinVetroSelected = item;
+                    inventory.skinGambaSinistraselected = item;
 
                     break;
                 case TutaType.Braccia:
 
                     inventory.skinnedTutaMesh.sharedMaterials[0].mainTexture = item.itemSO.playerSkin;
                     //AddItemInSelection(item);
-                    inventory.skinVetroSelected = item;
+                    inventory.skinGambaSinistraselected = item;
 
                     break;
                 default:
@@ -167,13 +167,15 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
         {
             if (item.itemSO.pilota != null)
             {
+                inventory.pilotaSelected = item;
+
                 // inventory.pilotaMeshRenderer.enabled = true;
 
                 // GameObject accessorio = Instantiate(item.apilota, inventory.pilotaPosition.transform.position, Quaternion.identity) as GameObject;
- 
+
 
                 // inventory.pilotaMeshRenderer.material = item.itemSO.accessorioMaterial;
-              //  inventory.pilotaMesh.transform.localScale = item.itemSO.pilota.transform.localScale;
+                //  inventory.pilotaMesh.transform.localScale = item.itemSO.pilota.transform.localScale;
                 Debug.Log("CIAO");
             }
             else { 

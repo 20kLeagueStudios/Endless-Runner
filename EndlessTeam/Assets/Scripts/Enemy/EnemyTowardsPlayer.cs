@@ -24,12 +24,16 @@ public class EnemyTowardsPlayer : MonoBehaviour, IDamageable
     Ray ray;
 
     AudioManager audioManager;
+    GameManager gameManager;
+
     private void Awake()
     {
         audioManager = GameManager.instance.audioManager;
-        anim = this.gameObject.GetComponent<Animator>();
-        startPos = transform.localPosition;
+        gameManager = GameManager.instance;
 
+        anim = this.gameObject.GetComponent<Animator>();
+
+        startPos = transform.localPosition;
         targetPos = new Vector3(startPos.x, startPos.y, startPos.z + offsetZ);
 
     }
@@ -116,8 +120,6 @@ public class EnemyTowardsPlayer : MonoBehaviour, IDamageable
      
         }
 
-
-
     }
 
     public void Death()
@@ -136,5 +138,6 @@ public class EnemyTowardsPlayer : MonoBehaviour, IDamageable
     public void Damage()
     {
         Death();
+        gameManager.IncreaseScore(200);
     }
 }
