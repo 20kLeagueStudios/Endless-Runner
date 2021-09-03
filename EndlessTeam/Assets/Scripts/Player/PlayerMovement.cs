@@ -755,6 +755,7 @@ public class PlayerMovement : MonoBehaviour
     //Si occupa di effettuare lo slide
     public IEnumerator SlideCor()
     {
+        audioManager.PlaySound("Crouch");////emanuele
         //Rendo lo sliding a true così che SlideCor() non può essere chiamato mentre è in esecuzione
         sliding = true;
         //Attivo l'animazione dello slide
@@ -1086,7 +1087,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Crouch()
     {     
-        audioManager.PlaySound("Crouch");////emanuele
+       
         Vector3 controllerCrouchPos = new Vector3(0, crouchPos, 0);
         
         controller.height = crouchHeight;
