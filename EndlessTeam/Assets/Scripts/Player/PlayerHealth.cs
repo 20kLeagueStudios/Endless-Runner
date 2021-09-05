@@ -77,10 +77,13 @@ public class PlayerHealth : MonoBehaviour
             }
             if (other.CompareTag("Enemy") && !GameManager.instance.playerGb.GetComponent<PowerUpsManager>().inSlam)
             {
-                StartCoroutine("HitCor", playerMesh);
-                TakeDamage(1);
-          
-                StartCoroutine("CanCollideCo");
+                if (!other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Death"))
+                {
+                    StartCoroutine("HitCor", playerMesh);
+                    TakeDamage(1);
+
+                    StartCoroutine("CanCollideCo");
+                }
             }
             
         }
