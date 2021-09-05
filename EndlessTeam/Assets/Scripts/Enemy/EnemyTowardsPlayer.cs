@@ -105,7 +105,7 @@ public class EnemyTowardsPlayer : MonoBehaviour, IDamageable
 
         ray = new Ray(tmp, this.transform.forward);
 
-        if (Physics.Raycast(ray, out hit, 100f, layerMask, QueryTriggerInteraction.Ignore))
+        if (Physics.Raycast(ray, out hit, 30f, layerMask, QueryTriggerInteraction.Ignore))
         {
             collision = hit.point;
 
