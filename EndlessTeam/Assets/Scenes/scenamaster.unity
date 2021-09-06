@@ -621,247 +621,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d99b3935545c1324aa68651d8883b5ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1649673370
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1649673372}
-  - component: {fileID: 1649673371}
-  - component: {fileID: 1649673373}
-  - component: {fileID: 1649673374}
-  - component: {fileID: 1649673375}
-  m_Layer: 0
-  m_Name: GAME_MANAGER
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1649673371
+--- !u!114 &1649673371 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 6321645473224707965, guid: 5b46a1aec2a498547a3cf152d10daccf,
+    type: 3}
+  m_PrefabInstance: {fileID: 6321645471586044902}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1649673370}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0ccca53e426bb464585726f65ce1b98f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toReactive: []
-  biomes:
-  - name: Fungo
-    mat:
-    - {fileID: 2100000, guid: 55e5ab0c088dec340a821e30a5f646ea, type: 2}
-    - {fileID: 2100000, guid: e0c984909abc0d445aeb622602d6ece1, type: 2}
-  - name: Deserto
-    mat:
-    - {fileID: 2100000, guid: 70d03510f2d0a564ea4c76e58e3b3a35, type: 2}
-    - {fileID: 2100000, guid: 276d39ae10d7b384f977414841bb3983, type: 2}
-  - name: Cristallo
-    mat:
-    - {fileID: 2100000, guid: 85ec289968fb25144acf1305edbc3105, type: 2}
-    - {fileID: 2100000, guid: ea9ad7871bdab874abd5ee36fcdca0f7, type: 2}
-  - name: Ghiaccio
-    mat:
-    - {fileID: 2100000, guid: 1d8d52f691850ce489ff34c192198fca, type: 2}
-    - {fileID: 2100000, guid: fc343ef2b063a0645a3930d068f2f409, type: 2}
-  othersMat:
-  - name: Money
-    mat:
-    - {fileID: 2100000, guid: 18b89a5301601ba459af5340e4bc2801, type: 2}
-    - {fileID: 2100000, guid: 693e7d66d2ff48b45b86cf32b1bad1f7, type: 2}
-  - name: Enemy
-    mat:
-    - {fileID: 2100000, guid: c61cae76de8012342aef6dc98ea682cf, type: 2}
-    - {fileID: 2100000, guid: a21d6b765168c1e49aa37b4051012420, type: 2}
-  - name: Portal
-    mat:
-    - {fileID: 2100000, guid: 705f807747288ac468955b9f995c6db2, type: 2}
-    - {fileID: 2100000, guid: ba3e2cff863bd4747a0b7f390dfeceaf, type: 2}
-  - name: PowerUp
-    mat:
-    - {fileID: 2100000, guid: 8294e0d524ad06d41a1119d8e5674a76, type: 2}
-    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
-  playerGb: {fileID: 3283469669695823914}
-  gemsImg: {fileID: 995142770}
-  retryText: {fileID: 988321336}
-  playerDeath: 0
-  preDeath: 0
-  moneyText: {fileID: 4865017821066395725}
-  countDown: {fileID: 1198326712}
-  scoreText: {fileID: 851122562}
-  currentScore: 0
-  initialPlayerPos: {x: 0, y: 0, z: 0}
-  dropdownText: {fileID: 0}
-  currentMoney: 0
-  moneyInMatch: 0
-  powerupsManager: {fileID: 8829172857042843391}
-  savedLanguage: 0
-  firstGame: 1
-  speed: 36
-  maxSpeed: 76
-  currentScene: -1
-  firstPortal: 1
-  suggestions:
-  - {fileID: 122484081}
-  - {fileID: 2065099507}
-  - {fileID: 926762848}
-  - {fileID: 1750439780}
-  parentTiles: {fileID: 4523336909541068390, guid: 31a674b1b79b8e74cb82b66466e416a3,
-    type: 3}
-  startShader: {fileID: 4800000, guid: 3ab026a016955254ba00bdc6eeee8928, type: 3}
-  audioManager: {fileID: 1649673375}
-  pauseButton: {fileID: 615407880}
---- !u!4 &1649673372
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1649673370}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.346, z: -55.3}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1649673373
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1649673370}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cac88e6bef1b66c4cb7c4dac34e038dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  suggestionList:
-  - {fileID: 122484081}
-  - {fileID: 2065099507}
-  - {fileID: 926762848}
-  - {fileID: 1750439780}
---- !u!114 &1649673374
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1649673370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9438c4daa43eb534a87b6ae92247e08a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1649673375
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1649673370}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eeafaf73763491e49965dc0915d55218, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sound:
-  - audioMixerGroup: {fileID: 4044451216966895478, guid: f076a61f292bafc4da5e904bed331807,
-      type: 2}
-    clipName: LivelloFunghi
-    audioClip: {fileID: 8300000, guid: 2e3dd46f6cb9c80438cb8368f9a11736, type: 3}
-    volume: 0.2
-    pitch: 1
-    loop: 1
-    playOnAwake: 1
-  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
-      type: 2}
-    clipName: RaccoltaMonete
-    audioClip: {fileID: 8300000, guid: d0251cf68a751914b8838e43a123e714, type: 3}
-    volume: 0.5
-    pitch: 1
-    loop: 0
-    playOnAwake: 0
-  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
-      type: 2}
-    clipName: Salto
-    audioClip: {fileID: 8300000, guid: d2907593ad3ba0643ae4f41b2def22a8, type: 3}
-    volume: 0.3
-    pitch: 1
-    loop: 0
-    playOnAwake: 0
-  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
-      type: 2}
-    clipName: Corsa1
-    audioClip: {fileID: 8300000, guid: 3f8841848434fe64c994b1c6787263f8, type: 3}
-    volume: 0.3
-    pitch: 1
-    loop: 1
-    playOnAwake: 0
-  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
-      type: 2}
-    clipName: Crouch
-    audioClip: {fileID: 8300000, guid: 2a81e727dde986c4caeac1ab598837b4, type: 3}
-    volume: 0.3
-    pitch: 1.5
-    loop: 0
-    playOnAwake: 0
-  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
-      type: 2}
-    clipName: Slam
-    audioClip: {fileID: 8300000, guid: a628f05bf1731db4f863e24c9a552929, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    playOnAwake: 0
-  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
-      type: 2}
-    clipName: MorteNemico
-    audioClip: {fileID: 8300000, guid: bdae7569944d758469e3ce6b0e5f45d1, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    playOnAwake: 0
-  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
-      type: 2}
-    clipName: PowerUp
-    audioClip: {fileID: 8300000, guid: 668e4cce09dc3eb42a3bf3087e03ce7a, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    playOnAwake: 0
-  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
-      type: 2}
-    clipName: Pulsante_1
-    audioClip: {fileID: 8300000, guid: 5c87d222d3cdb7b4889f5ea5b40ff992, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    playOnAwake: 0
-  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
-      type: 2}
-    clipName: Pulsante_2
-    audioClip: {fileID: 8300000, guid: 3a3b8e2cd6150a04691b62c7ff998ada, type: 3}
-    volume: 1
-    pitch: 1
-    loop: 0
-    playOnAwake: 0
-  - audioMixerGroup: {fileID: 4044451216966895478, guid: f076a61f292bafc4da5e904bed331807,
-      type: 2}
-    clipName: LivelloGhiaccio
-    audioClip: {fileID: 8300000, guid: 8146200a9941de845a7a6d8bbad1bdac, type: 3}
-    volume: 0.2
-    pitch: 1
-    loop: 1
-    playOnAwake: 0
 --- !u!1 &1750439780 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6884339325191556524, guid: 13756b4abea1af14a88be96f89142920,
@@ -5969,6 +5740,155 @@ Transform:
   m_Father: {fileID: 5238416828987195979}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &6321645471586044902
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 6321645473224707962, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321645473224707962, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.346
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321645473224707962, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -55.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321645473224707962, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321645473224707962, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321645473224707962, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321645473224707962, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321645473224707962, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321645473224707962, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321645473224707962, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321645473224707962, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321645473224707963, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: suggestionList.Array.data[0]
+      value: 
+      objectReference: {fileID: 122484081}
+    - target: {fileID: 6321645473224707963, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: suggestionList.Array.data[1]
+      value: 
+      objectReference: {fileID: 2065099507}
+    - target: {fileID: 6321645473224707963, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: suggestionList.Array.data[2]
+      value: 
+      objectReference: {fileID: 926762848}
+    - target: {fileID: 6321645473224707963, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: suggestionList.Array.data[3]
+      value: 
+      objectReference: {fileID: 1750439780}
+    - target: {fileID: 6321645473224707964, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: m_Name
+      value: GAME_MANAGER_emanuele
+      objectReference: {fileID: 0}
+    - target: {fileID: 6321645473224707965, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: playerGb
+      value: 
+      objectReference: {fileID: 3283469669695823914}
+    - target: {fileID: 6321645473224707965, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: gemsImg
+      value: 
+      objectReference: {fileID: 995142770}
+    - target: {fileID: 6321645473224707965, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: retryText
+      value: 
+      objectReference: {fileID: 988321336}
+    - target: {fileID: 6321645473224707965, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: moneyText
+      value: 
+      objectReference: {fileID: 4865017821066395725}
+    - target: {fileID: 6321645473224707965, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: countDown
+      value: 
+      objectReference: {fileID: 1198326712}
+    - target: {fileID: 6321645473224707965, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 851122562}
+    - target: {fileID: 6321645473224707965, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: powerupsManager
+      value: 
+      objectReference: {fileID: 8829172857042843391}
+    - target: {fileID: 6321645473224707965, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: suggestions.Array.data[0]
+      value: 
+      objectReference: {fileID: 122484081}
+    - target: {fileID: 6321645473224707965, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: suggestions.Array.data[1]
+      value: 
+      objectReference: {fileID: 2065099507}
+    - target: {fileID: 6321645473224707965, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: suggestions.Array.data[2]
+      value: 
+      objectReference: {fileID: 926762848}
+    - target: {fileID: 6321645473224707965, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: suggestions.Array.data[3]
+      value: 
+      objectReference: {fileID: 1750439780}
+    - target: {fileID: 6321645473224707965, guid: 5b46a1aec2a498547a3cf152d10daccf,
+        type: 3}
+      propertyPath: pauseButton
+      value: 
+      objectReference: {fileID: 615407880}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5b46a1aec2a498547a3cf152d10daccf, type: 3}
 --- !u!4 &6375029427977427501
 Transform:
   m_ObjectHideFlags: 0
