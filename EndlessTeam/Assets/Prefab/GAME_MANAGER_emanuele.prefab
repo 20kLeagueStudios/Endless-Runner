@@ -1,0 +1,243 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6321645473224707964
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6321645473224707962}
+  - component: {fileID: 6321645473224707965}
+  - component: {fileID: 6321645473224707963}
+  - component: {fileID: 6321645473224707960}
+  - component: {fileID: 6321645473224707961}
+  m_Layer: 0
+  m_Name: GAME_MANAGER_emanuele
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6321645473224707962
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321645473224707964}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.346, z: -55.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6321645473224707965
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321645473224707964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ccca53e426bb464585726f65ce1b98f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toReactive: []
+  biomes:
+  - name: Fungo
+    mat:
+    - {fileID: 2100000, guid: 55e5ab0c088dec340a821e30a5f646ea, type: 2}
+    - {fileID: 2100000, guid: e0c984909abc0d445aeb622602d6ece1, type: 2}
+  - name: Deserto
+    mat:
+    - {fileID: 2100000, guid: 70d03510f2d0a564ea4c76e58e3b3a35, type: 2}
+    - {fileID: 2100000, guid: 276d39ae10d7b384f977414841bb3983, type: 2}
+  - name: Cristallo
+    mat:
+    - {fileID: 2100000, guid: 85ec289968fb25144acf1305edbc3105, type: 2}
+    - {fileID: 2100000, guid: ea9ad7871bdab874abd5ee36fcdca0f7, type: 2}
+  - name: Ghiaccio
+    mat:
+    - {fileID: 2100000, guid: 1d8d52f691850ce489ff34c192198fca, type: 2}
+    - {fileID: 2100000, guid: fc343ef2b063a0645a3930d068f2f409, type: 2}
+  othersMat:
+  - name: Money
+    mat:
+    - {fileID: 2100000, guid: 18b89a5301601ba459af5340e4bc2801, type: 2}
+    - {fileID: 2100000, guid: 693e7d66d2ff48b45b86cf32b1bad1f7, type: 2}
+  - name: Enemy
+    mat:
+    - {fileID: 2100000, guid: c61cae76de8012342aef6dc98ea682cf, type: 2}
+    - {fileID: 2100000, guid: a21d6b765168c1e49aa37b4051012420, type: 2}
+  - name: Portal
+    mat:
+    - {fileID: 2100000, guid: 705f807747288ac468955b9f995c6db2, type: 2}
+    - {fileID: 2100000, guid: ba3e2cff863bd4747a0b7f390dfeceaf, type: 2}
+  - name: PowerUp
+    mat:
+    - {fileID: 2100000, guid: 8294e0d524ad06d41a1119d8e5674a76, type: 2}
+    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
+  playerGb: {fileID: 0}
+  gemsImg: {fileID: 0}
+  retryText: {fileID: 0}
+  playerDeath: 0
+  preDeath: 0
+  moneyText: {fileID: 0}
+  countDown: {fileID: 0}
+  scoreText: {fileID: 0}
+  currentScore: 0
+  initialPlayerPos: {x: 0, y: 0, z: 0}
+  dropdownText: {fileID: 0}
+  currentMoney: 0
+  moneyInMatch: 0
+  powerupsManager: {fileID: 0}
+  savedLanguage: 0
+  firstGame: 1
+  speed: 36
+  maxSpeed: 76
+  currentScene: -1
+  firstPortal: 1
+  suggestions:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  parentTiles: {fileID: 4523336909541068390, guid: 31a674b1b79b8e74cb82b66466e416a3,
+    type: 3}
+  startShader: {fileID: 4800000, guid: 3ab026a016955254ba00bdc6eeee8928, type: 3}
+  audioManager: {fileID: 6321645473224707961}
+  pauseButton: {fileID: 0}
+--- !u!114 &6321645473224707963
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321645473224707964}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cac88e6bef1b66c4cb7c4dac34e038dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  suggestionList:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+--- !u!114 &6321645473224707960
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321645473224707964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9438c4daa43eb534a87b6ae92247e08a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6321645473224707961
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6321645473224707964}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eeafaf73763491e49965dc0915d55218, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+  - audioMixerGroup: {fileID: 4044451216966895478, guid: f076a61f292bafc4da5e904bed331807,
+      type: 2}
+    clipName: LivelloFunghi
+    audioClip: {fileID: 8300000, guid: 2e3dd46f6cb9c80438cb8368f9a11736, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    playOnAwake: 1
+  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
+      type: 2}
+    clipName: RaccoltaMonete
+    audioClip: {fileID: 8300000, guid: d0251cf68a751914b8838e43a123e714, type: 3}
+    volume: 0.5
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
+      type: 2}
+    clipName: Salto
+    audioClip: {fileID: 8300000, guid: d2907593ad3ba0643ae4f41b2def22a8, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
+      type: 2}
+    clipName: Corsa1
+    audioClip: {fileID: 8300000, guid: 3f8841848434fe64c994b1c6787263f8, type: 3}
+    volume: 0.3
+    pitch: 1
+    loop: 1
+    playOnAwake: 0
+  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
+      type: 2}
+    clipName: Crouch
+    audioClip: {fileID: 8300000, guid: 2a81e727dde986c4caeac1ab598837b4, type: 3}
+    volume: 0.3
+    pitch: 1.5
+    loop: 0
+    playOnAwake: 0
+  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
+      type: 2}
+    clipName: Slam
+    audioClip: {fileID: 8300000, guid: a628f05bf1731db4f863e24c9a552929, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
+      type: 2}
+    clipName: MorteNemico
+    audioClip: {fileID: 8300000, guid: bdae7569944d758469e3ce6b0e5f45d1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
+      type: 2}
+    clipName: PowerUp
+    audioClip: {fileID: 8300000, guid: 668e4cce09dc3eb42a3bf3087e03ce7a, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
+      type: 2}
+    clipName: Pulsante_1
+    audioClip: {fileID: 8300000, guid: 5c87d222d3cdb7b4889f5ea5b40ff992, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+  - audioMixerGroup: {fileID: 9162730915130707605, guid: f076a61f292bafc4da5e904bed331807,
+      type: 2}
+    clipName: Pulsante_2
+    audioClip: {fileID: 8300000, guid: 3a3b8e2cd6150a04691b62c7ff998ada, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
+  - audioMixerGroup: {fileID: 4044451216966895478, guid: f076a61f292bafc4da5e904bed331807,
+      type: 2}
+    clipName: LivelloGhiaccio
+    audioClip: {fileID: 8300000, guid: 8146200a9941de845a7a6d8bbad1bdac, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 1
+    playOnAwake: 0
