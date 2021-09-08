@@ -366,7 +366,7 @@ public class ObjectPooling : MonoBehaviour
         GameObject[] allObjFirstScene = firstScene.GetRootGameObjects(),
                      allObjSecondScene = secondScene.GetRootGameObjects();
 
-        Material mat1 = default, mat2 = default;
+        Material mat1 = default, mat2 = default, enemyMat = default;
         
 
         for (int i=0; i<allObjFirstScene.Length; i++)
@@ -378,6 +378,7 @@ public class ObjectPooling : MonoBehaviour
                 else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Deserto")) { mat1 = biomes["Deserto"][1]; }
                 else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Cristallo")) { mat1 = biomes["Cristallo"][1]; }
                 else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Ghiaccio")) { mat1 = biomes["Ghiaccio"][1]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Lava")) { mat1 = biomes["Lava"][1];}
                 scene1parent = allObjFirstScene[i];
                 break;
             }
@@ -389,10 +390,11 @@ public class ObjectPooling : MonoBehaviour
             if (allObjSecondScene[i].CompareTag("ParentTile"))
             {
     
-                if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Fungo")) { mat2 = biomes["Fungo"][0]; }
-                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Deserto")) { mat2 = biomes["Deserto"][0]; }
-                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Cristallo")) { mat2 = biomes["Cristallo"][0]; }
-                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Ghiaccio")) { mat2 = biomes["Ghiaccio"][0]; }
+                if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Fungo")) { mat2 = biomes["Fungo"][0]; enemyMat = biomes["NemiciFunghi"][0]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Deserto")) { mat2 = biomes["Deserto"][0]; enemyMat = biomes["NemiciDeserto"][0]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Cristallo")) { mat2 = biomes["Cristallo"][0]; enemyMat = biomes["NemiciCristalli"][0]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Ghiaccio")) { mat2 = biomes["Ghiaccio"][0]; enemyMat = biomes["NemiciGhiaccio"][0]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Lava")) { mat2 = biomes["Lava"][0]; enemyMat = biomes["NemiciLava"][0]; }
                 scene2parent = allObjSecondScene[i];
                 break;
             }
@@ -428,7 +430,8 @@ public class ObjectPooling : MonoBehaviour
             if (!tags)
                 rendererSecond[i].material = mat2;
             else if (temp.CompareTag("Money")) temp.material = biomes["Money"][0];
-            else if (temp.CompareTag("Enemy")) temp.material = biomes["Enemy"][0];
+            //else if (temp.CompareTag("Enemy")) temp.material = biomes["Enemy"][0];
+            else if (temp.CompareTag("Enemy")) temp.material = enemyMat;
             else if (temp.CompareTag("Portal")) temp.material = biomes["Portal"][0];
             else if (temp.CompareTag("PowerUp")) temp.material = biomes["PowerUp"][0];
         }
@@ -458,6 +461,7 @@ public class ObjectPooling : MonoBehaviour
                 else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Deserto")) { mat = biomes["Deserto"][1]; }
                 else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Cristallo")) { mat = biomes["Cristallo"][1]; }
                 else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Ghiaccio")) { mat = biomes["Ghiaccio"][1]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Lava")) { mat = biomes["Lava"][1]; }
                 scene1parent = allObjFirstScene[i];
                 break;
             }
