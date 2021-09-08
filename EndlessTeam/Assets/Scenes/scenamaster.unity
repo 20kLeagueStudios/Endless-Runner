@@ -9541,6 +9541,10 @@ MonoBehaviour:
     mat:
     - {fileID: 2100000, guid: 1d8d52f691850ce489ff34c192198fca, type: 2}
     - {fileID: 2100000, guid: fc343ef2b063a0645a3930d068f2f409, type: 2}
+  - name: Lava
+    mat:
+    - {fileID: 2100000, guid: 4ebd627342abf3845a241c79739036e9, type: 2}
+    - {fileID: 2100000, guid: a1c0137f0f8f5aa49b796c37ff07fa5a, type: 2}
   othersMat:
   - name: Money
     mat:
@@ -9557,6 +9561,26 @@ MonoBehaviour:
   - name: PowerUp
     mat:
     - {fileID: 2100000, guid: 8294e0d524ad06d41a1119d8e5674a76, type: 2}
+    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
+  - name: NemiciFunghi
+    mat:
+    - {fileID: 2100000, guid: 8294e0d524ad06d41a1119d8e5674a76, type: 2}
+    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
+  - name: NemiciDeserto
+    mat:
+    - {fileID: 2100000, guid: d3e54be065f66d84a95daa143a8260c1, type: 2}
+    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
+  - name: NemiciGhiaccio
+    mat:
+    - {fileID: 2100000, guid: 518de63666e2e94469b332d9787bfa67, type: 2}
+    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
+  - name: NemiciCristalli
+    mat:
+    - {fileID: 2100000, guid: e51c6cf7d61d1df44a3567059be30669, type: 2}
+    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
+  - name: NemiciLava
+    mat:
+    - {fileID: 2100000, guid: e14d8780bd00fbf4398cf4140d2d7792, type: 2}
     - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
   playerGb: {fileID: 3283469669695823914}
   gemsImg: {fileID: 995142770}
@@ -16418,7 +16442,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 3283469669695823914}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   m_Radius: 1.41
   m_Height: 1
   m_Direction: 1

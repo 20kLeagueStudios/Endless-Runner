@@ -586,8 +586,8 @@ GameObject:
   - component: {fileID: 2604939109619619530}
   - component: {fileID: 3417470142879501427}
   m_Layer: 0
-  m_Name: GroundLava3
-  m_TagString: Ghiaccio
+  m_Name: 09-PORTAL
+  m_TagString: Lava
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3647,6 +3647,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2604939109619619530}
     m_Modifications:
+    - target: {fileID: 5419920084634941177, guid: 912502d87dba9c7489eb4cd361c31c9f,
+        type: 3}
+      propertyPath: sceneTarget
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 7882167260661110457, guid: 912502d87dba9c7489eb4cd361c31c9f,
         type: 3}
       propertyPath: m_LocalPosition.x

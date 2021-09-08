@@ -75,6 +75,8 @@ public class GameManager : MonoBehaviour
     public float maxSpeed = 76;
     public int currentScene = -1;
     public bool firstPortal = true;
+
+    public Vector3 portalPos;
     
     public GameObject[] suggestions;
 
@@ -110,11 +112,6 @@ public class GameManager : MonoBehaviour
         }
 
         Time.timeScale = 1;
-    }
-
-    void Update() //////////////////////////////////////////////////////////////
-    {
-        
     }
 
     void Start()
