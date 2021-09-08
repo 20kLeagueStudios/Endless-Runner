@@ -251,6 +251,23 @@ public class ObjectPooling : MonoBehaviour
       
     }
 
+    public void PortalOffset()
+    {
+        float temp = rend.bounds.extents.z * 2;
+        float zPortPos = GameManager.instance.portalPos.z;
+
+        activeTiles[0].transform.position = new Vector3(0, 0, (zPortPos) + temp - 10f);
+
+        Debug.Log("Posizione portale: " + zPortPos);
+
+        for (int i = 1; i < activeTiles.Count; i++)
+        {
+            float zPos = activeTiles[i - 1] != null ? activeTiles[i - 1].transform.position.z + temp : 0;
+            activeTiles[i].transform.position = new Vector3(0, 0, zPos);
+        }
+
+    }
+
     //Ritorna un tile random che dipende solo dalla difficoltà corrente
     private GameObject GetTile()
     {
@@ -405,15 +422,12 @@ public class ObjectPooling : MonoBehaviour
             rendererFirst = scene1parent.GetComponentsInChildren<Renderer>();
         if (scene2parent.gameObject != null)
             rendererSecond = scene2parent.GetComponentsInChildren<Renderer>();
-        //foreach(Renderer temp in rendererFirst)
-        //    Debug.Log(temp.gameObject.name);
+
        
         for (int i=0; i<rendererFirst.Length; i++)
         {
             Renderer temp = rendererFirst[i];
-            //tags = rendererFirst[i].CompareTag("Money") || rendererFirst[i].CompareTag("Enemy") || rendererFirst[i].CompareTag("Portal");
-            //if (!tags)
-            //    rendererFirst[i].material = mat1;
+   
             tags = temp.CompareTag("Money") || temp.CompareTag("Enemy") || temp.CompareTag("Portal") || temp.CompareTag("PortalShader") || temp.CompareTag("PowerUp");
             if (!tags)
                 temp.material = mat1;
@@ -451,6 +465,8 @@ public class ObjectPooling : MonoBehaviour
 
         Material mat = default;
 
+        ObjectPooling scenePooling = default;
+
 
         for (int i = 0; i < allObjFirstScene.Length; i++)
         {
@@ -463,13 +479,18 @@ public class ObjectPooling : MonoBehaviour
                 else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Ghiaccio")) { mat = biomes["Ghiaccio"][1]; }
                 else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Lava")) { mat = biomes["Lava"][1]; }
                 scene1parent = allObjFirstScene[i];
-                break;
+                
+            } else if (allObjFirstScene[i].CompareTag("Manager"))
+            {
+                scenePooling = allObjFirstScene[i].GetComponent<ObjectPooling>();
             }
         }      
 
         Renderer[] rendererFirst = default;
         if (scene1parent.gameObject != null)
             rendererFirst = scene1parent.GetComponentsInChildren<Renderer>();
+
+        if (scenePooling != null) scenePooling.PortalOffset();
 
         for (int i = 0; i < rendererFirst.Length; i++)
         {

@@ -52,6 +52,9 @@ public class MakePortalVisible : MonoBehaviour
                 StartCoroutine(WaitCor(4));
                 GameManager.instance.firstPortal = false;
             }
+
+            GameManager.instance.portalPos = transform.position;
+
             GameManager.instance.LoadScene(sceneTarget);
 
             GameManager.instance.currentScene = sceneTarget;
