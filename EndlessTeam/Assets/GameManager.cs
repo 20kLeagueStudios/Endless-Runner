@@ -88,7 +88,43 @@ public class GameManager : MonoBehaviour
 
     public AudioManager audioManager;
 
-  
+    //Enum sulla difficoltà
+    enum Mode
+    {
+        Easy,
+        Medium,
+        Hard
+    }
+
+
+    //Riferimento all'enum Mode
+    Mode mode;
+
+
+    public string GetMode()
+    {
+        return mode.ToString();
+    }
+
+    public void IncreaseDifficulty()
+    {
+        if (mode == Mode.Easy) mode = Mode.Medium;
+        else if (mode == Mode.Medium) mode = Mode.Hard;
+
+    }
+
+    public void ResetDifficulty()
+    {
+        mode = Mode.Easy;
+    }
+
+    public void DecreaseDifficulty()
+    {
+        if (mode == Mode.Medium) mode = Mode.Easy;
+        else if (mode == Mode.Hard) mode = Mode.Medium;
+
+    }
+
     public GameObject GetObjFromArray(string name, GameObject[] array)
     {
         foreach (GameObject temp in array)
@@ -112,6 +148,8 @@ public class GameManager : MonoBehaviour
         }
 
         Time.timeScale = 1;
+
+        mode = Mode.Easy;
     }
 
     void Start()
@@ -250,6 +288,7 @@ public class GameManager : MonoBehaviour
 
     public void Respawn()
     {
+        ResetDifficulty();
         Time.timeScale = 1;
         playerGb.GetComponent<PlayerMovement>().Resurrection();
         GameObject.FindObjectOfType<ObjectPooling>().CheckPointOffset();

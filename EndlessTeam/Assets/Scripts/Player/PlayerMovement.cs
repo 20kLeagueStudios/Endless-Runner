@@ -17,6 +17,8 @@ public class PlayerMovement : MonoBehaviour
 
     int currentObstacle = default;
 
+    int diffValue = 0;
+
     int currentScore = 0;
 
     int obstacleCount = 0;
@@ -191,8 +193,6 @@ public class PlayerMovement : MonoBehaviour
         {
             rayWall = true;
         }
-
-        if (Input.GetKeyDown(KeyCode.F)) transform.position = initialPos; //IMMAGINO SIA DA CANCELLARE KEVIN
 
         stopMovement = suggestions[1].activeSelf || suggestions[2].activeSelf || suggestions[3].activeSelf || GameManager.instance.playerDeath;
         bool stopJump = GameManager.instance.preDeath;
@@ -1014,6 +1014,8 @@ public class PlayerMovement : MonoBehaviour
         if (other.CompareTag("Obstacle"))
         {
             currentObstacle = other.gameObject.GetInstanceID();
+            GameManager.instance.DecreaseDifficulty();
+            Debug.Log("Difficoltà diminuita");
         }
         if (other.CompareTag("Point"))
         {
@@ -1024,7 +1026,11 @@ public class PlayerMovement : MonoBehaviour
                 obstacleCount = 0;
                 UpgradeSpeed();
             }
-            if (other.transform.parent.gameObject.GetInstanceID() != currentObstacle) GameManager.instance.IncreaseScore(200);
+            if (other.transform.parent.gameObject.GetInstanceID() != currentObstacle) {
+                Debug.Log("Difficoltà aumentata");
+                GameManager.instance.IncreaseDifficulty();
+                GameManager.instance.IncreaseScore(200); 
+            }
             else
             {
                 GameManager.instance.IncreaseScore(-250);

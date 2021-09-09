@@ -43,22 +43,12 @@ public class ObjectPooling : MonoBehaviour
 
     Dictionary<string, Material[]> biomes = new Dictionary<string, Material[]>();
 
-    //Enum sulla difficoltà
-    enum Mode
-    {
-        Easy,
-        InterMedium,
-        Medium,
-        InterHard,
-        Hard
-    }
+    
 
     bool tutorial = true;
 
     string sceneName; //emanuele
 
-    //Riferimento all'enum Mode
-    Mode mode;
     #endregion
 
     private void Awake()
@@ -82,7 +72,6 @@ public class ObjectPooling : MonoBehaviour
 
     }
 
-
     void Start()
     {
     
@@ -99,8 +88,7 @@ public class ObjectPooling : MonoBehaviour
 
 
         speed = GameManager.instance.speed;
-        //Modalità iniziale a facile
-        mode = Mode.Easy;
+
         rend = emptyTile.transform.GetChild(0).GetComponent<Renderer>();
 
         //for(int i=0; i<tutorialTiles.Length; i++)
@@ -154,7 +142,6 @@ public class ObjectPooling : MonoBehaviour
           
             for (int i = 0; i < maxTiles; i++)
             {
-                Debug.Log("AddTiles");
                 AddTile();
             }
         }
@@ -219,7 +206,6 @@ public class ObjectPooling : MonoBehaviour
     //Aggiunge un tile alla fine della carreggiata
     private void AddTile()
     {
-
         GameObject tile = GetTile();
         if (tile)
         {
@@ -271,7 +257,7 @@ public class ObjectPooling : MonoBehaviour
     //Ritorna un tile random che dipende solo dalla difficoltà corrente
     private GameObject GetTile()
     {
-        List<GameObject> tempList = dictPool[mode.ToString()];
+        List<GameObject> tempList = dictPool[GameManager.instance.GetMode()];
 
         ShuffleList(tempList);
         if (tempList != null)
