@@ -58,7 +58,7 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
 
                     GameObject inventoryButton = Instantiate(inventory.inventoryButtonPrefab) as GameObject;
-                    inventoryButton.GetComponent<Image>().sprite = item.itemSO.itemImage;
+                    inventoryButton.transform.GetChild(2).GetComponent<Image>().sprite = item.itemSO.itemImage; 
                     inventoryButton.transform.SetParent(inventory.inventoryButtonContainer.transform, false);
 
                     inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemSO.itemName;
@@ -68,7 +68,6 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
                     //inventoryButton.GetComponent<Button>().interactable = false; ////
 
-
                 }
                 else
                 {
@@ -77,9 +76,7 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
                     //inventory.currencyText.text = tempCurrency.ToString(); ///
                 }
             }
-
-
-            
+     
         }
 
         Debug.Log("CURRENCY= " + currencyManager.currency);
@@ -121,12 +118,9 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
         inventory.audioManager.PlaySound("PulsanteAcquisti");
         inventory.itemsAcquistati.Add(item);
 
-
-
         Debug.Log(_string);
         Debug.Log("value"+Value);
 
-        //PlayerPrefs.SetInt(_string, Value);
     }
 
 
@@ -138,7 +132,7 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
         inventory = InventoryManager.instance;
 
-        currencyManager = this.transform.parent.root.transform.GetChild(7).GetComponent<CurrencyManager>();
+        currencyManager = this.transform.parent.root.transform.GetChild(6).GetComponent<CurrencyManager>();
 
          mydelegate += BuyItem;
         // mydelegate += AddItem;
@@ -147,11 +141,4 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
     }
 
 
-    void Update()
-    {
-
-    }
-
-
-    
 }

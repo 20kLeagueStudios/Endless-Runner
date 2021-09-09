@@ -5,9 +5,11 @@ using UnityEngine;
 public class PlayerSkin : MonoBehaviour
 {
     [SerializeField] ItemsShopSO[] skin;
-    [SerializeField] ItemsShopSO[] pilota;
+    [SerializeField] GameObject pilota;
 
     [SerializeField] GameObject player;
+
+    [SerializeField] GameObject pilotaPosition;
     //[SerializeField] GameObject accessorio;
 
     //public MeshFilter accessorioMesh;
@@ -18,8 +20,8 @@ public class PlayerSkin : MonoBehaviour
     void Start()
     {
 
-           // skin = InventoryManager.instance.itemSelected.ToArray();
-            pilota = InventoryManager.instance.gadgetSelected.ToArray();
+        // skin = InventoryManager.instance.itemSelected.ToArray();
+        pilota = Instantiate( InventoryManager.instance.pilotaSelected.itemSO.pilota, pilotaPosition.transform.position,pilotaPosition.transform.rotation, pilotaPosition.transform);
 
        
 

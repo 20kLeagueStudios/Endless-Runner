@@ -24,12 +24,16 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
-        itemShop = inventory.itemDisponibili.ToArray();
+         itemShop = inventory.itemDisponibili.ToArray();
 
         foreach (ItemsShopSO item in itemShop)
         {
             GameObject shopButton = Instantiate(shopButtonPrefab) as GameObject;
-            shopButton.GetComponent<Image>().sprite = item.itemSO.itemImage;
+
+            shopButton.transform.GetChild(2).GetComponent<Image>().sprite = item.itemSO.itemImage;
+
+            //shopButton.GetComponent<Image>().sprite = item.itemSO.itemImage;
+
             shopButton.transform.SetParent(shopButtonContainer.transform, false);
 
             shopButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemSO.itemName;

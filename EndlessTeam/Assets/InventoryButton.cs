@@ -171,12 +171,18 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
 
                 // inventory.pilotaMeshRenderer.enabled = true;
 
-                // GameObject accessorio = Instantiate(item.apilota, inventory.pilotaPosition.transform.position, Quaternion.identity) as GameObject;
+               //s GameObject pilotaprecedente = inventory.pilotaPosition.transform.GetChild(0).gameObject;
 
+                if (inventory.pilotaPosition.transform.childCount>0)
+                {
+                    Destroy(inventory.pilotaPosition.transform.GetChild(0).gameObject);
+
+                }
+                GameObject _pilota = Instantiate(item.itemSO.pilota, inventory.pilotaPosition.transform.position, inventory.pilotaPosition.transform.rotation, inventory.pilotaPosition.transform) as GameObject;
 
                 // inventory.pilotaMeshRenderer.material = item.itemSO.accessorioMaterial;
                 //  inventory.pilotaMesh.transform.localScale = item.itemSO.pilota.transform.localScale;
-                Debug.Log("CIAO");
+
             }
             else { 
 
@@ -192,13 +198,13 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
     // Start is called before the first frame update
     void Start()
     {
-        mainMenu = this.transform.parent.root.transform.GetChild(7).GetComponent<MainMenu>();
+        mainMenu = this.transform.parent.root.transform.GetChild(2).GetComponent<MainMenu>();
         // inventory = this.transform.parent.root.transform.GetChild(8).GetComponent<InventoryManager>(); //
 
         audioManager = InventoryManager.instance.audioManager; ;
         inventory = InventoryManager.instance;
 
-        currencyManager = this.transform.parent.root.transform.GetChild(7).GetComponent<CurrencyManager>();
+        currencyManager = this.transform.parent.root.transform.GetChild(6).GetComponent<CurrencyManager>();
 
         mydelegate2 += EquipItemSkin;
         //mydelegate2 += EquipItemAccessorio;
