@@ -1019,16 +1019,18 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.CompareTag("Point"))
         {
-
+            Debug.Log("obstacle count: " + obstacleCount);
             if (obstacleCount < 5) obstacleCount++;
             else
             {
                 obstacleCount = 0;
+                Debug.Log("Difficoltà aumentata");
+                GameManager.instance.IncreaseDifficulty();
                 UpgradeSpeed();
             }
             if (other.transform.parent.gameObject.GetInstanceID() != currentObstacle) {
-                Debug.Log("Difficoltà aumentata");
-                GameManager.instance.IncreaseDifficulty();
+                
+            
                 GameManager.instance.IncreaseScore(200); 
             }
             else
