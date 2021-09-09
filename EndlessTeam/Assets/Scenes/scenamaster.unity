@@ -14578,6 +14578,7 @@ GameObject:
   - component: {fileID: 8829172857042843389}
   - component: {fileID: 8829172857042843391}
   - component: {fileID: 6465376108666667598}
+  - component: {fileID: 3283469669695823916}
   m_Layer: 11
   m_Name: Player Kevinuzzo
   m_TagString: Player
@@ -14607,6 +14608,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!54 &3283469669695823916
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3283469669695823914}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 3
 --- !u!4 &3283469669720542708
 Transform:
   m_ObjectHideFlags: 0
@@ -16972,7 +16989,7 @@ CapsuleCollider:
   m_GameObject: {fileID: 3283469669695823914}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 1
+  m_Enabled: 0
   m_Radius: 1.41
   m_Height: 1
   m_Direction: 1
@@ -17446,10 +17463,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5000001
-  m_Height: 2
+  m_Radius: 0.199817
+  m_Height: 6.4982004
   m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+  m_Center: {x: 0.000000052981907, y: 2.4092677, z: -0.00000007947286}
 --- !u!4 &6982433175341429599
 Transform:
   m_ObjectHideFlags: 0
@@ -23494,8 +23511,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skin: []
-  pilota: []
+  pilota: {fileID: 0}
   player: {fileID: 3283469670698891134}
+  pilotaPosition: {fileID: 0}
 --- !u!114 &8829172857042843389
 MonoBehaviour:
   m_ObjectHideFlags: 0
