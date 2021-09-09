@@ -44,7 +44,9 @@ public class ItemSerializzato
     // 0 - Monete
     // 1 - Gemme
     public int currencyType;
-    
+    //riferimenti agli sprite per le valute
+    public Sprite moneySprite, gemsSprite;
+
     
     public int itemCost;
     public GameObject pilota;

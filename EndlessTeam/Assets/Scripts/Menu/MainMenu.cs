@@ -39,6 +39,9 @@ public class MainMenu : MonoBehaviour
             shopButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemSO.itemName;
             shopButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemSO.itemCost.ToString();
 
+            if (item.itemSO.currencyType == 0) { shopButton.transform.GetChild(3).GetComponent<Image>().sprite = item.itemSO.moneySprite; }
+            else { shopButton.transform.GetChild(3).GetComponent<Image>().sprite = item.itemSO.gemsSprite; }
+
         }
     }
 
