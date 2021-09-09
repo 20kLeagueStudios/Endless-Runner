@@ -1893,12 +1893,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.00012207031}
   m_SizeDelta: {x: 300, y: 595.69507}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!4 &322885424 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1386477391388188225, guid: 599aaec7b3064f745b824672d278e5ec,
-    type: 3}
-  m_PrefabInstance: {fileID: 961090428}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &375493635
 GameObject:
   m_ObjectHideFlags: 0
@@ -5122,95 +5116,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1001 &961090428
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1215537998224265719}
-    m_Modifications:
-    - target: {fileID: 1386477391388188225, guid: 599aaec7b3064f745b824672d278e5ec,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1386477391388188225, guid: 599aaec7b3064f745b824672d278e5ec,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 50
-      objectReference: {fileID: 0}
-    - target: {fileID: 1386477391388188225, guid: 599aaec7b3064f745b824672d278e5ec,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1386477391388188225, guid: 599aaec7b3064f745b824672d278e5ec,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1386477391388188225, guid: 599aaec7b3064f745b824672d278e5ec,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1386477391388188225, guid: 599aaec7b3064f745b824672d278e5ec,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1386477391388188225, guid: 599aaec7b3064f745b824672d278e5ec,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1386477391388188225, guid: 599aaec7b3064f745b824672d278e5ec,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1386477391388188225, guid: 599aaec7b3064f745b824672d278e5ec,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1386477391388188225, guid: 599aaec7b3064f745b824672d278e5ec,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1386477391388188225, guid: 599aaec7b3064f745b824672d278e5ec,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1386477391388188225, guid: 599aaec7b3064f745b824672d278e5ec,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 55.400875
-      objectReference: {fileID: 0}
-    - target: {fileID: 1386477391388188225, guid: 599aaec7b3064f745b824672d278e5ec,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 55.400875
-      objectReference: {fileID: 0}
-    - target: {fileID: 1386477391388188225, guid: 599aaec7b3064f745b824672d278e5ec,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 55.400875
-      objectReference: {fileID: 0}
-    - target: {fileID: 2318144801282037788, guid: 599aaec7b3064f745b824672d278e5ec,
-        type: 3}
-      propertyPath: m_Name
-      value: alieno1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5241560646141264479, guid: 599aaec7b3064f745b824672d278e5ec,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: e4a69fb8bf90e3d41b9892d56a2018f2, type: 2}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 599aaec7b3064f745b824672d278e5ec, type: 3}
 --- !u!1 &966428739
 GameObject:
   m_ObjectHideFlags: 0
@@ -6409,6 +6314,36 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1081563476}
   m_CullTransparentMesh: 0
+--- !u!1 &1093925360
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1093925361}
+  m_Layer: 0
+  m_Name: pilota_EMPTY
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1093925361
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1093925360}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 49.924744, z: 12.608595}
+  m_LocalScale: {x: 45, y: 45, z: 45}
+  m_Children: []
+  m_Father: {fileID: 1215537998224265719}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1096693527
 GameObject:
   m_ObjectHideFlags: 0
@@ -9732,6 +9667,14 @@ MonoBehaviour:
     pitch: 1
     loop: 0
     playOnAwake: 0
+  - audioMixerGroup: {fileID: 4044451216966895478, guid: f076a61f292bafc4da5e904bed331807,
+      type: 2}
+    clipName: LivelloGhiaccio
+    audioClip: {fileID: 8300000, guid: 8146200a9941de845a7a6d8bbad1bdac, type: 3}
+    volume: 0.2
+    pitch: 1
+    loop: 0
+    playOnAwake: 0
 --- !u!1 &1750439780
 GameObject:
   m_ObjectHideFlags: 0
@@ -12537,7 +12480,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8335918951223006749}
-  - {fileID: 322885424}
+  - {fileID: 1093925361}
   m_Father: {fileID: 81349268952591378}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -16590,7 +16533,7 @@ PrefabInstance:
     - target: {fileID: 6565710215739372171, guid: 8e4021b4fe0fdab4fbc0439215f68223,
         type: 3}
       propertyPath: y
-      value: 0
+      value: -7
       objectReference: {fileID: 0}
     - target: {fileID: 6565710215739372172, guid: 8e4021b4fe0fdab4fbc0439215f68223,
         type: 3}
@@ -22940,8 +22883,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skin: []
-  pilota: []
+  pilota: {fileID: 0}
   player: {fileID: 3283469670698891134}
+  pilotaPosition: {fileID: 1093925360}
 --- !u!114 &8829172857042843389
 MonoBehaviour:
   m_ObjectHideFlags: 0

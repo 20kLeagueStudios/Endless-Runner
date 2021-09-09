@@ -55,26 +55,6 @@ public class InventoryManager : MonoBehaviour
 
 
 
-    //public void PopulateSaveData(SaveData saveData)
-    //{
-    //    saveData.items = this.itemsAcquistati;
-    //}
-
-    //void SaveJsonData()
-    //{
-    //    SaveData saveData = new SaveData();
-
-    //    this.PopulateSaveData(saveData);
-    //    Debug.Log("SALVA " + saveData.items.Count);
-
-    //    if (FileManager.WriteToFile("SaveData1", saveData.ToJson()))
-    //    {
-
-
-    //    }
-
-    //}
-
 
     private void Awake()
     {
@@ -146,6 +126,7 @@ public class InventoryManager : MonoBehaviour
 
             itemListIndex.Add(defaultItems[1].itemSO.id);
             itemListIndex.Add(defaultItems[0].itemSO.id);
+
         }
 
         foreach (int  id in itemListIndex)
@@ -164,11 +145,16 @@ public class InventoryManager : MonoBehaviour
 
         }
 
+            
         foreach (ItemsShopSO item in itemsAcquistati)
         {
           
             GameObject inventoryButton = Instantiate(inventoryButtonPrefab) as GameObject;
-            inventoryButton.GetComponent<Image>().sprite = item.itemSO.itemImage;
+            //inventoryButton.GetComponent<Image>().sprite = item.itemSO.itemImage;
+
+            inventoryButton.transform.GetChild(2).GetComponent<Image>().sprite = item.itemSO.itemImage;
+
+
             inventoryButton.transform.SetParent(inventoryButtonContainer.transform, false);
 
             inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemSO.itemName;
