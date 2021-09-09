@@ -57,7 +57,7 @@ public class GameManager : MonoBehaviour
 
     public TextLanguageChange dropdownText;
 
-    public int currentMoney;
+    public int currentMoney, currentGems;
 
     public int moneyInMatch = 0;
 
@@ -154,15 +154,15 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        audioManager.PlaySound("LivelloFunghi");
+        if(audioManager) audioManager.PlaySound("LivelloFunghi");
 
-        parentTiles.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = startShader;
+        if(parentTiles) parentTiles.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = startShader;
          
         LoadScene(2);
          
-        moneyText.text = ": " + currentMoney.ToString();
+        if(moneyText) moneyText.text = ": " + currentMoney.ToString();
 
-        initialPlayerPos = playerGb.transform.position;
+        if(playerGb) initialPlayerPos = playerGb.transform.position;
 
         LoadData();
        
@@ -175,8 +175,9 @@ public class GameManager : MonoBehaviour
         if (temp != null)
         {
             currentMoney = temp.money;
+            currentGems = temp.gems;
             savedLanguage = temp.savedLanguage;
-            moneyText.text = currentMoney.ToString();
+            if(moneyText) moneyText.text = currentMoney.ToString();
         }
     }
 

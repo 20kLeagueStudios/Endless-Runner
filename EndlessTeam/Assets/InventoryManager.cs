@@ -31,7 +31,7 @@ public class InventoryManager : MonoBehaviour
     public List<ItemsShopSO> gadgetSelected; //PENSO DA RIMUOVERE
 
     public CurrencyManager shop;
-    public Text currencyText;
+    public Text moneyText, gemsText;
 
     public GameObject previewTutaPrefab;
 
@@ -55,7 +55,7 @@ public class InventoryManager : MonoBehaviour
 
 
 
-
+    
     private void Awake()
     {
         if (instance == null)
@@ -69,7 +69,7 @@ public class InventoryManager : MonoBehaviour
 
         matArray = new Material[player.transform.GetChild(1).GetComponent<SkinnedMeshRenderer>().sharedMaterials.Length];
  
-        currencyText.text = shop.currency.ToString();
+        //moneyText.text = shop.monete.ToString();
         //tutaMesh = previewTutaPrefab.GetComponent<MeshRenderer>();
         //skinnedTutaMesh = previewTutaPrefab.GetComponent<SkinnedMeshRenderer>();
 
@@ -118,6 +118,11 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
 
+        //moneyText.text = shop.monete.ToString();
+        //tutaMesh = previewTutaPrefab.GetComponent<MeshRenderer>();
+        //skinnedTutaMesh = previewTutaPrefab.GetComponent<SkinnedMeshRenderer>();
+
+
         audioManager.PlaySound("MusicaMenu");
        
 
@@ -164,14 +169,20 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-
     // Update is called once per frame
     void Update()
     {
         previewTutaPrefab.transform.Rotate(0, previewRotationSpeed * Time.deltaTime, 0);
 
     }
- 
+ /// <summary>
+ /// Permette ad altri script di aggiornare i testi delle valute in base ai valori dentro il riferimento al CurrencyManager
+ /// </summary>
+    public void UpdateCurrencyTexts()
+    {
+        moneyText.text = shop.monete.ToString();
+        gemsText.text = shop.gemme.ToString();
+    }
 
 }
 

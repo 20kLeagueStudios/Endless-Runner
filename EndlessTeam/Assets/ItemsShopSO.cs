@@ -37,6 +37,15 @@ public class ItemSerializzato
 
     public Sprite itemImage;
     public Texture playerSkin;
+
+
+    //(GABRIELE)
+    //indica il tipo di valuta da usare per comprare questa skin
+    // 0 - Monete
+    // 1 - Gemme
+    public int currencyType;
+    
+    
     public int itemCost;
     public GameObject pilota;
     public SkinnedMeshRenderer skinnedMeshRender; 

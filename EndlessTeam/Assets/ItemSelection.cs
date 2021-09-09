@@ -36,19 +36,71 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
     public void BuyItem(ItemsShopSO item)
     {
-        int tempCurrency = currencyManager.currency;
-        int _itemCost = item.itemSO.itemCost;
+        //int tempMoney = currencyManager.monete;
+        //int tempGems = currencyManager.gemme;
+        Debug.Log("MONETE PRIMA DELL'ACQUISTO = " + currencyManager.monete);
+        Debug.Log("GEMME PRIMA DELL'ACQUISTO = " + currencyManager.gemme);
+        //int _itemCost = item.itemSO.itemCost;
       
 
-        if (currencyManager.currency > 0 && shopped==false) 
+        if (currencyManager.monete > 0 && shopped==false) 
         {
             if (!inventory.itemsAcquistati.Contains(item)) //if aggiuntoora
             {
-                if (currencyManager.currency - item.itemSO.itemCost > 0 && shopped == false)
+                Debug.Log("Tipo di valuta per la skin selezionata" + item.itemSO.currencyType);
+                //(GABRIELE)
+                //se questa skin deve essere presa con monete...
+                if (item.itemSO.currencyType == 0)
                 {
-                    currencyManager.currency -= item.itemSO.itemCost;
+                    //...se la skin non è già stata comprata e il giocatore ha abbastanza monete...
+                    if (shopped == false && currencyManager.monete - item.itemSO.itemCost > 0)
+                    {
+                        //...la skin viene comprata e vengono diminuite le monete in possesso del giocatore
+                        currencyManager.monete -= item.itemSO.itemCost;
+                        shopped = true;
+                        Debug.Log("Comprata skin con monete");
+                    }
+                    Debug.Log("Controllo acquisto per monete");
+                }
+                else //altrimenti, deve essere presa con le gemme, quindi...
+                {
+                    //...se la skin non è già stata comprata e il giocatore ha abbastanza monete...
+                    if (shopped == false && currencyManager.gemme - item.itemSO.itemCost > 0)
+                    {
+                        //...la skin viene comprata e vengono diminuite le gemme in possesso del giocatore
+                        currencyManager.gemme -= item.itemSO.itemCost;
+                        shopped = true;
+                        Debug.Log("Comprata skin con gemme");
+                    }
+                    Debug.Log("Controllo acquisto per gemme");
+                }
+                //se la skin è stata comprata, la aggiunge all'inventario
+                if (shopped)
+                {
 
-                    tempCurrency = currencyManager.currency;
+                    AddItem(item);
+                    AddIndexItem(item);
+
+
+                    GameObject inventoryButton = Instantiate(inventory.inventoryButtonPrefab) as GameObject;
+                    inventoryButton.transform.GetChild(2).GetComponent<Image>().sprite = item.itemSO.itemImage;
+                    inventoryButton.transform.SetParent(inventory.inventoryButtonContainer.transform, false);
+
+                    inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemSO.itemName;
+                    inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemSO.itemCost.ToString();
+
+                    inventory.moneyText.text = (currencyManager.monete).ToString();
+
+                    inventory.gemsText.text = (currencyManager.gemme).ToString();
+                    //inventoryButton.GetComponent<Button>().interactable = false;
+                    Debug.Log("La skin comprata è stata aggiunta all'inventario");
+                }
+                /*
+                if (currencyManager.monete - item.itemSO.itemCost > 0 && shopped == false)
+                {
+                    currencyManager.monete -= item.itemSO.itemCost;
+
+                    tempMoney = currencyManager.monete;
 
                     shopped = true;
 
@@ -64,7 +116,7 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
                     inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemSO.itemName;
                     inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemSO.itemCost.ToString();
 
-                    inventory.currencyText.text = (tempCurrency).ToString();  
+                    inventory.currencyText.text = (tempMoney).ToString();  
 
                     //inventoryButton.GetComponent<Button>().interactable = false; ////
 
@@ -72,18 +124,21 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
                 else
                 {
                     Debug.Log("POLPETTA= ");
-                    currencyManager.currency = tempCurrency;
+                    currencyManager.monete = tempMoney;
                     //inventory.currencyText.text = tempCurrency.ToString(); ///
                 }
+                */
             }
      
         }
 
-        Debug.Log("CURRENCY= " + currencyManager.currency);
-        Debug.Log("temp= " + tempCurrency);
+        Debug.Log("MONETE DOPO ACQUISTO = " + currencyManager.monete);
+        Debug.Log("GEMME DOPO ACQUISTO = " + currencyManager.gemme);
 
         Debug.Log("SHOPPED= " + shopped);
-
+        //(GABRIELE)
+        //infine, la variabile per lo shop viene riportata al valore originale per i prossimi acquisti
+        shopped = false;
 
     }
 
