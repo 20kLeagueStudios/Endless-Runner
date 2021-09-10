@@ -17,15 +17,17 @@ public class PlayerSkin : MonoBehaviour
 
 
 
-    void Start()
+    void Awake()
     {
 
         // skin = InventoryManager.instance.itemSelected.ToArray();
-        pilota = Instantiate( InventoryManager.instance.pilotaSelected.itemSO.pilota, pilotaPosition.transform.position,pilotaPosition.transform.rotation, pilotaPosition.transform);
-
+        if (InventoryManager.instance.pilotaSelected != null)
+        {
+            pilota = Instantiate(InventoryManager.instance.pilotaSelected.itemSO.pilota, pilotaPosition.transform.position, pilotaPosition.transform.rotation, pilotaPosition.transform);
+        }
        
 
-            player.GetComponent<MeshRenderer>().material.mainTexture = skin[0].itemSO.playerSkin;
+            //player.GetComponent<MeshRenderer>().material.mainTexture = skin[0].itemSO.playerSkin;
 
         /*
         if (gadget[0].itemSO.itemName != "DEFULT ACCESSORIO")
@@ -48,10 +50,5 @@ public class PlayerSkin : MonoBehaviour
     }
     */
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
 }
