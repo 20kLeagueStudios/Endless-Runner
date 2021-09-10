@@ -16,30 +16,40 @@ public class MakePortalVisible : MonoBehaviour
     public Animator portaleAnim;
     public BoxCollider colliderPortello;
 
-    bool a = true;
-    void AperturaPortelli()
+    bool check = true;
+   
+    public void AperturaPortelli()
     {
-        if (a)
+        if (check)
         {
-            a = false;
             portaleAnim.SetTrigger("apri");
             colliderPortello.enabled = false;
-            
         }
+
+    }
+
+    IEnumerator  AperturaCoroutine()
+    {
+        yield return new WaitForSeconds(0.3f);
+        AperturaPortelli();
     }
 
     void ChiusuraPortelli()
     {
+        check = false;
+
+        if(!colliderPortello.enabled)
         portaleAnim.SetTrigger("chiudi");
-        colliderPortello.enabled = true;
+
+        colliderPortello.enabled = true;    
+       
     }
 
     private void OnTriggerEnter(Collider other)
     {
         //Creo la scena e la imposto come corrente
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && check==true)
         {
-            AperturaPortelli();
 
             once = true;
             if (GameManager.instance.firstPortal)
@@ -56,11 +66,14 @@ public class MakePortalVisible : MonoBehaviour
             GameManager.instance.portalPos = transform.position;
 
             GameManager.instance.LoadScene(sceneTarget);
-
+            
             GameManager.instance.currentScene = sceneTarget;
 
-        }
+            //AperturaPortelli();
 
+            StartCoroutine(AperturaCoroutine());
+
+        }
 
     }
 
@@ -73,15 +86,16 @@ public class MakePortalVisible : MonoBehaviour
 
             ObjectPooling.instance.ChangeMatFromTo(sceneTarget);
 
-
         }
     }
 
 
-
     private void OnDisable()
     {
+        check = true;
+
         if (gameObject.GetInstanceID() == GameManager.portal) GameManager.portal = -1;
+
     }
 
 
@@ -90,8 +104,12 @@ public class MakePortalVisible : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            ChiusuraPortelli();
-            GameManager.instance.DeactivateScene(sceneTarget);
+            check = false;
+           // ChiusuraPortelli();
+           
+            StartCoroutine(delay()); ///
+            // GameManager.instance.DeactivateScene(sceneTarget);
+
             GameManager.portal = -1;
         }
     }
@@ -102,12 +120,17 @@ public class MakePortalVisible : MonoBehaviour
         if (suggestion.activeSelf) TutorialManager.instance.DisableHint();
     }
 
-
-
-
-    private void Update()
+    IEnumerator delay() 
     {
 
+        ChiusuraPortelli();
+        yield return new WaitForSecondsRealtime(.15f);
+        GameManager.instance.DeactivateScene(sceneTarget);
+        
+        yield return null;
+      
     }
+
+
 
 }
