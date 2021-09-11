@@ -5,7 +5,7 @@ using UnityEngine;
 public class CurrencyManager : MonoBehaviour
 {
 
-    private static bool saveOnce = false;
+    private static bool savedAlreadyOnce = false;
 
     //variabili per le valute di gioco
     public int monete, gemme;
@@ -26,19 +26,20 @@ public class CurrencyManager : MonoBehaviour
         //aggiorna i testi delle value
         im.UpdateCurrencyTexts();
 
-        saveOnce = false;
+        savedAlreadyOnce = false;
 
     }
 
     private void OnDestroy()
     {
-        if (saveOnce)
+        //se lo stato delle valute non è già stato salvato, viene salvato
+        if (!savedAlreadyOnce)
         {
             //salva i dati nel GameManager
             gm.currentMoney = monete;
             gm.currentGems = gemme;
             SaveSystem.Saving(gm);
-            saveOnce = true;
+            savedAlreadyOnce = true;
 
         }
     

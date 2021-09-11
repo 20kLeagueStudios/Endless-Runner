@@ -20,6 +20,14 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
     bool shopped = false;
 
+    //(GABRIELE)
+    //riferimento statico all'oggetto selezionato e visto in preview(e pronto per l'acquisto)
+    private static ItemsShopSO itemInPreview;
+    //indica se questo è un oggetto da comprare o un bottone che deve usare una di queste funzioni(come il bottone per l'acquisto)
+    [SerializeField]
+    private bool isAnItem = true;
+
+
     public void OnPointerClick(PointerEventData eventData)
     {
         indexSkin = eventData.pointerCurrentRaycast.gameObject.transform.parent.GetSiblingIndex();
@@ -33,116 +41,132 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
         }
 
     }
-
-    public void BuyItem(ItemsShopSO item)
+    /// <summary>
+    /// Permette di comprare l'oggetto previamente selezionato(questa funzione viene richiamata dal bottone COMPRA nello shop)
+    /// </summary>
+    public void BuyItem()
     {
         //int tempMoney = currencyManager.monete;
         //int tempGems = currencyManager.gemme;
         Debug.Log("MONETE PRIMA DELL'ACQUISTO = " + currencyManager.monete);
         Debug.Log("GEMME PRIMA DELL'ACQUISTO = " + currencyManager.gemme);
         //int _itemCost = item.itemSO.itemCost;
-      
 
-        if (currencyManager.monete > 0 && shopped==false) 
+        //se esiste un oggetto in preview, procede con il controllo per l'acquisto
+        if (itemInPreview)
         {
-            if (!inventory.itemsAcquistati.Contains(item)) //if aggiuntoora
+            if (currencyManager.monete > 0 && currencyManager.gemme > 0 && shopped == false)
             {
-                Debug.Log("Tipo di valuta per la skin selezionata" + item.itemSO.currencyType);
-                //(GABRIELE)
-                //se questa skin deve essere presa con monete...
-                if (item.itemSO.currencyType == 0)
+                if (!inventory.itemsAcquistati.Contains(itemInPreview)) //if aggiuntoora
                 {
-                    //...se la skin non è già stata comprata e il giocatore ha abbastanza monete...
-                    if (shopped == false && currencyManager.monete - item.itemSO.itemCost > 0)
+                    Debug.Log("Tipo di valuta per la skin selezionata" + itemInPreview.itemSO.currencyType);
+                    //(GABRIELE)
+                    //se questa skin deve essere presa con monete...
+                    if (itemInPreview.itemSO.currencyType == 0)
                     {
-                        //...la skin viene comprata e vengono diminuite le monete in possesso del giocatore
+                        //...se la skin non è già stata comprata e il giocatore ha abbastanza monete...
+                        if (shopped == false && currencyManager.monete - itemInPreview.itemSO.itemCost > 0)
+                        {
+                            //...la skin viene comprata e vengono diminuite le monete in possesso del giocatore
+                            currencyManager.monete -= itemInPreview.itemSO.itemCost;
+                            shopped = true;
+                            Debug.Log("Comprata skin con monete");
+                        }
+                        Debug.Log("Controllo acquisto per monete");
+                    }
+                    else //altrimenti, deve essere presa con le gemme, quindi...
+                    {
+                        //...se la skin non è già stata comprata e il giocatore ha abbastanza monete...
+                        if (shopped == false && currencyManager.gemme - itemInPreview.itemSO.itemCost > 0)
+                        {
+                            //...la skin viene comprata e vengono diminuite le gemme in possesso del giocatore
+                            currencyManager.gemme -= itemInPreview.itemSO.itemCost;
+                            shopped = true;
+                            Debug.Log("Comprata skin con gemme");
+                        }
+                        Debug.Log("Controllo acquisto per gemme");
+                    }
+                    //se la skin è stata comprata, la aggiunge all'inventario
+                    if (shopped)
+                    {
+
+                        AddItem(itemInPreview);
+                        AddIndexItem(itemInPreview);
+
+
+                        GameObject inventoryButton = Instantiate(inventory.inventoryButtonPrefab) as GameObject;
+                        inventoryButton.transform.GetChild(2).GetComponent<Image>().sprite = itemInPreview.itemSO.itemImage;
+                        inventoryButton.transform.SetParent(inventory.inventoryButtonContainer.transform, false);
+
+                        inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = itemInPreview.itemSO.itemName;
+                        inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = itemInPreview.itemSO.itemCost.ToString();
+
+                        inventory.moneyText.text = (currencyManager.monete).ToString();
+
+                        inventory.gemsText.text = (currencyManager.gemme).ToString();
+                        //inventoryButton.GetComponent<Button>().interactable = false;
+                        Debug.Log("La skin comprata è stata aggiunta all'inventario");
+                    }
+                    /*
+                    if (currencyManager.monete - item.itemSO.itemCost > 0 && shopped == false)
+                    {
                         currencyManager.monete -= item.itemSO.itemCost;
+
+                        tempMoney = currencyManager.monete;
+
                         shopped = true;
-                        Debug.Log("Comprata skin con monete");
+
+
+                        AddItem(item); ///////////////////////////////////////////////////
+                        AddIndexItem(item);
+
+
+                        GameObject inventoryButton = Instantiate(inventory.inventoryButtonPrefab) as GameObject;
+                        inventoryButton.transform.GetChild(2).GetComponent<Image>().sprite = item.itemSO.itemImage; 
+                        inventoryButton.transform.SetParent(inventory.inventoryButtonContainer.transform, false);
+
+                        inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemSO.itemName;
+                        inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemSO.itemCost.ToString();
+
+                        inventory.currencyText.text = (tempMoney).ToString();  
+
+                        //inventoryButton.GetComponent<Button>().interactable = false; ////
+
                     }
-                    Debug.Log("Controllo acquisto per monete");
-                }
-                else //altrimenti, deve essere presa con le gemme, quindi...
-                {
-                    //...se la skin non è già stata comprata e il giocatore ha abbastanza monete...
-                    if (shopped == false && currencyManager.gemme - item.itemSO.itemCost > 0)
+                    else
                     {
-                        //...la skin viene comprata e vengono diminuite le gemme in possesso del giocatore
-                        currencyManager.gemme -= item.itemSO.itemCost;
-                        shopped = true;
-                        Debug.Log("Comprata skin con gemme");
+                        Debug.Log("POLPETTA= ");
+                        currencyManager.monete = tempMoney;
+                        //inventory.currencyText.text = tempCurrency.ToString(); ///
                     }
-                    Debug.Log("Controllo acquisto per gemme");
+                    */
                 }
-                //se la skin è stata comprata, la aggiunge all'inventario
-                if (shopped)
-                {
 
-                    AddItem(item);
-                    AddIndexItem(item);
-
-
-                    GameObject inventoryButton = Instantiate(inventory.inventoryButtonPrefab) as GameObject;
-                    inventoryButton.transform.GetChild(2).GetComponent<Image>().sprite = item.itemSO.itemImage;
-                    inventoryButton.transform.SetParent(inventory.inventoryButtonContainer.transform, false);
-
-                    inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemSO.itemName;
-                    inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemSO.itemCost.ToString();
-
-                    inventory.moneyText.text = (currencyManager.monete).ToString();
-
-                    inventory.gemsText.text = (currencyManager.gemme).ToString();
-                    //inventoryButton.GetComponent<Button>().interactable = false;
-                    Debug.Log("La skin comprata è stata aggiunta all'inventario");
-                }
-                /*
-                if (currencyManager.monete - item.itemSO.itemCost > 0 && shopped == false)
-                {
-                    currencyManager.monete -= item.itemSO.itemCost;
-
-                    tempMoney = currencyManager.monete;
-
-                    shopped = true;
-
-                    
-                    AddItem(item); ///////////////////////////////////////////////////
-                    AddIndexItem(item);
-
-
-                    GameObject inventoryButton = Instantiate(inventory.inventoryButtonPrefab) as GameObject;
-                    inventoryButton.transform.GetChild(2).GetComponent<Image>().sprite = item.itemSO.itemImage; 
-                    inventoryButton.transform.SetParent(inventory.inventoryButtonContainer.transform, false);
-
-                    inventoryButton.transform.GetChild(0).GetComponent<TMP_Text>().text = item.itemSO.itemName;
-                    inventoryButton.transform.GetChild(1).GetComponent<TMP_Text>().text = item.itemSO.itemCost.ToString();
-
-                    inventory.currencyText.text = (tempMoney).ToString();  
-
-                    //inventoryButton.GetComponent<Button>().interactable = false; ////
-
-                }
-                else
-                {
-                    Debug.Log("POLPETTA= ");
-                    currencyManager.monete = tempMoney;
-                    //inventory.currencyText.text = tempCurrency.ToString(); ///
-                }
-                */
             }
-     
+
         }
+        else { Debug.LogError("(GABRIELE)NON C'E' NESSUN OGGETTO IN PREVIEW"); }
 
         Debug.Log("MONETE DOPO ACQUISTO = " + currencyManager.monete);
         Debug.Log("GEMME DOPO ACQUISTO = " + currencyManager.gemme);
 
         Debug.Log("SHOPPED= " + shopped);
+        Debug.Log("SKIN CHE SI E' PROVATO A COMPRARE: " + itemInPreview);
         //(GABRIELE)
         //infine, la variabile per lo shop viene riportata al valore originale per i prossimi acquisti
         shopped = false;
 
     }
 
-   
+    
+    public void SelectItem(ItemsShopSO selectedItem)
+    {
+        //imposta l'oggetto da comprare a quello appena selezionato
+        itemInPreview = selectedItem;
+
+        //FAR VEDERE OGGETTO IN PREVIEW COME NELL'INVENTARIO
+
+    }
 
 
     /*
@@ -189,7 +213,8 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
         currencyManager = this.transform.parent.root.transform.GetChild(6).GetComponent<CurrencyManager>();
 
-         mydelegate += BuyItem;
+        //mydelegate += BuyItem;
+        if(isAnItem) mydelegate += SelectItem;
         // mydelegate += AddItem;
         // mydelegate += Accessorio;
 

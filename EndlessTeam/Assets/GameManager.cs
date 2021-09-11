@@ -150,6 +150,10 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
 
         mode = Mode.Easy;
+
+        //(GABRIELE)Spostato il caricamento qui, in modo che venga fatto prima degli altri script che chiedono riferimento ai valori salvati
+        LoadData();
+
     }
 
     void Start()
@@ -164,7 +168,7 @@ public class GameManager : MonoBehaviour
 
         if(playerGb) initialPlayerPos = playerGb.transform.position;
 
-        LoadData();
+        //LoadData();
        
     }
 
