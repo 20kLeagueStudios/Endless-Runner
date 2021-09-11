@@ -122,7 +122,7 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
 
 
 
-        public void ChangePreviewTexture(ItemsShopSO item)
+    public void ChangePreviewTexture(ItemsShopSO item)
     {
         string _string = item.itemSO.itemType.ToString();
         if (_string == "Tuta")

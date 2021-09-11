@@ -14,7 +14,8 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
     OnClickDelegate mydelegate;
 
-    MainMenu mainMenu;
+
+    private MainMenu mainMenu;
     CurrencyManager currencyManager;
     InventoryManager inventory;
 
@@ -26,6 +27,11 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
     //indica se questo è un oggetto da comprare o un bottone che deve usare una di queste funzioni(come il bottone per l'acquisto)
     [SerializeField]
     private bool isAnItem = true;
+    //riferimento al manager della preview della tuta nello shop
+    [SerializeField]
+    private ShopPreviewManager spm = default;
+    //riferimento statico al manager della preview della tuta nello shop, per tutti i gameObject con questo script che vengono istanziati dopo lo Start
+    private static ShopPreviewManager staticSPM = default;
 
 
     public void OnPointerClick(PointerEventData eventData)
@@ -163,11 +169,10 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
     {
         //imposta l'oggetto da comprare a quello appena selezionato
         itemInPreview = selectedItem;
-
-        //FAR VEDERE OGGETTO IN PREVIEW COME NELL'INVENTARIO
+        //fa vedere la preview dell'oggetto da comprare
+        staticSPM.ChangePreviewTexture(selectedItem);
 
     }
-
 
     /*
     public void Pilota(ItemsShopSO item)
@@ -214,7 +219,12 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
         currencyManager = this.transform.parent.root.transform.GetChild(6).GetComponent<CurrencyManager>();
 
         //mydelegate += BuyItem;
+        //(GABRIELE)
+        //viene selezionato l'oggetto a cui questo script è attaccato solo se è un oggetto(e non il bottone d'acquisto con lo stesso script)
         if(isAnItem) mydelegate += SelectItem;
+
+        if(spm != null && staticSPM == null) { staticSPM = spm; }
+
         // mydelegate += AddItem;
         // mydelegate += Accessorio;
 
