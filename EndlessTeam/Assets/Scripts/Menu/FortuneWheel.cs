@@ -5,12 +5,15 @@ using UnityEngine.UI;
 
 public class FortuneWheel : MonoBehaviour
 {
-
-	public float reducer;
-	public float multiplier = 1;
-	bool round1 = true;
+	[SerializeField]
+	private float reducer;
+	[SerializeField]
+	private float multiplier = 1;
+	private bool round1 = true;
 	public bool isStoped = false;
-	public GameObject testo;
+	public static bool blocco = true;
+	[SerializeField]
+	private GameObject testo;
 	private int x;
 
 
@@ -34,10 +37,12 @@ public class FortuneWheel : MonoBehaviour
 		else
 		{
 			isStoped = true;
+	
 			if (x == 1)
             {
 				x = 0;
 				testo.SetActive(true);
+				blocco = false;
 			}
 			
 
@@ -63,6 +68,7 @@ public class FortuneWheel : MonoBehaviour
 	{
 		x = 1;
 		testo.SetActive(false);
+		blocco = true;
 		Reset();
 	}
 
