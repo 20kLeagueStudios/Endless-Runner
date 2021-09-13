@@ -4088,6 +4088,11 @@ PrefabInstance:
       propertyPath: gameOver
       value: 
       objectReference: {fileID: 297126127}
+    - target: {fileID: 4383324288116930372, guid: bc2f2235df5dd844e8ac038894fdb712,
+        type: 3}
+      propertyPath: bb
+      value: 
+      objectReference: {fileID: 2044353061}
     - target: {fileID: 4383324288116930373, guid: bc2f2235df5dd844e8ac038894fdb712,
         type: 3}
       propertyPath: m_Name
@@ -10402,12 +10407,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1659595321}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -5}
+  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0}
+  m_LocalPosition: {x: 0, y: 17479, z: 1741}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3283469669695823915}
-  m_RootOrder: 8
+  m_Father: {fileID: 2133689754035889957}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1750439780
 GameObject:
@@ -11985,7 +11990,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2044353056}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
@@ -12050,6 +12055,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossPositionToPlayer: {fileID: 1659595322}
+  minZDistance: -300
+  maxZDistance: 2000
+  smoothChangePos: 10
+  ph: {fileID: 8829172857042843389}
+  playerDefeated: 0
 --- !u!1 &2065099507
 GameObject:
   m_ObjectHideFlags: 0
@@ -13978,7 +13988,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: -174.02606, z: -12.41282}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
-  m_Children: []
+  m_Children:
+  - {fileID: 1659595322}
   m_Father: {fileID: 2089750054560299978}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -14838,7 +14849,6 @@ Transform:
   - {fileID: 3283469670997227464}
   - {fileID: 3283469669720542708}
   - {fileID: 4937705921710724200}
-  - {fileID: 1659595322}
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -23772,6 +23782,8 @@ MonoBehaviour:
   animator: {fileID: 3283469670698891132}
   canBeHit: 1
   canCollide: 1
+  bb: {fileID: 2044353061}
+  obstacleEnemyDmg: 1
 --- !u!114 &8829172857042843391
 MonoBehaviour:
   m_ObjectHideFlags: 0

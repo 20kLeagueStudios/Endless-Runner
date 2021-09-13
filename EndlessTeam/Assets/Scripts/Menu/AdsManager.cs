@@ -18,6 +18,11 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     [SerializeField]
     GameObject gameOver;
 
+    //(GABRIELE)
+    //riferimento allo script di comportamento del boss
+    [SerializeField]
+    private BossBehaviour bb = default;
+
     void Start()
     {
         Advertisement.AddListener(this);
@@ -79,6 +84,10 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
             {
                 GameManager.instance.Respawn();
                 if (gameOver.activeSelf) gameOver.SetActive(false);
+                //(GABRIELE)
+                //comunica al boss che il giocatore è di nuovo vivo
+                bb.PlayerRespawned();
+                
             }
             else
                 Debug.Log("hai guadagnato 30.000 euro");
