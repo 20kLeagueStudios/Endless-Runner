@@ -12057,9 +12057,10 @@ MonoBehaviour:
   bossPositionToPlayer: {fileID: 1659595322}
   minZDistance: -300
   maxZDistance: 2000
-  smoothChangePos: 10
+  smoothChangePos: 3
   ph: {fileID: 8829172857042843389}
   playerDefeated: 0
+  timeToWait: 0.5
 --- !u!1 &2065099507
 GameObject:
   m_ObjectHideFlags: 0
@@ -23778,7 +23779,7 @@ MonoBehaviour:
   healthBar: {fileID: 1160701111}
   gameScript: {fileID: 0}
   maxHealth: 10
-  currentHealth: 0
+  currentHealth: 5
   animator: {fileID: 3283469670698891132}
   canBeHit: 1
   canCollide: 1

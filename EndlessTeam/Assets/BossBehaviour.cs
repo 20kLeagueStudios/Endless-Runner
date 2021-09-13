@@ -1,4 +1,5 @@
 ﻿//Si occupa del comportamento del boss
+using System.Collections;
 using UnityEngine;
 
 public class BossBehaviour : MonoBehaviour
@@ -12,8 +13,6 @@ public class BossBehaviour : MonoBehaviour
     //indica quanto velocemente il boss cambia posizione
     [SerializeField]
     private float smoothChangePos = 10;
-    //indica la posizione Z iniziale, da cui poi far avvicinare il boss
-    //private float startZPosition;
     //indica di quanto deve essere moltiplicata la distanza ricevuta
     private float moltZDistance;
     //riferimento allo script di vita del giocatore
@@ -22,6 +21,9 @@ public class BossBehaviour : MonoBehaviour
     //indica se il giocatore ha perso o meno
     [HideInInspector]
     public bool playerDefeated = false;
+    //indica quanto tempo deve passare prima di allontanarsi dal giocatore
+    [SerializeField]
+    private float timeToWait = 0.5f;
 
 
     // Start is called before the first frame update
@@ -33,10 +35,10 @@ public class BossBehaviour : MonoBehaviour
         maxZDistance = minZDistance + (maxZDistance * 2);
         //il boss viene inizialmente messo alla posizione giusta(dietro il giocatore)
         transform.position = bossPositionToPlayer.position;
-        //ottiene la posizione da cui iniziare i calcoli per la distanza
-        //startZPosition = maxZDistance;
-
+        //calcola di quanto la distanza ricevuta come parametro nella funzione "ChangeZDistanceToPlayer" deve essere moltiplicata
         moltZDistance = (maxZDistance - minZDistance) / ph.GetMaxHealth();
+
+        StartCoroutine(GraduallyGetFarther());
         Debug.LogError("Sono Gabriele, nello script BossBehaviour ho fatto questo errore e faccio girare il boss. Quando si avrà la mesh finale, disattivare rotazione");
     }
 
@@ -65,8 +67,7 @@ public class BossBehaviour : MonoBehaviour
             //la distanza viene aumentata in base alla differenza tra la minima distanza e quella massima(diviso la vita massima del giocatore)
             zDistance *= moltZDistance;
             //Debug.Log("Aggiungi distanza: " + zDistance + " : è stata moltiplicata per " + moltZDistance);
-            //float newBossZPosition = bossPositionToPlayer.localPosition.z + zDistance;
-            float newBossZPosition = /*startZPosition*/maxZDistance + zDistance;
+            float newBossZPosition = maxZDistance + zDistance;
             //Debug.Log(newBossZPosition + " -> BossPos : " + minZDistance + " -> minDist : " + maxZDistance + " -> maxDist : " + bossPositionToPlayer.localPosition.z + " -> PreviaPos");
             newBossZPosition = Mathf.Clamp(newBossZPosition, minZDistance, maxZDistance);
             //cambia la posizione in base al valore calcolato
@@ -84,5 +85,25 @@ public class BossBehaviour : MonoBehaviour
         ChangeZDistanceToPlayer(ph.currentHealth, false);
 
     }
+    
+    private IEnumerator GraduallyGetFarther()
+    {
 
+        yield return new WaitForSeconds(timeToWait * 2);
+
+        float simulatePlayerHealth = ph.currentHealth;
+
+        while (simulatePlayerHealth < ph.GetMaxHealth())
+        {
+
+            simulatePlayerHealth++;
+
+            ChangeZDistanceToPlayer(simulatePlayerHealth, false);
+
+            yield return new WaitForSeconds(timeToWait);
+
+        }
+
+    }
+    
 }
