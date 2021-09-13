@@ -194,7 +194,7 @@ public class PlayerMovement : MonoBehaviour
             rayWall = true;
         }
 
-        stopMovement = suggestions[1].activeSelf || suggestions[2].activeSelf || suggestions[3].activeSelf || GameManager.instance.playerDeath;
+        stopMovement = suggestions[1].activeSelf || suggestions[2].activeSelf || suggestions[3].activeSelf || suggestions[4].activeSelf || suggestions[5].activeSelf || GameManager.instance.playerDeath;
         bool stopJump = GameManager.instance.preDeath;
 
         if (Time.time - scoreIncTime > .1f)

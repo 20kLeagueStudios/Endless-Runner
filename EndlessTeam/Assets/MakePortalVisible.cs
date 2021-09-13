@@ -38,10 +38,12 @@ public class MakePortalVisible : MonoBehaviour
     {
         check = false;
 
-        if(!colliderPortello.enabled)
-        portaleAnim.SetTrigger("chiudi");
+       
+        if (!colliderPortello.enabled)
+           portaleAnim.SetTrigger("chiudi");
 
-        colliderPortello.enabled = true;    
+        colliderPortello.enabled = true;
+       
        
     }
 
@@ -50,7 +52,7 @@ public class MakePortalVisible : MonoBehaviour
         //Creo la scena e la imposto come corrente
         if (other.CompareTag("Player") && check==true)
         {
-
+            GameManager.instance.currentPortal = this;
             once = true;
             if (GameManager.instance.firstPortal)
             {
@@ -131,6 +133,16 @@ public class MakePortalVisible : MonoBehaviour
       
     }
 
+    public void DisablePortal()
+    {
+        ChiusuraPortelli();
+  
+        if (gameObject.GetInstanceID() == GameManager.portal) GameManager.portal = -1;
 
+        check = true;
+        if (SceneManager.GetSceneByBuildIndex(sceneTarget).isLoaded)
+            GameManager.instance.DeactivateScene(sceneTarget);
+    }
+   
 
 }

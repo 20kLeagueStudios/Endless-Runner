@@ -77,6 +77,8 @@ public class GameManager : MonoBehaviour
     public bool firstPortal = true;
 
     public Vector3 portalPos;
+
+    public MakePortalVisible currentPortal;
     
     public GameObject[] suggestions;
 
@@ -292,7 +294,8 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
         playerGb.GetComponent<PlayerMovement>().Resurrection();
         GameObject.FindObjectOfType<ObjectPooling>().CheckPointOffset();
-        //ObjectPooling.instance.CheckPointOffset();
+        if (currentPortal != null && currentPortal.gameObject.activeSelf)
+            currentPortal.DisablePortal();
 
         retryText.GetComponent<TextMeshProUGUI>().fontSize = 5.2f;
         retryText.UpdateText("Gems to retry!", "Gemme per riprovare!");

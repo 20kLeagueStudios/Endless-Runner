@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 9051613952783147720}
   - component: {fileID: 4408583483351061324}
   m_Layer: 0
-  m_Name: Ground06
+  m_Name: Ground06-PORTAL
   m_TagString: Fungo
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2858,6 +2858,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9051613952783147720}
     m_Modifications:
+    - target: {fileID: 5419920084634941177, guid: 912502d87dba9c7489eb4cd361c31c9f,
+        type: 3}
+      propertyPath: sceneTarget
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7882167260661110457, guid: 912502d87dba9c7489eb4cd361c31c9f,
         type: 3}
       propertyPath: m_LocalPosition.x
