@@ -1942,7 +1942,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1.2
+  m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -4672,8 +4672,8 @@ MonoBehaviour:
   textToChange: {fileID: 0}
   italianText: Puoi attaccare un nemico saltandogli sopra effettuando uno slipe in
     basso mentre sei in aria!
-  englishText: You can attack an enemy from jumping on him by sliping down while
-    you are in the air!
+  englishText: You can attack an enemy jumping on him by sliping down while you are
+    in the air!
 --- !u!114 &847041226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7510,10 +7510,10 @@ RectTransform:
   m_Father: {fileID: 388297336}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1237734855
 GameObject:
@@ -8772,7 +8772,7 @@ MonoBehaviour:
   lm: {fileID: 1126274652}
   textToChange: {fileID: 1443983496}
   italianText: Sali sulla piattaforma per attivare un power up!
-  englishText: You can go on a platform to activate a power up!
+  englishText: You go on a platform to activate a power up!
 --- !u!114 &1443983496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8904,7 +8904,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 355.37195, y: 229.10907}
+  m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1453235445
 MonoBehaviour:
@@ -9994,24 +9994,24 @@ MonoBehaviour:
     - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
   - name: NemiciFunghi
     mat:
-    - {fileID: 2100000, guid: 07f16f2abf65dcf45ae2af1d973e16cd, type: 2}
-    - {fileID: 2100000, guid: aabd08d391e9216458352986fa4ba1c8, type: 2}
+    - {fileID: 2100000, guid: 8294e0d524ad06d41a1119d8e5674a76, type: 2}
+    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
   - name: NemiciDeserto
     mat:
     - {fileID: 2100000, guid: d3e54be065f66d84a95daa143a8260c1, type: 2}
-    - {fileID: 2100000, guid: 94de4cd1ccad2a94693595a07773f96c, type: 2}
+    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
   - name: NemiciGhiaccio
     mat:
     - {fileID: 2100000, guid: 518de63666e2e94469b332d9787bfa67, type: 2}
-    - {fileID: 2100000, guid: fc343ef2b063a0645a3930d068f2f409, type: 2}
+    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
   - name: NemiciCristalli
     mat:
     - {fileID: 2100000, guid: e51c6cf7d61d1df44a3567059be30669, type: 2}
-    - {fileID: 2100000, guid: ea9ad7871bdab874abd5ee36fcdca0f7, type: 2}
+    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
   - name: NemiciLava
     mat:
     - {fileID: 2100000, guid: e14d8780bd00fbf4398cf4140d2d7792, type: 2}
-    - {fileID: 2100000, guid: a1c0137f0f8f5aa49b796c37ff07fa5a, type: 2}
+    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
   playerGb: {fileID: 3283469669695823914}
   gemsImg: {fileID: 995142770}
   retryText: {fileID: 988321336}
@@ -10033,14 +10033,11 @@ MonoBehaviour:
   currentScene: -1
   firstPortal: 1
   portalPos: {x: 0, y: 0, z: 0}
-  currentPortal: {fileID: 0}
   suggestions:
   - {fileID: 122484081}
   - {fileID: 2065099507}
   - {fileID: 926762848}
   - {fileID: 1750439780}
-  - {fileID: 1248358813}
-  - {fileID: 931530175}
   parentTiles: {fileID: 4523336909541068390, guid: 31a674b1b79b8e74cb82b66466e416a3,
     type: 3}
   startShader: {fileID: 4800000, guid: 3ab026a016955254ba00bdc6eeee8928, type: 3}
@@ -10188,14 +10185,6 @@ MonoBehaviour:
       type: 2}
     clipName: LivelloLava
     audioClip: {fileID: 8300000, guid: 54f2eef9236e5b643adb17ca795840ad, type: 3}
-    volume: 0.2
-    pitch: 1
-    loop: 0
-    playOnAwake: 0
-  - audioMixerGroup: {fileID: 4044451216966895478, guid: f076a61f292bafc4da5e904bed331807,
-      type: 2}
-    clipName: Passo
-    audioClip: {fileID: 8300000, guid: d2c8068fbce04e24a90c7e020602c486, type: 3}
     volume: 0.2
     pitch: 1
     loop: 0
@@ -12184,7 +12173,7 @@ MonoBehaviour:
   lm: {fileID: 1126274652}
   textToChange: {fileID: 0}
   italianText: Puoi interagire con le trappole lucenti toccandole!
-  englishText: You can interact with traps by touching them!
+  englishText: You can interact with traps by touching!
 --- !u!1 &2140753285
 GameObject:
   m_ObjectHideFlags: 0
@@ -12289,111 +12278,17 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6160687600839070260}
   m_CullTransparentMesh: 0
---- !u!1001 &2623259856346256681
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 717913697652225281, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: positions.Array.data[0]
-      value: 
-      objectReference: {fileID: 1379334664}
-    - target: {fileID: 717913697652225281, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: positions.Array.data[1]
-      value: 
-      objectReference: {fileID: 530917935}
-    - target: {fileID: 717913697652225281, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: positions.Array.data[2]
-      value: 
-      objectReference: {fileID: 2107109720}
-    - target: {fileID: 717913697652225282, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 717913697652225282, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.92
-      objectReference: {fileID: 0}
-    - target: {fileID: 717913697652225282, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -55.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 717913697652225282, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 717913697652225282, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 717913697652225282, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 717913697652225282, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 717913697652225282, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 717913697652225282, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 717913697652225282, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 717913697652225282, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 717913697652225283, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: m_Name
-      value: Player Rotto
-      objectReference: {fileID: 0}
-    - target: {fileID: 6836522645626856404, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: GameOver
-      value: 
-      objectReference: {fileID: 297126127}
-    - target: {fileID: 6836522645626856404, guid: 1f8d952e58fff514090a2d4ec9abde94,
-        type: 3}
-      propertyPath: healthBar
-      value: 
-      objectReference: {fileID: 1160701111}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1f8d952e58fff514090a2d4ec9abde94, type: 3}
 --- !u!1 &3283469669695823914 stripped
 GameObject:
-  m_CorrespondingSourceObject: {fileID: 717913697652225283, guid: 1f8d952e58fff514090a2d4ec9abde94,
+  m_CorrespondingSourceObject: {fileID: 6894031004631751412, guid: 3424714d98324b64992c2192e3c2c634,
     type: 3}
-  m_PrefabInstance: {fileID: 2623259856346256681}
+  m_PrefabInstance: {fileID: 8231945600521206494}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &3283469669973041654 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 717913698434069727, guid: 1f8d952e58fff514090a2d4ec9abde94,
+  m_CorrespondingSourceObject: {fileID: 6894031004351388456, guid: 3424714d98324b64992c2192e3c2c634,
     type: 3}
-  m_PrefabInstance: {fileID: 2623259856346256681}
+  m_PrefabInstance: {fileID: 8231945600521206494}
   m_PrefabAsset: {fileID: 0}
 --- !u!222 &4072059818371832722
 CanvasRenderer:
@@ -12675,11 +12570,105 @@ RectTransform:
   m_AnchoredPosition: {x: 42.121964, y: 0.0000038146973}
   m_SizeDelta: {x: 227.27805, y: 50.97942}
   m_Pivot: {x: 0, y: 0.5}
+--- !u!1001 &8231945600521206494
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 628880001603259427, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: GameOver
+      value: 
+      objectReference: {fileID: 297126127}
+    - target: {fileID: 628880001603259427, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 1160701111}
+    - target: {fileID: 6894031004631751412, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: m_Name
+      value: Player Kevinuzzo2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894031004631751413, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894031004631751413, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.92
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894031004631751413, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -55.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894031004631751413, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894031004631751413, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894031004631751413, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894031004631751413, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894031004631751413, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894031004631751413, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894031004631751413, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894031004631751413, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6894031004631751414, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: positions.Array.data[0]
+      value: 
+      objectReference: {fileID: 1379334664}
+    - target: {fileID: 6894031004631751414, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: positions.Array.data[1]
+      value: 
+      objectReference: {fileID: 530917935}
+    - target: {fileID: 6894031004631751414, guid: 3424714d98324b64992c2192e3c2c634,
+        type: 3}
+      propertyPath: positions.Array.data[2]
+      value: 
+      objectReference: {fileID: 2107109720}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3424714d98324b64992c2192e3c2c634, type: 3}
 --- !u!114 &8829172857042843389 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6836522645626856404, guid: 1f8d952e58fff514090a2d4ec9abde94,
+  m_CorrespondingSourceObject: {fileID: 628880001603259427, guid: 3424714d98324b64992c2192e3c2c634,
     type: 3}
-  m_PrefabInstance: {fileID: 2623259856346256681}
+  m_PrefabInstance: {fileID: 8231945600521206494}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3283469669695823914}
   m_Enabled: 1
@@ -12689,9 +12678,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
 --- !u!114 &8829172857042843391 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6836522645626856406, guid: 1f8d952e58fff514090a2d4ec9abde94,
+  m_CorrespondingSourceObject: {fileID: 628880001603259425, guid: 3424714d98324b64992c2192e3c2c634,
     type: 3}
-  m_PrefabInstance: {fileID: 2623259856346256681}
+  m_PrefabInstance: {fileID: 8231945600521206494}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3283469669695823914}
   m_Enabled: 1
