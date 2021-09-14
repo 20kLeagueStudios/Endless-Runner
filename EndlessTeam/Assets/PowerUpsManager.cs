@@ -112,7 +112,7 @@ public class PowerUpsManager : MonoBehaviour
     }
     public void ChangeGravityOFF()
     {
-        playerMovement.jumpForce = 18;
+        playerMovement.jumpForce = 16;
         //setto la rotazione del giocatore a 0
         playerMovement.playerBody.transform.rotation = Quaternion.Euler(0, 0, 0);
         //setto la gravità a -30
@@ -129,7 +129,7 @@ public class PowerUpsManager : MonoBehaviour
     public void ChangeGravityON()
     {
 
-        playerMovement.jumpForce = -18;
+        playerMovement.jumpForce = -16;
         //setto la rotazione del giocatore a 180
         playerMovement.playerBody.transform.rotation = Quaternion.Euler(0, 0, 180);
         //alzo il groundCheck

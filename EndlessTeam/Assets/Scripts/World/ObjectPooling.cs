@@ -449,7 +449,7 @@ public class ObjectPooling : MonoBehaviour
 
         GameObject[] allObjFirstScene = firstScene.GetRootGameObjects();
 
-        Material mat = default;
+        Material mat = default, enemyMat = default;
 
         ObjectPooling scenePooling = default;
 
@@ -459,11 +459,11 @@ public class ObjectPooling : MonoBehaviour
             if(allObjFirstScene[i].CompareTag("ParentTile"))
             {
                 //allObjFirstScene[i].SetActive(false);
-                if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Fungo")) { mat = biomes["Fungo"][1]; }
-                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Deserto")) { mat = biomes["Deserto"][1]; }
-                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Cristallo")) { mat = biomes["Cristallo"][1]; }
-                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Ghiaccio")) { mat = biomes["Ghiaccio"][1]; }
-                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Lava")) { mat = biomes["Lava"][1]; }
+                if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Fungo")) { mat = biomes["Fungo"][1]; enemyMat = biomes["NemiciFunghi"][1]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Deserto")) { mat = biomes["Deserto"][1]; enemyMat = biomes["NemiciDeserto"][1]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Cristallo")) { mat = biomes["Cristallo"][1]; enemyMat = biomes["NemiciCristalli"][1]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Ghiaccio")) { mat = biomes["Ghiaccio"][1]; enemyMat = biomes["NemiciGhiaccio"][1]; }
+                else if (allObjFirstScene[i].transform.GetChild(0).CompareTag("Lava")) { mat = biomes["Lava"][1]; enemyMat = biomes["NemiciLava"][1]; }
                 scene1parent = allObjFirstScene[i];
                 
             } else if (allObjFirstScene[i].CompareTag("Manager"))
@@ -489,7 +489,7 @@ public class ObjectPooling : MonoBehaviour
                 if (!temp.CompareTag("Invisible")) temp.enabled = true;
             }
             else if (temp.CompareTag("Money")) { temp.material = biomes["Money"][1]; temp.enabled = true; }
-            else if (temp.CompareTag("Enemy")) { temp.material = biomes["Enemy"][1]; temp.enabled = true; }
+            else if (temp.CompareTag("Enemy")) { temp.material = enemyMat; temp.enabled = true; }
             else if (temp.CompareTag("Portal")) { temp.material = biomes["Portal"][1]; temp.enabled = true; }
             else if (temp.CompareTag("PowerUp")) { temp.material = biomes["PowerUp"][1]; temp.enabled = true; }
         }
