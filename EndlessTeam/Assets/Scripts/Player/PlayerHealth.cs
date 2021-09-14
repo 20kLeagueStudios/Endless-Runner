@@ -8,7 +8,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField]
     ObjectPooling objectPooling;
     [SerializeField]
-    MeshRenderer playerMesh;
+    SkinnedMeshRenderer[] playerMesh;
     [SerializeField]
     PlayerMovement playerMovement;
     [SerializeField]
@@ -28,7 +28,7 @@ public class PlayerHealth : MonoBehaviour
     int maxHealth;
     public int currentHealth;
 
-    Color playerColor;
+    Color[] playerColor;
 
     [SerializeField]
     Animator animator;
@@ -57,7 +57,10 @@ public class PlayerHealth : MonoBehaviour
         gameManagerSpeed = GameManager.instance.speed;
         gameScript = GameObject.FindObjectOfType<Game>();
         initialSpeed = GameManager.instance.speed;
-        playerColor = playerMesh.material.color;
+        for (int i = 0; i < playerMesh.Length; i++)
+        {
+            playerColor[i] = playerMesh[i].material.color;
+        }
         healthBar.SetMaxHealth(maxHealth);
         currentHealth = maxHealth / 2;
         healthBar.SetHealth(currentHealth);
@@ -89,20 +92,20 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    IEnumerator HitCor(MeshRenderer meshToFade)
+    IEnumerator HitCor()
     {
         if (!GameManager.instance.playerDeath)
         {
             GameManager.instance.speed = GameManager.instance.speed / 1.3f;
-            Color fadeColor = meshToFade.material.color;
+            //Color fadeColor = meshToFade.material.color;
 
-            fadeColor.a = .1f;
+            //fadeColor.a = .1f;
             for (int i = 0; i < 4; i++)
             {
                 yield return new WaitForSeconds(.3f);
-                meshToFade.material.color = fadeColor;
+                //meshToFade.material.color = fadeColor;
                 yield return new WaitForSeconds(.2f);
-                meshToFade.material.color = playerColor;
+                //meshToFade.material.color = playerColor;
             }
 
             GameManager.instance.speed = initialSpeed;
