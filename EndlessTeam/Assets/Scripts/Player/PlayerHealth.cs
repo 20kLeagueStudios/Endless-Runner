@@ -40,6 +40,13 @@ public class PlayerHealth : MonoBehaviour
     float gameManagerSpeed;
 
     public bool canCollide = true;
+    //(GABRIELE)
+    //riferimento allo script del boss
+    [SerializeField]
+    private BossBehaviour bb = default;
+    //indica quanti danni ottiene il giocatore dagli ostacoli
+    [SerializeField]
+    private int obstacleEnemyDmg = 1;
 
     IEnumerator CanCollideCo()
     {
@@ -76,7 +83,7 @@ public class PlayerHealth : MonoBehaviour
             if (other.CompareTag("Obstacle") || (LayerMask.LayerToName(other.gameObject.layer) == "Wall"))
             {
                 StartCoroutine("HitCor", playerMesh);
-                TakeDamage(1);
+                TakeDamage(obstacleEnemyDmg);
                 
                 StartCoroutine("CanCollideCo");
             }
@@ -85,7 +92,7 @@ public class PlayerHealth : MonoBehaviour
                 if (!other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Death"))
                 {
                     StartCoroutine("HitCor", playerMesh);
-                    TakeDamage(1);
+                    TakeDamage(obstacleEnemyDmg);
 
                     StartCoroutine("CanCollideCo");
                 }
@@ -130,7 +137,10 @@ public class PlayerHealth : MonoBehaviour
         {
             GameManager.instance.preDeath = true;
             animator.SetTrigger("Death");
-        }       
+        }
+        //(GABRIELE)Cambia la distanza tra il giocatore e il boss
+        if (bb != null) { bb.ChangeZDistanceToPlayer(/*value*/(maxHealth - currentHealth), true); }
+
     }
 
     public void Death()
@@ -141,6 +151,7 @@ public class PlayerHealth : MonoBehaviour
         if (once)
         {
             GameOver.SetActive(true);
+            bb.playerDefeated = true;
             once = false;
         }
 
@@ -163,4 +174,8 @@ public class PlayerHealth : MonoBehaviour
     //{
     //    yield return new WaitForSecondsRealtime()
     //}
+
+    //(GABRIELE)
+    public int GetMaxHealth() { return maxHealth; }
+
 }
