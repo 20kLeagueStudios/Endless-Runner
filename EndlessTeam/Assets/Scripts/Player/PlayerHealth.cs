@@ -57,10 +57,12 @@ public class PlayerHealth : MonoBehaviour
         gameManagerSpeed = GameManager.instance.speed;
         gameScript = GameObject.FindObjectOfType<Game>();
         initialSpeed = GameManager.instance.speed;
+        /*
         for (int i = 0; i < playerMesh.Length; i++)
         {
             playerColor[i] = playerMesh[i].material.color;
         }
+        */
         healthBar.SetMaxHealth(maxHealth);
         currentHealth = maxHealth / 2;
         healthBar.SetHealth(currentHealth);
