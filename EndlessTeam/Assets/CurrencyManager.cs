@@ -30,7 +30,7 @@ public class CurrencyManager : MonoBehaviour
 
     }
 
-    private void OnDestroy()
+    private void OnApplicationQuit()
     {
         //se lo stato delle valute non è già stato salvato, viene salvato
         if (!savedAlreadyOnce)
@@ -43,6 +43,21 @@ public class CurrencyManager : MonoBehaviour
 
         }
     
+    }
+
+    private void OnDestroy()
+    {
+        //se lo stato delle valute non è già stato salvato, viene salvato
+        if (!savedAlreadyOnce)
+        {
+            //salva i dati nel GameManager
+            gm.currentMoney = monete;
+            gm.currentGems = gemme;
+            SaveSystem.Saving(gm);
+            savedAlreadyOnce = true;
+
+        }
+
     }
 
 }
