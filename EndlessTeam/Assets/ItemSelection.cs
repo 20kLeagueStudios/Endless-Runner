@@ -61,7 +61,7 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
         //se esiste un oggetto in preview, procede con il controllo per l'acquisto
         if (itemInPreview)
         {
-            if (currencyManager.monete > 0 && currencyManager.gemme > 0 && shopped == false)
+            if ((currencyManager.monete > 0 || currencyManager.gemme > 0) && shopped == false)
             {
                 if (!inventory.itemsAcquistati.Contains(itemInPreview)) //if aggiuntoora
                 {
