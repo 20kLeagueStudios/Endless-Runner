@@ -126,7 +126,7 @@ public class PlayerHealth : MonoBehaviour
 
     }
 
-    void TakeDamage(int value)
+    public void TakeDamage(int value)
     {
         currentHealth -= value;
         if (currentHealth > 0)

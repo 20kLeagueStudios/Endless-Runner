@@ -95,7 +95,8 @@ public class EnemySmoothHor : MonoBehaviour, IDamageable
     public void Death()
     {
         dead = true;
-        audioManager.PlaySound("MorteNemico");
+        audioManager.PlaySound("MoneyBag");
+        GameManager.instance.currentMoney += 50;
         anim.SetTrigger("Death");
         //transform.gameObject.SetActive(false);
         StopAllCoroutines();

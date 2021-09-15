@@ -361,10 +361,10 @@ public class ObjectPooling : MonoBehaviour
     {
         GameObject scene1parent = default, scene2parent = default;
 
+        Renderer boss = GameManager.instance.boss;
+
         Scene firstScene = SceneManager.GetSceneByBuildIndex(scene1),
               secondScene = SceneManager.GetSceneByBuildIndex(scene2);
-
-
 
         GameObject[] allObjFirstScene = firstScene.GetRootGameObjects(),
                      allObjSecondScene = secondScene.GetRootGameObjects();
@@ -435,6 +435,8 @@ public class ObjectPooling : MonoBehaviour
             else if (temp.CompareTag("Portal")) temp.material = biomes["Portal"][0];
             else if (temp.CompareTag("PowerUp")) temp.material = biomes["PowerUp"][0];
         }
+
+        boss.material = mat2;
 
 
     }
