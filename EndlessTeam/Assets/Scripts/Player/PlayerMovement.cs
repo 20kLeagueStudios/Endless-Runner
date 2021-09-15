@@ -1019,12 +1019,13 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.CompareTag("Point"))
         {
-            Debug.Log("obstacle count: " + obstacleCount);
+           
             if (obstacleCount < 5) obstacleCount++;
             else
             {
                 obstacleCount = 0;
-                Debug.Log("Difficoltà aumentata");
+                //Recupero un punto vita
+                healthScript.TakeDamage(-1);
                 GameManager.instance.IncreaseDifficulty();
                 UpgradeSpeed();
             }

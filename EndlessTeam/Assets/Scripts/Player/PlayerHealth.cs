@@ -128,7 +128,7 @@ public class PlayerHealth : MonoBehaviour
 
     }
 
-    void TakeDamage(int value)
+    public void TakeDamage(int value)
     {
         dannoAnimator.SetTrigger("danno");
 

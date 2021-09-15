@@ -124,7 +124,8 @@ public class EnemyTowardsPlayer : MonoBehaviour, IDamageable
 
     public void Death()
     {
-        audioManager.PlaySound("MorteNemico");
+        audioManager.PlaySound("MoneyBag");
+        GameManager.instance.currentMoney += 50;
         anim.SetTrigger("Death");
         StopAllCoroutines();
         this.gameObject.SetActive(false);

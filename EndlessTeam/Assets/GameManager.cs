@@ -38,6 +38,8 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     TextLanguageChange retryText;
 
+    public Renderer boss;
+
     int respawnCount = 0;
 
     public bool playerDeath = false, preDeath = false;
