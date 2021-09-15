@@ -48,6 +48,8 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField]
     private int obstacleEnemyDmg = 1;
 
+    [SerializeField] Animator dannoAnimator;
+
     IEnumerator CanCollideCo()
     {
         canCollide = false;
@@ -128,6 +130,8 @@ public class PlayerHealth : MonoBehaviour
 
     void TakeDamage(int value)
     {
+        dannoAnimator.SetTrigger("danno");
+
         currentHealth -= value;
         if (currentHealth > 0)
             healthBar.SetHealth(currentHealth);

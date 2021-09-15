@@ -132,7 +132,7 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
         inventory = InventoryManager.instance;
 
-        currencyManager = this.transform.parent.root.transform.GetChild(6).GetComponent<CurrencyManager>();
+        currencyManager = this.transform.parent.root.transform.GetChild(7).GetComponent<CurrencyManager>();
 
          mydelegate += BuyItem;
         // mydelegate += AddItem;
