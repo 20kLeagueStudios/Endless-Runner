@@ -37,6 +37,7 @@ public class LanguageManager : MonoBehaviour
     //all'inizio della scena la lingua viene cambiata in base all'ultima lingua impostata dal giocatore nella scena precedente
     void Start()
 	{
+		
 		//ottiene il riferimento al GameManag
 		//g = GetComponent<GameManag>();
 		//se esiste il riferimento alla dropdown list per il cambio della lingua...
