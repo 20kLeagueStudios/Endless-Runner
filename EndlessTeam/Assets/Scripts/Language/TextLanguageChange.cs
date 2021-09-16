@@ -8,6 +8,9 @@ public class TextLanguageChange : MonoBehaviour
     //riferimento al manager delle lingue di gioco
     [SerializeField]
     private LanguageManager lm = default;
+
+    [SerializeField] MainMenu mainmenu = default;
+
     //riferimento al testo da cambiare
     [SerializeField]
     private TextMeshProUGUI textToChange = default;
@@ -20,11 +23,15 @@ public class TextLanguageChange : MonoBehaviour
     private void Start()
     {
         //si aggiunge alla lista dei testi da cambiare al cambio di lingua
+        if(mainmenu==null)
         lm.textsToChangeLanguage.Add(this);
+        else mainmenu.textsToChangeLanguage.Add(this);
         //se non si è messo il testo da cambiare come riferimento nell'editor, prende il componente Text dentro il gameObject
         if (textToChange == null) { textToChange = GetComponent<TextMeshProUGUI>(); Debug.Log(gameObject + " cambia testo di " + textToChange); }
         //infine cambia il testo in base alla lingua corrente
-        ChangeLanguage(lm.GetCurrentLanguage());
+        if (mainmenu == null)
+            ChangeLanguage(lm.GetCurrentLanguage());
+        else ChangeLanguage(mainmenu.GetCurrentLanguage());
 
     }
     /// <summary>
@@ -43,6 +50,7 @@ public class TextLanguageChange : MonoBehaviour
                 {
                     //cambia il testo in italiano
                     textToChange.text = englishText;
+                    PlayerPrefs.SetInt("savedLanguage", 0);//////
                     break;
 
                 }
@@ -51,6 +59,7 @@ public class TextLanguageChange : MonoBehaviour
                 {
                     //cambia il testo in inglese
                     textToChange.text = italianText;
+                    PlayerPrefs.SetInt("savedLanguage", 1);/////////
                     break;
 
                 }
@@ -104,7 +113,9 @@ public class TextLanguageChange : MonoBehaviour
         //aggiorna il testo inglese al parametro del testo inglese ricevuto
         this.englishText = englishText;
         //infine, cambia il testo da mostrare in base alla lingua corrente
+        if(mainmenu==null)
         ChangeLanguage(lm.GetCurrentLanguage());
+        else ChangeLanguage(mainmenu.GetCurrentLanguage());
 
     }
 

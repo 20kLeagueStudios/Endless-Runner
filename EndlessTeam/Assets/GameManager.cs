@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.Audio;
 using System.IO;
 using System;
 
@@ -89,6 +90,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] Shader startShader;
 
     public AudioManager audioManager;
+    public AudioMixer audioMixerMusica;
+
+    public float volumeMusicaIniziale;
+
 
     //Enum sulla difficoltà
     enum Mode
@@ -152,6 +157,9 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1;
 
         mode = Mode.Easy;
+
+        savedLanguage= PlayerPrefs.GetInt("savedLanguage");
+
     }
 
     void Start()
@@ -177,7 +185,7 @@ public class GameManager : MonoBehaviour
         if (temp != null)
         {
             currentMoney = temp.money;
-            savedLanguage = temp.savedLanguage;
+           // savedLanguage = temp.savedLanguage;
             moneyText.text = currentMoney.ToString();
         }
     }
