@@ -5,88 +5,79 @@ using UnityEngine.UI;
 
 public class FortuneWheel : MonoBehaviour
 {
+	[SerializeField]
+	private float reducer;
+	[SerializeField]
+	private float multiplier = 1;
+	private bool round1 = true;
+	public bool isStoped = false;
+	public static bool blocco = true;
+	[SerializeField]
+	private GameObject testo;
+	private int x;
 
-    private int randomValue;
-    private float timeInterval;
-    private bool coroutineAllowed;
-    private int finalAngle;
 
-    [SerializeField]
-    private Text winText;
+	void Start()
+	{
+		testo.SetActive(false);
+		reducer = Random.Range(0.01f, 0.3f);
+		x = 0;
+	}
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        coroutineAllowed = true;
-    }
+	// Update is called once per frameQ
+	void FixedUpdate()
+	{
 
-    // Update is called once per frame
-    void Update()
-    {
+		
 
-        Debug.Log(finalAngle);
-    }
+		if (multiplier > 0)
+		{
+			transform.Rotate(Vector3.forward, 1 * multiplier);
+		}
+		else
+		{
+			isStoped = true;
+	
+			if (x == 1)
+            {
+				x = 0;
+				testo.SetActive(true);
+				blocco = false;
+			}
+			
 
-    private IEnumerator Spin()
-    {
-        coroutineAllowed = false;
-        randomValue = Random.Range(20, 30);
-        timeInterval = 0.1f;
+		}
 
-        for(int i = 0; i < randomValue; i++)
-        {
-            transform.Rotate(0, 0, 22.5f);
-            if (i > Mathf.RoundToInt(randomValue * 0.5f))
-                timeInterval = 0.2f;
-            if (i > Mathf.RoundToInt(randomValue * 0.85f))
-                timeInterval = 0.4f;
-            yield return new WaitForSeconds(timeInterval);
-        }
+		if (multiplier < 20 && !round1)
+		{
+			multiplier += 0.1f;
+		}
+		else
+		{
+			round1 = true;
+		}
 
-        if (Mathf.RoundToInt(transform.eulerAngles.z) % 45 != 0)
-            transform.Rotate(0, 0, 22.5f);
+		if (round1 && multiplier > 0)
+		{
+			multiplier -= reducer;
+		}
+	}
 
-        finalAngle = Mathf.RoundToInt(transform.eulerAngles.z);
-        
-        switch (finalAngle)
-        {
-            case 0:
-                winText.text = "Verde acqua";
-                break;
 
-            case 45:
-                winText.text = "Azzurro";
-                break;
+	public void GiraRuota()
+	{
+		x = 1;
+		testo.SetActive(false);
+		blocco = true;
+		Reset();
+	}
 
-            case 90:
-                winText.text = "Blu";
-                break;
-
-            case 135:
-                winText.text = "Viola";
-                break;
-
-            case 180:
-                winText.text = "Porpora";
-                break;
-
-            case 225:
-                winText.text = "Arancione";
-                break;
-
-            case 270:
-                winText.text = "Giallo";
-                break;
-
-            case 315:
-                winText.text = "Verde";
-                break;
-        }
-        coroutineAllowed = true;
-    }
-
-    public void GiraRuota()
-    {
-        StartCoroutine(Spin());
-    }
+	void Reset()
+	{
+		multiplier = 1;
+		reducer = Random.Range(0.01f, 0.5f);
+		round1 = false;
+		isStoped = false;
+	}
 }
+
