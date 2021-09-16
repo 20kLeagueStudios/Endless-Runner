@@ -11,7 +11,7 @@ public class Energy : MonoBehaviour
     [SerializeField] Text energyText;
     [SerializeField] Text timerText;
     [SerializeField] Slider energyBar;
-    private int maxEnergy = 30;
+    private int maxEnergy = 10;
     private int currentEnergy ;
     private int restoreDuration = 500;
     private DateTime nextEnergyTime;
@@ -23,7 +23,7 @@ public class Energy : MonoBehaviour
     { //sistema salvataggio energia. Se nel player prefs non c'è currentEnergy, allora setta l'energia a 30,carica e ripristina energy
         if(!PlayerPrefs.HasKey("currentEnergy")) //oppure carica e ripristina l'energia
         {
-            PlayerPrefs.SetInt("currentEnergy", 30);
+            PlayerPrefs.SetInt("currentEnergy", 10);
             Load();
             StartCoroutine(RestoreEnergy());
         }
@@ -75,10 +75,14 @@ public class Energy : MonoBehaviour
     [SerializeField] InventoryManager inventory; //emanuele
     public void Play()
     {
-        SaveSystem.Saving(inventory); //emanuele
-
-        Debug.Log("CALAMARO");
-        SceneManager.LoadScene(1);
+        if(currentEnergy>=1)
+        {
+            SaveSystem.Saving(inventory); //emanuele
+            SceneManager.LoadScene(1);
+            Debug.Log("CALAMARO");
+          
+        }
+       
     }
 
     private IEnumerator RestoreEnergy()
