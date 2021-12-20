@@ -17,6 +17,8 @@ public class Energy : MonoBehaviour
     private DateTime nextEnergyTime;
     private DateTime lastEnergyTime;
     private bool isRestoring = false;
+    public static bool winEnergy = false;
+    public static int energyFortuneWheelWin;
 
     // Start is called before the first frame update
     void Start()
@@ -36,7 +38,16 @@ public class Energy : MonoBehaviour
 
     public void Update()
     {
-        if(currentEnergy<maxEnergy) //se l'energia è minore dell'energia massima richiamo la coorutine RestoreEnergy
+        if (winEnergy == true)
+        {
+            currentEnergy += energyFortuneWheelWin;
+            UpdateEnergyTimer();
+            UpdateEnergy();
+            Save();
+            winEnergy = false;
+        }
+
+        if (currentEnergy<maxEnergy) //se l'energia è minore dell'energia massima richiamo la coorutine RestoreEnergy
         {
             StartCoroutine(RestoreEnergy());
         }
