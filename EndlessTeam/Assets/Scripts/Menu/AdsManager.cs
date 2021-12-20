@@ -23,6 +23,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     [SerializeField]
     private BossBehaviour bb = default;
 
+
     void Start()
     {
         Advertisement.AddListener(this);
