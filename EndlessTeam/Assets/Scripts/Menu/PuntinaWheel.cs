@@ -14,12 +14,12 @@ public class PuntinaWheel : MonoBehaviour
 	private int x = 0;
 	// Use this for initialization
 	void Start()
-	{
-		testo.SetActive(false);
-	}
+    {
+        testo.SetActive(false);
+    }
 
-	// Update is called once per frame
-	void Update()
+    // Update is called once per frame
+    void Update()
 	{
         Debug.Log("il Blocco di sicurezza è " + FortuneWheel.blocco);
     }

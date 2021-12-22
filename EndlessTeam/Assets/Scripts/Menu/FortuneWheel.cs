@@ -15,6 +15,7 @@ public class FortuneWheel : MonoBehaviour
 	[SerializeField]
 	private GameObject testo;
 	private int x;
+	public static bool pulsanteBloccato;
 
 
 	void Start()
@@ -66,10 +67,14 @@ public class FortuneWheel : MonoBehaviour
 
 	public void GiraRuota()
 	{
-		x = 1;
-		testo.SetActive(false);
-		blocco = true;
-		Reset();
+		if(pulsanteBloccato==false)
+        {
+			x = 1;
+			testo.SetActive(false);
+			blocco = true;
+			Reset();
+		}
+		
 	}
 
 	void Reset()
