@@ -7,7 +7,7 @@ public class TrappolaCorda : MonoBehaviour
     public GameObject corda;
     public GameObject tronco;
     [SerializeField]
-    private Animator aim;
+    private Animator aim = default;
     void Start()
     {
         corda.SetActive(true);

@@ -39,7 +39,7 @@ public class BossBehaviour : MonoBehaviour
         moltZDistance = (maxZDistance - minZDistance) / ph.GetMaxHealth();
 
         StartCoroutine(GraduallyGetFarther());
-        Debug.LogError("Sono Gabriele, nello script BossBehaviour ho fatto questo errore e faccio girare il boss. Quando si avrà la mesh finale, disattivare rotazione");
+        //Debug.LogError("Sono Gabriele, nello script BossBehaviour ho fatto questo errore e faccio girare il boss. Quando si avrà la mesh finale, disattivare rotazione");
     }
 
     // Update is called once per frame

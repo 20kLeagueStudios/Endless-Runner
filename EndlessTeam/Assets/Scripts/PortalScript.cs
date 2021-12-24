@@ -15,7 +15,7 @@ public class PortalScript : MonoBehaviour
 
     int sceneTarget;
 
-    [SerializeField] MakePortalVisible makePortalVisible;
+    [SerializeField] MakePortalVisible makePortalVisible = default;
 
     static int currentScene = 2;
 

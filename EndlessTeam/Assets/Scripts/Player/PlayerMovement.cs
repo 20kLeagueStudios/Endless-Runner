@@ -9,7 +9,7 @@ public class PlayerMovement : MonoBehaviour
 {
     #region Variabili
     [SerializeField]
-    LayerMask interactiveMask;
+    LayerMask interactiveMask = default;
 
     Vector3 initialPos;
 
@@ -17,9 +17,9 @@ public class PlayerMovement : MonoBehaviour
 
     int currentObstacle = default;
 
-    int diffValue = 0;
+    //int diffValue = 0;
 
-    int currentScore = 0;
+    //int currentScore = 0;
 
     int obstacleCount = 0;
 
@@ -30,12 +30,12 @@ public class PlayerMovement : MonoBehaviour
     GameObject[] suggestions;
 
     [SerializeField]
-    PlayerHealth healthScript;
+    PlayerHealth healthScript = default;
     [SerializeField]
     ObjectPooling objectPooling;
     //Reference al Character controller per muovere il player
     [SerializeField]
-    CharacterController controller;
+    CharacterController controller = default;
 
     //Variabile per la velocità di movimento
     [Header("Velocità di movimento")]
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
     //0 Left, 1 Mid, 2 Right: Posizione delle carreggiate
     [Header("Posizioni delle carreggiate")]
     [SerializeField]
-    Transform[] positions;
+    Transform[] positions = default;
 
     /// <summary>
     /// <var name="startPos"> Posizione del tocco iniziale.</var>
@@ -85,12 +85,12 @@ public class PlayerMovement : MonoBehaviour
 
     //Layer del pavimento
     [SerializeField]
-    LayerMask groundMask;
+    LayerMask groundMask = default;
 
     //Altezza che dovrà avere il character controller e la posizione che dovrà avere il punto Y del character controller
     //Quando si utilizzerà lo slide
     [SerializeField]
-    float crouchHeight, crouchPos;
+    float crouchHeight = default, crouchPos = default;
 
     //Stessa cosa dello slide ma per ritornare allo stato di corsa
     float idleHeight, idlePos;
@@ -133,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
     bool rayWall = false;
     Ray ray;
     [SerializeField]
-    LayerMask wallMask;
+    LayerMask wallMask = default;
 
     public PowerUpsManager powerupsManager; ///
     Ray rayDown;
@@ -918,7 +918,6 @@ public class PlayerMovement : MonoBehaviour
             if (temp.activeSelf) TutorialManager.instance.DisableHint();
 
         string target = transform.position.x > wallPos.x ? target = "Right" : target = "Left";
-        Debug.Log(target);
         //Prendo la posizione iniziale del player
         Vector3 dest = transform.position;
         //Calcolo della posizione finale
@@ -931,7 +930,7 @@ public class PlayerMovement : MonoBehaviour
             //e sono a fuori sinistra
             if (currentState == "LeftOut")
             {
-                Debug.Log("Prova");
+                //Debug.Log("Prova");
                 //Vado nel sinistro
                 finalPos = positions[0].position;
                 currentState = "Left";
@@ -1015,7 +1014,7 @@ public class PlayerMovement : MonoBehaviour
         {
             currentObstacle = other.gameObject.GetInstanceID();
             GameManager.instance.DecreaseDifficulty();
-            Debug.Log("Difficoltà diminuita");
+            //Debug.Log("Difficoltà diminuita");
         }
         if (other.CompareTag("Point"))
         {

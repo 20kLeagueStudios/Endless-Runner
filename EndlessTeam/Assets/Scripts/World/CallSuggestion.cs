@@ -5,7 +5,7 @@ using UnityEngine;
 public class CallSuggestion : MonoBehaviour
 {
     [SerializeField]
-    int hint;
+    int hint = default;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))

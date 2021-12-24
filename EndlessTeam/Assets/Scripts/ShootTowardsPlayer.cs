@@ -7,7 +7,7 @@ public class ShootTowardsPlayer : MonoBehaviour
 
     float startTime, waitValue = 0.5f;
     [SerializeField]
-    GameObject bullet;
+    GameObject bullet = default;
 
     private void Start()
     {

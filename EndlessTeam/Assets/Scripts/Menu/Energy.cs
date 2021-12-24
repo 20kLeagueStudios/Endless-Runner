@@ -8,9 +8,9 @@ using UnityEngine.SceneManagement;
 public class Energy : MonoBehaviour
 {
 
-    [SerializeField] Text energyText;
-    [SerializeField] Text timerText;
-    [SerializeField] Slider energyBar;
+    [SerializeField] Text energyText = default;
+    [SerializeField] Text timerText = default;
+    [SerializeField] Slider energyBar = default;
     private int maxEnergy = 10;
     private int currentEnergy ;
     private int restoreDuration = 500;
@@ -66,13 +66,13 @@ public class Energy : MonoBehaviour
                 StartCoroutine(RestoreEnergy()); //avvio RestoreEnergy
             }
         }
-        else
-        {
-            Debug.Log("Energia finita!!"); //Sennò l'energia è finita
-        }
+        //else
+        //{
+        //    Debug.Log("Energia finita!!"); //Sennò l'energia è finita
+        //}
     }
 
-    [SerializeField] InventoryManager inventory; //emanuele
+    [SerializeField] InventoryManager inventory = default; //emanuele
     public void Play()
     {
         if(currentEnergy>=1)

@@ -9,9 +9,9 @@ public class MakePortalVisible : MonoBehaviour
     //Scena da creare quando sono vicino al portale
     public int sceneTarget;
 
-    int number = 3;
+    //int number = 3;
     bool once = false;
-    GameObject suggestion;
+    GameObject suggestion = default;
 
     public Animator portaleAnim;
     public BoxCollider colliderPortello;

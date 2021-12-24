@@ -9,7 +9,7 @@ public class PlayerSkin : MonoBehaviour
 
     [SerializeField] GameObject player;
 
-    [SerializeField] GameObject pilotaPosition;
+    [SerializeField] GameObject pilotaPosition = default;
     //[SerializeField] GameObject accessorio;
 
     //public MeshFilter accessorioMesh;
@@ -21,9 +21,12 @@ public class PlayerSkin : MonoBehaviour
     {
 
         // skin = InventoryManager.instance.itemSelected.ToArray();
-        if (InventoryManager.instance.pilotaSelected != null)
+        if (InventoryManager.instance != null)
         {
-            pilota = Instantiate(InventoryManager.instance.pilotaSelected.itemSO.pilota, pilotaPosition.transform.position, pilotaPosition.transform.rotation, pilotaPosition.transform);
+            if (InventoryManager.instance.pilotaSelected != null)
+            {
+                pilota = Instantiate(InventoryManager.instance.pilotaSelected.itemSO.pilota, pilotaPosition.transform.position, pilotaPosition.transform.rotation, pilotaPosition.transform);
+            }
         }
        
 

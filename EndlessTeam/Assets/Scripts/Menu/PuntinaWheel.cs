@@ -6,12 +6,12 @@ using UnityEngine.UI;
 public class PuntinaWheel : MonoBehaviour
 {
 	[SerializeField]
-	private FortuneWheel _spinner;
+	private FortuneWheel _spinner = default;
     [SerializeField]
-	private Text scoretext;
+	private Text scoretext = default;
 	[SerializeField]
-	private GameObject testo;
-	private int x = 0;
+	private GameObject testo = default;
+	//private int x = 0;
 	// Use this for initialization
 	void Start()
 	{
@@ -19,10 +19,10 @@ public class PuntinaWheel : MonoBehaviour
 	}
 
 	// Update is called once per frame
-	void Update()
-	{
-        Debug.Log("il Blocco di sicurezza è " + FortuneWheel.blocco);
-    }
+	//void Update()
+	//{
+ //       Debug.Log("il Blocco di sicurezza è " + FortuneWheel.blocco);
+ //   }
 
 	void OnTriggerStay2D(Collider2D col)
 	{

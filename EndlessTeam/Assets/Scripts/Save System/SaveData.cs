@@ -35,7 +35,7 @@ public class SaveData
     {
             for (int i = 0; i < inv.itemListIndex.Count; i++)
        {
-            Debug.Log(inv.itemListIndex[i]);
+            //Debug.Log(inv.itemListIndex[i]);
             this.itemListIndex.Add(inv.itemListIndex[i]); 
 
         }

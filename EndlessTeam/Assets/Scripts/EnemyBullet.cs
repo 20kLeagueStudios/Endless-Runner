@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyBullet : MonoBehaviour
 {
     [SerializeField]
-    float speed;
+    float speed = default;
 
     [SerializeField]
     LayerMask targetMask;

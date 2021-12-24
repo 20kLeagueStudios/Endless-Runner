@@ -17,7 +17,7 @@ public class ObjectPooling : MonoBehaviour
     List<Pool> poolList = new List<Pool>();
     //Carreggiata vuota da far apparire 6 volte ad inizio partita
     [SerializeField]
-    GameObject emptyTile;
+    GameObject emptyTile = default;
 
 
 
@@ -25,11 +25,11 @@ public class ObjectPooling : MonoBehaviour
     public List<GameObject> activeTiles = new List<GameObject>();
 
     [SerializeField]
-    GameObject[] tutorialTiles;
+    GameObject[] tutorialTiles = default;
 
     //Carreggiate massime iniziali con l'istanza emptyTile
     [SerializeField]
-    int maxTiles;
+    int maxTiles = default;
     //Velocità di movimento delle carreggiate
     public float speed; // 36;
     //Riferimento al renderer per calcolare la differenza di distanza del renderer per capire dove posizionare 
@@ -150,10 +150,10 @@ public class ObjectPooling : MonoBehaviour
         
     }
 
-    private void Update()
-    {
-        Debug.Log(GameManager.instance.firstGame);
-    }
+    //private void Update()
+    //{
+    //    Debug.Log(GameManager.instance.firstGame);
+    //}
 
     private void TutorialTiles()
     {
@@ -179,7 +179,10 @@ public class ObjectPooling : MonoBehaviour
 
         GameManager.instance.firstGame = false;
         tutorial = false;
-        AddTile();
+        for (int i = 0; i < maxTiles; i++)
+        {
+            AddTile();
+        }
         
     }
 
@@ -244,7 +247,7 @@ public class ObjectPooling : MonoBehaviour
 
         activeTiles[0].transform.position = new Vector3(0, 0, (zPortPos) + temp - 10f);
 
-        Debug.Log("Posizione portale: " + zPortPos);
+        //Debug.Log("Posizione portale: " + zPortPos);
 
         for (int i = 1; i < activeTiles.Count; i++)
         {
@@ -506,9 +509,9 @@ public class ObjectPooling : MonoBehaviour
 class Pool
 {
     [SerializeField]
-    string tag;
+    string tag = default;
 
-    public GameObject[] prefab;
+    public GameObject[] prefab = default;
 
     public string GetTag { get { return tag; } }
 

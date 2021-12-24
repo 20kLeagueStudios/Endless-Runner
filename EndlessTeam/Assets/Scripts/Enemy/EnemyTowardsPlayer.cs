@@ -43,7 +43,8 @@ public class EnemyTowardsPlayer : MonoBehaviour, IDamageable
         isAttack = false;
         // transform.localPosition = trackPos[rndPos].transform.localPosition;
         transform.localPosition = startPos;
-        anim.Play("GranchioRoccia_idle2");
+        //anim.Play("GranchioRoccia_idle2");
+        //anim.Play("GranchioRoccia_idle");
 
     }
 

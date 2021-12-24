@@ -5,7 +5,7 @@ using UnityEngine;
 public class Masso : MonoBehaviour
 {
     [SerializeField]
-    Transform finalPos;
+    Transform finalPos = default;
 
     float vel = 0;
 

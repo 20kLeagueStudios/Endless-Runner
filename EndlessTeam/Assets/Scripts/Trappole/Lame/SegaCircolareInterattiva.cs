@@ -16,10 +16,6 @@ public class SegaCircolareInterattiva : InterazioneTrappole
 
     [SerializeField] bool isInteractive = false;
 
-    private void Start()
-    {
-        //StartCoroutine(RotazioneLama());
-    }
     public override void OnPointerClick(PointerEventData eventData)
     {
         if (isInteractive)

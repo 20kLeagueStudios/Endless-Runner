@@ -8,8 +8,8 @@ public class SetMusicaVolume : MonoBehaviour
 {
 
     public AudioMixer audioMixerMusica;
-    [SerializeField] bool isSFX;
-    [SerializeField] Slider slider;
+    [SerializeField] bool isSFX = default;
+    [SerializeField] Slider slider = default;
 
     public float volumeMusica;
     public float volumeSFX;

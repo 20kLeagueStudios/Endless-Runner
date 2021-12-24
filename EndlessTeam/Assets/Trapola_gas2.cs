@@ -5,7 +5,7 @@ using UnityEngine;
 public class Trapola_gas2 : MonoBehaviour
 {
     [SerializeField]
-    private Animator aim;
+    private Animator aim = default;
     // Start is called before the first frame update
     void Start()
     {

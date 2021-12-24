@@ -8,17 +8,17 @@ public class PowerUpsManager : MonoBehaviour
 
     [SerializeField] Color playerColor;
 
-    [SerializeField] ParticleSystem ps;
+    [SerializeField] ParticleSystem ps = default;
 
-    [SerializeField] MeshRenderer playerMesh;
+    [SerializeField] MeshRenderer playerMesh = default;
 
     [SerializeField] float timePowerUp = 10f;
 
     [SerializeField] ObjectPooling objectPooling;
 
-    [SerializeField] PlayerHealth playerHealth;
+    [SerializeField] PlayerHealth playerHealth = default;
 
-    [SerializeField] PlayerMovement playerMovement;
+    [SerializeField] PlayerMovement playerMovement = default;
 
     AudioManager audioManager;
 
@@ -35,7 +35,7 @@ public class PowerUpsManager : MonoBehaviour
  
     /// variabili per il powerup slam
     public bool inSlam; ///
-    bool firstGrounded; ///
+    //bool firstGrounded = default; ///
     int groundedTime; /// da rimuovere se la funzione FirstgroundCheck viene rimossa
     public GameObject SlamArea;///
 
@@ -54,7 +54,7 @@ public class PowerUpsManager : MonoBehaviour
     {
         audioManager = GameManager.instance.audioManager;
         SlamArea.SetActive(false);///
-        firstGrounded = false;///
+        //firstGrounded = false;///
         inSlam = false;///
 
         //initialSpeed = objectPooling.speed;
@@ -308,7 +308,7 @@ public class PowerUpsManager : MonoBehaviour
             
             yield return new WaitForSeconds(0.2f);
             inSlam = false;
-            firstGrounded = false;
+            //firstGrounded = false;
         }
 
     }
