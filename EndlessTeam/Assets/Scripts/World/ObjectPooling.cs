@@ -139,7 +139,7 @@ public class ObjectPooling : MonoBehaviour
         if (GameManager.instance.firstGame)
         {
             SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 3; i++)
             {
                 AddTutorialTile();
             }
