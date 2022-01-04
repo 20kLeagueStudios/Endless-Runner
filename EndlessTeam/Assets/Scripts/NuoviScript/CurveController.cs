@@ -9,7 +9,7 @@ public class CurveController : MonoBehaviour
     public Transform CurveOrigin; //nelnostro caso il punto di origine è la camera
 
     [SerializeField]
-    float speed;
+    float speed = default;
 
     [Range(-50f, 50f)]
     [SerializeField]
@@ -61,7 +61,7 @@ public class CurveController : MonoBehaviour
             if (Mathf.Abs(y - maxY) < .01f)
                 y = maxY;
 
-            Debug.Log("Dentro");
+            //Debug.Log("Dentro");
             yield return null;
         }
 

@@ -46,7 +46,7 @@ public class CSVLoader
             {
                 fields[f] = fields[f].TrimStart(' ', surround);
                 fields[f] = fields[f].TrimEnd(surround);
-                Debug.Log(fields[f]);
+                //Debug.Log(fields[f]);
             }
 
             if (fields.Length > attributeIndex)

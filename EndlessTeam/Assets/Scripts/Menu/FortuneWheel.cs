@@ -13,7 +13,7 @@ public class FortuneWheel : MonoBehaviour
 	public bool isStoped = false;
 	public static bool blocco = true;
 	[SerializeField]
-	private GameObject testo;
+	private GameObject testo = default;
 	private int x;
 	public static bool pulsanteBloccato;
 

@@ -8,16 +8,16 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField]
     ObjectPooling objectPooling;
     [SerializeField]
-    SkinnedMeshRenderer[] playerMesh;
+    SkinnedMeshRenderer[] playerMesh = default;
     [SerializeField]
     PlayerMovement playerMovement;
     [SerializeField]
-    GameObject GameOver;
+    GameObject GameOver = default;
 
     public bool once = true;
 
     [SerializeField]
-    HealthBar healthBar;
+    HealthBar healthBar = default;
 
     [SerializeField]
     Game gameScript;
@@ -25,13 +25,13 @@ public class PlayerHealth : MonoBehaviour
     float initialSpeed;
 
     [SerializeField]
-    int maxHealth;
+    int maxHealth = default;
     public int currentHealth;
 
     Color[] playerColor;
 
     [SerializeField]
-    Animator animator;
+    Animator animator = default;
 
     public bool canBeHit = true;
 
@@ -48,7 +48,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField]
     private int obstacleEnemyDmg = 1;
 
-    [SerializeField] Animator dannoAnimator;
+    [SerializeField] Animator dannoAnimator = default;
 
     IEnumerator CanCollideCo()
     {

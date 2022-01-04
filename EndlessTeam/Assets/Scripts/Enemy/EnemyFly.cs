@@ -7,7 +7,7 @@ public class EnemyFly : MonoBehaviour
 
     Vector3 startPos; //cache della posizione iniziale
 
-    [SerializeField] float speed;
+    [SerializeField] float speed = default;
 
     [SerializeField]float waitTime=20f; //waittime e elapsedtime vengono usate dentro una coroutine
 
@@ -59,10 +59,4 @@ public class EnemyFly : MonoBehaviour
 
     }
 
-
-        // Update is called once per frame
-        void Update()
-    {
-   
-    }
 }

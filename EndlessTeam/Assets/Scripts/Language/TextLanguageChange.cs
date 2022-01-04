@@ -27,7 +27,7 @@ public class TextLanguageChange : MonoBehaviour
         lm.textsToChangeLanguage.Add(this);
         else mainmenu.textsToChangeLanguage.Add(this);
         //se non si è messo il testo da cambiare come riferimento nell'editor, prende il componente Text dentro il gameObject
-        if (textToChange == null) { textToChange = GetComponent<TextMeshProUGUI>(); Debug.Log(gameObject + " cambia testo di " + textToChange); }
+        if (textToChange == null) { textToChange = GetComponent<TextMeshProUGUI>(); /*Debug.Log(gameObject + " cambia testo di " + textToChange);*/ }
         //infine cambia il testo in base alla lingua corrente
         if (mainmenu == null)
             ChangeLanguage(lm.GetCurrentLanguage());
@@ -64,7 +64,7 @@ public class TextLanguageChange : MonoBehaviour
 
                 }
             //Nel caso viene dato un valore errato, viene segnalato nella console come errore
-            default: Debug.LogError("Aggiunto valore di lingua sbagliato: " + currentLanguage); break;
+            default: /*Debug.LogError("Aggiunto valore di lingua sbagliato: " + currentLanguage);*/ break;
 
         }
 

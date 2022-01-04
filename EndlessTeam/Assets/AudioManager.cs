@@ -102,7 +102,7 @@ public class Sound
 public class AudioManager : MonoBehaviour
 {
     [SerializeField]
-    Sound[] sound;
+    Sound[] sound = default;
 
     Dictionary<int, string> musiche = new Dictionary<int, string>();
 

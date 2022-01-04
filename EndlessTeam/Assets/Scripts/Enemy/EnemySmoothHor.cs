@@ -48,7 +48,7 @@ public class EnemySmoothHor : MonoBehaviour, IDamageable
        
     }
 
-    [SerializeField] bool deveAncheRuotare;
+    [SerializeField] bool deveAncheRuotare = default;
 
     IEnumerator ChangePos()
     {

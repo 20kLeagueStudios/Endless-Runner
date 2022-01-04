@@ -34,25 +34,25 @@ public class GameManager : MonoBehaviour
     GameObject playerGb;
 
     [SerializeField]
-    Image gemsImg;
+    Image gemsImg = default;
 
     [SerializeField]
-    TextLanguageChange retryText;
+    TextLanguageChange retryText = default;
 
     public Renderer boss;
 
-    int respawnCount = 0;
+    //int respawnCount = 0;
 
     public bool playerDeath = false, preDeath = false;
 
     [SerializeField]
-    TextMeshProUGUI moneyText;
+    TextMeshProUGUI moneyText = default;
 
     [SerializeField]
-    GameObject countDown;
+    GameObject countDown = default;
 
     [SerializeField]
-    TextMeshProUGUI scoreText;
+    TextMeshProUGUI scoreText = default;
 
     public int currentScore = 0;
 
@@ -87,9 +87,9 @@ public class GameManager : MonoBehaviour
 
     Dictionary<int, bool> sceneDict = new Dictionary<int, bool>();
 
-    [SerializeField] GameObject parentTiles;
+    [SerializeField] GameObject parentTiles = default;
 
-    [SerializeField] Shader startShader;
+    [SerializeField] Shader startShader = default;
 
     public AudioManager audioManager;
     public AudioMixer audioMixerMusica;
@@ -147,6 +147,9 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        //Imposto il frame rate a 60
+        Application.targetFrameRate = 60;
+
         if (instance == null)
         {
             instance = this;
@@ -232,7 +235,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    [SerializeField] GameObject pauseButton;
+    [SerializeField] GameObject pauseButton = default;
     public void Pause()
     {
         pauseButton.SetActive(false);

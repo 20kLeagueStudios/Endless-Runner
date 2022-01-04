@@ -6,23 +6,23 @@ using UnityEngine.UI;
 public class PuntinaWheel : MonoBehaviour
 {
 	[SerializeField]
-	private FortuneWheel _spinner;
+	private FortuneWheel _spinner = default;
     [SerializeField]
-	private Text scoretext;
+	private Text scoretext = default;
 	[SerializeField]
-	private GameObject testo;
-	private int x = 0;
+	private GameObject testo = default;
+	//private int x = 0;
 	// Use this for initialization
 	void Start()
-    {
-        testo.SetActive(false);
-    }
-
-    // Update is called once per frame
-    void Update()
 	{
-        Debug.Log("il Blocco di sicurezza è " + FortuneWheel.blocco);
-    }
+		testo.SetActive(false);
+	}
+
+	// Update is called once per frame
+	//void Update()
+	//{
+ //       Debug.Log("il Blocco di sicurezza è " + FortuneWheel.blocco);
+ //   }
 
 	void OnTriggerStay2D(Collider2D col)
 	{
@@ -63,9 +63,7 @@ public class PuntinaWheel : MonoBehaviour
             case "premioQUATTRO":
                 if (FortuneWheel.blocco == false)
                 {
-                    scoretext.text = "Hai vinto 1 ergia";
-                    Energy.energyFortuneWheelWin = 1;
-                    Energy.winEnergy = true;
+                    scoretext.text = "Hai vinto 1 gemma";
                     Debug.Log("il Blocco di sicurezza è " + FortuneWheel.blocco);
                     Debug.Log(scoretext.text);
                     FortuneWheel.blocco = true;
@@ -95,9 +93,7 @@ public class PuntinaWheel : MonoBehaviour
             case "premioSETTE":
                 if (FortuneWheel.blocco == false)
                 {
-                    scoretext.text = "Hai vinto 5 energia";
-                    Energy.energyFortuneWheelWin = 5;
-                    Energy.winEnergy = true;
+                    scoretext.text = "Hai vinto 25 monete";
                     Debug.Log("il Blocco di sicurezza è " + FortuneWheel.blocco);
                     Debug.Log(scoretext.text);
                     FortuneWheel.blocco = true;

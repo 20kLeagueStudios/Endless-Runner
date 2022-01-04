@@ -16,7 +16,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     bool testMode = true;
     string mySurfacingId = "rewardedVideo";
     [SerializeField]
-    GameObject gameOver;
+    GameObject gameOver = default;
 
     //(GABRIELE)
     //riferimento allo script di comportamento del boss
@@ -41,7 +41,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         }
         else
         {
-            Debug.Log("Interstitial Ads non è pronto al momento! Per favore riprova più tardi!");
+            //Debug.Log("Interstitial Ads non è pronto al momento! Per favore riprova più tardi!");
         }
     }
 
@@ -67,10 +67,10 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         {
             Advertisement.Show(mySurfacingId);
         }
-        else
-        {
-            Debug.Log("Rewarded video is not ready at the moment! Please try again later!");
-        }
+        //else
+        //{
+        //    Debug.Log("Rewarded video is not ready at the moment! Please try again later!");
+        //}
     }
 
     // Implement IUnityAdsListener interface methods:
@@ -90,17 +90,17 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
                 bb.PlayerRespawned();
                 
             }
-            else
-                Debug.Log("hai guadagnato 30.000 euro");
+            //else
+            //    Debug.Log("hai guadagnato 30.000 euro");
         }
         else if (showResult == ShowResult.Skipped)
         {
             // Do not reward the user for skipping the ad.
-            Debug.Log("niente soldi, hai skippato.");
+            //Debug.Log("niente soldi, hai skippato.");
         }
         else if (showResult == ShowResult.Failed)
         {
-            Debug.LogWarning("The ad did not finish due to an error.");
+            //Debug.LogWarning("The ad did not finish due to an error.");
         }
     }
 

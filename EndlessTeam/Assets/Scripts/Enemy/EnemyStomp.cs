@@ -5,9 +5,9 @@ using UnityEngine;
 public class EnemyStomp : MonoBehaviour
 {
     [SerializeField]
-    Transform upPos;
+    Transform upPos = default;
     [SerializeField]
-    float speed;
+    float speed = default;
 
     private void Start()
     {
@@ -21,7 +21,7 @@ public class EnemyStomp : MonoBehaviour
         //Debug.Log("UpPos: " + upPos.position.y);
         while (finalPos.y != upPos.localPosition.y)
         {
-            Debug.Log(upPos.localPosition.y);
+            //Debug.Log(upPos.localPosition.y);
             finalPos.y = Mathf.Lerp(finalPos.y, upPos.localPosition.y, speed);
             //if (Vector3.Dot(finalPos, upPos.position))
             //    finalPos.y = upPos.position.y;

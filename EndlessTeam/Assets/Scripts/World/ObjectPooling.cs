@@ -17,7 +17,7 @@ public class ObjectPooling : MonoBehaviour
     List<Pool> poolList = new List<Pool>();
     //Carreggiata vuota da far apparire 6 volte ad inizio partita
     [SerializeField]
-    GameObject emptyTile;
+    GameObject emptyTile = default;
 
 
 
@@ -25,11 +25,11 @@ public class ObjectPooling : MonoBehaviour
     public List<GameObject> activeTiles = new List<GameObject>();
 
     [SerializeField]
-    GameObject[] tutorialTiles;
+    GameObject[] tutorialTiles = default;
 
     //Carreggiate massime iniziali con l'istanza emptyTile
     [SerializeField]
-    int maxTiles;
+    int maxTiles = default;
     //Velocità di movimento delle carreggiate
     public float speed; // 36;
     //Riferimento al renderer per calcolare la differenza di distanza del renderer per capire dove posizionare 
@@ -48,6 +48,9 @@ public class ObjectPooling : MonoBehaviour
     bool tutorial = true;
 
     string sceneName; //emanuele
+
+    //Numero intero per indicare il pezzo tutorial successivo da istanziare
+    private int tutIndex = 0; 
 
     #endregion
 
@@ -134,12 +137,18 @@ public class ObjectPooling : MonoBehaviour
         //
         //Chiamo il metodo che si occupa di creare le carreggiate tutorial
         if (GameManager.instance.firstGame)
-            TutorialTiles();
+        {
+            SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
+            for (int i = 0; i < 3; i++)
+            {
+                AddTutorialTile();
+            }
+        }
         else
         {
             tutorial = false;
             SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
-          
+
             for (int i = 0; i < maxTiles; i++)
             {
                 AddTile();
@@ -150,39 +159,93 @@ public class ObjectPooling : MonoBehaviour
         
     }
 
-    private void Update()
-    {
-        Debug.Log(GameManager.instance.firstGame);
-    }
+    //private void Update()
+    //{
+    //    Debug.Log(GameManager.instance.firstGame);
+    //}
 
     private void TutorialTiles()
     {
+        //Posiziono il parent tiles nella scena in cui vengono creati i pezzi di carreggiata
+        //SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
+        //for (int i = 0; i < tutorialTiles.Length; i++)
+        //{ 
 
-        for (int i = 0; i < tutorialTiles.Length; i++)
-        { 
+        //    GameObject tile = Instantiate(tutorialTiles[i], transform.position, Quaternion.identity);
+        //    tile.transform.parent = parentTiles.transform;
+        //    //SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
+        //    //rend = emptyTile.transform.GetChild(0).GetComponent<Renderer>();
+        //    float temp = rend.bounds.extents.z * 2;
+        //    // position tile's z at 0 or behind the last item added to tiles collection
+        //    float zPos = activeTiles.Count == 0 ? 130f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
+        //    tile.transform.position = new Vector3(0f, 0f, zPos);
 
-            GameObject tile = Instantiate(tutorialTiles[i], transform.position, Quaternion.identity);
-            tile.transform.parent = parentTiles.transform;
-            //SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
-            //rend = emptyTile.transform.GetChild(0).GetComponent<Renderer>();
-            float temp = rend.bounds.extents.z * 2;
-            // position tile's z at 0 or behind the last item added to tiles collection
-            float zPos = activeTiles.Count == 0 ? 130f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
-            tile.transform.position = new Vector3(0f, 0f, zPos);
+        //    activeTiles.Add(tile);
+        //    tile.SetActive(true);
 
-            activeTiles.Add(tile);
-            tile.SetActive(true);
+        //}
 
-        }
+        //SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
 
-        SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
-
-        GameManager.instance.firstGame = false;
-        tutorial = false;
-        AddTile();
+        //GameManager.instance.firstGame = false;
+        //tutorial = false;
+        //for (int i = 0; i < maxTiles; i++)
+        //{
+        //    AddTile();
+        //}
         
     }
 
+
+    private void AddTutorialTile()
+    {
+
+        //Istanzio il tutorial successivo basandomi sull'indice tutIndex
+        //Controllo che il tutorial index che voglio creare non è fuori dall'array
+        if (tutIndex <= tutorialTiles.Length-1)
+        {
+            GameObject tile = Instantiate(tutorialTiles[tutIndex], transform.position, Quaternion.identity);
+            //Se il tile ottenuto esiste posso lavorare su di esso
+            if (tile)
+            {
+                //Setto il suo parent 
+                tile.transform.parent = parentTiles.transform;
+                float temp = rend.bounds.extents.z * 2;
+                // position tile's z at 0 or behind the last item added to tiles collection
+                float zPos = activeTiles.Count == 0 ? 130f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
+                //Posiziono il tile
+                tile.transform.position = new Vector3(0f, 0f, zPos);
+                //Lo inserisco tra i tile attivi così che verrà disattivato automaticamente dopo
+                activeTiles.Add(tile);
+                //Lo attivo
+                tile.SetActive(true);
+                //Aumento l'index se è minore dell'ultimo tutorial
+                if (tutIndex < tutorialTiles.Length) tutIndex++;
+                //altrimenti vuol dire che è stato posizionato l'ultimo pezzo quindi imposto il tutorial a false e istanzio i tiles classici randomici
+                else
+                {
+                    tutorial = false;
+                    //Imposto che la prima partita è stata fatta così da non presentare più il tutorial
+                    GameManager.instance.firstGame = false;
+                    //Creo i pezzi randomici
+                    for (int i = 0; i < maxTiles; i++)
+                    {
+                        AddTile();
+                    }
+                }
+            }
+        } else
+        {
+            tutorial = false;
+            //Imposto che la prima partita è stata fatta così da non presentare più il tutorial
+            GameManager.instance.firstGame = false;
+            //Creo i pezzi randomici
+            for (int i = 0; i < maxTiles; i++)
+            {
+                AddTile();
+            }
+        }
+    }
    
     //Metodo iniziale che crea i primi sei tiles
     void initialTiles()
@@ -244,7 +307,7 @@ public class ObjectPooling : MonoBehaviour
 
         activeTiles[0].transform.position = new Vector3(0, 0, (zPortPos) + temp - 10f);
 
-        Debug.Log("Posizione portale: " + zPortPos);
+        //Debug.Log("Posizione portale: " + zPortPos);
 
         for (int i = 1; i < activeTiles.Count; i++)
         {
@@ -317,6 +380,7 @@ public class ObjectPooling : MonoBehaviour
 
                 if (!tutorial)
                     AddTile();
+                else AddTutorialTile();
             }
         }
     }
@@ -506,9 +570,9 @@ public class ObjectPooling : MonoBehaviour
 class Pool
 {
     [SerializeField]
-    string tag;
+    string tag = default;
 
-    public GameObject[] prefab;
+    public GameObject[] prefab = default;
 
     public string GetTag { get { return tag; } }
 

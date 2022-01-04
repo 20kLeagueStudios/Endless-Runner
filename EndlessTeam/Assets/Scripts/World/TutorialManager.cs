@@ -26,7 +26,7 @@ public class TutorialManager : MonoBehaviour
         }
     }
     //Index dei suggestion
-    int i = 0;
+    //int i = 0;
     public void ShowHint(int number)
     {
         Time.timeScale = 0;

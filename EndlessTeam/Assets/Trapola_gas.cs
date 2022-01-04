@@ -8,9 +8,9 @@ public class Trapola_gas : MonoBehaviour
 
     //public GameObject tronco;
     [SerializeField]
-    private Animator aim;
+    private Animator aim = default;
     [SerializeField]
-    private Animator cc;
+    private Animator cc = default;
     [SerializeField]
     private ParticleSystem ps;
     // Start is called before the first frame update

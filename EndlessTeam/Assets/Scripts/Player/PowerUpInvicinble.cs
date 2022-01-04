@@ -11,13 +11,13 @@ public class PowerUpInvicinble : MonoBehaviour
 
     float initialSpeed;
 
-    [SerializeField]MeshRenderer playerMesh;
+    [SerializeField]MeshRenderer playerMesh = default;
 
     [SerializeField] float timePowerUp=10f;
 
-    [SerializeField] ObjectPooling objectPooling;
+    [SerializeField] ObjectPooling objectPooling = default;
 
-    [SerializeField] PlayerHealth playerHealth;
+    [SerializeField] PlayerHealth playerHealth = default;
 
     //Collider[] hitObjects;
 
@@ -112,20 +112,20 @@ public class PowerUpInvicinble : MonoBehaviour
   
 
     // Update is called once per frame
-    void Update()
-    {
+    //void Update()
+    //{
         
 
-        /*
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
+    //    /*
+    //    if (Input.GetKeyDown(KeyCode.Z))
+    //    {
 
-            StartCoroutine(PowerUpMini());
+    //        StartCoroutine(PowerUpMini());
 
-        }
-        */
+    //    }
+    //    */
 
-    }
+    //}
 
     public void CallCoroutineMini()
     {

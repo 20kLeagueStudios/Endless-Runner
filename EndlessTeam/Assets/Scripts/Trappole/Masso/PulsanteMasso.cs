@@ -5,7 +5,7 @@ using UnityEngine;
 public class PulsanteMasso : Interactive
 {
     [SerializeField]
-    Masso masso;
+    Masso masso = default;
     public override void CallInteraction()
     {
         masso.CallFallCor();

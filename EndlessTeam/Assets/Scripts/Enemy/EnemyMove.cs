@@ -103,11 +103,11 @@ public class EnemyMove : MonoBehaviour, IDamageable
         {
             transform.localPosition = Vector3.Lerp(transform.localPosition, targetPos, elapsedtime/waitTime);
 
-            if (targetPos.x > tmpPos.x)
-            {
-                anim.Play("WalkRight");
-            }
-            else { anim.Play("WalkLeft"); }
+            //if (targetPos.x > tmpPos.x)
+            //{
+            //    anim.Play("WalkRight");
+            //}
+            //else { anim.Play("WalkLeft"); }
 
             elapsedtime += Time.deltaTime;
 

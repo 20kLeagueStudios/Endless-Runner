@@ -6,7 +6,7 @@ public class DeathSTM : StateMachineBehaviour
 {
     ObjectPooling objScript;
     PlayerHealth playerHealth;
-    float timeWait = .5f;
+    //float timeWait = .5f;
     float currentTime;
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {

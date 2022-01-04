@@ -6,13 +6,13 @@ using TMPro;
 public class GameOver : MonoBehaviour
 {
     [SerializeField]
-    GameObject[] toDeactivate;
+    GameObject[] toDeactivate = default;
 
     [SerializeField]
-    TextLanguageChange[] statText;
+    TextLanguageChange[] statText = default;
 
     [SerializeField]
-    PlayerHealth playerHealth;
+    PlayerHealth playerHealth = default;
 
     
 
