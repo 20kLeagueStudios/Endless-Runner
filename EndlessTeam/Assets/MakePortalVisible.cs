@@ -7,9 +7,8 @@ using UnityEngine.SceneManagement;
 public class MakePortalVisible : MonoBehaviour
 {
     //Scena da creare quando sono vicino al portale
-    public int sceneTarget;
+    public int sceneTarget = - 1;
 
-    //int number = 3;
     bool once = false;
     GameObject suggestion = default;
 
@@ -17,7 +16,22 @@ public class MakePortalVisible : MonoBehaviour
     public BoxCollider colliderPortello;
 
     bool check = true;
-   
+
+    //Numero che indice l'indice della scena da escludere, quindi se stessa
+    public static short currentInd = 2, previousInd = 0;
+
+    //Lista che contiene i numeri disponibili per il portale
+    public static List<short> indSceneList = new List<short>();
+
+    private void Awake()
+    {
+        //Riempo la lista degli index delle scene ad eccezione di 2 che è la scena corrente(bioma funghi)
+        for(short i =3; i<=6; i++)
+        {
+            indSceneList.Add(i);
+        }
+    }
+
     public void AperturaPortelli()
     {
         if (check)
@@ -67,6 +81,7 @@ public class MakePortalVisible : MonoBehaviour
 
             GameManager.instance.portalPos = transform.position;
 
+            //Vieni caricata la scena
             GameManager.instance.LoadScene(sceneTarget);
             
             GameManager.instance.currentScene = sceneTarget;
@@ -81,16 +96,36 @@ public class MakePortalVisible : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (SceneManager.GetSceneByBuildIndex(sceneTarget).isLoaded && once && GameManager.portal == -1)
+        if (sceneTarget != -1)
         {
-            GameManager.portal = gameObject.GetInstanceID();
-            once = false;
-
-            ObjectPooling.instance.ChangeMatFromTo(sceneTarget);
-
+            if (SceneManager.GetSceneByBuildIndex(sceneTarget).isLoaded && once && GameManager.portal == -1)
+            {
+                GameManager.portal = gameObject.GetInstanceID();
+                once = false;
+                Debug.Log("IndiceTarget" + sceneTarget);
+                ObjectPooling.instance.ChangeMatFromTo(sceneTarget);
+                sceneTarget = -1;
+            }
         }
     }
 
+    private void OnEnable()
+    {
+        //Tolgo il numero corrente dalla lista se esiste
+        if (indSceneList.Contains(currentInd)) indSceneList.Remove(currentInd);
+
+        //Setto l'indice corrente della scena con il contenuto ottenuto da un indice randomico preso dalla lista
+        sceneTarget = indSceneList[UnityEngine.Random.Range(0, indSceneList.Count - 1)];
+
+        //Salvo il bioma precedente per disattivarlo dopo
+        previousInd = currentInd;
+
+        //Re inserisco la scena che era stata esclusa in precedenza nella lista delle scene
+        if (!indSceneList.Contains(currentInd)) indSceneList.Add(currentInd);
+
+        //Aggiorno l'indice della scena corrente
+        currentInd = (short)sceneTarget;
+    }
 
     private void OnDisable()
     {
@@ -119,7 +154,10 @@ public class MakePortalVisible : MonoBehaviour
     IEnumerator WaitCor(int seconds)
     {
         yield return new WaitForSecondsRealtime(seconds);
-        if (suggestion.activeSelf) TutorialManager.instance.DisableHint();
+        if (suggestion)
+        {
+            if (suggestion.activeSelf) TutorialManager.instance.DisableHint();
+        }
     }
 
     IEnumerator delay() 

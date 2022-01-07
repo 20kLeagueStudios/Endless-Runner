@@ -18,12 +18,6 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
     [SerializeField]
     GameObject gameOver = default;
 
-    //(GABRIELE)
-    //riferimento allo script di comportamento del boss
-    [SerializeField]
-    private BossBehaviour bb = default;
-
-
     void Start()
     {
         Advertisement.AddListener(this);
@@ -87,7 +81,7 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
                 if (gameOver.activeSelf) gameOver.SetActive(false);
                 //(GABRIELE)
                 //comunica al boss che il giocatore è di nuovo vivo
-                bb.PlayerRespawned();
+                //bb.PlayerRespawned();
                 
             }
             //else
