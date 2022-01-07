@@ -11,7 +11,7 @@ public class InventoryManager : MonoBehaviour
     public static InventoryManager instance;
 
     public MainMenu mainmenu;
- 
+
     public List<ItemsShopSO> itemsAcquistati;
     public GameObject inventoryButtonPrefab;
     public GameObject inventoryButtonContainer;
@@ -24,14 +24,14 @@ public class InventoryManager : MonoBehaviour
     public ItemsShopSO skinGambaSinistraselected;
     public ItemsShopSO skinBraccioDestroSelected;
     public ItemsShopSO skinBraccioSinistroSelected;
-    public ItemsShopSO skinVetroSelected;
+    //public ItemsShopSO skinVetroSelected;
 
     public ItemsShopSO pilotaSelected;
 
     public List<ItemsShopSO> gadgetSelected; //PENSO DA RIMUOVERE
 
     public CurrencyManager shop;
-    public Text currencyText;
+    public Text moneyText, gemsText;
 
     public GameObject previewTutaPrefab;
 
@@ -41,17 +41,19 @@ public class InventoryManager : MonoBehaviour
 
     public float previewRotationSpeed;
 
-    public bool caricaDati=true;
+    public bool caricaDati = true;
 
-    public List<int> itemListIndex; 
+    public List<int> itemListIndex;
 
-    public List<ItemsShopSO> itemDisponibili;  
+    public List<ItemsShopSO> itemDisponibili;
 
     public AudioManager audioManager;
 
     public GameObject player; //////////////////////
 
     public Material[] matArray;
+
+    public Sprite moneySprite, gemSprite;
 
 
 
@@ -68,12 +70,12 @@ public class InventoryManager : MonoBehaviour
         }
 
         matArray = new Material[player.transform.GetChild(1).GetComponent<SkinnedMeshRenderer>().sharedMaterials.Length];
- 
-        currencyText.text = shop.currency.ToString();
+
+        //moneyText.text = shop.monete.ToString();
         //tutaMesh = previewTutaPrefab.GetComponent<MeshRenderer>();
         //skinnedTutaMesh = previewTutaPrefab.GetComponent<SkinnedMeshRenderer>();
 
-       
+
 
         if (caricaDati)
         {
@@ -90,7 +92,7 @@ public class InventoryManager : MonoBehaviour
         if (temp != null)
         {
             Debug.Log("CANARINO");
-            for (int i = 0; i < temp.itemListIndex.Count; i++) 
+            for (int i = 0; i < temp.itemListIndex.Count; i++)
             {
                 itemListIndex.Add(temp.itemListIndex[i]);
             }
@@ -118,8 +120,13 @@ public class InventoryManager : MonoBehaviour
     private void Start()
     {
 
+        //moneyText.text = shop.monete.ToString();
+        //tutaMesh = previewTutaPrefab.GetComponent<MeshRenderer>();
+        //skinnedTutaMesh = previewTutaPrefab.GetComponent<SkinnedMeshRenderer>();
+
+
         audioManager.PlaySound("MusicaMenu");
-       
+
 
         if (!itemListIndex.Contains(defaultItems[0].itemSO.id))
         {
@@ -129,7 +136,7 @@ public class InventoryManager : MonoBehaviour
 
         }
 
-        foreach (int  id in itemListIndex)
+        foreach (int id in itemListIndex)
         {
 
             for (int i = 0; i < itemDisponibili.Count; i++) //////////////////////////////////////////////////////
@@ -145,15 +152,14 @@ public class InventoryManager : MonoBehaviour
 
         }
 
-            
+
         foreach (ItemsShopSO item in itemsAcquistati)
         {
-          
+
             GameObject inventoryButton = Instantiate(inventoryButtonPrefab) as GameObject;
             //inventoryButton.GetComponent<Image>().sprite = item.itemSO.itemImage;
 
             inventoryButton.transform.GetChild(2).GetComponent<Image>().sprite = item.itemSO.itemImage;
-
 
             inventoryButton.transform.SetParent(inventoryButtonContainer.transform, false);
 
@@ -164,14 +170,21 @@ public class InventoryManager : MonoBehaviour
     }
 
 
-
     // Update is called once per frame
     void Update()
     {
         previewTutaPrefab.transform.Rotate(0, previewRotationSpeed * Time.deltaTime, 0);
 
     }
- 
+    /// <summary>
+    /// Permette ad altri script di aggiornare i testi delle valute in base ai valori dentro il riferimento al CurrencyManager
+    /// </summary>
+    public void UpdateCurrencyTexts()
+    {
+        moneyText.text = shop.monete.ToString();
+        gemsText.text = shop.gemme.ToString();
+    }
+
 
 }
 

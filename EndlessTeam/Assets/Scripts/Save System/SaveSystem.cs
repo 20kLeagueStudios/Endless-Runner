@@ -58,6 +58,7 @@ public static class SaveSystem
 
     public static void Saving(GameManager gm)
     {
+
         BinaryFormatter formatter = new BinaryFormatter();
 
         //string path = Application.persistentDataPath + "/SaveData.sav";
@@ -68,6 +69,9 @@ public static class SaveSystem
         formatter.Serialize(stream, data);
 
         stream.Close();
+
+        Debug.LogError("SALVATI DATI CON GAMEMANAGER: " + gm.currentMoney);
+
     }
 
     public static void Saving(InventoryManager inv)
@@ -82,6 +86,7 @@ public static class SaveSystem
         formatter.Serialize(stream, data);
 
         stream.Close();
+        Debug.LogError("SALVATI DATI CON INVENTORYMANAGER");
     }
     
 

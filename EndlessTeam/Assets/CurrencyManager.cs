@@ -29,7 +29,7 @@ public class CurrencyManager : MonoBehaviour
         savedAlreadyOnce = false;
 
     }
-
+    /*
     private void OnApplicationQuit()
     {
         //se lo stato delle valute non è già stato salvato, viene salvato
@@ -43,7 +43,7 @@ public class CurrencyManager : MonoBehaviour
 
         }
     
-    }
+    }*/
 
     private void OnDestroy()
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
-    public int money = 0, savedLanguage = 0;
+    public int money = 0, gems = 0, savedLanguage = 0;
 
 
     // public List<ItemSerializzato> items = new List<ItemSerializzato>(); /////
@@ -27,6 +27,7 @@ public class SaveData
     {
         
         this.money = gm.currentMoney;
+        this.gems = gm.currentGems;
         this.savedLanguage = gm.savedLanguage;
         //this.items = InventoryManager.instance.itemsAcquistati;
     }

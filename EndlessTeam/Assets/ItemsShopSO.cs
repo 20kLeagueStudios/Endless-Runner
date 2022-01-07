@@ -8,7 +8,7 @@ public enum TutaType
 {   
     None,
     Busto,
-    Vetro,
+    //Vetro,
     Gambe,
     Braccia
 }
@@ -34,6 +34,8 @@ public class ItemSerializzato
     public string itemName;
 
     public int id;
+
+    public int currencyType;
 
     public Sprite itemImage;
     public Texture playerSkin;

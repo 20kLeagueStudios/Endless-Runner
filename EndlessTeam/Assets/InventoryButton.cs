@@ -61,8 +61,8 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
                 case TutaType.Busto:
 
                     break;
-                case TutaType.Vetro:
-                    break;
+                //case TutaType.Vetro:
+                    //break;
                 case TutaType.Gambe:
                     break;
                 case TutaType.Braccia:
@@ -135,10 +135,13 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
                     inventory.skinBodySelected = item;
 
                     break;
+
+                    /*
                 case TutaType.Vetro:
                     inventory.skinnedTutaMesh.sharedMaterials[4].mainTexture = item.itemSO.playerSkin;
                     //AddItemInSelection(item);
                     inventory.skinVetroSelected = item;
+                    */
 
                     break;
                 case TutaType.Gambe:

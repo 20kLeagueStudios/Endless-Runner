@@ -16,7 +16,8 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
 
     private MainMenu mainMenu;
-    CurrencyManager currencyManager;
+
+    public CurrencyManager currencyManager;
     InventoryManager inventory;
 
     bool shopped = false;
@@ -216,7 +217,7 @@ public class ItemSelection : MonoBehaviour, IPointerClickHandler
 
         inventory = InventoryManager.instance;
 
-        currencyManager = this.transform.parent.root.transform.GetChild(6).GetComponent<CurrencyManager>();
+        //currencyManager = this.transform.parent.root.transform.GetChild(6).GetComponent<CurrencyManager>();
 
         //mydelegate += BuyItem;
         //(GABRIELE)

@@ -32,6 +32,9 @@ public class MainMenu : MonoBehaviour
 	[HideInInspector]
 	public List<TextLanguageChange> textsToChangeLanguage;
 
+	public Sprite moneySprite,
+		gemSprite;
+
 	public int savedLanguage;
 
 	public void Play()
@@ -72,7 +75,7 @@ public class MainMenu : MonoBehaviour
 		LanguageChange();
 
 		audioMixer.SetFloat("MusicaVol", Mathf.Log10(sliderMusica.value)*20);
-        audioMixer.SetFloat("volueSFX", Mathf.Log10(sliderSFX.value) * 20);
+        audioMixer.SetFloat("SFXVol", Mathf.Log10(sliderSFX.value) * 20);
 
         itemShop = inventory.itemDisponibili.ToArray();
 
@@ -81,6 +84,9 @@ public class MainMenu : MonoBehaviour
             GameObject shopButton = Instantiate(shopButtonPrefab) as GameObject;
 
             shopButton.transform.GetChild(2).GetComponent<Image>().sprite = item.itemSO.itemImage;
+
+            shopButton.transform.GetChild(shopButton.transform.childCount - 1).GetComponent<Image>().sprite = 
+				(item.itemSO.currencyType == 0) ? moneySprite : gemSprite;
 
             //shopButton.GetComponent<Image>().sprite = item.itemSO.itemImage;
 
