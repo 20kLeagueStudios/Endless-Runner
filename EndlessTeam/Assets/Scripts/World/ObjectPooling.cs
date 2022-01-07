@@ -313,6 +313,8 @@ public class ObjectPooling : MonoBehaviour
         Scene firstScene = SceneManager.GetSceneByBuildIndex(scene1),
               secondScene = SceneManager.GetSceneByBuildIndex(scene2);
 
+        Debug.Log("Scena seconda " + scene2);
+
         GameObject[] allObjFirstScene = firstScene.GetRootGameObjects(),
                      allObjSecondScene = secondScene.GetRootGameObjects();
 
@@ -392,8 +394,9 @@ public class ObjectPooling : MonoBehaviour
     {
         //parentTiles.SetActive(true);
 
-        Debug.Log("Attivato " + parentTiles.name);
+        //Debug.Log("Attivato " + parentTiles.name);
 
+        Debug.Log("ProvaUNO");
         GameObject scene1parent = default;
 
         Scene firstScene = SceneManager.GetSceneByBuildIndex(scene);

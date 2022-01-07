@@ -24,7 +24,7 @@ public class PortalScript : MonoBehaviour
     {
         portalMesh.enabled = false;
 
-        this.sceneTarget = makePortalVisible.sceneTarget;
+        //this.sceneTarget = makePortalVisible.sceneTarget;
 
     }
 
@@ -46,7 +46,7 @@ public class PortalScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
           {
-
+            this.sceneTarget = makePortalVisible.sceneTarget;
             ObjectPooling.instance.ChangeMatFromTo(GameManager.instance.currentScene, this.sceneTarget);
 
             GameManager.instance.StartCoroutine(GameManager.instance.DeactivateScene(currentScene));
@@ -58,7 +58,7 @@ public class PortalScript : MonoBehaviour
           if (other.CompareTag("PortalMat"))
           {
 
-            this.portalMesh.enabled = true;
+                this.portalMesh.enabled = true;
 
            }
            
