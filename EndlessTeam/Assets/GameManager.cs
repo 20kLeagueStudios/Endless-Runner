@@ -274,6 +274,8 @@ public class GameManager : MonoBehaviour
         //Ottengo tutti i GB della scena corrente 
         GameObject[] allGBScene = currentScene.GetRootGameObjects();
 
+        Debug.Log("Prova");
+
         //Li looppo tutti
         for (int i=0; i<allGBScene.Length; i++)
         {
@@ -374,6 +376,8 @@ public class GameManager : MonoBehaviour
 
         //Chiamo metodo del boss che lo riposiziona
         bb.PlayerRespawned();
+
+        Debug.Log("Morte");
 
     }
 

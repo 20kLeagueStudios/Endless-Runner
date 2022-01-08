@@ -115,15 +115,9 @@ public class MakePortalVisible : MonoBehaviour
         {
             GameManager.portal = gameObject.GetInstanceID();
             once = false;
-            Debug.Log("TargetScene: " + sceneTarget);
             ObjectPooling.instance.ChangeMatFromTo(sceneTarget);
             
         }
-    }
-
-    private void OnEnable()
-    {
-      
     }
 
     private void OnDisable()
@@ -144,7 +138,7 @@ public class MakePortalVisible : MonoBehaviour
            // ChiusuraPortelli();
            
             StartCoroutine(delay()); ///
-            // GameManager.instance.DeactivateScene(sceneTarget);
+            GameManager.instance.StartCoroutine(GameManager.instance.DeactivateScene(sceneTarget));
 
             GameManager.portal = -1;
         }
