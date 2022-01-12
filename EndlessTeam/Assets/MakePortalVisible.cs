@@ -172,7 +172,7 @@ public class MakePortalVisible : MonoBehaviour
 
         check = true;
         if (SceneManager.GetSceneByBuildIndex(sceneTarget).isLoaded)
-            GameManager.instance.DeactivateScene(sceneTarget);
+            GameManager.instance.StartCoroutine(GameManager.instance.DeactivateScene(sceneTarget));
     }
    
 

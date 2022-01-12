@@ -374,6 +374,7 @@ public class PlayerMovement : MonoBehaviour
                             verticalForce.y = -34f;
                             animator.SetTrigger("Attack");
                             powerupsManager.inSlam = true;
+     
                             StartCoroutine(powerupsManager.Slam());
 
 
@@ -428,7 +429,7 @@ public class PlayerMovement : MonoBehaviour
                         //Altrimenti applico una forza al verticalForce che spingerà più velocemente in basso il giocatore
                         else if (!isGround)
                         {
-                          
+
 
                             verticalForce.y = 34f; 
 

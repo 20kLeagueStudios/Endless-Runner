@@ -287,6 +287,8 @@ public class PowerUpsManager : MonoBehaviour
         if (!playerMovement.changeG) 
         {  //in base se sono nel tetto o no, applico una verticalForce
             playerMovement.verticalForce.y = -54f;
+            ps.gameObject.SetActive(false);
+            ps.gameObject.SetActive(true);
             ps.Play();
           
         }

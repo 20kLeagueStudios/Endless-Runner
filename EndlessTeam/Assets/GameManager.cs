@@ -241,7 +241,6 @@ public class GameManager : MonoBehaviour
         //Li looppo tutti
         for (int i = 0; i < allGBScene.Length; i++)
         {
-            Debug.Log(allGBScene[i].name);
             //e li attivo se sono disattivi
             if (!allGBScene[i].activeSelf) allGBScene[i].SetActive(true);
         }
@@ -273,8 +272,6 @@ public class GameManager : MonoBehaviour
 
         //Ottengo tutti i GB della scena corrente 
         GameObject[] allGBScene = currentScene.GetRootGameObjects();
-
-        Debug.Log("Prova");
 
         //Li looppo tutti
         for (int i=0; i<allGBScene.Length; i++)
@@ -377,7 +374,6 @@ public class GameManager : MonoBehaviour
         //Chiamo metodo del boss che lo riposiziona
         bb.PlayerRespawned();
 
-        Debug.Log("Morte");
 
     }
 
