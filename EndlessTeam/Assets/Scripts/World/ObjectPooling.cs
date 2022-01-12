@@ -50,7 +50,11 @@ public class ObjectPooling : MonoBehaviour
     string sceneName; //emanuele
 
     //Numero intero per indicare il pezzo tutorial successivo da istanziare
-    private int tutIndex = 0; 
+    private int tutIndex = 0;
+
+    //Booleana che indica se è il primo bioma, quello iniziale oppure un bioma che verrà caricata in seguito
+    [SerializeField]
+    private bool isFirst = false;
 
     #endregion
 
@@ -64,14 +68,6 @@ public class ObjectPooling : MonoBehaviour
         parentTiles = new GameObject("parentTiles" + sceneName);////emanuele
 
         parentTiles.tag = "ParentTile";
-        //if (!GameManager.instance.firstGame)
-        //{
-           
-        //}
-        //else if (instance != this)
-        //{
-        //    Destroy(this);
-        //}
 
     }
 
@@ -88,20 +84,10 @@ public class ObjectPooling : MonoBehaviour
 
         }
 
-
-
         speed = GameManager.instance.speed;
 
         rend = emptyTile.transform.GetChild(0).GetComponent<Renderer>();
 
-        //for(int i=0; i<tutorialTiles.Length; i++)
-        //{
-        //    GameObject Obj = Instantiate(tutorialTiles[i], transform.position, Quaternion.identity);
-        //    Obj.SetActive(false);
-        //    Obj.transform.parent = parentTiles.transform;
-
-        //    SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
-        //}
         //Istanzia tutti i GameObject presenti nella lista di Pool e li inserisco nel dizionario con il tag
         //associato
         foreach (Pool temp in poolList)
@@ -114,13 +100,6 @@ public class ObjectPooling : MonoBehaviour
                
                 Obj.transform.parent = parentTiles.transform;////emanuele
                 
-                
-
-                //if (GameManager.instance.currentScene != -1)
-                //    SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneAt(sceneIndex)); //emanuele
-                //else
-                //    SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneAt(GameManager.instance.currentScene));
-
                 Obj.SetActive(false);
                 tempList.Add(Obj);
             }
@@ -129,12 +108,6 @@ public class ObjectPooling : MonoBehaviour
                 
             dictPool.Add(temp.GetTag, tempList);
         }
-        //PER TESTING SOLO, DA CANCELLARE
-        //for (int i = 0; i < maxTiles; i++)
-        //{
-        //    AddTile();
-        //}
-        //
         //Chiamo il metodo che si occupa di creare le carreggiate tutorial
         if (GameManager.instance.firstGame)
         {
@@ -154,48 +127,8 @@ public class ObjectPooling : MonoBehaviour
                 AddTile();
             }
         }
-        //Chiamo il metodo che si occupa di creare le prime 6 carreggiate
-        //initialTiles();
-        
+
     }
-
-    //private void Update()
-    //{
-    //    Debug.Log(GameManager.instance.firstGame);
-    //}
-
-    private void TutorialTiles()
-    {
-        //Posiziono il parent tiles nella scena in cui vengono creati i pezzi di carreggiata
-        //SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
-        //for (int i = 0; i < tutorialTiles.Length; i++)
-        //{ 
-
-        //    GameObject tile = Instantiate(tutorialTiles[i], transform.position, Quaternion.identity);
-        //    tile.transform.parent = parentTiles.transform;
-        //    //SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
-        //    //rend = emptyTile.transform.GetChild(0).GetComponent<Renderer>();
-        //    float temp = rend.bounds.extents.z * 2;
-        //    // position tile's z at 0 or behind the last item added to tiles collection
-        //    float zPos = activeTiles.Count == 0 ? 130f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
-        //    tile.transform.position = new Vector3(0f, 0f, zPos);
-
-        //    activeTiles.Add(tile);
-        //    tile.SetActive(true);
-
-        //}
-
-        //SceneManager.MoveGameObjectToScene(parentTiles, SceneManager.GetSceneByName(sceneName));
-
-        //GameManager.instance.firstGame = false;
-        //tutorial = false;
-        //for (int i = 0; i < maxTiles; i++)
-        //{
-        //    AddTile();
-        //}
-        
-    }
-
 
     private void AddTutorialTile()
     {
@@ -246,25 +179,6 @@ public class ObjectPooling : MonoBehaviour
             }
         }
     }
-   
-    //Metodo iniziale che crea i primi sei tiles
-    void initialTiles()
-    {
-        //Creo le prime 6 carreggiate vuote, così che il giocatore abbia il tempo di prepararsi
-        //for (int i = 0; i < maxTiles; i++)
-        //{
-        //    GameObject tile = Instantiate(emptyTile, transform.position, Quaternion.identity);
-        //    rend = emptyTile.transform.GetChild(1).GetComponent<Renderer>();
-        //    float temp = rend.bounds.extents.z * 2;
-        //    // position tile's z at 0 or behind the last item added to tiles collection
-        //    float zPos = activeTiles.Count == 0 ? 0f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
-        //    tile.transform.position = new Vector3(0f, 0f, zPos);
-        //    activeTiles.Add(tile);
-        //}
-        //Metodo effettivo che aggiungerà le carreggiate in base alla difficolta
-        //for (int i = 0; i < maxTiles; i++)
-        //    AddTile();
-    }
 
     //Aggiunge un tile alla fine della carreggiata
     private void AddTile()
@@ -278,11 +192,9 @@ public class ObjectPooling : MonoBehaviour
             float zPos = activeTiles.Count == 0 ? 130f : activeTiles[activeTiles.Count - 1].transform.position.z + temp;
             tile.transform.position = new Vector3(0f, 0f, zPos);
        
-        //Debug.Log(tile);
-        activeTiles.Add(tile);
+            activeTiles.Add(tile);
             tile.SetActive(true);
         }
-        //}
 
 
     }
@@ -346,20 +258,6 @@ public class ObjectPooling : MonoBehaviour
             if (tags)
                 temp.gameObject.SetActive(true);
         }
-            //if (GameManager.instance.toReactive.Count > 0 )
-            //{
-            //    for(int i=0; i<GameManager.instance.toReactive.Count; i++)
-            //    {
-            //        GameObject temp = GameManager.instance.toReactive[i];
-            //        int parentId = temp.transform.parent.GetInstanceID();
-            //        Debug.Log(temp.transform.parent.name);
-            //        if (parentId == id)
-            //        {
-            //            temp.SetActive(true);
-            //            GameManager.instance.toReactive.Remove(temp);
-            //        }
-            //    }      
-            //}
 
         }
 
@@ -385,21 +283,6 @@ public class ObjectPooling : MonoBehaviour
         }
     }
 
-    //public void UpdateTutorialTiles()
-    //{
-    //    for (int i = activeTiles.Count - 1; i >= 0; i--)
-    //    {
-    //        GameObject tile = activeTiles[i];
-    //        tile.transform.Translate(0f, 0f, -GameManager.instance.speed * Time.deltaTime);
-
-    //        // If a tile moves behind the camera release it and add a new one
-    //        if (tile.transform.position.z < Camera.main.transform.position.z)
-    //        {
-    //            activeTiles.RemoveAt(i);
-    //            DisableObject(tile);
-    //        }
-    //    }
-    //}
 
     //Mescola la lista
     void ShuffleList(List<GameObject> list)
@@ -507,7 +390,9 @@ public class ObjectPooling : MonoBehaviour
 
     public void ChangeMatFromTo(int scene)
     {
-        parentTiles.SetActive(true);
+        //parentTiles.SetActive(true);
+
+        //Debug.Log("Attivato " + parentTiles.name);
 
         GameObject scene1parent = default;
 

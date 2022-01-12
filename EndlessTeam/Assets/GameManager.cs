@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
 
     public TextLanguageChange dropdownText;
 
-    public int currentMoney, currentGems;
+    public int currentMoney;
 
     public int moneyInMatch = 0;
 
@@ -96,6 +96,9 @@ public class GameManager : MonoBehaviour
 
     public float volumeMusicaIniziale;
 
+    //riferimento allo script di comportamento del boss
+    [SerializeField]
+    private BossBehaviour bb = default;
 
     //Enum sulla difficoltà
     enum Mode
@@ -165,6 +168,9 @@ public class GameManager : MonoBehaviour
 
         savedLanguage= PlayerPrefs.GetInt("savedLanguage");
 
+        //Carico tutte le scene e attivo solo quella dei funghi
+        LoadAllScene();
+
     }
 
     void Start()
@@ -173,14 +179,25 @@ public class GameManager : MonoBehaviour
 
         parentTiles.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = startShader;
          
-        if (gameObject.scene.buildIndex == 1) LoadScene(2);
-         
-        if (moneyText) moneyText.text = ": " + currentMoney.ToString();
+        moneyText.text = ": " + currentMoney.ToString();
 
-        if (playerGb) initialPlayerPos = playerGb.transform.position;
+        initialPlayerPos = playerGb.transform.position;
 
         LoadData();
        
+    }
+
+    private void LoadAllScene()
+    {
+        //Carico la scena dei funghi e la tengo attiva
+        SceneManager.LoadScene(2, LoadSceneMode.Additive);
+        //Carico tutte le altre scene
+        for(int i=3; i<= 6; i++)
+        {
+            SceneManager.LoadScene(i, LoadSceneMode.Additive);
+            //e le disattivo
+            StartCoroutine(DeactivateScene(i));
+        }
     }
 
     private void LoadData()
@@ -190,40 +207,79 @@ public class GameManager : MonoBehaviour
         if (temp != null)
         {
             currentMoney = temp.money;
-            currentGems = temp.gems;
            // savedLanguage = temp.savedLanguage;
-            if (moneyText) moneyText.text = currentMoney.ToString();
+            moneyText.text = currentMoney.ToString();
         }
     }
 
+    /// <summary>
+    /// Metodo che carica una scena e lo inserisce in un dizionario che contiene le scene che le attiva
+    /// </summary>
+    /// <param name="scene"></param>
     public void LoadScene(int scene)
     {
-        if (!sceneDict.ContainsKey(scene))
+        //if (!sceneDict.ContainsKey(scene))
+        //{
+        //    sceneDict.Add(scene, true);
+        //    SceneManager.LoadScene(scene, LoadSceneMode.Additive);
+        //}
+        //else
+        //{
+        //    if (sceneDict[scene] == false)
+        //    {
+        //        sceneDict[scene] = true;
+        //        SceneManager.LoadScene(scene, LoadSceneMode.Additive);
+        //    }
+        //}
+
+        //Ottengo la scena corrente
+        Scene currentScene = SceneManager.GetSceneByBuildIndex(scene);
+
+        //Ottengo tutti i GB della scena corrente 
+        GameObject[] allGBScene = currentScene.GetRootGameObjects();
+
+        //Li looppo tutti
+        for (int i = 0; i < allGBScene.Length; i++)
         {
-            sceneDict.Add(scene, true);
-            SceneManager.LoadScene(scene, LoadSceneMode.Additive);
-        }
-        else
-        {
-            if (sceneDict[scene] == false)
-            {
-                sceneDict[scene] = true;
-                SceneManager.LoadScene(scene, LoadSceneMode.Additive);
-            }
+            //e li attivo se sono disattivi
+            if (!allGBScene[i].activeSelf) allGBScene[i].SetActive(true);
         }
 
 
     }
 
  
-
-    public void DeactivateScene(int scene)
+    /// <summary>
+    /// Metodo che disattiva una scena
+    /// </summary>
+    /// <param name="scene"></param>
+    public IEnumerator DeactivateScene(int scene)
     {
-        if (sceneDict[scene] == true)
+        //if (sceneDict[scene] == true)
+        //{
+        //    sceneDict[scene] = false;
+        //    SceneManager.UnloadSceneAsync(scene);
+        //}
+
+        //Ottengo la scena corrente
+        Scene currentScene = SceneManager.GetSceneByBuildIndex(scene);
+
+        while (!currentScene.isLoaded) 
         {
-            sceneDict[scene] = false;
-            SceneManager.UnloadSceneAsync(scene);
+            yield return null;
         }
+
+
+        //Ottengo tutti i GB della scena corrente 
+        GameObject[] allGBScene = currentScene.GetRootGameObjects();
+
+        //Li looppo tutti
+        for (int i=0; i<allGBScene.Length; i++)
+        {
+            //e li disattivo se sono attivi
+            if (allGBScene[i].activeSelf) allGBScene[i].SetActive(false);
+        }
+        yield return null;
     }
 
     public void ResumeGame()
@@ -250,7 +306,7 @@ public class GameManager : MonoBehaviour
     {
         currentMoney++;
         moneyInMatch++;
-        if (moneyText) moneyText.text = ": " + currentMoney.ToString();
+        moneyText.text = ": " + currentMoney.ToString();
     }
 
     public void IncreaseScore(int value)
@@ -314,7 +370,11 @@ public class GameManager : MonoBehaviour
         retryText.GetComponent<TextMeshProUGUI>().fontSize = 5.2f;
         retryText.UpdateText("Gems to retry!", "Gemme per riprovare!");
         gemsImg.gameObject.SetActive(true);
-        
+
+        //Chiamo metodo del boss che lo riposiziona
+        bb.PlayerRespawned();
+
+
     }
 
     public void StartCountDown()
