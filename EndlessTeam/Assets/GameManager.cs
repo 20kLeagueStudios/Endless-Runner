@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     public bool playerDeath = false, preDeath = false;
 
     [SerializeField]
-    TextMeshProUGUI moneyText = default;
+    TextMeshProUGUI moneyText = default, gemsText = default;
 
     [SerializeField]
     GameObject countDown = default;
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
 
     public TextLanguageChange dropdownText;
 
-    public int currentMoney;
+    public int currentMoney, currentGems;
 
     public int moneyInMatch = 0;
 
@@ -168,23 +168,28 @@ public class GameManager : MonoBehaviour
 
         savedLanguage= PlayerPrefs.GetInt("savedLanguage");
 
-        //Carico tutte le scene e attivo solo quella dei funghi
-        LoadAllScene();
+        LoadData();
 
     }
 
     void Start()
     {
-        audioManager.PlaySound("LivelloFunghi");
+        //Carico tutte le scene e attivo solo quella dei funghi
+        if (gameObject.scene.buildIndex == 1)
+        {
+            LoadAllScene();
+            audioManager.PlaySound("LivelloFunghi");
 
-        parentTiles.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = startShader;
-         
-        moneyText.text = ": " + currentMoney.ToString();
+            parentTiles.transform.GetChild(0).GetComponent<MeshRenderer>().sharedMaterial.shader = startShader;
 
-        initialPlayerPos = playerGb.transform.position;
+            moneyText.text = ": " + currentMoney.ToString();
 
-        LoadData();
-       
+            initialPlayerPos = playerGb.transform.position;
+
+        }
+
+
+
     }
 
     private void LoadAllScene()
@@ -206,9 +211,13 @@ public class GameManager : MonoBehaviour
         SaveData temp = SaveSystem.LoadingGameManager();
         if (temp != null)
         {
+            Debug.Log("Soldi " + temp.money);
             currentMoney = temp.money;
-           // savedLanguage = temp.savedLanguage;
-            moneyText.text = currentMoney.ToString();
+            currentGems = temp.gems;
+            //Debug.Log("monete " + temp.money + "/n" + "gemme " + temp.gems);
+            // savedLanguage = temp.savedLanguage;
+            if (moneyText) moneyText.text = currentMoney.ToString();
+            if (gemsText) gemsText.text = currentGems.ToString();
         }
     }
 

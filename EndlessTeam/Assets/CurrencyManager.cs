@@ -21,6 +21,7 @@ public class CurrencyManager : MonoBehaviour
     private void Start()
     {
         //inizializza i valori a quelli salvati    
+        Debug.Log("Soldi" + gm.currentMoney);
         monete = gm.currentMoney;
         gemme = gm.currentGems;
         //aggiorna i testi delle value

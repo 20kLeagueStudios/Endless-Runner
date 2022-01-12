@@ -86,7 +86,7 @@ public static class SaveSystem
         formatter.Serialize(stream, data);
 
         stream.Close();
-        Debug.LogError("SALVATI DATI CON INVENTORYMANAGER");
+        //Debug.LogError("SALVATI DATI CON INVENTORYMANAGER");
     }
     
 

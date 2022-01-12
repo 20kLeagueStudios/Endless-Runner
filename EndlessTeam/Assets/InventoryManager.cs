@@ -31,7 +31,7 @@ public class InventoryManager : MonoBehaviour
     public List<ItemsShopSO> gadgetSelected; //PENSO DA RIMUOVERE
 
     public CurrencyManager shop;
-    public Text moneyText, gemsText;
+    public TextMeshProUGUI moneyText, gemsText;
 
     public GameObject previewTutaPrefab;
 
