@@ -7,8 +7,8 @@ public class PlayerHealth : MonoBehaviour
 {
     [SerializeField]
     ObjectPooling objectPooling;
-    [SerializeField]
-    SkinnedMeshRenderer[] playerMesh = default;
+
+    private List<Material> playerMaterial = new List<Material>();
     [SerializeField]
     PlayerMovement playerMovement;
     [SerializeField]
@@ -28,7 +28,8 @@ public class PlayerHealth : MonoBehaviour
     int maxHealth = default;
     public int currentHealth;
 
-    Color[] playerColor;
+    //Colori dei pezzi del giocatore
+    List<Color> playerColor = new List<Color>();
 
     [SerializeField]
     Animator animator = default;
@@ -50,6 +51,12 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField] Animator dannoAnimator = default;
 
+
+    private List<Material> fadeColor = new List<Material>();
+
+    [SerializeField]
+    private SkinnedMeshRenderer skinPlayer;
+
     IEnumerator CanCollideCo()
     {
         canCollide = false;
@@ -61,21 +68,33 @@ public class PlayerHealth : MonoBehaviour
         yield return null;
     }
 
+    private void Awake()
+    {
+        foreach(Material mat in skinPlayer.materials)
+        {
+            playerMaterial.Add(mat);
+            Debug.Log(mat.name);
+        }
+    }
     void Start()
     {
         gameManagerSpeed = GameManager.instance.speed;
         gameScript = GameObject.FindObjectOfType<Game>();
         initialSpeed = GameManager.instance.speed;
-        /*
-        for (int i = 0; i < playerMesh.Length; i++)
-        {
-            playerColor[i] = playerMesh[i].material.color;
-        }
-        */
+      
         healthBar.SetMaxHealth(maxHealth);
         currentHealth = maxHealth / 2;
         healthBar.SetHealth(currentHealth);
         isSLam = GameManager.instance.playerGb.GetComponent<PowerUpsManager>();
+
+
+        //Riempio in ordine i colori dei pezzi del giocatore
+        for(int i=0; i< playerMaterial.Count; i++)
+        {
+            playerColor.Add(playerMaterial[i].color);
+
+            fadeColor.Add(playerMaterial[i]);
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -84,7 +103,7 @@ public class PlayerHealth : MonoBehaviour
         {
             if (other.CompareTag("Obstacle") || (LayerMask.LayerToName(other.gameObject.layer) == "Wall"))
             {
-                StartCoroutine("HitCor", playerMesh);
+                StartCoroutine("HitCor", playerMaterial);
                 TakeDamage(obstacleEnemyDmg);
                 
                 StartCoroutine("CanCollideCo");
@@ -93,7 +112,7 @@ public class PlayerHealth : MonoBehaviour
             {
                 if (!other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Death"))
                 {
-                    StartCoroutine("HitCor", playerMesh);
+                    StartCoroutine("HitCor", playerMaterial);
                     TakeDamage(obstacleEnemyDmg);
 
                     StartCoroutine("CanCollideCo");
@@ -108,29 +127,45 @@ public class PlayerHealth : MonoBehaviour
         if (!GameManager.instance.playerDeath)
         {
             GameManager.instance.speed = GameManager.instance.speed / 1.3f;
-            //Color fadeColor = meshToFade.material.color;
 
             //fadeColor.a = .1f;
+            //Per quattro volte
             for (int i = 0; i < 4; i++)
             {
+                //Aspetto un po'
                 yield return new WaitForSeconds(.3f);
-                //meshToFade.material.color = fadeColor;
+                //Metto i colori in fade
+                for (int k = 0; k < playerMaterial.Count; k++)
+                {
+                    Color fadeCol = fadeColor[i].color;
+                    fadeCol.a = .1f;
+                    playerMaterial[i].color = fadeCol;
+                    //currentMesh.material.color = fadeColor;
+                    Debug.Log("Prova " + fadeCol.a);
+                    yield return null;
+                }
+                //Aspetto un po'
                 yield return new WaitForSeconds(.2f);
-                //meshToFade.material.color = playerColor;
+                //Rimetto i colori originali
+                for(int j=0; j< playerMaterial.Count; j++)
+                {
+                    playerMaterial[j].color = playerColor[j];
+                    yield return null;
+                }
             }
-
+            //Resetto la velocità a quella iniziale
             GameManager.instance.speed = initialSpeed;
+
+            yield return null;
         }
         
-
-
-
 
     }
 
     public void TakeDamage(int value)
     {
-        dannoAnimator.SetTrigger("danno");
+        //Se la vita è maggiore di zero, quindi sto subendo danno e non mi sto curando faccio apparire un effetto visivo di damage
+        if (value > 0) dannoAnimator.SetTrigger("danno");
 
         currentHealth -= value;
         if (currentHealth > 0)

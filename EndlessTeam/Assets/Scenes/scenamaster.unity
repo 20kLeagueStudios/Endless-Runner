@@ -15998,7 +15998,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &7952941660442830382
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21495,8 +21495,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectPooling: {fileID: 0}
-  playerMesh:
-  - {fileID: 0}
   playerMovement: {fileID: 3283469669695823912}
   GameOver: {fileID: 297126127}
   once: 1
@@ -21510,6 +21508,7 @@ MonoBehaviour:
   bb: {fileID: 7952941660442830376}
   obstacleEnemyDmg: 1
   dannoAnimator: {fileID: 2048991600}
+  skinPlayer: {fileID: 9057626991181156977}
 --- !u!114 &8829172857042843391
 MonoBehaviour:
   m_ObjectHideFlags: 0
