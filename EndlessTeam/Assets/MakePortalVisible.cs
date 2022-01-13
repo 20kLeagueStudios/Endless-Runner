@@ -75,6 +75,7 @@ public class MakePortalVisible : MonoBehaviour
             //Salvo il bioma precedente per disattivarlo dopo
             previousInd = currentInd;
 
+            //Assegno il portale corrente a questo
             GameManager.instance.currentPortal = this;
             once = true;
             if (GameManager.instance.firstPortal)
@@ -171,8 +172,11 @@ public class MakePortalVisible : MonoBehaviour
         if (gameObject.GetInstanceID() == GameManager.portal) GameManager.portal = -1;
 
         check = true;
-        if (SceneManager.GetSceneByBuildIndex(sceneTarget).isLoaded)
-            GameManager.instance.StartCoroutine(GameManager.instance.DeactivateScene(sceneTarget));
+
+        //Controllo se la scena target non è quella corrente e se non lo è disattivo la scena(il bioma che è stato caricato dal portale)
+        Debug.Log("Scena Corrente " + GameManager.instance.currentScene);
+        Debug.Log("Scena Target " + GameManager.instance.currentScene);
+        if (GameManager.instance.currentScene == sceneTarget) GameManager.instance.StartCoroutine(GameManager.instance.DeactivateScene(sceneTarget));
     }
    
 

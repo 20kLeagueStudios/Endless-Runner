@@ -516,7 +516,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1534135917}
-        m_MethodName: ShowInterstitialAd
+        m_MethodName: Respawn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7541,24 +7541,24 @@ MonoBehaviour:
     - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
   - name: NemiciFunghi
     mat:
-    - {fileID: 2100000, guid: 8294e0d524ad06d41a1119d8e5674a76, type: 2}
-    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
+    - {fileID: 2100000, guid: 07f16f2abf65dcf45ae2af1d973e16cd, type: 2}
+    - {fileID: 2100000, guid: aabd08d391e9216458352986fa4ba1c8, type: 2}
   - name: NemiciDeserto
     mat:
     - {fileID: 2100000, guid: d3e54be065f66d84a95daa143a8260c1, type: 2}
-    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
+    - {fileID: 2100000, guid: 94de4cd1ccad2a94693595a07773f96c, type: 2}
   - name: NemiciGhiaccio
     mat:
     - {fileID: 2100000, guid: 518de63666e2e94469b332d9787bfa67, type: 2}
-    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
+    - {fileID: 2100000, guid: 0c395365c6b0c3d43a7edd75a2f84069, type: 2}
   - name: NemiciCristalli
     mat:
-    - {fileID: 2100000, guid: e51c6cf7d61d1df44a3567059be30669, type: 2}
-    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
+    - {fileID: 2100000, guid: 85ec289968fb25144acf1305edbc3105, type: 2}
+    - {fileID: 2100000, guid: ea9ad7871bdab874abd5ee36fcdca0f7, type: 2}
   - name: NemiciLava
     mat:
-    - {fileID: 2100000, guid: e14d8780bd00fbf4398cf4140d2d7792, type: 2}
-    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
+    - {fileID: 2100000, guid: 4ebd627342abf3845a241c79739036e9, type: 2}
+    - {fileID: 2100000, guid: a1c0137f0f8f5aa49b796c37ff07fa5a, type: 2}
   playerGb: {fileID: 3283469669695823914}
   gemsImg: {fileID: 995142770}
   retryText: {fileID: 988321336}
@@ -7566,12 +7566,14 @@ MonoBehaviour:
   playerDeath: 0
   preDeath: 0
   moneyText: {fileID: 4865017821066395725}
+  gemsText: {fileID: 0}
   countDown: {fileID: 1198326712}
   scoreText: {fileID: 851122562}
   currentScore: 0
   initialPlayerPos: {x: 0, y: 0, z: 0}
   dropdownText: {fileID: 0}
   currentMoney: 0
+  currentGems: 0
   moneyInMatch: 0
   powerupsManager: {fileID: 8829172857042843391}
   savedLanguage: 0

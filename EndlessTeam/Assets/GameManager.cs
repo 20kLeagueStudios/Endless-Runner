@@ -211,7 +211,6 @@ public class GameManager : MonoBehaviour
         SaveData temp = SaveSystem.LoadingGameManager();
         if (temp != null)
         {
-            Debug.Log("Soldi " + temp.money);
             currentMoney = temp.money;
             currentGems = temp.gems;
             //Debug.Log("monete " + temp.money + "/n" + "gemme " + temp.gems);
@@ -374,7 +373,10 @@ public class GameManager : MonoBehaviour
         playerGb.GetComponent<PlayerMovement>().Resurrection();
         GameObject.FindObjectOfType<ObjectPooling>().CheckPointOffset();
         if (currentPortal != null && currentPortal.gameObject.activeSelf)
+        {
+            Debug.Log(currentPortal.gameObject.name);
             currentPortal.DisablePortal();
+        }
 
         retryText.GetComponent<TextMeshProUGUI>().fontSize = 5.2f;
         retryText.UpdateText("Gems to retry!", "Gemme per riprovare!");

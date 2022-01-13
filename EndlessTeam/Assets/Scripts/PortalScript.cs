@@ -46,12 +46,17 @@ public class PortalScript : MonoBehaviour
     {
         if (other.CompareTag("Player"))
           {
+
             this.sceneTarget = makePortalVisible.sceneTarget;
             ObjectPooling.instance.ChangeMatFromTo(GameManager.instance.currentScene, this.sceneTarget);
 
+   
             GameManager.instance.StartCoroutine(GameManager.instance.DeactivateScene(currentScene));
+
+            //Aggiorno la scena corrente con quella in cui sono appena entrato
             currentScene = sceneTarget;
-            
+            //Elimino il portale corrente(verrà riassegnato quando approccio di nuovo un'altro portale
+            if (GameManager.instance.currentPortal != null) GameManager.instance.currentPortal = null;
 
           }
 

@@ -242,6 +242,8 @@ public class ObjectPooling : MonoBehaviour
                 if (tempList[i].activeInHierarchy)
                     continue;
 
+                //riattivo tutti i contenuti(monete e nemici) del pezzo che sto ritornando
+                ReActiveObjs(tempList[i]);
                 return tempList[i];
                 
             }
@@ -300,7 +302,7 @@ public class ObjectPooling : MonoBehaviour
     public void DisableObject(GameObject obj)
     {
 
-        ReActiveObjs(obj);
+        //ReActiveObjs(obj);
         obj.SetActive(false);
     }
 

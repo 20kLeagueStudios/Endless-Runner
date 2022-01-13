@@ -67,6 +67,12 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         //}
     }
 
+    public void Respawn()
+    {
+        GameManager.instance.Respawn();
+        if (gameOver.activeSelf) gameOver.SetActive(false);
+    }
+
     // Implement IUnityAdsListener interface methods:
     public void OnUnityAdsDidFinish(string surfacingId, ShowResult showResult)
     {
