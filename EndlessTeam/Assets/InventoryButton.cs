@@ -136,14 +136,16 @@ public class InventoryButton : MonoBehaviour, IPointerClickHandler
 
                     break;
 
-                    /*
-                case TutaType.Vetro:
-                    inventory.skinnedTutaMesh.sharedMaterials[4].mainTexture = item.itemSO.playerSkin;
-                    //AddItemInSelection(item);
-                    inventory.skinVetroSelected = item;
-                    */
+                /*
+                 case TutaType.Vetro:
+                inventory.skinnedTutaMesh.sharedMaterials[4].mainTexture = item.itemSO.playerSkin;
+                //AddItemInSelection(item);
+                inventory.skinVetroSelected = item;
 
-                    break;
+                   break;
+                */
+
+
                 case TutaType.Gambe:
 
                     inventory.skinnedTutaMesh.sharedMaterials[2].mainTexture = item.itemSO.playerSkin;
