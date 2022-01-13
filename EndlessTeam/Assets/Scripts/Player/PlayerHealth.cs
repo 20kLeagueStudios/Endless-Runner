@@ -51,11 +51,15 @@ public class PlayerHealth : MonoBehaviour
 
     [SerializeField] Animator dannoAnimator = default;
 
-
+    //Materiali che verranno impostati in trasparenza per il feedback del danno
     private List<Material> fadeColor = new List<Material>();
 
+    //MeshRenderer del player
     [SerializeField]
     private SkinnedMeshRenderer skinPlayer;
+    //Transform di cui il figlio contiene il character dentro la tuta che verrà trovato via codice a run time
+    [SerializeField]
+    private Transform charParent;
 
     IEnumerator CanCollideCo()
     {
@@ -70,10 +74,13 @@ public class PlayerHealth : MonoBehaviour
 
     private void Awake()
     {
+        //Inserisco il materiale del personaggio che è un materiale singolo
+        playerMaterial.Add(charParent.GetComponentInChildren<SkinnedMeshRenderer>().material);
+        //Inserisco i materiali del player in playerMaterial
         foreach(Material mat in skinPlayer.materials)
         {
-            playerMaterial.Add(mat);
-            Debug.Log(mat.name);
+            //Se non è il materiale del vetro
+            if (!mat.name.Contains("vetro")) playerMaterial.Add(mat);
         }
     }
     void Start()
@@ -127,8 +134,6 @@ public class PlayerHealth : MonoBehaviour
         if (!GameManager.instance.playerDeath)
         {
             GameManager.instance.speed = GameManager.instance.speed / 1.3f;
-
-            //fadeColor.a = .1f;
             //Per quattro volte
             for (int i = 0; i < 4; i++)
             {
@@ -137,27 +142,28 @@ public class PlayerHealth : MonoBehaviour
                 //Metto i colori in fade
                 for (int k = 0; k < playerMaterial.Count; k++)
                 {
-                    Color fadeCol = fadeColor[i].color;
-                    fadeCol.a = .1f;
-                    playerMaterial[i].color = fadeCol;
+                    Debug.Log(playerMaterial[i].name);
+                    Color fadeCol = fadeColor[k].color;
+                    fadeCol.a = .4f;
+                    playerMaterial[k].color = fadeCol;
                     //currentMesh.material.color = fadeColor;
-                    Debug.Log("Prova " + fadeCol.a);
                     yield return null;
                 }
                 //Aspetto un po'
                 yield return new WaitForSeconds(.2f);
                 //Rimetto i colori originali
-                for(int j=0; j< playerMaterial.Count; j++)
+                for (int j = 0; j < playerMaterial.Count; j++)
                 {
                     playerMaterial[j].color = playerColor[j];
-                    yield return null;
                 }
+                yield return null;
             }
             //Resetto la velocità a quella iniziale
             GameManager.instance.speed = initialSpeed;
 
             yield return null;
         }
+        else yield return null;
         
 
     }
