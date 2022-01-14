@@ -115,7 +115,7 @@ public class PlayerHealth : MonoBehaviour
                 
                 StartCoroutine("CanCollideCo");
             }
-            if (other.CompareTag("Enemy") && !GameManager.instance.playerGb.GetComponent<PowerUpsManager>().inSlam)
+            if (other.CompareTag("Enemy") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
             {
                 if (!other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Death"))
                 {
@@ -142,7 +142,6 @@ public class PlayerHealth : MonoBehaviour
                 //Metto i colori in fade
                 for (int k = 0; k < playerMaterial.Count; k++)
                 {
-                    Debug.Log(playerMaterial[i].name);
                     Color fadeCol = fadeColor[k].color;
                     fadeCol.a = .4f;
                     playerMaterial[k].color = fadeCol;

@@ -40,17 +40,13 @@ public class EnemyTowardsPlayer : MonoBehaviour, IDamageable
 
     void OnEnable()
     {
+        transform.localPosition = startPos;
         isAttack = false;
         // transform.localPosition = trackPos[rndPos].transform.localPosition;
         transform.localPosition = startPos;
         //anim.Play("GranchioRoccia_idle2");
         //anim.Play("GranchioRoccia_idle");
 
-    }
-
-    private void OnDisable()
-    {
-        transform.localPosition = startPos;
     }
 
     IEnumerator ChangePos()
@@ -129,7 +125,6 @@ public class EnemyTowardsPlayer : MonoBehaviour, IDamageable
         GameManager.instance.currentMoney += 50;
         anim.SetTrigger("Death");
         StopAllCoroutines();
-        this.gameObject.SetActive(false);
     }
 
     public void Disable()

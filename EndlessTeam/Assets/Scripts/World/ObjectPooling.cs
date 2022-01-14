@@ -167,7 +167,8 @@ public class ObjectPooling : MonoBehaviour
                     }
                 }
             }
-        } else
+        }
+        else
         {
             tutorial = false;
             //Imposto che la prima partita è stata fatta così da non presentare più il tutorial
@@ -261,7 +262,7 @@ public class ObjectPooling : MonoBehaviour
                 temp.gameObject.SetActive(true);
         }
 
-        }
+    }
 
     //Muove i le carreggiate all'indietro lungo l'asse Z
     //Quando sono dietro la telecamera le disattiva e aggiunge la prossima
@@ -278,8 +279,10 @@ public class ObjectPooling : MonoBehaviour
                 activeTiles.RemoveAt(i);
                 DisableObject(tile);
 
-                if (!tutorial)
-                    AddTile();
+                if (!tutorial) {
+                    Debug.Log(activeTiles.Count-1);
+                    if (activeTiles.Count < maxTiles) AddTile();
+                }
                 else AddTutorialTile();
             }
         }
@@ -369,7 +372,13 @@ public class ObjectPooling : MonoBehaviour
             else if (temp.CompareTag("Money")) temp.material = biomes["Money"][1];
             else if (temp.CompareTag("Enemy")) temp.material = biomes["Enemy"][1];
             else if (temp.CompareTag("Portal")) temp.material = biomes["Portal"][1];
-            else if (temp.CompareTag("PowerUp")) temp.material = biomes["PowerUp"][1];
+            else if (temp.CompareTag("PowerUp"))
+            {
+                //Controllo il tipo di power up ottenendo il suo script
+                PowerUpStarter powerUp = temp.transform.parent.GetComponent<PowerUpStarter>();
+
+                temp.material = biomes["PowerUp" + powerUp.GetPowerUpType()][1];
+            }
         }
 
         for (int i=0; i<rendererSecond.Length; i++)
@@ -382,7 +391,13 @@ public class ObjectPooling : MonoBehaviour
             //else if (temp.CompareTag("Enemy")) temp.material = biomes["Enemy"][0];
             else if (temp.CompareTag("Enemy")) temp.material = enemyMat;
             else if (temp.CompareTag("Portal")) temp.material = biomes["Portal"][0];
-            else if (temp.CompareTag("PowerUp")) temp.material = biomes["PowerUp"][0];
+            else if (temp.CompareTag("PowerUp"))
+            {
+                //Controllo il tipo di power up ottenendo il suo script
+                PowerUpStarter powerUp = temp.transform.parent.GetComponent<PowerUpStarter>();
+
+                temp.material = biomes["PowerUp" + powerUp.GetPowerUpType()][0];
+            }
         }
 
         boss.material = mat2;
@@ -444,7 +459,14 @@ public class ObjectPooling : MonoBehaviour
             else if (temp.CompareTag("Money")) { temp.material = biomes["Money"][1]; temp.enabled = true; }
             else if (temp.CompareTag("Enemy")) { temp.material = enemyMat; temp.enabled = true; }
             else if (temp.CompareTag("Portal")) { temp.material = biomes["Portal"][1]; temp.enabled = true; }
-            else if (temp.CompareTag("PowerUp")) { temp.material = biomes["PowerUp"][1]; temp.enabled = true; }
+            else if (temp.CompareTag("PowerUp"))
+            {
+                //Controllo il tipo di power up ottenendo il suo script
+                PowerUpStarter powerUp = temp.transform.parent.GetComponent<PowerUpStarter>();
+
+                temp.material = biomes["PowerUp" + powerUp.GetPowerUpType()][1];
+                temp.enabled = true;
+            }
         }
 
         scene1parent.SetActive(true);

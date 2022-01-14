@@ -188,8 +188,6 @@ public class GameManager : MonoBehaviour
 
         }
 
-
-
     }
 
     private void LoadAllScene()
@@ -226,20 +224,6 @@ public class GameManager : MonoBehaviour
     /// <param name="scene"></param>
     public void LoadScene(int scene)
     {
-        //if (!sceneDict.ContainsKey(scene))
-        //{
-        //    sceneDict.Add(scene, true);
-        //    SceneManager.LoadScene(scene, LoadSceneMode.Additive);
-        //}
-        //else
-        //{
-        //    if (sceneDict[scene] == false)
-        //    {
-        //        sceneDict[scene] = true;
-        //        SceneManager.LoadScene(scene, LoadSceneMode.Additive);
-        //    }
-        //}
-
         //Ottengo la scena corrente
         Scene currentScene = SceneManager.GetSceneByBuildIndex(scene);
 
@@ -263,12 +247,6 @@ public class GameManager : MonoBehaviour
     /// <param name="scene"></param>
     public IEnumerator DeactivateScene(int scene)
     {
-        //if (sceneDict[scene] == true)
-        //{
-        //    sceneDict[scene] = false;
-        //    SceneManager.UnloadSceneAsync(scene);
-        //}
-
         //Ottengo la scena corrente
         Scene currentScene = SceneManager.GetSceneByBuildIndex(scene);
 
@@ -324,40 +302,6 @@ public class GameManager : MonoBehaviour
         scoreText.text = currentScore.ToString();
 
     }
-
-    //public void PopulateSaveData(SaveData saveData)
-    //{
-    //    saveData.money = this.currentMoney;
-    //    saveData.savedLanguage = this.savedLanguage;
-
-    //}
-
-    //public void LoadFromSaveData(SaveData saveData)
-    //{
-    //    this.currentMoney = saveData.money;
-    //    this.savedLanguage = saveData.savedLanguage;
-    //}
-
-    //public void SaveJsonData()
-    //{
-    //    SaveData saveData = new SaveData();
-    //    this.PopulateSaveData(saveData);
-
-    //    if (FileManager.WriteToFile("SaveData0", saveData.ToJson())) {
-    //    }
-        
-    //}
-
-    //void LoadJsonData()
-    //{
-    //    if (FileManager.LoadFromFile("SaveData0", out var jsonFile))
-    //    {
-    //        SaveData saveData = new SaveData();
-    //        saveData.LoadFromJson(jsonFile);
-    //        currentMoney = saveData.money;
-    //        this.savedLanguage = saveData.savedLanguage;
-    //    }
-    //}
 
     void OnApplicationQuit()
     {

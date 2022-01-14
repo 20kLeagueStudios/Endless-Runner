@@ -7551,10 +7551,10 @@ MonoBehaviour:
     mat:
     - {fileID: 2100000, guid: 705f807747288ac468955b9f995c6db2, type: 2}
     - {fileID: 2100000, guid: ba3e2cff863bd4747a0b7f390dfeceaf, type: 2}
-  - name: PowerUp
+  - name: PowerUp0
     mat:
-    - {fileID: 2100000, guid: 8294e0d524ad06d41a1119d8e5674a76, type: 2}
-    - {fileID: 2100000, guid: 9ddcd4164b69dcd42b3808b7d193375d, type: 2}
+    - {fileID: 2100000, guid: ac2826be61293d545a8e79372f8e3823, type: 2}
+    - {fileID: 2100000, guid: 10b726a2e8a696446aff070eae6d49cf, type: 2}
   - name: NemiciFunghi
     mat:
     - {fileID: 2100000, guid: 07f16f2abf65dcf45ae2af1d973e16cd, type: 2}
@@ -7569,12 +7569,24 @@ MonoBehaviour:
     - {fileID: 2100000, guid: 0c395365c6b0c3d43a7edd75a2f84069, type: 2}
   - name: NemiciCristalli
     mat:
-    - {fileID: 2100000, guid: 85ec289968fb25144acf1305edbc3105, type: 2}
-    - {fileID: 2100000, guid: ea9ad7871bdab874abd5ee36fcdca0f7, type: 2}
+    - {fileID: 2100000, guid: e51c6cf7d61d1df44a3567059be30669, type: 2}
+    - {fileID: 2100000, guid: 83421e3f45fc0b743a423a0a652899ac, type: 2}
   - name: NemiciLava
     mat:
-    - {fileID: 2100000, guid: 4ebd627342abf3845a241c79739036e9, type: 2}
-    - {fileID: 2100000, guid: a1c0137f0f8f5aa49b796c37ff07fa5a, type: 2}
+    - {fileID: 2100000, guid: e14d8780bd00fbf4398cf4140d2d7792, type: 2}
+    - {fileID: 2100000, guid: cecd6d644a848c44bb6a0bf84a74b59c, type: 2}
+  - name: PowerUp1
+    mat:
+    - {fileID: 2100000, guid: ac2826be61293d545a8e79372f8e3823, type: 2}
+    - {fileID: 2100000, guid: 10b726a2e8a696446aff070eae6d49cf, type: 2}
+  - name: PowerUp2
+    mat:
+    - {fileID: 2100000, guid: e5f21ea5ee24ef04c971ccb07810599b, type: 2}
+    - {fileID: 2100000, guid: a1de7cf8a5b078147b33dd4bae3ef228, type: 2}
+  - name: PowerUp3
+    mat:
+    - {fileID: 2100000, guid: 289050a8ff9e582489fefa6fcbfdc42f, type: 2}
+    - {fileID: 2100000, guid: 79eb815b27e34dd42a3e047ab9b2dcbe, type: 2}
   playerGb: {fileID: 3283469669695823914}
   gemsImg: {fileID: 995142770}
   retryText: {fileID: 988321336}
@@ -13180,7 +13192,7 @@ GameObject:
   - component: {fileID: 1432500079496346162}
   m_Layer: 9
   m_Name: nurbsCircle2
-  m_TagString: Obstacle
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16014,7 +16026,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!23 &7952941660442830382
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -21546,6 +21558,7 @@ MonoBehaviour:
   objectPooling: {fileID: 0}
   playerHealth: {fileID: 8829172857042843389}
   playerMovement: {fileID: 3283469669695823912}
+  bossMesh: {fileID: 6813969481402513961}
   powerUpBoostSpeed: 40
   isDashing: 0
   powerupScale: {x: 0.3, y: 0.3, z: 0.3}

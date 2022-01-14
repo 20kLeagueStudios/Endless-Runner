@@ -20,6 +20,9 @@ public class PowerUpsManager : MonoBehaviour
 
     [SerializeField] PlayerMovement playerMovement = default;
 
+    //Mesh del boss da disattivare quando si diventa piccoli
+    [SerializeField] SkinnedMeshRenderer bossMesh;
+
     AudioManager audioManager;
 
     public float powerUpBoostSpeed = default;
@@ -74,6 +77,7 @@ public class PowerUpsManager : MonoBehaviour
     {
         Invoke(nomePowerup,0f);
     }
+
 
     public void ChangeGravityStarter() //questa funzione permette di cambiare gravità quando tocco un bottone.
     {
@@ -192,6 +196,8 @@ public class PowerUpsManager : MonoBehaviour
     */
     public IEnumerator MiniPowerUp()
     {
+        //Disattivo la mesh del boss per non farlo comparire da dietro
+        bossMesh.enabled = false;
 
         float elapsedTime = 0f;
         float waitTime = 2f;
@@ -214,11 +220,15 @@ public class PowerUpsManager : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
-        StartCoroutine(ResetScale());
+        StartCoroutine(ResetScale()); 
+
+        //Riattivo la mesh del boss
+        bossMesh.enabled = true;
 
         yield return new WaitForSeconds(0.5f);
 
         canUsePowerUp = true;
+      
 
         yield return null;
 
