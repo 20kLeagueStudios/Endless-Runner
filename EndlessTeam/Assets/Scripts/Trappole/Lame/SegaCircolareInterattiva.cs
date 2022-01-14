@@ -16,16 +16,22 @@ public class SegaCircolareInterattiva : InterazioneTrappole
 
     [SerializeField] bool isInteractive = false;
 
+    [SerializeField]
+    private GameObject VFXOn;
+
     public override void OnPointerClick(PointerEventData eventData)
     {
         if (isInteractive)
         {
+            //Disattivo il particle che indica che la trappola è utilizzabile
+            if (VFXOn) { if (VFXOn.activeSelf) VFXOn.SetActive(false); }
 
+              
             //GameObject suggTemp = GameManager.instance.GetObjFromArray("Hint3", GameManager.instance.suggestions);
             //if (suggTemp.activeSelf) TutorialManager.instance.DisableHint();
 
-            rend.material.SetFloat("_Emission", 10f);
-            rend.material.SetColor("_EmissionColor", Color.red);
+            //rend.material.SetFloat("_Emission", 10f);
+            //rend.material.SetColor("_EmissionColor", Color.red);
 
             CallCoroutineInteraction("RotazioneLamaCo");
         }
@@ -92,10 +98,13 @@ public class SegaCircolareInterattiva : InterazioneTrappole
 
     private void OnEnable()
     {
-        rend = GetComponent<Renderer>();
+        //rend = GetComponent<Renderer>();
 
-        rend.material.SetFloat("_Emission", 80f);
-        rend.material.SetColor("_EmissionColor", Color.green);
+        //rend.material.SetFloat("_Emission", 80f);
+        //rend.material.SetColor("_EmissionColor", Color.green);
+
+        //Attivo il particle che indica che la trappola è utilizzabile
+        if (VFXOn) { if (!VFXOn.activeSelf) VFXOn.SetActive(true); }
 
         sega.transform.localPosition = pos1.transform.localPosition;
 
@@ -112,8 +121,8 @@ public class SegaCircolareInterattiva : InterazioneTrappole
         rend = GetComponent<Renderer>();
         sega.transform.localPosition = pos1.transform.localPosition;
 
-        rend.material.SetFloat("_Emission", 80f);
-        rend.material.SetColor("_EmissionColor", Color.green);
+        //rend.material.SetFloat("_Emission", 80f);
+        //rend.material.SetColor("_EmissionColor", Color.green);
 
 
 

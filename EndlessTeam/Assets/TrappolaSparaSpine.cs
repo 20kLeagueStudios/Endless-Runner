@@ -12,24 +12,30 @@ public class TrappolaSparaSpine : InterazioneTrappole
     public Vector3 startPos1;
     public Vector3 startPos2;
 
-    private void Start()
-    {
-        rend.material.SetFloat("_Emission", 80f);
-        rend.material.SetColor("_EmissionColor", Color.green);
-    }
+    [SerializeField]
+    private GameObject VFXOn;
+
+    //private void Start()
+    //{
+    //    rend.material.SetFloat("_Emission", 80f);
+    //    rend.material.SetColor("_EmissionColor", Color.green);
+    //}
 
 
     Renderer rend;
 
     public override void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Clicked: " + eventData.pointerCurrentRaycast.gameObject.name);
+        //Debug.Log("Clicked: " + eventData.pointerCurrentRaycast.gameObject.name);
+
+        //Disattivo il particle che indica che la trappola è utilizzabile
+        if (VFXOn) { if (VFXOn.activeSelf) VFXOn.SetActive(false); }
 
         GameObject suggTemp = GameManager.instance.GetObjFromArray("Hint3", GameManager.instance.suggestions);
         if (suggTemp.activeSelf) TutorialManager.instance.DisableHint();
 
-        rend.material.SetFloat("_Emission", 10f);
-        rend.material.SetColor("_EmissionColor", Color.red);
+        //rend.material.SetFloat("_Emission", 10f);
+        //rend.material.SetColor("_EmissionColor", Color.red);
 
         CallCoroutineInteraction("SparaSpine");
     }
@@ -38,11 +44,14 @@ public class TrappolaSparaSpine : InterazioneTrappole
     {
         ResetSpinePos();
 
-        rend.material.SetFloat("_Emission", 80f);
-        rend.material.SetColor("_EmissionColor", Color.green);
+        //Attivo il particle che indica che la trappola è interrativa
+        if (VFXOn) { if (!VFXOn.activeSelf) VFXOn.SetActive(true); }
+
+        //rend.material.SetFloat("_Emission", 80f);
+        //rend.material.SetColor("_EmissionColor", Color.green);
 
         //startPos1 = spine[0].transform.position;
-       // startPos2 = spine[1].transform.position;
+        // startPos2 = spine[1].transform.position;
 
     }
 
@@ -75,27 +84,17 @@ public class TrappolaSparaSpine : InterazioneTrappole
         spine[1].transform.localPosition = startPos2;
     }
 
-    private void OnDisable()
-    {
-       
-    }
-
 
     void Awake()
     {
-        rend = GetComponent<Renderer>();
+        //rend = GetComponent<Renderer>();
 
-        rend.material.SetFloat("_Emission", 80f);
-        rend.material.SetColor("_EmissionColor", Color.green);
+        //rend.material.SetFloat("_Emission", 80f);
+        //rend.material.SetColor("_EmissionColor", Color.green);
 
         startPos1 = spine[0].transform.localPosition;
         startPos2 = spine[1].transform.localPosition;
 
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }

@@ -278,6 +278,15 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Metodo che ritorna una booleana che indica se la pausa è attiva o no
+    /// </summary>
+    /// <returns></returns>
+    public bool PauseIsActivated()
+    {
+        return !pauseButton.activeSelf;
+    }
+
     [SerializeField] GameObject pauseButton = default;
     public void Pause()
     {
