@@ -11,6 +11,9 @@ public class IAPManager : MonoBehaviour
     string gems10 = "com.nautilusacademy.gatewayrush.gems10";
     string gems15 = "com.nautilusacademy.gatewayrush.gems15";
     string gems30 = "com.nautilusacademy.gatewayrush.gems30";
+    string gems40 = "com.nautilusacademy.gatewayrush.gems40";
+    string coins200 = "com.nautilusacademy.gatewayrush.coins200";
+    string coins500 = "com.nautilusacademy.gatewayrush.coins500";
 
     public void OnPurchaseComplete(Product product)
     {
@@ -30,6 +33,24 @@ public class IAPManager : MonoBehaviour
         {
             Debug.Log("Hai acquistato 30 gemme");
             currencyManager.gemme += 30;
+           // GameManager.instance.currentGems += 30;
+        }
+        else if(product.definition.id == gems40)
+        {
+            Debug.Log("Hai acquistato 40 gemme");
+            currencyManager.gemme += 40;
+           // GameManager.instance.currentGems += 30;
+        } 
+        else if(product.definition.id == coins200)
+        {
+            Debug.Log("Hai acquistato 200 monete");
+            currencyManager.monete += 200;
+           // GameManager.instance.currentGems += 30;
+        }   
+        else if(product.definition.id == coins500)
+        {
+            Debug.Log("Hai acquistato 500 monete");
+            currencyManager.monete += 500;
            // GameManager.instance.currentGems += 30;
         }
 
