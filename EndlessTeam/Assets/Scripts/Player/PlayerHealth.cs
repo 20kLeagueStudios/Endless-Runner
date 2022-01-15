@@ -61,6 +61,9 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField]
     private Transform charParent;
 
+    //Timer che indica se il player è invincibile
+    private float invTimer = 0;
+
     IEnumerator CanCollideCo()
     {
         canCollide = false;
@@ -104,6 +107,12 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        //Diminuisco il timer dell'invincibilità se è maggiore a 0
+        if (invTimer > 0) invTimer -= Time.deltaTime;
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if (currentHealth > 0 && canCollide)
@@ -115,7 +124,7 @@ public class PlayerHealth : MonoBehaviour
                 
                 StartCoroutine("CanCollideCo");
             }
-            if (other.CompareTag("Enemy") && !animator.GetCurrentAnimatorStateInfo(0).IsName("Attack"))
+            if (other.CompareTag("Enemy") && invTimer <= 0)
             {
                 if (!other.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Death"))
                 {
@@ -127,6 +136,15 @@ public class PlayerHealth : MonoBehaviour
             }
             
         }
+    }
+
+    /// <summary>
+    /// Metodo che setta il timer dell'invincibilità
+    /// </summary>
+    /// <param name="timer">valore che deve prendere il timer</param>
+    public void SetInvincibilityTimer(float timer)
+    {
+        invTimer = timer;
     }
 
     IEnumerator HitCor()

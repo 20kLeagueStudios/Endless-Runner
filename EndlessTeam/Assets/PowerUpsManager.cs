@@ -317,7 +317,8 @@ public class PowerUpsManager : MonoBehaviour
         if (!GameManager.instance.preDeath)
         {
             SlamArea.SetActive(true);
-            
+            //Imposto il timer di invincibilità
+            playerHealth.SetInvincibilityTimer(1f);
             yield return new WaitForSeconds(0.2f);
             inSlam = false;
             //firstGrounded = false;
