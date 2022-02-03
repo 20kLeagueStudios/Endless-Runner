@@ -12101,6 +12101,9 @@ MonoBehaviour:
   wallMask:
     serializedVersion: 2
     m_Bits: 512
+  groundWallMask:
+    serializedVersion: 2
+    m_Bits: 768
   powerupsManager: {fileID: 8829172857042843391}
 --- !u!143 &3283469669695823913
 CharacterController:
@@ -15079,7 +15082,7 @@ SkinnedMeshRenderer:
   m_Quality: 0
   m_UpdateWhenOffscreen: 0
   m_SkinnedMotionVectors: 1
-  m_Mesh: {fileID: -6602441374692447843, guid: bb8a87b1c22590a4092f40f0fbf5f6af, type: 3}
+  m_Mesh: {fileID: 949803950445430085, guid: a479e807e628e4c408c3e2c42e426270, type: 3}
   m_Bones:
   - {fileID: 8790465599591874051}
   - {fileID: 3830524930346659910}
@@ -15983,14 +15986,6 @@ MonoBehaviour:
   ph: {fileID: 8829172857042843389}
   playerDefeated: 0
   timeToWait: 0.5
---- !u!33 &7952941660442830377
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7952941660442830381}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!4 &7952941660442830380
 Transform:
   m_ObjectHideFlags: 0
@@ -16016,8 +16011,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7952941660442830380}
-  - component: {fileID: 7952941660442830377}
-  - component: {fileID: 7952941660442830382}
   - component: {fileID: 7952941660442830383}
   - component: {fileID: 7952941660442830376}
   m_Layer: 11
@@ -16027,45 +16020,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!23 &7952941660442830382
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7952941660442830381}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
 --- !u!65 &7952941660442830383
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -21538,7 +21492,6 @@ MonoBehaviour:
   dannoAnimator: {fileID: 2048991600}
   skinPlayer: {fileID: 9057626991181156977}
   charParent: {fileID: 697408875}
-  slamGB: {fileID: 510880809131839816}
 --- !u!114 &8829172857042843391
 MonoBehaviour:
   m_ObjectHideFlags: 0

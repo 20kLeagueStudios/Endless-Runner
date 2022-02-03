@@ -133,7 +133,7 @@ public class PlayerMovement : MonoBehaviour
     bool rayWall = false;
     Ray ray;
     [SerializeField]
-    LayerMask wallMask = default;
+    LayerMask wallMask = default, groundWallMask;
 
     public PowerUpsManager powerupsManager; ///
     Ray rayDown;
@@ -189,6 +189,7 @@ public class PlayerMovement : MonoBehaviour
         if (!Physics.Raycast(rayDown.origin, rayDown.direction, 4, groundMask))
             animator.SetBool("Air", true); else animator.SetBool("Air", false);
 
+  
         if (Physics.Raycast(ray.origin, ray.direction, value.x + 8, wallMask))
         {
             rayWall = true;
@@ -217,15 +218,19 @@ public class PlayerMovement : MonoBehaviour
             rayWall = true;
         }
 
-        if (Physics.Raycast(transform.position, transform.forward, 8f, wallMask))
+        //Array di collisori del raycast
+        RaycastHit[] hits;
+        //Controllo se ho un muro davanti
+        hits = (Physics.RaycastAll(transform.position + Vector3.up, transform.forward, 8));
+        if (hits.Length > 0)
         {
-            rayWall = false;
+            Debug.Log(hits[0].collider.name);
+            //Se il raycast tocca il muro sbatto 
+            if (ContainsLayer(wallMask, hits[0].transform.gameObject.layer)) { rayWall = false; Debug.Log(hits[0].collider.name); }
+
         }
 
-
-   
-
-    
+        Debug.DrawRay(transform.position + Vector3.up, transform.forward * 8);
 
         #region Mouse interazione con trappole
         Ray rayMouse = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -863,6 +868,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public static bool ContainsLayer(LayerMask mask, int layer)
+    {
+        return mask == (mask | (1 << layer));
+    }
+
     /*
     public void ChangeGravityOFF()
     {
@@ -908,7 +918,7 @@ public class PlayerMovement : MonoBehaviour
     }
     */
 
-  
+
 
     IEnumerator ChangingPosition(Vector3 wallPos)
     {
@@ -1057,6 +1067,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            //Morte per sbattimento contro il muro
             if (LayerMask.LayerToName(other.gameObject.layer) == "Wall")
             {
                 GameManager.instance.speed = 0;
