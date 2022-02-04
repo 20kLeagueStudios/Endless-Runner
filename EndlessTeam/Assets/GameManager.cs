@@ -34,10 +34,9 @@ public class GameManager : MonoBehaviour
     GameObject playerGb;
 
     [SerializeField]
-    Image gemsImg = default;
+    public Image gemsImg = default;
 
-    [SerializeField]
-    TextLanguageChange retryText = default;
+    public TextLanguageChange retryText = default;
 
     public Renderer boss;
 
@@ -99,6 +98,9 @@ public class GameManager : MonoBehaviour
     //riferimento allo script di comportamento del boss
     [SerializeField]
     private BossBehaviour bb = default;
+
+    //Numero di volte in cui il giocatore è morto
+    public int deathCounter = 0;
 
     //Enum sulla difficoltà
     enum Mode
@@ -332,18 +334,33 @@ public class GameManager : MonoBehaviour
         }
 
         retryText.GetComponent<TextMeshProUGUI>().fontSize = 5.2f;
-        retryText.UpdateText("Gems to retry!", "Gemme per riprovare!");
-        gemsImg.gameObject.SetActive(true);
 
+
+        //Aumento il counter delle volte che il giocatore è morto
+        deathCounter++;
         //Chiamo metodo del boss che lo riposiziona
         bb.PlayerRespawned();
 
 
     }
 
+    /// <summary>
+    /// Metodo che ritorna se il giocatore è morto un numero di volte a tal punto di non poter più guardare la pubblicità ma di pagare le gemme
+    /// </summary>
+    /// <returns></returns>
+    public bool IsResurrectionGems()
+    {
+        return deathCounter >= 3;
+    }
+
     public void StartCountDown()
     {
         StartCoroutine("CountDownCor");
+    }
+
+    public void ChangeScene(int scene)
+    {
+        SceneManager.LoadScene(scene);
     }
 
     IEnumerator CountDownCor()

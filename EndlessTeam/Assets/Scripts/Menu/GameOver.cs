@@ -19,6 +19,15 @@ public class GameOver : MonoBehaviour
     private void OnEnable()
     {
 
+        if (GameManager.instance.deathCounter <= 2)
+        {
+            GameManager.instance.retryText.UpdateText("Look Ads to revive!", "Guarda una pubblicità per resuscitare!");
+        }
+        else
+        {
+            GameManager.instance.retryText.UpdateText("Gems to retry!", "Gemme per riprovare!");
+            GameManager.instance.gemsImg.gameObject.SetActive(true);
+        }
         for (int i = 0; i < toDeactivate.Length - 1; i++) toDeactivate[i].SetActive(false);
 
         statText[0].UpdateText("Score: " + GameManager.instance.currentScore, "Punti: " + GameManager.instance.currentScore);

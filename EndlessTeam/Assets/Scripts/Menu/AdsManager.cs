@@ -69,14 +69,40 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
 
     public void Respawn()
     {
-        GameManager.instance.Respawn();
-        if (gameOver.activeSelf) gameOver.SetActive(false);
+
+        //Se non devo pagare le gemme
+        if (!GameManager.instance.IsResurrectionGems())
+        {
+            // Controlla se UnityAds è pronto prima di chiamare il metodo Show :
+            if (Advertisement.IsReady())
+            {
+                //Sto resuscitanto e lo ricordo in una booleana che verrà usata per riposizionare tutto
+                resurrection = true;
+                Advertisement.Show();
+                // Sostituisci mySurfacingId con l'id with the ID dei posizionamenti che desideri visualizzare (come mostrato nella tua Unity Dashboard)
+            }
+            if (gameOver.activeSelf) gameOver.SetActive(false);
+        } 
+        else if(GameManager.instance.currentGems >= 1)
+        {
+            // Controlla se UnityAds è pronto prima di chiamare il metodo Show :
+            if (Advertisement.IsReady())
+            {
+                //Diminuisco le gemme
+                GameManager.instance.currentGems--;
+                //Sto resuscitanto e lo ricordo in una booleana che verrà usata per riposizionare tutto
+                resurrection = true;
+                Advertisement.Show();
+                // Sostituisci mySurfacingId con l'id with the ID dei posizionamenti che desideri visualizzare (come mostrato nella tua Unity Dashboard)
+            }
+            if (gameOver.activeSelf) gameOver.SetActive(false);
+        }
     }
 
     // Implement IUnityAdsListener interface methods:
     public void OnUnityAdsDidFinish(string surfacingId, ShowResult showResult)
     {
-        resurrection = GameManager.instance.playerDeath;
+        //resurrection = GameManager.instance.playerDeath;
         
         // Define conditional logic for each ad completion status:
         if (showResult == ShowResult.Finished)
@@ -95,6 +121,11 @@ public class AdsManager : MonoBehaviour, IUnityAdsListener
         }
         else if (showResult == ShowResult.Skipped)
         {
+            //Riattivo la UI del game over per sicurezza perché a volte capita che si disattiva anche se si skippa la pubblicità
+            if (resurrection)
+            {
+                if (!gameOver.activeSelf) gameOver.SetActive(true);
+            }
             // Do not reward the user for skipping the ad.
             //Debug.Log("niente soldi, hai skippato.");
         }
