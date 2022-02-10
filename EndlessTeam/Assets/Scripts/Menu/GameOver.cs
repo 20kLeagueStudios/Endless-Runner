@@ -25,7 +25,7 @@ public class GameOver : MonoBehaviour
         }
         else
         {
-            GameManager.instance.retryText.UpdateText("Gems to retry!", "Gemme per riprovare!");
+            GameManager.instance.retryText.UpdateText("Gem to retry!", "Gemma per riprovare!");
             GameManager.instance.gemsImg.gameObject.SetActive(true);
         }
         for (int i = 0; i < toDeactivate.Length - 1; i++) toDeactivate[i].SetActive(false);
